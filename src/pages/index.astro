@@ -61,7 +61,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
       featuredPosts.length > 0 && (
         <>
           <section id="featured">
-            <h2>最新文章</h2>
+            <h2>精選文章</h2>
             <ul>
               {featuredPosts.map(({ data, slug }) => (
                 <Card
@@ -80,7 +80,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
     {
       recentPosts.length > 0 && (
         <section id="recent-posts">
-          <h2>精選文章</h2>
+          <h2>最新文章</h2>
           <ul>
             {recentPosts.map(
               ({ data, slug }, index) =>

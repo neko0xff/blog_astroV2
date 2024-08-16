@@ -46,36 +46,20 @@ title: "關於作者"
   * [後端+硬體:Arduino+Nodejs+MariaDB](https://github.com/neko0xff/2023_schoolResearch_Server-HW)
   * [前端:Flutter](https://github.com/neko0xff/2023_schoolResearch_ClientApp)
   * 流程圖
-  ```dot
-      digraph G {
-          rankdir=TD;
-          node [shape=box];
-          A[label="感測器"];
-          B[label="Arduino UNO"];
-          C[label="網際網路"];
-          D[label="後端-API"];
-          E[label="資料庫"];
-          F[label="前端-介面"];
-          G[label="使用者"];
-          H[label="裝置"];
-          I[label="開關"];
-          J[label="閘道器"];
-          K[label="分享器"];
-          L[label="ESP8266"];
-
-          A -> B [label="    輸出數值"];
-          B -> J [label="    序列埠通訊"];
-          J -> C;
-          K -> C;
-          C -> D [label="    插入"];
-          D -> E [label="    執行對應動作"];
-          F -> D [label="    查詢/修改"];
-          G -> H [label="    操作"];
-          H -> F ;
-          I -> L [label="    控制狀態"];
-          L -> K [label="    WiFi"];
-    }
-  ```
+    ```mermaid
+      graph TD;
+          A["感測器"] ==>|輸出數值| B["Arduino UNO"];
+          B["Arduino UNO"] ==>|序列埠通訊| J["閘道器"];
+          J["閘道器"] ==> C["網際網路"];
+          C["網際網路"] ==>|插入| D["後端-API"];
+          D["後端-API"] ==>|執行對應動作| E[("資料庫")];
+          F["前端-介面"] ==>|查詢/修改| D["後端-API"];
+          G["使用者"] ==>|操作| H["裝置"];
+          H["裝置"] ==>|傳遞需求| F["前端-介面"];
+          I["開關"] ==>|控制狀態| L["ESP8266"];
+          L["ESP8266"] ==>|WiFi| K["分享器"];
+          K["分享器"] ==> C["網際網路"];
+    ```
 - MessageBot
   * Line
     * [後端:Nodejs](https://github.com/neko0xff/2023_LineBot_Node) 
