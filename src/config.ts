@@ -3,7 +3,7 @@ import type { Site, SocialObjects } from "./types";
 export const SITE: Site = {
   website: "https://neko0xff-blog.vercel.app/", // replace this with your deployed domain
   author: "neko0xff",
-  profile: "https://neko0xff-blog.vercel.app/",
+  profile: "https://github.com/neko0xff",
   desc: "該Blog會存放自己寫的技術文章!",
   title: "Neko0xff tech blog",
   ogImage: "astropaper-og.jpg",
@@ -14,8 +14,8 @@ export const SITE: Site = {
 };
 
 export const LOCALE = {
-  lang: "en", // html lang code. Set this empty and default will be "en"
-  langTag: ["en-EN"], // BCP 47 Language Tags. Set this empty [] to use the environment default
+  lang: "zh-tw", // html lang code. Set this empty and default will be "en"
+  langTag: ["zh-TW"], // BCP 47 Language Tags. Set this empty [] to use the environment default
 } as const;
 
 export const LOGO_IMAGE = {

@@ -3,9 +3,13 @@ layout: ../layouts/AboutLayout.astro
 title: "關於作者"
 ---
 
+感謝您的聯繫！
+
+無論您有什麼問題和建議，或者只是想分享您的想法，我都願意傾聽。
+
 ## 自我介绍
 <div>
-  <img src="/assets/avatar.jpg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
+  <img src="/assets/avatar.jpg" class="sm:w-1/2 mx-auto" alt="Author">
 </div>
 
 - 台灣人
@@ -16,6 +20,9 @@ title: "關於作者"
 - INTJ-T
 
 ## 主要的SNS
+
+請隨時透過以下任何方式與我取得聯繫：
+
 - [GitHub](https://github.com/neko0xff)
 - [E-Mail](mailto:chzang55@gmail.com)
 - [X/Twitter](https://twitter.com/neko_0xFF)
@@ -67,11 +74,11 @@ title: "關於作者"
     * [後端:Nodejs](https://github.com/neko0xff/2021_telegram_chatbot)
 
 ## 如何加入友站鏈結
-1. 向該站管理者私信或者提出Issues到`neko0xff/blog_src_astro`
-    * 相關倉庫: https://github.com/neko0xff/blog_src_astro
+1. 向該站管理者私信或者提出Issues到`neko0xff/blog_astroV2`
+    * 相關倉庫: https://github.com/neko0xff/blog_astroV2
 2. 加入的格式如下
       * 由於前端框架己用Astro重寫，請用JSON格式進行提交
-      * 相關文件: `public/src/pages/_myLinks.json`
+      * 相關文件: `public/assets/myLinks.json`
   ```json=
      {
         "name": "neko0xff",
