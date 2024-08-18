@@ -1,8 +1,15 @@
 import type socialIcons from "@assets/socialIcons";
 
+export type Image = {
+  src: string;
+  alt?: string;
+  caption?: string;
+};
+
 export type Site = {
   website: string;
   author: string;
+  avatar?: Image;
   profile: string;
   desc: string;
   title: string;

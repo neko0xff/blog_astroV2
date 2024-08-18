@@ -94,14 +94,14 @@ export default function SearchBar({ searchList }: Props) {
           ref={inputRef}
         />
       </label>
-
+      
       {inputVal.length > 1 && (
         <div className="mt-8">
-          Found {searchResults?.length}
+          共找到 {searchResults?.length}
           {searchResults?.length && searchResults?.length === 1
-            ? " result"
-            : " results"}{" "}
-          for '{inputVal}'
+            ? " 筆"
+            :  " 筆"}{" "}
+          關於 '{inputVal}' 的結果
         </div>
       )}
 

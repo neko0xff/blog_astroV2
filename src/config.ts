@@ -3,10 +3,14 @@ import type { Site, SocialObjects } from "./types";
 export const SITE: Site = {
   website: "https://neko0xff-blog.vercel.app/", // replace this with your deployed domain
   author: "neko0xff",
+  avatar: {
+      src: "assets/avatar.jpg",
+      alt:  "neko0xff"
+  },
   profile: "https://github.com/neko0xff",
   desc: "該Blog會存放自己寫的技術文章!",
   title: "Neko0xff tech blog",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "webView.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 3,
@@ -19,10 +23,10 @@ export const LOCALE = {
 } as const;
 
 export const LOGO_IMAGE = {
-  enable: false,
+  enable: true,
   svg: true,
-  width: 216,
-  height: 46,
+  width: 50,
+  height: 5,
 };
 
 export const SOCIALS: SocialObjects = [
@@ -54,13 +58,13 @@ export const SOCIALS: SocialObjects = [
     name: "Twitter",
     href: "https://twitter.com/neko_0xff",
     linkTitle: `${SITE.title} on Twitter`,
-    active: false,
+    active: true,
   },
   {
     name: "Twitch",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://discord.com/invite/8bK5Y43Stu",
     linkTitle: `${SITE.title} on Twitch`,
-    active: false,
+    active: true,
   },
   {
     name: "YouTube",
@@ -130,9 +134,9 @@ export const SOCIALS: SocialObjects = [
   },
   {
     name: "Telegram",
-    href: "https://github.com/satnaing/astro-paper",
+    href: "https://t.me/zang_post",
     linkTitle: `${SITE.title} on Telegram`,
-    active: false,
+    active: true,
   },
   {
     name: "Mastodon",

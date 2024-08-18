@@ -3,7 +3,7 @@ title: 服務條款
 seo:
   title: 服務條款
   description: Explore the terms and conditions of Dante website for a clear understanding of guidelines and responsibilities.
-layout: ../layouts/TermsLayout.astro
+layout:  ../layouts/TermsLayout.astro
 ---
 
 ## 中文
