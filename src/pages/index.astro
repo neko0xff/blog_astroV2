@@ -9,6 +9,7 @@ import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SITE, SOCIALS } from "@config";
+import { marked } from 'marked';
 
 
 const posts = await getCollection("blog");
@@ -34,7 +35,10 @@ const socialCount = SOCIALS.filter(social => social.active).length;
             </div>
         )}
     </div>
-      <h1>大家好</h1>
+      <h1>
+        <!--{SITE.title}-->
+          <p set:html={marked.parse(SITE.heroTitle)} />
+      </h1>
       <a
         target="_blank"
         href="/rss.xml"
