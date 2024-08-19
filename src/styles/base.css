@@ -149,3 +149,8 @@
   top: 83%;
   opacity: 1;
 }
+
+.avatar_img {
+  height: auto;
+  width: 100%;
+}

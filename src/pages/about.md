@@ -9,7 +9,11 @@ title: "關於作者"
 
 ## 自我介绍
 <div>
-  <img src="/assets/avatar.jpg" class="sm:w-1/2 mx-auto" alt="Author">
+  <img 
+          src="/assets/avatar.jpg" 
+          class="sm:w-1/2 mx-auto avatar_img rounded-full w-[10em] mb-5 overflow-hidden"
+         alt="Author" 
+    />
 </div>
 
 - 台灣人
