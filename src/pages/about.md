@@ -12,6 +12,8 @@ title: "關於作者"
   <img 
           src="/assets/avatar.jpg" 
           class="sm:w-1/2 mx-auto avatar_img rounded-full w-[10em] mb-5 overflow-hidden"
+          height="auto"
+          width="100%""
          alt="Author" 
     />
 </div>

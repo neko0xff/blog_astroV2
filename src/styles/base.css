@@ -157,7 +157,6 @@
 }
 
 .avatar_img {
-  height: auto;
-  width: 100%;
+  aspect-ratio: auto auto / 100%;
 }
 

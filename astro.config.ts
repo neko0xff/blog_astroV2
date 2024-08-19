@@ -18,6 +18,7 @@ import rehypeMermaid from "rehype-mermaid";
 import rehypeGraphviz from "rehype-graphviz";
 import redotStringify from "redot-stringify";
 import rehypeRaw from 'rehype-raw';
+import lighthouse from 'astro-lighthouse';
 
 import vue from "@astrojs/vue";
 import mdx from '@astrojs/mdx';
@@ -32,7 +33,8 @@ export default defineConfig({
     react(),
     sitemap(),
     vue(),
-    mdx()
+    mdx(),
+    lighthouse()
   ],
   markdown: {
     rehypePlugins: [
