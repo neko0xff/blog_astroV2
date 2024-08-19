@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@use 'node_modules/katex/src/styles/katex' with (
+  $use-ttf: false;
+  $use-woff: false;
+  $use-woff2: true;
+);
+
 @layer base {
   :root,
   html[data-theme="light"] {
@@ -154,3 +160,4 @@
   height: auto;
   width: 100%;
 }
+
