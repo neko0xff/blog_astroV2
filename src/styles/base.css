@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/*Katex支援*/
 @use 'node_modules/katex/src/styles/katex' with (
   $use-ttf: false;
   $use-woff: false;
@@ -132,6 +133,7 @@
   }
 }
 
+/*部落格名稱*/
 .name {
   z-index: 0;
   background-image: -webkit-linear-gradient(315deg, #f2973b 25%, #fef1b4);
@@ -156,6 +158,7 @@
   opacity: 1;
 }
 
+/*主頁主人圖*/
 .avatar_img {
   aspect-ratio: auto auto / 100%;
 }

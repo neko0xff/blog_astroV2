@@ -1,6 +1,5 @@
 # AstroPaper 📄
 
-![AstroPaper](public/astropaper-og.jpg)
 [![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/community/file/1356898632249991861)
 ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![GitHub](https://img.shields.io/github/license/satnaing/astro-paper?color=%232F3741&style=for-the-badge)
@@ -33,7 +32,7 @@ _Note: I've tested screen-reader accessibility of AstroPaper using **VoiceOver**
 ## ✅ Lighthouse Score
 
 <p align="center">
-  <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fastro-paper.pages.dev%2F&form_factor=desktop">
+  <a href="https://pagespeed.web.dev/analysis/https-neko0xff-blog-vercel-app/kf26xjlieu?hl=zh-TW&form_factor=desktop">
     <img width="710" alt="AstroPaper Lighthouse Score" src="AstroPaper-lighthouse-score.svg">
   <a>
 </p>
