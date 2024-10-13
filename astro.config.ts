@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 import deno from "@deno/astro-adapter";
 import { SITE } from "./src/config";
 import { mermaid } from "./src/plugins/mermaid.ts";
@@ -29,6 +29,9 @@ export default defineConfig({
   site: SITE.website,
   output: "server",
   adapter: deno(),
+  image: {
+    service: passthroughImageService(),
+  },
   integrations: [
     tailwind({
       applyBaseStyles: true,
@@ -74,7 +77,11 @@ export default defineConfig({
   },
   vite: {
     optimizeDeps: {
-      exclude: ["@resvg/resvg-js"],
+      exclude: [
+        "@resvg/resvg-js",
+        '@resvg/resvg-js-linux-x64-gnu',
+        '@resvg/resvg-js-linux-x64-musl'
+      ],
     },
   },
   scopedStyleStrategy: "where",
