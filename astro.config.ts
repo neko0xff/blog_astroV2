@@ -79,14 +79,14 @@ export default defineConfig({
   },
   vite: {
     plugins: [wasm()],
-    build:{
+    /*build:{
       rollupOptions:{
         external:[
           '@resvg/resvg-js-linux-x64-gnu',
           '@resvg/resvg-js-linux-x64-musl'
         ]
       }
-    },
+    },*/
     optimizeDeps: {
       exclude: [
         "@resvg/resvg-js",
