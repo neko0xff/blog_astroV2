@@ -6,6 +6,7 @@ import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
@@ -20,15 +21,19 @@ import rehypeGraphviz from "rehype-graphviz";
 import redotStringify from "redot-stringify";
 import rehypeRaw from "rehype-raw";
 import lighthouse from "astro-lighthouse";
+import wasm from 'vite-plugin-wasm';
 
-//import vue from "@astrojs/vue";
-import mdx from "@astrojs/mdx";
+
+import node from "@astrojs/node";
+
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   output: "server",
-  adapter: deno(),
+  adapter: node({
+    mode: "standalone",
+  }),
   image: {
     service: passthroughImageService(),
   },
@@ -38,7 +43,6 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
-    //vue(),
     mdx(),
     lighthouse(),
   ],
@@ -76,11 +80,18 @@ export default defineConfig({
     },
   },
   vite: {
+    plugins: [wasm()],
+    build:{
+      rollupOptions:{
+        external:[
+          '@resvg/resvg-js-linux-x64-gnu',
+          '@resvg/resvg-js-linux-x64-musl'
+        ]
+      }
+    },
     optimizeDeps: {
       exclude: [
         "@resvg/resvg-js",
-        '@resvg/resvg-js-linux-x64-gnu',
-        '@resvg/resvg-js-linux-x64-musl'
       ],
     },
   },

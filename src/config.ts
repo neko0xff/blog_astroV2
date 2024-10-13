@@ -5,7 +5,7 @@ export const SITE: Site = {
   heroTitle: "<span class='name'>Neko_oxff</span> Tech Blog",
   author: "neko0xff",
   avatar: {
-    src: "assets/avatar.jpg",
+    src: "https://avatars.githubusercontent.com/u/54382007",
     alt: "neko0xff",
   },
   profile: "https://github.com/neko0xff",
