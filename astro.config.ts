@@ -1,5 +1,5 @@
 import { defineConfig, passthroughImageService } from "astro/config";
-import deno from "@deno/astro-adapter";
+//import deno from "@deno/astro-adapter";
 import { SITE } from "./src/config";
 import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
@@ -22,18 +22,16 @@ import redotStringify from "redot-stringify";
 import rehypeRaw from "rehype-raw";
 import lighthouse from "astro-lighthouse";
 import wasm from 'vite-plugin-wasm';
-
-
-import node from "@astrojs/node";
+//import node from "@astrojs/node";
 
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
-  output: "server",
-  adapter: node({
+  //output: "server",
+  /*adapter: node({
     mode: "standalone",
-  }),
+  }),*/
   image: {
     service: passthroughImageService(),
   },
