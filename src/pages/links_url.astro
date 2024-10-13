@@ -1,5 +1,5 @@
 ---
-import Links_URL from '../components/links.vue';
+import Links_URL from "../components/links.tsx";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import Header from "@components/Header.astro";
@@ -8,9 +8,9 @@ import Footer from "@components/Footer.astro";
 ---
 
 <Layout title={`Links | ${SITE.title}`}>
-    <Header activeNav="links_url" />
-    <Main pageTitle="友站鏈結" pageDesc="這邊存放一些認識好友的其它站">
-         <Links_URL client:load />
-    </Main>
-    <Footer />
+  <Header activeNav="links_url" />
+  <Main pageTitle="友站鏈結" pageDesc="這邊存放一些認識好友的其它站">
+    <Links_URL client:load />
+  </Main>
+  <Footer />
 </Layout>

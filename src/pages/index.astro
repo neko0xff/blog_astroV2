@@ -9,8 +9,7 @@ import Card from "@components/Card";
 import Socials from "@components/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SITE, SOCIALS } from "@config";
-import { marked } from 'marked';
-
+import { marked } from "marked";
 
 const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
@@ -25,21 +24,23 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <main id="main-content">
     <section id="hero">
       <div class="flex flex-col flex-row-reverse justify-between items-center">
-        {SITE.avatar && SITE.avatar?.src && (
+        {
+          SITE.avatar && SITE.avatar?.src && (
             <div class="rounded-full w-[10em] mb-5 overflow-hidden">
-                <img 
-                      src={SITE.avatar.src} 
-                      alt={SITE.avatar.alt}
-                      height="auto"
-                      width="100%"
-                      class="avatar_img"
-                  />
+              <img
+                src={SITE.avatar.src}
+                alt={SITE.avatar.alt}
+                height="auto"
+                width="100%"
+                class="avatar_img"
+              />
             </div>
-        )}
-    </div>
+          )
+        }
+      </div>
       <h1>
         <!--{SITE.title}-->
-          <p set:html={marked.parse(SITE.heroTitle)} />
+        <p set:html={marked.parse(SITE.heroTitle)} />
       </h1>
       <a
         target="_blank"
@@ -48,7 +49,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
         aria-label="rss feed"
         title="RSS Feed"
       >
-
         <svg xmlns="http://www.w3.org/2000/svg" class="rss-icon"
           ><path
             d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"
@@ -70,7 +70,6 @@ const socialCount = SOCIALS.filter(social => social.active).length;
           </div>
         )
       }
-
     </section>
 
     <Hr />

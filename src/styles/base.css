@@ -3,10 +3,8 @@
 @tailwind utilities;
 
 /*Katex支援*/
-@use 'node_modules/katex/src/styles/katex' with (
-  $use-ttf: false;
-  $use-woff: false;
-  $use-woff2: true;
+@use "node_modules/katex/src/styles/katex" with (
+  $use-ttf: false; $use-woff: false; $use-woff2: true;
 );
 
 @layer base {
@@ -143,7 +141,7 @@
 }
 .name::before {
   z-index: -1;
-  content: '';
+  content: "";
   position: absolute;
   top: 60%;
   right: 0;
@@ -162,4 +160,3 @@
 .avatar_img {
   aspect-ratio: auto auto / 100%;
 }
-

@@ -1,42 +1,48 @@
 ---
 title: docker-安裝相關服務
 pubDatetime: 2023-10-15 11:30:06
-tags: 
-    - 'docker'
+tags:
+  - "docker"
 description: ""
 ---
 
 ## 00 安裝需求
-- CPU指令集支緩: 
-  * 虛擬化支援(VT-X & VT-D)
-  * 64bit CPU+OS
-    * X86: Intel(EM64T)&AMD(amd64)
-    * ARM: armv8之後(AArch64) 
+
+- CPU指令集支緩:
+  - 虛擬化支援(VT-X & VT-D)
+  - 64bit CPU+OS
+    - X86: Intel(EM64T)&AMD(amd64)
+    - ARM: armv8之後(AArch64)
 - RAM: 至少4GB以上
 - OS
-  * Linux: Kernel 3.8以上
-  * macOS: 10.14 以後
-  * Windows: 10/Server 2016以上 + Hyper-V支援
-<!--more-->
+  - Linux: Kernel 3.8以上
+  - macOS: 10.14 以後
+  - Windows: 10/Server 2016以上 + Hyper-V支援
+  <!--more-->
 
 ## 01 安裝&設定
+
 ### 1-1 Linux
+
 #### 01 安裝套件包
+
 - 使用Linux發行版套件庫的版本
-  * fedora/RHEL like: `$ sudo dnf install -y docker`
-  * arch: `$ sudo pacman -S docker`
-  * debian: `$ sudo apt install docker.io`
+  - fedora/RHEL like: `$ sudo dnf install -y docker`
+  - arch: `$ sudo pacman -S docker`
+  - debian: `$ sudo apt install docker.io`
 - 使用官方套件庫的版本
-  * fedora/RHEL like
-    * 加入&啟用來源套件庫: `$ sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo`
-    * 開始安裝: `$ sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
+  - fedora/RHEL like
+    - 加入&啟用來源套件庫: `$ sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo`
+    - 開始安裝: `$ sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
 
 #### 02 開機自動啟用docker
+
 ```zsh
 $ sudo systemctl enable --now docker.socket
 ```
 
 #### 03 提高當前使用者的權限,讓非root帳戶來使用Docker
+
 ```zsh
 $ sudo gpasswd -a $USER docker
 $ sudo newgrp docker
@@ -44,21 +50,25 @@ $ sudo chmod 666 /var/run/docker.sock
 ```
 
 ### 1-2 Mac&Windows
+
 由於macOS和Windows的內核架構不同，則有對應不同的解法。
 
 1. 安裝一台VM(ex: Ubuntu/Debian)，在其VM上安裝docker
-   * [VMware](https://www.vmware.com/tw/products/workstation-player/workstation-player-evaluation.html)
-   * [QEMU](https://www.qemu.org/download/)
-   * [VirtualBox](https://www.virtualbox.org/)
-   * [Hyper-V](https://learn.microsoft.com/zh-tw/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)
-     * [WSL2](https://learn.microsoft.com/zh-tw/windows/wsl/install)
+   - [VMware](https://www.vmware.com/tw/products/workstation-player/workstation-player-evaluation.html)
+   - [QEMU](https://www.qemu.org/download/)
+   - [VirtualBox](https://www.virtualbox.org/)
+   - [Hyper-V](https://learn.microsoft.com/zh-tw/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v)
+     - [WSL2](https://learn.microsoft.com/zh-tw/windows/wsl/install)
 2. 使用Docker Desktop
-   * [Windows](https://docs.docker.com/desktop/install/windows-install/)
-   * [macOS](https://docs.docker.com/desktop/install/mac-install/) 
+   - [Windows](https://docs.docker.com/desktop/install/windows-install/)
+   - [macOS](https://docs.docker.com/desktop/install/mac-install/)
 
 ## 02 檢查docker是否正常安裝
+
 - 檢視docker運行狀態: `$ docker info`
-  * 輸出內容
+
+  - 輸出內容
+
     ```bash
      Client:
         Version:    24.0.6
@@ -97,7 +107,7 @@ $ sudo chmod 666 /var/run/docker.sock
      Default Runtime: runc
      Init Binary: docker-init
      containerd version: 8c087663b0233f6e6e2f4515cee61d49f14746a8.m
-     runc version: 
+     runc version:
      init version: de40ad0
      Security Options:
       seccomp
@@ -119,8 +129,11 @@ $ sudo chmod 666 /var/run/docker.sock
       127.0.0.0/8
      Live Restore Enabled: false
     ```
+
 - 檢視己安裝docker版本: `$ docker version`
-  * 輸出內容
+
+  - 輸出內容
+
     ```bash
        Client: Docker Engine - Community
        Version:           20.10.22
@@ -153,6 +166,7 @@ $ sudo chmod 666 /var/run/docker.sock
     ```
 
 ## REF
+
 - https://www.server-world.info/en/note?os=Debian_11&p=docker&f=1
 - https://medium.com/%E5%AE%B8-%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/mac-%E5%AE%89%E8%A3%9D-docker-%E5%8F%8A%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4-6a9cfaa55979
 - https://wiki.archlinux.org/title/Docker_(%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87)

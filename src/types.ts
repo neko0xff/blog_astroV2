@@ -8,7 +8,7 @@ export type Image = {
 
 export type Site = {
   website: string;
-  heroTitle: string,
+  heroTitle: string;
   author: string;
   avatar?: Image;
   profile: string;

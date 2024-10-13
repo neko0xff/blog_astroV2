@@ -8,6 +8,7 @@ title: "關於作者"
 無論您有什麼問題和建議，或者只是想分享您的想法，我都願意傾聽。
 
 ## 自我介绍
+
 <div>
   <img 
           src="/assets/avatar.jpg" 
@@ -20,9 +21,9 @@ title: "關於作者"
 
 - 台灣人
 - 屬性
-  * 真人不實體出道
-  * 社交+口語障礙
-  * 是什都摸什都不精一些皮毛的喵。。。。
+  - 真人不實體出道
+  - 社交+口語障礙
+  - 是什都摸什都不精一些皮毛的喵。。。。
 - INTJ-T
 
 ## 主要的SNS
@@ -37,28 +38,31 @@ title: "關於作者"
 - [BlueSky](https://bsky.app/profile/neko0xff.bsky.social)
 
 ## Blog組成架構
+
 - 框架: [Astro](https://docs.astro.build/zh-tw/concepts/why-astro/)
 - 主題: [astro-paper](https://github.com/satnaing/astro-paper)
 
 ## 曾摸過的項目
+
 - 開發板
-    * Arduino
-        * UNO,Nano(atmega)
-        * ESP8266/32
-    * 8X51
+  - Arduino
+    - UNO,Nano(atmega)
+    - ESP8266/32
+  - 8X51
 - 前端
-    * Flutter
+  - Flutter
 - 後端
-    * Nodejs
+  - Nodejs
 - DataBase
-    * MariaDB
-    * M$-SQLServer
+  - MariaDB
+  - M$-SQLServer
 
 ## Side Project
+
 - 111專題: 空氣感測+本地SaaS
-  * [後端+硬體:Arduino+Nodejs+MariaDB](https://github.com/neko0xff/2023_schoolResearch_Server-HW)
-  * [前端:Flutter](https://github.com/neko0xff/2023_schoolResearch_ClientApp)
-  * 流程圖
+  - [後端+硬體:Arduino+Nodejs+MariaDB](https://github.com/neko0xff/2023_schoolResearch_Server-HW)
+  - [前端:Flutter](https://github.com/neko0xff/2023_schoolResearch_ClientApp)
+  - 流程圖
     ```mermaid
       graph TD;
           A["感測器"] ==>|輸出數值| B["Arduino UNO"];
@@ -74,25 +78,28 @@ title: "關於作者"
           K["分享器"] ==> C["網際網路"];
     ```
 - MessageBot
-  * Line
-    * [後端:Nodejs](https://github.com/neko0xff/2023_LineBot_Node) 
-  * Telegram
-    * [後端:Nodejs](https://github.com/neko0xff/2021_telegram_chatbot)
+  - Line
+    - [後端:Nodejs](https://github.com/neko0xff/2023_LineBot_Node)
+  - Telegram
+    - [後端:Nodejs](https://github.com/neko0xff/2021_telegram_chatbot)
 
 ## 如何加入友站鏈結
+
 1. 向該站管理者私信或者提出Issues到`neko0xff/blog_astroV2`
-    * 相關倉庫: https://github.com/neko0xff/blog_astroV2
+   - 相關倉庫: https://github.com/neko0xff/blog_astroV2
 2. 加入的格式如下
-      * 由於前端框架己用Astro重寫，請用JSON格式進行提交
-      * 相關文件: `public/assets/myLinks.json`
-  ```json=
-     {
-        "name": "neko0xff",
-        "site": "Neko0xff Tech Blog",
-        "siteURL": "https://neko0xff.github.io/",
-        "icon": "https://avatars.githubusercontent.com/u/54382007?v=4"
-     },
-  ```
+   - 由於前端框架己用Astro重寫，請用JSON格式進行提交
+   - 相關文件: `public/assets/myLinks.json`
+
+```json=
+   {
+      "name": "neko0xff",
+      "site": "Neko0xff Tech Blog",
+      "siteURL": "https://neko0xff.github.io/",
+      "icon": "https://avatars.githubusercontent.com/u/54382007?v=4"
+   },
+```
+
 3. 管理員收到後，會自己加入提出者的友站鏈結
 
 <div>

@@ -5,8 +5,8 @@ export const SITE: Site = {
   heroTitle: "<span class='name'>Neko_oxff</span> Tech Blog",
   author: "neko0xff",
   avatar: {
-      src: "assets/avatar.jpg",
-      alt:  "neko0xff"
+    src: "assets/avatar.jpg",
+    alt: "neko0xff",
   },
   profile: "https://github.com/neko0xff",
   desc: "該Blog會存放自己寫的技術文章!",

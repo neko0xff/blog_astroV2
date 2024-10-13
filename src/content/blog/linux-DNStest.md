@@ -1,20 +1,21 @@
 ---
-title: Linux-設置DNS解析和測試 
+title: Linux-設置DNS解析和測試
 pubDatetime: 2023-09-10 08:08:50
-tags: 
-    - 'Linux'
+tags:
+  - "Linux"
 description: ""
 ---
 
 ## 00 緒論
+
 當要測試自架或其它的DNS是否有效時，則需要另行在系統上自行設置相關的設定
 
 <!--more-->
 
-## 01 加入用於解析的DNS Server 
+## 01 加入用於解析的DNS Server
 
 - resolv.conf : 用於管理多個DNS設定檔的框架
-  * 設定檔: `/etc/resolv.conf`
+  - 設定檔: `/etc/resolv.conf`
     ```
       nameserver 8.8.8.8
       nameserver 8.8.4.4
@@ -25,6 +26,7 @@ description: ""
 ## 02 測試正反解是否正常
 
 ### 2-0 安裝相關工具
+
 - arch: `$ sudo pacman -S dnsutils`
 
 ### 2-1 正解
@@ -50,9 +52,11 @@ Authoritative answers can be found from:
 ```
 
 ## 03 查詢DNS主機資訊
+
 WHOIS是用來查詢網際網路中域名的IP以及所有者等資訊的傳輸協定
 
 ### 3-0 安裝相關工具
+
 - Arch/Manjaro: `$ sudo pacman -S whois`
 
 ### 3-1 檢視
@@ -201,6 +205,7 @@ In Europe, at +44.02032062220
 ```
 
 ## REF
+
 - https://man.archlinux.org/man/resolv.conf.5
 - https://zh.wikipedia.org/wiki/Resolv.conf%E6%96%87%E4%BB%B6
 - https://man.archlinux.org/man/nslookup.1.en

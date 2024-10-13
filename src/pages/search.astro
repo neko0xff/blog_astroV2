@@ -25,8 +25,14 @@ const searchList = sortedPosts.map(({ data, slug }) => ({
   <Header activeNav="search" />
   <Main pageTitle="搜尋" pageDesc="搜尋任何事物...">
     <SearchBar client:load searchList={searchList} />
-    <br>
-    <img src="/assets/drink.png" alt="search" class="mx-auto"  width="200" height="150" >
+    <br />
+    <img
+      src="/assets/drink.png"
+      alt="search"
+      class="mx-auto"
+      width="200"
+      height="150"
+    />
   </Main>
   <Footer />
 </Layout>
