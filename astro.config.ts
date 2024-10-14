@@ -23,7 +23,7 @@ import wasm from 'vite-plugin-wasm';
 import markdoc from "@astrojs/markdoc";
 // add deno support
 import deno from '@deno/astro-adapter';
-import nodeLoaderPlugin from "@vavite/node-loader/plugin";
+i//mport nodeLoaderPlugin from "@vavite/node-loader/plugin";
 
 // https://astro.build/config
 export default defineConfig({
@@ -78,7 +78,7 @@ export default defineConfig({
   vite: {
     plugins: [
       wasm(),
-      nodeLoaderPlugin(),
+      //nodeLoaderPlugin(),
     ],
     ssr: { // ssr instead of rollupOptions
       external: ['@resvg/resvg-js']
