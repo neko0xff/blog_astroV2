@@ -18,3 +18,5 @@ export async function generateOgImageForSite() {
   const svg = await siteOgImage();
   return svgBufferToPngBuffer(svg);
 }
+
+

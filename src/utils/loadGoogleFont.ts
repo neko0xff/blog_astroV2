@@ -44,15 +44,16 @@ async function loadGoogleFonts(
   Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
 > {
   const fontsConfig = [
+    // 選擇自己想用的字體
     {
-      name: "IBM Plex Mono",
-      font: "IBM+Plex+Mono",
+      name: "LXGW WenKai Mono TC",
+      font: "LXGW+WenKai+Mono+TC",
       weight: 400,
       style: "normal",
     },
     {
-      name: "IBM Plex Mono",
-      font: "IBM+Plex+Mono:wght@700",
+      name: "LXGW WenKai Mono TC",
+      font: "LXGW+WenKai+Mono+TC:wght@700",
       weight: 700,
       style: "bold",
     },

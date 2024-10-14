@@ -1,5 +1,5 @@
 import { defineConfig, passthroughImageService } from "astro/config";
-//import deno from "@deno/astro-adapter";
+//import deno from '@deno/astro-adapter';
 import { SITE } from "./src/config";
 import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
@@ -21,18 +21,27 @@ import rehypeMermaid from "rehype-mermaid";
 import rehypeGraphviz from "rehype-graphviz";
 import rehypeRaw from "rehype-raw";
 import wasm from 'vite-plugin-wasm';
-
 import markdoc from "@astrojs/markdoc";
+import { nodeLoaderPlugin } from "@vavite/node-loader/plugin";
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
+  //output: 'server',
+  //adapter: deno(),
   image: {
     service: passthroughImageService(),
   },
-  integrations: [tailwind({
-    applyBaseStyles: true,
-  }), react(), sitemap(), mdx(), lighthouse(), markdoc()],
+  integrations: [
+    tailwind({
+      applyBaseStyles: true,
+    }), 
+    react(),
+    sitemap(),
+    mdx(),
+    lighthouse(),
+    markdoc()
+  ],
   markdown: {
     rehypePlugins: [
       rehypeRaw,
@@ -58,7 +67,6 @@ export default defineConfig({
       ],
     ],
     shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
       themes: {
         light: "material-theme-lighter",
         dark: "material-theme-darker",
@@ -68,13 +76,26 @@ export default defineConfig({
   },
   vite: {
     plugins: [
-      wasm()
+      wasm(),
+      nodeLoaderPlugin(),
     ],
+    ssr: { // ssr instead of rollupOptions
+      external: ['@resvg/resvg-js']
+    },
+    build: {
+      rollupOptions: {
+        external: ['@resvg/resvg-js'],
+      },
+      commonjsOptions: {
+        ignore: ['@resvg/resvg-js'],
+      },
+    },
     optimizeDeps: {
       exclude: [
         "@resvg/resvg-js",
       ],
     },
+
   },
   scopedStyleStrategy: "where",
 });
