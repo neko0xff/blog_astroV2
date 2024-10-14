@@ -38,5 +38,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "neko-0xff-blog"
-          entrypoint: ""
+          entrypoint: "server/entry.mjs"
           root: "dist"
