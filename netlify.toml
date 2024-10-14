@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/*"
+  to = "/server/entry.mjs"
+  status = 200
