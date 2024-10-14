@@ -23,7 +23,7 @@ import wasm from 'vite-plugin-wasm';
 import markdoc from "@astrojs/markdoc";
 // add deno support
 import deno from '@deno/astro-adapter';
-i//mport nodeLoaderPlugin from "@vavite/node-loader/plugin";
+//import nodeLoaderPlugin from "@vavite/node-loader/plugin";
 
 // https://astro.build/config
 export default defineConfig({
