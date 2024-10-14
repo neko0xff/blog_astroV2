@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/AboutLayout.astro
+layout: ../../layouts/AboutLayout.astro
 title: "關於作者"
 ---
 
@@ -9,9 +9,9 @@ title: "關於作者"
 
 ## 自我介绍
 
-<div>
+<div className="avatar-img">
   <img 
-          src="/assets/avatar.jpg" 
+          src="https://avatars.githubusercontent.com/u/54382007" 
           class="sm:w-1/2 mx-auto avatar_img rounded-full w-[10em] mb-5 overflow-hidden"
           height="auto"
           width="100%""
@@ -21,9 +21,8 @@ title: "關於作者"
 
 - 台灣人
 - 屬性
-  - 真人不實體出道
-  - 社交+口語障礙
-  - 是什都摸什都不精一些皮毛的喵。。。。
+  * 真人不實體出道
+  * 社交+口語障礙
 - INTJ-T
 
 ## 主要的SNS
@@ -31,33 +30,36 @@ title: "關於作者"
 請隨時透過以下任何方式與我取得聯繫：
 
 - [GitHub](https://github.com/neko0xff)
-- [E-Mail](mailto:chzang55@gmail.com)
+- Email
+    * [Gmail](mailto:chzang55@gmail.com)
+    * [Proton](mailto:neko0xff@protonmail.com)
 - [X/Twitter](https://twitter.com/neko_0xFF)
 - [YouTube](https://www.youtube.com/channel/UCfBR43eCo07mPWN6K-97TEA)
 - [Instagram](https://www.instagram.com/neko_0xff/)
-- [BlueSky](https://bsky.app/profile/neko0xff.bsky.social)
-
-## Blog組成架構
-
-- 框架: [Astro](https://docs.astro.build/zh-tw/concepts/why-astro/)
-- 主題: [astro-paper](https://github.com/satnaing/astro-paper)
+- [Linkdin](https://www.linkedin.com/in/%E5%B1%95%E9%8A%98-%E8%A8%B1-823b41183/)
 
 ## 曾摸過的項目
 
 - 開發板
   - Arduino
-    - UNO,Nano(atmega)
-    - ESP8266/32
+    * UNO,Nano(atmega)
+    * ESP8266/32
   - 8X51
 - 前端
-  - Flutter
+  * Flutter
+  * Astro.js(React)
 - 後端
   - Nodejs
 - DataBase
-  - MariaDB
-  - M$-SQLServer
+  * MariaDB(MySQL)
+  * M$-SQLServer
 
 ## Side Project
+
+- Blog
+  * 組成架構
+    * 框架: [Astro](https://docs.astro.build/zh-tw/concepts/why-astro/)
+    * 主題: [astro-paper](https://github.com/satnaing/astro-paper)
 
 - 111專題: 空氣感測+本地SaaS
   - [後端+硬體:Arduino+Nodejs+MariaDB](https://github.com/neko0xff/2023_schoolResearch_Server-HW)

@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import LinkButton from "@components/LinkButton.astro";
-import Hr from "@components/Hr.astro";
-import Card from "@components/Card";
-import Socials from "@components/Socials.astro";
+import Header from "@components/astro/Header.astro";
+import Footer from "@components/astro/Footer.astro";
+import LinkButton from "@components/astro/LinkButton.astro";
+import Hr from "@components/astro/Hr.astro";
+import Card from "@components/react/Card";
+import Socials from "@components/astro/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { SITE, SOCIALS } from "@config";
 import { marked } from "marked";
@@ -23,6 +23,7 @@ const socialCount = SOCIALS.filter(social => social.active).length;
   <Header />
   <main id="main-content">
     <section id="hero">
+       <!--首頁圖標-->
       <div class="flex flex-col flex-row-reverse justify-between items-center">
         {
           SITE.avatar && SITE.avatar?.src && (

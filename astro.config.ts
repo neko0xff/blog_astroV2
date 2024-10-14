@@ -8,42 +8,31 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
-import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
+import remarkCollapse from "remark-collapse";
 import remarkGraphviz from "remark-graphviz";
 import remarkMermaid from "remark-mermaid";
+import lighthouse from "astro-lighthouse";
 import rehypeKatex from "rehype-katex";
 import rehypeStringify from "rehype-stringify";
 import rehypeMermaid from "rehype-mermaid";
 import rehypeGraphviz from "rehype-graphviz";
-import redotStringify from "redot-stringify";
 import rehypeRaw from "rehype-raw";
-import lighthouse from "astro-lighthouse";
 import wasm from 'vite-plugin-wasm';
-//import node from "@astrojs/node";
 
+import markdoc from "@astrojs/markdoc";
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
-  //output: "server",
-  /*adapter: node({
-    mode: "standalone",
-  }),*/
   image: {
     service: passthroughImageService(),
   },
-  integrations: [
-    tailwind({
-      applyBaseStyles: true,
-    }),
-    react(),
-    sitemap(),
-    mdx(),
-    lighthouse(),
-  ],
+  integrations: [tailwind({
+    applyBaseStyles: true,
+  }), react(), sitemap(), mdx(), lighthouse(), markdoc()],
   markdown: {
     rehypePlugins: [
       rehypeRaw,
@@ -78,15 +67,9 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [wasm()],
-    /*build:{
-      rollupOptions:{
-        external:[
-          '@resvg/resvg-js-linux-x64-gnu',
-          '@resvg/resvg-js-linux-x64-musl'
-        ]
-      }
-    },*/
+    plugins: [
+      wasm()
+    ],
     optimizeDeps: {
       exclude: [
         "@resvg/resvg-js",

@@ -1,8 +1,8 @@
 # Base stage for building the static files
-FROM node:lts AS base
+FROM node:lts-alpine AS base
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm i
 COPY . .
 RUN npm run build
 

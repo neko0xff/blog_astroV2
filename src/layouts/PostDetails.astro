@@ -1,12 +1,12 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import Tag from "@components/Tag.astro";
-import Datetime from "@components/Datetime";
+import Header from "@components/astro/Header.astro";
+import Footer from "@components/astro/Footer.astro";
+import Tag from "@components/astro/Tag.astro";
+import Datetime from "@components/react/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
-import ShareLinks from "@components/ShareLinks.astro";
+import ShareLinks from "@components/astro/ShareLinks.astro";
 import { SITE } from "@config";
 
 export interface Props {
