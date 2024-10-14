@@ -5,11 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "dev_deno": "deno run -A --unstable npm:astro dev",
-    "start_deno": "deno run -A --unstable npm:astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "preview_deno": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "sync": "astro sync",
     "astro": "astro",
     "format:check": "prettier --check . --plugin=prettier-plugin-astro",

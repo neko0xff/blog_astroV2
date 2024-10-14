@@ -1,5 +1,4 @@
 import { defineConfig, passthroughImageService } from "astro/config";
-//import deno from '@deno/astro-adapter';
 import { SITE } from "./src/config";
 import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
@@ -22,13 +21,15 @@ import rehypeGraphviz from "rehype-graphviz";
 import rehypeRaw from "rehype-raw";
 import wasm from 'vite-plugin-wasm';
 import markdoc from "@astrojs/markdoc";
-import { nodeLoaderPlugin } from "@vavite/node-loader/plugin";
+// add deno support
+import deno from '@deno/astro-adapter';
+import nodeLoaderPlugin from "@vavite/node-loader/plugin";
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
-  //output: 'server',
-  //adapter: deno(),
+  output: 'hybrid', // 開啟 prerender 預先渲染: 
+  adapter: deno(),
   image: {
     service: passthroughImageService(),
   },
