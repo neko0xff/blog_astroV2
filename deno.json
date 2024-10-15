@@ -2,8 +2,9 @@
     "tasks": {
       "start": "deno run -A --unstable npm:astro dev",
       "dev": "deno run -A --unstable npm:astro dev",
-      "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
       "build": "astro build",
+      "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
+      "serve": "deno serve --allow-net  --allow-read --allow-env ./dist/server/entry.mjs",
       "test": "deno test --allow-net",
       "lint": "deno lint"
     }

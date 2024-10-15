@@ -3,20 +3,20 @@ CC2:=deno
 CC3:=npm
 IMAGE:=blog
 
-.PHONY: build up logs stop img_clean  deno_dev  npm_update
+.PHONY: img_build img_up img_logs img_stop img_clean  npm_update deno_build deno_dev deno_serve
 
-all: build
+all: img_stop img_build
 
-build:
+img_build:
 	@$(CC1) up --build -d
 
-up:
+img_up:
 	@$(CC1) up -d
 
-logs:
+img_logs:
 	@$(CC1) logs --tail=100 -f
 
-stop:
+img_stop:
 	@$(CC1) stop
 
 img_clean:
@@ -27,3 +27,9 @@ npm_update:
 
 deno_dev:
 	@$(CC2) task dev
+
+deno_build:
+	@$(CC2) task build
+
+deno_serve:
+	@$(CC2) task serve

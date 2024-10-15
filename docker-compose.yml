@@ -1,11 +1,9 @@
-
 services:
-  blog_dev:
-    restart: always # 跟系統服務一起重啟
-    image: node:lts-alpine
-    ports:
-      - 4321:4321
-    working_dir: /app
-    command: npm run dev -- --host 0.0.0.0
-    volumes:
-      - ./:/app
+    weblog_deno:
+      restart: always # 跟系統服務一起重啟
+      ports:
+        - 8085:8085
+      # 編譯時的設置
+      build:
+        context: .
+        dockerfile: Dockerfile.env

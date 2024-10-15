@@ -60,6 +60,7 @@ title: "關於作者"
   * 組成架構
     * 框架: [Astro](https://docs.astro.build/zh-tw/concepts/why-astro/)
     * 主題: [astro-paper](https://github.com/satnaing/astro-paper)
+    * PaaS: [Deno Deploy](https://deno.com/deploy)
 
 - 111專題: 空氣感測+本地SaaS
   - [後端+硬體:Arduino+Nodejs+MariaDB](https://github.com/neko0xff/2023_schoolResearch_Server-HW)
