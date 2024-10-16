@@ -1,14 +1,14 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "@layouts/Layout.astro";
-import Header from "@components/astro/Header.astro";
 import Footer from "@components/astro/Footer.astro";
-import LinkButton from "@components/astro/LinkButton.astro";
+import Header from "@components/astro/Header.astro";
 import Hr from "@components/astro/Hr.astro";
-import Card from "@components/react/Card";
+import LinkButton from "@components/astro/LinkButton.astro";
 import Socials from "@components/astro/Socials.astro";
-import getSortedPosts from "@utils/getSortedPosts";
+import Card from "@components/react/Card";
 import { SITE, SOCIALS } from "@config";
+import Layout from "@layouts/Layout.astro";
+import getSortedPosts from "@utils/getSortedPosts";
 import { marked } from "marked";
 
 const posts = await getCollection("blog");
@@ -16,14 +16,14 @@ const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
-const socialCount = SOCIALS.filter(social => social.active).length;
+const socialCount = SOCIALS.filter((social) => social.active).length;
 ---
 
 <Layout>
   <Header />
   <main id="main-content">
     <section id="hero">
-       <!--首頁圖標-->
+      <!--首頁圖標-->
       <div class="flex flex-col flex-row-reverse justify-between items-center">
         {
           SITE.avatar && SITE.avatar?.src && (

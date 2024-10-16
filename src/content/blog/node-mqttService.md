@@ -17,8 +17,8 @@ description: ""
     ```
   - Server: [Aedes](https://www.npmjs.com/package/aedes)
   `bash
-      $ npm install aedes --save
-    `
+  $ npm install aedes --save
+`
   <!--more-->
 
 ## 01 實做部分

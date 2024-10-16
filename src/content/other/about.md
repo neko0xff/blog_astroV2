@@ -21,8 +21,8 @@ title: "關於作者"
 
 - 台灣人
 - 屬性
-  * 真人不實體出道
-  * 社交+口語障礙
+  - 真人不實體出道
+  - 社交+口語障礙
 - INTJ-T
 
 ## 主要的SNS
@@ -31,8 +31,8 @@ title: "關於作者"
 
 - [GitHub](https://github.com/neko0xff)
 - Email
-    * [Gmail](mailto:chzang55@gmail.com)
-    * [Proton](mailto:neko0xff@protonmail.com)
+  - [Gmail](mailto:chzang55@gmail.com)
+  - [Proton](mailto:neko0xff@protonmail.com)
 - [X/Twitter](https://twitter.com/neko_0xFF)
 - [YouTube](https://www.youtube.com/channel/UCfBR43eCo07mPWN6K-97TEA)
 - [Instagram](https://www.instagram.com/neko_0xff/)
@@ -42,25 +42,26 @@ title: "關於作者"
 
 - 開發板
   - Arduino
-    * UNO,Nano(atmega)
-    * ESP8266/32
+    - UNO,Nano(atmega)
+    - ESP8266/32
   - 8X51
 - 前端
-  * Flutter
-  * Astro.js(React)
+  - Flutter
+  - Astro.js(React)
 - 後端
   - Nodejs
 - DataBase
-  * MariaDB(MySQL)
-  * M$-SQLServer
+  - MariaDB(MySQL)
+  - M$-SQLServer
 
 ## Side Project
 
 - Blog
-  * 組成架構
-    * 框架: [Astro](https://docs.astro.build/zh-tw/concepts/why-astro/)
-    * 主題: [astro-paper](https://github.com/satnaing/astro-paper)
-    * PaaS: [Deno Deploy](https://deno.com/deploy)
+
+  - 組成架構
+    - 框架: [Astro](https://docs.astro.build/zh-tw/concepts/why-astro/)
+    - 主題: [astro-paper](https://github.com/satnaing/astro-paper)
+    - PaaS: [Deno Deploy](https://deno.com/deploy)
 
 - 111專題: 空氣感測+本地SaaS
   - [後端+硬體:Arduino+Nodejs+MariaDB](https://github.com/neko0xff/2023_schoolResearch_Server-HW)

@@ -1,49 +1,49 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import Footer from "@components/astro/Footer.astro";
+import Header from "@components/astro/Header.astro";
+import ShareLinks from "@components/astro/ShareLinks.astro";
+import Tag from "@components/astro/Tag.astro";
+import Comments from "@components/react/Comments";
+import Datetime from "@components/react/Datetime";
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import { slugifyStr } from "@utils/slugify";
-import type { CollectionEntry } from "astro:content";
-import Header from "@components/astro/Header.astro";
-import Footer from "@components/astro/Footer.astro";
-import Tag from "@components/astro/Tag.astro";
-import Datetime from "@components/react/Datetime";
-import ShareLinks from "@components/astro/ShareLinks.astro";
-import Comments from "@components/react/Comments";
 
 export interface Props {
-  post: CollectionEntry<"blog">;
+	post: CollectionEntry<"blog">;
 }
 
 const { post } = Astro.props;
 
 const {
-  title,
-  author,
-  description,
-  ogImage,
-  canonicalURL,
-  pubDatetime,
-  modDatetime,
-  tags,
+	title,
+	author,
+	description,
+	ogImage,
+	canonicalURL,
+	pubDatetime,
+	modDatetime,
+	tags,
 } = post.data;
 
 const { Content } = await post.render();
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
 const ogUrl = new URL(
-  ogImageUrl ?? `/posts/${slugifyStr(title)}.png`,
-  Astro.url.origin
+	ogImageUrl ?? `/posts/${slugifyStr(title)}.png`,
+	Astro.url.origin,
 ).href;
 
 const layoutProps = {
-  title: `${title} | ${SITE.title}`,
-  author,
-  description,
-  pubDatetime,
-  modDatetime,
-  canonicalURL,
-  ogImage: ogUrl,
-  scrollSmooth: true,
+	title: `${title} | ${SITE.title}`,
+	author,
+	description,
+	pubDatetime,
+	modDatetime,
+	canonicalURL,
+	ogImage: ogUrl,
+	scrollSmooth: true,
 };
 ---
 
@@ -73,9 +73,9 @@ const layoutProps = {
       size="lg"
       className="my-2"
     />
-    <br/>
+    <br />
     <ShareLinks />
-    
+
     <article id="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />
     </article>
@@ -83,7 +83,7 @@ const layoutProps = {
     <ul class="my-8">
       {tags.map((tag: string) => <Tag tag={slugifyStr(tag)} />)}
     </ul>
-    
+
     <!-- 使用 client:only 指令 -->
     <Comments client:only="react" />
 
@@ -101,7 +101,7 @@ const layoutProps = {
         </svg>
         <span>到起始點</span>
       </button>
-      <br/>
+      <br />
     </div>
   </main>
   <Footer />

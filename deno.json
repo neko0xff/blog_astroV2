@@ -1,12 +1,13 @@
 {
-    "tasks": {
-      "start": "deno run -A --unstable npm:astro dev",
-      "dev": "deno run -A --unstable npm:astro dev",
-      "build": "astro build",
-      "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
-      "serve": "deno serve --allow-net  --allow-read --allow-env ./dist/server/entry.mjs",
-      "test": "deno test --allow-net",
-      "lint": "deno lint"
-    }
-  }
-  
+	"tasks": {
+		"start": "deno run -A --unstable npm:astro dev",
+		"dev": "deno run -A --unstable npm:astro dev",
+		"build": "astro build",
+		"preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
+		"serve": "deno serve --allow-net  --allow-read --allow-env ./dist/server/entry.mjs",
+		"test": "deno test --allow-net",
+		"lint": "deno lint",
+		"format": "deno run -A npm:@biomejs/biome format src --write",
+		"check": "deno run -A npm:@biomejs/biome check --write"
+	}
+}

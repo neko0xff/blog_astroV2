@@ -1,19 +1,19 @@
 ---
-import { type CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Footer from "@components/astro/Footer.astro";
+import Header from "@components/astro/Header.astro";
+import Pagination from "@components/astro/Pagination.astro";
+import Card from "@components/react/Card";
+import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
-import Header from "@components/astro/Header.astro";
-import Footer from "@components/astro/Footer.astro";
-import Card from "@components/react/Card";
-import Pagination from "@components/astro/Pagination.astro";
-import { SITE } from "@config";
 
 export interface Props {
-  currentPage: number;
-  totalPages: number;
-  paginatedPosts: CollectionEntry<"blog">[];
-  tag: string;
-  tagName: string;
+	currentPage: number;
+	totalPages: number;
+	paginatedPosts: CollectionEntry<"blog">[];
+	tag: string;
+	tagName: string;
 }
 
 const { currentPage, totalPages, paginatedPosts, tag, tagName } = Astro.props;

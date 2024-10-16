@@ -3,7 +3,7 @@ CC2:=deno
 CC3:=npm
 IMAGE:=blog
 
-.PHONY: img_build img_up img_logs img_stop img_clean  npm_update deno_build deno_dev deno_serve
+.PHONY: img_build img_up img_logs img_stop img_clean  npm_update deno_build deno_dev deno_serve format  lint
 
 all: img_stop img_build
 
@@ -33,3 +33,9 @@ deno_build:
 
 deno_serve:
 	@$(CC2) task serve
+
+format:
+	@$(CC3) run format_biome
+
+lint:
+	@$(CC3)  lint_biome 
