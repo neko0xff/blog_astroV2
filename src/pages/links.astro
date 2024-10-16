@@ -1,10 +1,10 @@
 ---
-import Links_URL from "../components/react/links.tsx";
+import Links_URL from "@components/react/LinksComponent";
+import Header from "@components/astro/Header.astro";
+import Footer from "@components/astro/Footer.astro";
+import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
-import Header from "@components/astro/Header.astro";
-import { SITE } from "@config";
-import Footer from "@components/astro/Footer.astro";
 ---
 
 <Layout title={`Links | ${SITE.title}`}>

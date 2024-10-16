@@ -1,13 +1,14 @@
 ---
+import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
+import { slugifyStr } from "@utils/slugify";
+import type { CollectionEntry } from "astro:content";
 import Header from "@components/astro/Header.astro";
 import Footer from "@components/astro/Footer.astro";
 import Tag from "@components/astro/Tag.astro";
 import Datetime from "@components/react/Datetime";
-import type { CollectionEntry } from "astro:content";
-import { slugifyStr } from "@utils/slugify";
 import ShareLinks from "@components/astro/ShareLinks.astro";
-import { SITE } from "@config";
+import Comments from "@components/react/Comment";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -58,7 +59,8 @@ const layoutProps = {
         ><path
           d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
         ></path>
-      </svg><span>回上一頁</span>
+      </svg>
+      <span>回上一頁</span>
     </button>
     <br />
   </div>
@@ -71,13 +73,19 @@ const layoutProps = {
       size="lg"
       className="my-2"
     />
+    <br/>
+    <ShareLinks />
+    
     <article id="article" class="prose mx-auto mt-8 max-w-3xl">
       <Content />
     </article>
 
     <ul class="my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} />)}
+      {tags.map((tag: string) => <Tag tag={slugifyStr(tag)} />)}
     </ul>
+    
+    <!-- 使用 client:only 指令 -->
+    <Comments client:only="react" />
 
     <div
       class="flex flex-col-reverse items-center justify-between gap-6 sm:flex-row-reverse sm:items-end sm:gap-4"
@@ -93,8 +101,7 @@ const layoutProps = {
         </svg>
         <span>到起始點</span>
       </button>
-
-      <ShareLinks />
+      <br/>
     </div>
   </main>
   <Footer />

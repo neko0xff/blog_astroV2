@@ -1,0 +1,59 @@
+---
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/astro/Header.astro";
+import Footer from "@components/astro/Footer.astro";
+import LinkButton from "@components/astro/LinkButton.astro";
+interface Props {
+    error: unknown
+}
+const { error } = Astro.props
+---
+
+<Layout title={`500 Server Error | ${SITE.title}`}>
+    <Header />
+  
+    <main id="main-content">
+      <br />
+      <div class="not-found-wrapper">
+        <h1>ERROR 500</h1>
+        <br />
+        <img
+          src="/assets/kuaikuai.png"
+          alt="500"
+          width="200"
+          height="100"
+          class="mx-auto"
+        />
+        <br />
+        <p>!伺服器壞壞,請等主人進行維護!</p>
+        <br />
+        <LinkButton
+          href="/"
+          className="my-6 text-lg underline decoration-dashed underline-offset-8"
+        >
+          ! 請按一下這邊，得以回到主頁面 !
+        </LinkButton>
+        <br />
+        <span aria-hidden="true">¯\_(ツ)_/¯</span>
+      </div>
+    </main>
+  
+    <Footer />
+  </Layout>
+  
+  <style>
+    #main-content {
+      @apply mx-auto flex max-w-3xl flex-1 items-center justify-center;
+    }
+    .not-found-wrapper {
+      @apply mb-14 flex flex-col items-center justify-center;
+    }
+    .not-found-wrapper h1 {
+      @apply text-9xl font-bold text-skin-accent;
+    }
+    .not-found-wrapper p {
+      @apply mt-4 text-2xl sm:text-3xl;
+    }
+  </style>
+  
