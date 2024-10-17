@@ -3,7 +3,7 @@ title: node-快速刪除專案內的node_modules
 pubDatetime: 2023-04-06
 tags:
   - "node"
-description: "快速刪除專案內的node_modules"
+description: ""
 ---
 
 ## 01 手動

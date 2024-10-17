@@ -3,7 +3,7 @@ title: Windows-如何在Windows7以上的系統運行16位元以下的老程式
 pubDatetime: 2023-09-10 06:22:44
 tags:
   - "Windows"
-description: "由於萬惡的微軟在Windows 7後拿掉16位元相容性的支持(提升系統本身的安全性)，則需要自行手動啟用/加入相關的支緩，使得一些在`M$-DOS`/`Windows 9x`的老程式(ex: 比較經典的Galagame)可在現代的系統上運行。"
+description: ""
 ---
 
 ## 00 緒論

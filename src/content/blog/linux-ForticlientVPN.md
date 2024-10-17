@@ -3,7 +3,7 @@ title: Linux-在Linux下連線到Forticlient VPN
 pubDatetime: 2023-09-10 07:43:47
 tags:
   - "Linux"
-description: "當要在Linux上使用Fortinet防火牆所架設的VPN時，則需要另行安裝一些套件來使系統可方便支援。"
+description: ""
 ---
 
 ## 00 緒論

@@ -3,7 +3,7 @@ title: 軟體開發-小黃鴨除錯法(Rubber Duck Debugging)
 pubDatetime: 2023-09-10 06:53:16
 tags:
   - "SoftDev"
-description: "小黃鴨除錯法(Rubber Duck Debugging)是指在程式的除錯/測試過程中，耐心的向小黃鴨解釋每一行程式的功能，以此來激發靈感&發現自己的矛盾。"
+description: ""
 ---
 
 ## 00 緒論

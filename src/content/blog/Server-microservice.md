@@ -3,7 +3,7 @@ title: Server-微服務(Microservice)
 pubDatetime: 2023-04-06
 tags:
   - "Server"
-description: "主要是一種重新建構應用程式架構且以服務為導向的方法。"
+description: ""
 ---
 
 ## 00 緒論

@@ -3,7 +3,7 @@ title: Arch-在Arch Linux安裝MS SQL Server
 pubDatetime: 2023-09-10 07:12:20
 tags:
   - "ArchLinux"
-description: "網路上的相關的安裝設置大部分以Deb/RPM系的發行版居多，則自己就寫了一個Arch的教學文件。。。"
+description: ""
 ---
 
 ## 00 緒論

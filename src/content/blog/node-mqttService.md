@@ -3,7 +3,7 @@ title: node-MQTT服務和環境
 pubDatetime: 2023-10-09 13:22:55
 tags:
   - "node"
-description: "本文會教使用者用nodejs來建立MQTT所需的環境和功能測試。"
+description: ""
 ---
 
 ## 00 前置

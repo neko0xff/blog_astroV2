@@ -3,7 +3,7 @@ title: podman-入門使用
 pubDatetime: 2023-09-11 09:41:29
 tags:
   - "podman"
-description: "podman是由RedHat開發的一個無背景程序(Daemonless)的容器引擎，其中提供了和docker類似的功能&相容的服務。"
+description: ""
 ---
 
 podman是由RedHat開發的一個無背景程序(Daemonless)的容器引擎，其中提供了和docker類似的功能&相容的服務。

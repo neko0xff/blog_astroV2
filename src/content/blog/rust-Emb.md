@@ -3,7 +3,7 @@ title: rust-使用rust來開發ARM嵌入式裝置
 pubDatetime: 2024-05-16
 tags:
   - "Rust-lan"
-description: "使用rust來開發ARM嵌入式裝置"
+description: ""
 ---
 
 ## 所需部分

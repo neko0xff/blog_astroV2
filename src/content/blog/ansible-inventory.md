@@ -3,7 +3,7 @@ title: Ansible-Inventory
 pubDatetime: 2023-04-06
 tags:
   - "Ansible"
-description: "在Ansible中，"Inventory"是定義所需管理設備的連結資訊(包含用於參數設定的變數)，且可把多台的設備分成多個群組進行各別的設定。"
+description: ""
 ---
 
 ## 00 緒論

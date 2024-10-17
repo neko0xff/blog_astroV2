@@ -3,7 +3,7 @@ title: node-使用swagger快速產生API文件
 pubDatetime: 2023-09-24 12:22:17
 tags:
   - "node"
-description: "swagger可提供自動化的互動式API文件於網頁上，使相關人員(ex:QA)輕鬆在上面進行測試&查看API的相關參數&路徑。"
+description: ""
 ---
 
 ## 00 緒論
