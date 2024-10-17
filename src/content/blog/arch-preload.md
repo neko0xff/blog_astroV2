@@ -3,7 +3,7 @@ title: Arch-preload(預加載)
 pubDatetime: 2023-09-10 13:08:02
 tags:
   - "ArchLinux"
-description: ""
+description: "Preload（預加載）會在後台工作，以自動觀察您如何使用這台電腦並增強應用程式處理能力（需要事先加戴的文件放入RAM中），且等到運行開始/結束時，再自動選擇該文件是否保持/排除在RAM中。"
 ---
 
 ## 00 緒論

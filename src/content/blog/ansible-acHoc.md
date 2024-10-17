@@ -3,7 +3,7 @@ title: Ansible-Ad_hoc模式
 pubDatetime: 2023-04-06
 tags:
   - "Ansible"
-description: ""
+description: "若要在多台機器上佈署單一指令時，可使用Ad-Hoc模式來加快效率。"
 ---
 
 ## 00 緒論

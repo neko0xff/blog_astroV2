@@ -3,7 +3,7 @@ title: Ansible-Playbooks
 pubDatetime: 2023-04-06
 tags:
   - "Ansible"
-description: ""
+description: "在Ansible中，用於維護和部署的腳本叫"Playbooks"且由可讀性高的YAML(YAML Ain’t a Markup Language)格式來撰寫而成。"
 ---
 
 ## 00 緒論

@@ -3,7 +3,7 @@ title: Linux-改變網卡的Mac Address
 pubDatetime: 2023-09-10 12:30:04
 tags:
   - "Linux"
-description: ""
+description: "改變網卡的Mac Address"
 ---
 
 ## 00 前置

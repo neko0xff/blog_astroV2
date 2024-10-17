@@ -3,7 +3,7 @@ title: Arch-在pacman中加入第三方己編譯的套件包倉庫源
 pubDatetime: 2023-09-10 07:33:09
 tags:
   - "ArchLinux"
-description: ""
+description: "當官方套件庫無使用者需要的套件包時，則需要手動加入第三方套件庫來擴充來源。"
 ---
 
 ## 00 緒論

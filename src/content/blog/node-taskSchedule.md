@@ -3,7 +3,7 @@ title: node-排程任務
 pubDatetime: 2023-10-09 12:22:51
 tags:
   - "node"
-description: ""
+description: "若需要一些定期定時的執行一些工作(ex: 爬蟲&測試服務功能是否正常)時，則可能需要加入相關的排程套件來進行協助操作。"
 ---
 
 ## 00 緒論

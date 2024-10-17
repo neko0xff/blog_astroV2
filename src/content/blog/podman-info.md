@@ -3,12 +3,14 @@ title: podman-入門使用
 pubDatetime: 2023-09-11 09:41:29
 tags:
   - "podman"
-description: ""
+description: "podman是由RedHat開發的一個無背景程序(Daemonless)的容器引擎，其中提供了和docker類似的功能&相容的服務。"
 ---
 
-## 00 緒論
-
 podman是由RedHat開發的一個無背景程序(Daemonless)的容器引擎，其中提供了和docker類似的功能&相容的服務。
+
+<!--more-->
+
+## 00 緒論
 
 - 提供的功能
   1. 可管理&運行任何符合 OCI（Open Container Initiative）規範的容器和容器鏡像
@@ -16,9 +18,6 @@ podman是由RedHat開發的一個無背景程序(Daemonless)的容器引擎，�
   3. 不需要啟用任何背景(daemon)程序，且可在沒有root(管理者)權限的情況下運作
      - 相對的容器在運行/構建容器鏡像時，可提升系統本身的安全性(減少系統安全性漏洞)
      - 原理: 是透過`runC(run container)`等工具直接去跟Linux核心構通+建置/運行容器
-
-<!--more-->
-
 - 己收錄在套件庫的發行版
   - Red Hat系
     1. Fedora

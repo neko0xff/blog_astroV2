@@ -3,7 +3,7 @@ title: Ansible-安裝&相關設置
 pubDatetime: 2023-04-06
 tags:
   - "Ansible"
-description: ""
+description: "Ansible是由RedHat維護的一個能讓系統管理員可簡化系統維護&部署的開源配置工具，且能自動化的運行在任何運行Linux的裝置上(ex: 伺服器，樹莓派等),即"基礎架構即程式碼(IaC)"。"
 ---
 
 ## 00 緒論

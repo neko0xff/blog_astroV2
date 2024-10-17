@@ -3,12 +3,14 @@ title: rust-如何建置環境和撰寫簡單的Hello World
 pubDatetime: 2024-05-16
 tags:
   - "Rust-lan"
-description: ""
+description: "rust 是一個著重於高效能和記憶體安全性的開源程式語言，且由Mozilla主導開發整個社群。"
 ---
 
-## 緒論
-
 rust 是一個著重於高效能和記憶體安全性的開源程式語言，且由Mozilla主導開發整個社群。
+
+<!--more-->
+
+## 緒論
 
 - 先備知識
   - 程式語言: `C/C++`

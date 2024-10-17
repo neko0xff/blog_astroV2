@@ -3,7 +3,7 @@ title: Arch-如何使用AUR(Arch User Repository)上套件包
 pubDatetime: 2023-09-10 07:52:36
 tags:
   - "ArchLinux"
-description: ""
+description: "當官方套件庫找不到需要的套件時，Arch則提供了AUR(Arch User Repository,AUR)這個由其它使用者維護的倉庫，讓需要的使用者可自行編譯且安裝所需的套件。"
 ---
 
 ## 00 緒論

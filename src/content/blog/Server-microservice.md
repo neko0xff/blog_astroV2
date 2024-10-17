@@ -3,12 +3,14 @@ title: Server-微服務(Microservice)
 pubDatetime: 2023-04-06
 tags:
   - "Server"
-description: ""
+description: "主要是一種重新建構應用程式架構且以服務為導向的方法。"
 ---
 
 ## 00 緒論
 
 主要是一種<font color=red>重新建構應用程式架構且以服務為導向</font>的方法。
+
+<!--more-->
 
 原理就是將一個應用程式中不同的業務功能(ex: 前端和後端部分)切開隔離變成彼此模組化成獨立運作的容器個體且使用API和網路協定進行通訊，使得其中一個出問題時整個系統都不會受其影響。
 

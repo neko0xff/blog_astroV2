@@ -29,9 +29,12 @@ deno_dev:
 	@$(CC2) task dev
 
 deno_build:
+	@$(CC3) install
+	@$(CC2) install --allow-scripts=npm:@biomejs/biome,npm:sharp,npm:puppeteer
 	@$(CC2) task build
 
 deno_serve:
+	# default port: 8085/tcp
 	@$(CC2) task serve
 
 format:
