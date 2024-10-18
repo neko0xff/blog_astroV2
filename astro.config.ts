@@ -24,6 +24,7 @@ import { SITE } from "./src/config";
 import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
+import {YouTube} from 'astro-lazy-youtube-embed'
 
 // https://astro.build/config
 export default defineConfig({
