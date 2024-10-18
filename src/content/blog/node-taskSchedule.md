@@ -8,7 +8,8 @@ description: ""
 
 ## 00 緒論
 
-若需要一些定期定時的執行一些工作(ex: 爬蟲&測試服務功能是否正常)時，則可能需要加入相關的排程套件來進行協助操作。
+若需要一些定期定時的執行一些工作(ex:
+爬蟲&測試服務功能是否正常)時，則可能需要加入相關的排程套件來進行協助操作。
 
 <!--more-->
 
@@ -24,26 +25,26 @@ description: ""
 1. 引用相關函式庫
 
 ```javascript=
-   const cron = require('node-cron');
+const cron = require('node-cron');
 ```
 
 2. 寫成函數
 
 ```javascript=
-   // task1: 每天08點00分執行一回
-   function task1(){
-      const task = schedule.scheduleJob('0 8 * * *', () => {
-          console.log(`[${clock.consoleTime()}] task is running`);
-          crawler.getData();
-      });
-      return task;
-   }
+// task1: 每天08點00分執行一回
+function task1(){
+   const task = schedule.scheduleJob('0 8 * * *', () => {
+       console.log(`[${clock.consoleTime()}] task is running`);
+       crawler.getData();
+   });
+   return task;
+}
 ```
 
 3. 呼叫
 
 ```javascript=
-   task1();
+task1();
 ```
 
 ## 02 node-schedule
@@ -58,25 +59,25 @@ description: ""
 1. 引用相關函式庫
 
 ```javascript=
-   const schedule = require('node-schedule');
+const schedule = require('node-schedule');
 ```
 
 2. 寫成函數
 
 ```javascript=
-   // task1: 每天08點00分執行一回
-  function task1(){
-     cron.schedule('0 8 * * *', () => {
-        console.log(`[${clock.consoleTime()}] task is running`);
-        crawler.getData();
-    });
-   }
+ // task1: 每天08點00分執行一回
+function task1(){
+   cron.schedule('0 8 * * *', () => {
+      console.log(`[${clock.consoleTime()}] task is running`);
+      crawler.getData();
+  });
+ }
 ```
 
 3. 呼叫
 
 ```javascript=
-   task1();
+task1();
 ```
 
 ## REF

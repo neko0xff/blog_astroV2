@@ -17,10 +17,10 @@ description: ""
 - resolv.conf : 用於管理多個DNS設定檔的框架
   - 設定檔: `/etc/resolv.conf`
     ```
-      nameserver 8.8.8.8
-      nameserver 8.8.4.4
-      nameserver 1.1.1.1
-      nameserver 1.0.0.1
+    nameserver 8.8.8.8
+    nameserver 8.8.4.4
+    nameserver 1.1.1.1
+    nameserver 1.0.0.1
     ```
 
 ## 02 測試正反解是否正常
@@ -201,7 +201,6 @@ Protecting companies and consumers in a digital world.
 Visit MarkMonitor at https://www.markmonitor.com
 Contact us at +1.8007459229
 In Europe, at +44.02032062220
-
 ```
 
 ## REF

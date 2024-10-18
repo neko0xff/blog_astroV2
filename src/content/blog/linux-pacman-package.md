@@ -19,10 +19,10 @@ description: ""
 - `/etc/pacman.conf`中的[section]都會定義了一個使用的套件包的倉庫
   - 說明文件: https://archlinux.org/pacman/pacman.conf.5.html
   ```shell=
-     [repo-ck]
-     SigLevel = Never
-     Server = http://repo-ck.com/$arch
-     Server = https://mirrors.tuna.tsinghua.edu.cn/repo-ck/$arch
+  [repo-ck]
+  SigLevel = Never
+  Server = http://repo-ck.com/$arch
+  Server = https://mirrors.tuna.tsinghua.edu.cn/repo-ck/$arch
   ```
 - 倉庫是多個套件包的邏輯上的集合，通常會存放在一個或多個伺服器做為鏡像
 
@@ -40,7 +40,8 @@ description: ""
      - 開發者: 構建軟件包，而開發者的密鑰已經被 Arch 主密鑰簽名
      - 使用者: 用自己的密鑰簽名主密鑰，這樣就能信任官方的開發者
 - SigLevel的設置
-  - `SigLevel=TrustOnly`/`SigLevel = Required DatabaseOptional TrustedOnly`: 安裝有效的密鑰簽署的套件包
+  - `SigLevel=TrustOnly`/`SigLevel = Required DatabaseOptional TrustedOnly`:
+    安裝有效的密鑰簽署的套件包
   - `SigLevel=TrustAll`: 安裝信任所有的密鑰簽署的套件包(限測試使用)
   - `SigLevel = Never`: 不去驗証密鑰簽署,直接安裝
 

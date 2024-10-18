@@ -20,8 +20,8 @@ description: ""
 ## 02 套件
 
 - [rimraf](https://www.npmjs.com/package/rimraf)
-  1.  全域安裝: `$ npm install rimraf -g`
-  2.  刪除指定的目錄: `$ rimraf node_modules`
+  1. 全域安裝: `$ npm install rimraf -g`
+  2. 刪除指定的目錄: `$ rimraf node_modules`
 - [npkill](https://www.npmjs.com/package/npkill)
   1. 全域安裝: `$ npm install npkill -g`
   2. 啟動查找`node_modules`: `$ npkill`

@@ -12,16 +12,16 @@ description: ""
   - 本範例會以Blue Pill為例
     - MCU Part number: `STM32F103C8T6`
     - MCU Architecture: ARM Cotex M3(ARMv7e-m)
-      | RAM | ROM |
-      |:---:|:---:|
-      | 20K | 64K |
-      ![圖片](https://hackmd.io/_uploads/BJ8-ZOnGA.png)
+      |                        RAM                        | ROM |
+      | :-----------------------------------------------: | :-: |
+      |                        20K                        | 64K |
+      | ![圖片](https://hackmd.io/_uploads/BJ8-ZOnGA.png) |     |
     - 中國版和ST原裝的指令集架構版本可能有所不同,而導致無法進行刷寫
       - 需更動`target/stm32f1x.cfg`內的tag id的部分
-        | 版本 | 指令集架構 | tag id(SW-DP) | tag id(JTAG) |
-        |:-------:|:------------------:|:-------------:|:------------:|
-        | Chinese | ARM Cortex-M3 r2p0 | 0x2ba01477 | 0x0ba00477 |
-        | ST | ARM Cortex-M3 r1p1 | 0x1ba01477 | 0x3ba00477 |
+        |  版本   |     指令集架構     | tag id(SW-DP) | tag id(JTAG) |
+        | :-----: | :----------------: | :-----------: | :----------: |
+        | Chinese | ARM Cortex-M3 r2p0 |  0x2ba01477   |  0x0ba00477  |
+        |   ST    | ARM Cortex-M3 r1p1 |  0x1ba01477   |  0x3ba00477  |
       - Source: https://0x1.ink/p/66
 - 軟體環境
   - OpenOCD
@@ -31,9 +31,9 @@ description: ""
   - Rust
     - 安裝相關工具
     ```zsh
-      $ rustup target add thumbv6m-none-eabi thumbv7m-none-eabi thumbv7em-none-eabi thumbv7em-none-eabihf
-      $ rustup component add llvm-tools-preview
-      $ cargo install cargo-binutils cargo-generate cargo-embed
+    $ rustup target add thumbv6m-none-eabi thumbv7m-none-eabi thumbv7em-none-eabi thumbv7em-none-eabihf
+    $ rustup component add llvm-tools-preview
+    $ cargo install cargo-binutils cargo-generate cargo-embed
     ```
 
 ## 建立專案
@@ -62,8 +62,8 @@ description: ""
      ```
    - 修改`cargo.toml`
      ```toml=
-        [dependencies]
-        cortex-m = {version="*",features = ["critical-section-single-core"]} # Access to the generic ARM peripherals
+     [dependencies]
+     cortex-m = {version="*",features = ["critical-section-single-core"]} # Access to the generic ARM peripherals
      ```
 
 ### 2 硬體配置
@@ -82,14 +82,14 @@ description: ""
   ```
 - 記憶體大小&起始地址配置: `memory.x`
   ```
-    MEMORY
-    {
-      /* NOTE 1 K = 1 KiBi = 1024 bytes */
-      /* TODO Adjust these memory regions to match your device memory layout */
-      /* These values correspond to the STM32F103C8T6, one of the few devices QEMU can emulate */
-      FLASH : ORIGIN = 0x08000000, LENGTH = 64K
-      RAM : ORIGIN = 0x20000000, LENGTH = 20K
-    }
+  MEMORY
+  {
+    /* NOTE 1 K = 1 KiBi = 1024 bytes */
+    /* TODO Adjust these memory regions to match your device memory layout */
+    /* These values correspond to the STM32F103C8T6, one of the few devices QEMU can emulate */
+    FLASH : ORIGIN = 0x08000000, LENGTH = 64K
+    RAM : ORIGIN = 0x20000000, LENGTH = 20K
+  }
   ```
 - 函式庫管理: `cargo.toml`
 
@@ -127,7 +127,6 @@ bench = false
 codegen-units = 1 # better optimizations
 debug = true # symbols are nice and they don't increase the size on Flash
 lto = true # better optimizations
-
 ```
 
 ## 編寫程式
@@ -230,7 +229,6 @@ fn main() -> ! {
         tx1.write(b'\n').unwrap();
     }
 }
-
 ```
 
 ## 編譯

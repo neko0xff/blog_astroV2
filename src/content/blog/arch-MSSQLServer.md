@@ -25,13 +25,13 @@ description: ""
 
 - firewalld
   ```
-     $ sudo firewall-cmd --add-service=mssql --permanent
-     $ sudo firewall-cmd --reload
+  $ sudo firewall-cmd --add-service=mssql --permanent
+  $ sudo firewall-cmd --reload
   ```
 
 ## 02 環境
 
-- 進入設置: `$ sudo /opt/mssql/bin/mssql-conf setup `
+- 進入設置: `$ sudo /opt/mssql/bin/mssql-conf setup`
 - 正式開始設置
 
   1. 選擇 SQL Server 的版本
@@ -62,26 +62,26 @@ description: ""
   2. 語言
 
   ```
-   選擇 SQL Server 的語言:
-   (1) English
-   (2) Deutsch
-   (3) Español
-   (4) Français
-   (5) Italiano
-   (6) 日本語
-   (7) 한국어
-   (8) Português
-   (9) Руѝѝкий
-   (10) 中文 – 简体
-   (11) 中文 （繝体）
-   輸入選項 1-11: 11
+  選擇 SQL Server 的語言:
+  (1) English
+  (2) Deutsch
+  (3) Español
+  (4) Français
+  (5) Italiano
+  (6) 日本語
+  (7) 한국어
+  (8) Português
+  (9) Руѝѝкий
+  (10) 中文 – 简体
+  (11) 中文 （繝体）
+  輸入選項 1-11: 11
   ```
 
   3. 系統管理員密碼
 
   ```
-    輸入 SQL Server 系統管理員密碼:
-    確認 SQL Server 系統管理員密碼:
+  輸入 SQL Server 系統管理員密碼:
+  確認 SQL Server 系統管理員密碼:
   ```
 
   4. 開始設置
@@ -118,16 +118,16 @@ description: ""
 - 檢視安裝版本
   - 指令
     ```sql
-       1> SELECT @@VERSION
-       2> GO
+    1> SELECT @@VERSION
+    2> GO
     ```
   - 輸出結果
     ```
-        Microsoft SQL Server 2019 (RTM-CU17) (KB5016394) - 15.0.4249.2 (X64)
-        Jul 22 2022 12:11:33
-        Copyright (C) 2019 Microsoft Corporation
-        Developer Edition (64-bit) on Linux (Arch Linux) <X64>
-       (1 rows affected)
+     Microsoft SQL Server 2019 (RTM-CU17) (KB5016394) - 15.0.4249.2 (X64)
+     Jul 22 2022 12:11:33
+     Copyright (C) 2019 Microsoft Corporation
+     Developer Edition (64-bit) on Linux (Arch Linux) <X64>
+    (1 rows affected)
     ```
 
 ## 04 資料庫的位置

@@ -27,16 +27,10 @@ description: ""
    - 滑鼠左鍵: 指定腳位輸出/輸入部分
    - 滑鼠右鍵: 指定需標記標籤的腳位
      ![圖片](https://hackmd.io/_uploads/BJADQRnwp.png)
-3. 指定所需時序
-   ![圖片](https://hackmd.io/_uploads/Hkd_VChvT.png)
-4. 生成程式
-   _ 4.1: 指定輸出位置&使用的IDE
-   _ 請勾選`重新生成代碼時保留用戶代碼`
-   _ 4.2: 鏈結設置
-   _ 4.3: 指定使用的固件包
-   _ 請勾選`復制庫文件到項目資料夾`
-   _ 4.4: 再按下`確定`
-   ![圖片](https://hackmd.io/_uploads/BywUyy6P6.png)
+3. 指定所需時序 ![圖片](https://hackmd.io/_uploads/Hkd_VChvT.png)
+4. 生成程式 _ 4.1: 指定輸出位置&使用的IDE _ 請勾選`重新生成代碼時保留用戶代碼` _
+   4.2: 鏈結設置 _ 4.3: 指定使用的固件包 _ 請勾選`復制庫文件到項目資料夾` _ 4.4:
+   再按下`確定` ![圖片](https://hackmd.io/_uploads/BywUyy6P6.png)
 5. 生成完成時，則會打開提示視窗
    ![圖片](https://hackmd.io/_uploads/SJoye16Pp.png)
 
@@ -45,15 +39,13 @@ description: ""
 ### 2-1 步驟
 
 1. 選擇工作目錄
-   - 選擇完成請按下`Launch`
-     ![圖片](https://hackmd.io/_uploads/ByEN_kTDa.png)
+   - 選擇完成請按下`Launch` ![圖片](https://hackmd.io/_uploads/ByEN_kTDa.png)
 2. 選擇`import/Existing Projects into Workspace`
    ![圖片](https://hackmd.io/_uploads/HyBa_kTDp.png)
 3. 匯入剛才生成的專案程式
    - 目錄部分: `/[專案]/project/AT32_IDE/`
      ![圖片](https://hackmd.io/_uploads/rJkIYJTDa.png)
-4. 即可成功打開專案進行撰寫
-   ![圖片](https://hackmd.io/_uploads/BJL5hypDp.png)
+4. 即可成功打開專案進行撰寫 ![圖片](https://hackmd.io/_uploads/BJL5hypDp.png)
 
 ### 2-2 Tips
 
@@ -62,18 +54,21 @@ description: ""
   - `bsp/at32f423_board.c` => `/[專案]/project/AT32_IDE/`
   - `at32f423_board.h` => `/[專案]/project/inc/`
 
-  > 其中筆者提取了檔案，請向筆者的Github抓取所需的檔案: https://github.com/neko0xff/note_hardware/tree/main/at32_F423/AT-START-F423
+  > 其中筆者提取了檔案，請向筆者的Github抓取所需的檔案:
+  > https://github.com/neko0xff/note_hardware/tree/main/at32_F423/AT-START-F423
 
-- 如果你不想在重新指定腳位後，被自動生成程式(AT32 WorkBench)覆蓋掉己寫好的程式部分時，則可在官方指定的註解內進行撰寫
+- 如果你不想在重新指定腳位後，被自動生成程式(AT32
+  WorkBench)覆蓋掉己寫好的程式部分時，則可在官方指定的註解內進行撰寫
   ```c=
-    /* add user code begin …... */
-        (放置用戶自定義的程式碼)
-    /* add user code end ...... */
+  /* add user code begin …... */
+      (放置用戶自定義的程式碼)
+  /* add user code end ...... */
   ```
 
 ## 03 實做結果
 
-- 程式碼: https://github.com/neko0xff/note_hardware/tree/main/at32_F423/AT32F423VCT7_LED
+- 程式碼:
+  https://github.com/neko0xff/note_hardware/tree/main/at32_F423/AT32F423VCT7_LED
 - 實做影片: https://www.youtube.com/watch?v=BSLdWruhIpM
   <iframe width="560" height="315" src="https://www.youtube.com/embed/BSLdWruhIpM?si=UwAgNrstewW0GrNd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 

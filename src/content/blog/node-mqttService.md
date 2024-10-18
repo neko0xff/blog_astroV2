@@ -13,12 +13,11 @@ description: ""
 - 所需的函式庫
   - Client: [mqtt.js](https://www.npmjs.com/package/mqtt)
     ```bash
-      $ npm install mqtt --save
+    $ npm install mqtt --save
     ```
   - Server: [Aedes](https://www.npmjs.com/package/aedes)
-  `bash
-  $ npm install aedes --save
-`
+    `bash
+  $ npm install aedes --save`
   <!--more-->
 
 ## 01 實做部分
@@ -28,7 +27,8 @@ description: ""
 #### 功能
 
 - 主要管理己發布和訂閱的訊息
-  - 運作方式: 暫時儲存發布者(publisher)的訊息直到下回發布，只要在發布者中斷連線的情況下，就能即時提供訂閱者最近發布的訊息。
+  - 運作方式:
+    暫時儲存發布者(publisher)的訊息直到下回發布，只要在發布者中斷連線的情況下，就能即時提供訂閱者最近發布的訊息。
 
 #### 程式實作
 

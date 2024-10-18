@@ -32,8 +32,10 @@ description: ""
   - debian: `$ sudo apt install docker.io`
 - 使用官方套件庫的版本
   - fedora/RHEL like
-    - 加入&啟用來源套件庫: `$ sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo`
-    - 開始安裝: `$ sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
+    - 加入&啟用來源套件庫:
+      `$ sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo`
+    - 開始安裝:
+      `$ sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
 
 #### 02 開機自動啟用docker
 

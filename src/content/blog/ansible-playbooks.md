@@ -10,7 +10,8 @@ description: ""
 
 己經知道如何使用Inventory進行連線設備的設置，接下來建立需用於維護和部署的腳本。
 
-在Ansible中，用於維護和部署的腳本叫"Playbooks"且由可讀性高的YAML(YAML Ain’t a Markup Language)格式來撰寫而成。
+在Ansible中，用於維護和部署的腳本叫"Playbooks"且由可讀性高的YAML(YAML Ain’t a
+Markup Language)格式來撰寫而成。
 
 ## 01 相關指令模組參數
 
@@ -36,7 +37,8 @@ description: ""
     - [相關文件](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html)
   - Fedora/RHEL Like: `dnf`/`yum`(本文會以Rocky Linux 9為例)
     - [相關文件](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dnf_module.html)
-  - Arch: `community.general.pacman` \* [相關文件](https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html)
+  - Arch: `community.general.pacman` \*
+    [相關文件](https://docs.ansible.com/ansible/latest/collections/community/general/pacman_module.html)
     :::success
     在這邊只能列出一些常用的模組參數，若要了解更多則需要查詢[官方文件](https://docs.ansible.com/ansible/2.8/index.html)
     :::
@@ -46,7 +48,7 @@ description: ""
 - 宣告
   - 引用變數: 在變數外加入`{{}}`
   - 分隔檔案: `---`
-  - 清單(陣列): `- `
+  - 清單(陣列): `-`
 - 任務
 
 ```yaml=
@@ -152,7 +154,6 @@ ok: [edge01]
 PLAY RECAP ****************************************************************************************************************************************
 edge01                     : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 vagrant-machine            : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-
 ```
 
 ### 3-3 部署nginx+防火牆設置
@@ -194,7 +195,6 @@ vagrant-machine            : ok=1    changed=0    unreachable=0    failed=0    s
         permanent: true
         state: enabled
   gather_facts: false
-
 ```
 
 3. 測試腳本是否正常運行: `$sudo ansible-playbook -i [inventory]`
@@ -224,7 +224,6 @@ changed: [edge01]
 PLAY RECAP ****************************************************************************************************************************************
 edge01                     : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 vagrant-machine            : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-
 ```
 
 ### 3-4 git fetch/pull
@@ -272,7 +271,6 @@ ok: [Edge01]
 
 PLAY RECAP ***************************************************************************************************************************
 Edge01                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-
 ```
 
 ## 3-5 使用docker-compose建置container/images

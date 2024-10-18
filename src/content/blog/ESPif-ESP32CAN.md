@@ -25,7 +25,7 @@ description: ""
 2. 在偏好設定視窗中下方的額外開發板管理員輸入以下網址後，按確定。
 
 ```
-    https://dl.espressif.com/dl/package_esp32_index.json
+https://dl.espressif.com/dl/package_esp32_index.json
 ```
 
 ![](https://i.imgur.com/kS8ghSc.png)
@@ -40,8 +40,7 @@ description: ""
 ## 檢視是否連結
 
 - Windows(COMx): "裝置管理員/連結埠(`COM*`)"
-- Linux/macOS(ttyUSB0): `ls /dev/tty*`
-  ![](https://i.imgur.com/JeDburH.png)
+- Linux/macOS(ttyUSB0): `ls /dev/tty*` ![](https://i.imgur.com/JeDburH.png)
 
 ## 燒錄
 
@@ -50,8 +49,7 @@ description: ""
     1. TX(綠) => `GPIO3`
     2. RX(白) => `GPIO1`
     3. 5V(紅) => `5V`
-    4. GND(黑) => `GND`
-       ![](https://i.imgur.com/S3IWXKA.png)
+    4. GND(黑) => `GND` ![](https://i.imgur.com/S3IWXKA.png)
 - 燒錄模式
   - 進入燒錄模式: `IO0`+`GND`
   - 離開燒錄模式: 把`IO0`或`GND`其中一條拔掉且按下restart

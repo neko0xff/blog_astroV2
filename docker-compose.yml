@@ -1,10 +1,10 @@
 services:
-    weblog_deno:
-      restart: always # 跟系統服務一起重啟
-      ports:
-       # 主機端口:容器端口
-        - 8585:8085 
-      # 編譯時的設置
-      build:
-        context: .
-        dockerfile: Dockerfile.env
+  weblog_deno:
+    restart: always # 跟系統服務一起重啟
+    ports:
+      # 主機端口:容器端口
+      - 8585:8085
+    # 編譯時的設置
+    build:
+      context: .
+      dockerfile: Dockerfile.env

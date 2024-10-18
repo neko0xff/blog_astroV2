@@ -27,75 +27,75 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-	site: SITE.website,
-	output: "hybrid", // 開啟 prerender 預先渲染
-	adapter: deno(),
-	image: {
-		service: passthroughImageService(),
-	},
-	integrations: [
-		tailwind({
-			applyBaseStyles: true,
-		}),
-		react(),
-		sitemap(),
-		mdx(),
-		lighthouse(),
-		markdoc(),
-	],
-	markdown: {
-		rehypePlugins: [
-			rehypeRaw,
-			rehypeKatex,
-			rehypeMermaid,
-			rehypeStringify,
-			rehypeGraphviz,
-		],
-		remarkPlugins: [
-			proseRemarkPlugin,
-			remarkMath,
-			remarkParse,
-			remarkRehype,
-			remarkGraphviz,
-			remarkMermaid,
-			mermaid,
-			remarkToc,
-			remarkReadingTime,
-			[
-				remarkCollapse,
-				{
-					test: "Table of contents",
-				},
-			],
-		],
-		shikiConfig: {
-			themes: {
-				light: "material-theme-lighter",
-				dark: "material-theme-darker",
-			},
-			wrap: true,
-		},
-	},
-	vite: {
-		plugins: [
-			wasm(),
-			//nodeLoaderPlugin(),
-		],
-		ssr: {
-			// ssr instead of rollupOptions
-			external: ["@resvg/resvg-js"],
-		},
-		build: {
-			rollupOptions: {
-				external: ["@resvg/resvg-js"],
-			},
-			commonjsOptions: {
-				ignore: ["@resvg/resvg-js"],
-			},
-		},
-		optimizeDeps: {
-			exclude: ["@resvg/resvg-js"],
-		},
-	},
-	scopedStyleStrategy: "where",
+  site: SITE.website,
+  output: "hybrid", // 開啟 prerender 預先渲染
+  adapter: deno(),
+  image: {
+    service: passthroughImageService(),
+  },
+  integrations: [
+    tailwind({
+      applyBaseStyles: true,
+    }),
+    react(),
+    sitemap(),
+    mdx(),
+    lighthouse(),
+    markdoc(),
+  ],
+  markdown: {
+    rehypePlugins: [
+      rehypeRaw,
+      rehypeKatex,
+      rehypeMermaid,
+      rehypeStringify,
+      rehypeGraphviz,
+    ],
+    remarkPlugins: [
+      proseRemarkPlugin,
+      remarkMath,
+      remarkParse,
+      remarkRehype,
+      remarkGraphviz,
+      remarkMermaid,
+      mermaid,
+      remarkToc,
+      remarkReadingTime,
+      [
+        remarkCollapse,
+        {
+          test: "Table of contents",
+        },
+      ],
+    ],
+    shikiConfig: {
+      themes: {
+        light: "material-theme-lighter",
+        dark: "material-theme-darker",
+      },
+      wrap: true,
+    },
+  },
+  vite: {
+    plugins: [
+      wasm(),
+      //nodeLoaderPlugin(),
+    ],
+    ssr: {
+      // ssr instead of rollupOptions
+      external: ["@resvg/resvg-js"],
+    },
+    build: {
+      rollupOptions: {
+        external: ["@resvg/resvg-js"],
+      },
+      commonjsOptions: {
+        ignore: ["@resvg/resvg-js"],
+      },
+    },
+    optimizeDeps: {
+      exclude: ["@resvg/resvg-js"],
+    },
+  },
+  scopedStyleStrategy: "where",
 });

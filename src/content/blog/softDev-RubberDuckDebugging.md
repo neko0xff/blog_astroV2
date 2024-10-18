@@ -8,7 +8,8 @@ description: ""
 
 ## 00 緒論
 
-小黃鴨除錯法(Rubber Duck Debugging)是指在程式的除錯/測試過程中，<font color=red>耐心的向小黃鴨</font>解釋每一行程式的功能，以此來激發靈感&發現自己的矛盾。
+小黃鴨除錯法(Rubber Duck
+Debugging)是指在程式的除錯/測試過程中，<font color=red>耐心的向小黃鴨</font>解釋每一行程式的功能，以此來激發靈感&發現自己的矛盾。
 
 <!--more-->
 
@@ -25,7 +26,8 @@ description: ""
   </td></tr></table>
 
 - 解釋人
-  - 環境問題: 當解釋人不在發問人旁邊時，只能不斷的猜問題&提供可能的線索(不好處理)
+  - 環境問題:
+    當解釋人不在發問人旁邊時，只能不斷的猜問題&提供可能的線索(不好處理)
   - 關鍵字等同於除錯過程所輸出的記錄，且是一個很重要且很有幫助的線索
   <table><tr><td bgcolor=#C0FF3E>
     <font color=red>試者「自己解釋問題」往往可以釐清問題=>找出線索=>自行求解</font>
@@ -44,4 +46,5 @@ description: ""
 
 - https://dotblogs.com.tw/mis2000lab/2023/05/01/Rubber_Duck_Debugging_20230501
 - 相關影片: https://www.youtube.com/watch?v=ku61dWC5VvI
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ku61dWC5VvI?si=AWYODGe-nh44ifMk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

@@ -28,11 +28,11 @@ description: ""
 2. 把指定的image pull下來且開始運行
 
 ```
-  $ docker run -d -p 8000:8000 -p 9000:9000 \
-       --name=portainer \
-       --restart=always \
-       -v /var/run/docker.sock:/var/run/docker.sock \
-       -v portainer_data:/data portainer/portainer-ce
+$ docker run -d -p 8000:8000 -p 9000:9000 \
+     --name=portainer \
+     --restart=always \
+     -v /var/run/docker.sock:/var/run/docker.sock \
+     -v portainer_data:/data portainer/portainer-ce
 ```
 
 3. 完成後輸入`localhost:9000`可以進入portainer進行設定使用者的初始設置。
@@ -41,20 +41,20 @@ description: ""
 
 - docker-compose.yml
   ```yaml=
-     version: "3"
-     services:
-        portainer:
-          image: portainer/portainer-ce
-          restart: always
-        ports:
-          - 8000:8000
-          - 9000:9000
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - portainer_data:/data
+  version: "3"
+  services:
+     portainer:
+       image: portainer/portainer-ce
+       restart: always
+     ports:
+       - 8000:8000
+       - 9000:9000
      volumes:
-        portainer_data:
-          external: false
+       - /var/run/docker.sock:/var/run/docker.sock
+       - portainer_data:/data
+  volumes:
+     portainer_data:
+       external: false
   ```
 
 ### 02 Agent
@@ -68,10 +68,10 @@ description: ""
 1. 把指定的容器pull下來且開始運行
 
 ```
-  $ docker run -d -p 9001:9001 \
-    --name portainer_agent \ --restart=always \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v /var/lib/docker/volumes:/var/lib/docker/volumes portainer/agent
+$ docker run -d -p 9001:9001 \
+  --name portainer_agent \ --restart=always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/lib/docker/volumes:/var/lib/docker/volumes portainer/agent
 ```
 
 2. 開啟`localhost:9000`，進入setting>endpoints>new endpoints。
@@ -81,16 +81,16 @@ description: ""
 
 - docker-compose.yml
   ```yaml=
-     version: "3"
-     services:
-        portainer:
-          image: portainer/agent
-          restart: always
-        ports:
-          - 9001:9001
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /var/lib/docker/volumes:/var/lib/docker/volumes
+  version: "3"
+  services:
+     portainer:
+       image: portainer/agent
+       restart: always
+     ports:
+       - 9001:9001
+     volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
+       - /var/lib/docker/volumes:/var/lib/docker/volumes
   ```
 
 ## 03 升級至最新版本
@@ -100,11 +100,11 @@ description: ""
 3. 重新抓取新的portainer的image: `$ docker pull portainer/portainer-ce`
 4. 重新部署環境
    ```bash=
-     $ docker run -d -p 8000:8000 -p 9000:9000 \
-          --name=portainer \
-          --restart=always \
-          -v /var/run/docker.sock:/var/run/docker.sock \
-          -v portainer_data:/data portainer/portainer-ce
+   $ docker run -d -p 8000:8000 -p 9000:9000 \
+        --name=portainer \
+        --restart=always \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v portainer_data:/data portainer/portainer-ce
    ```
 
 ## 04 提供的的額外部分

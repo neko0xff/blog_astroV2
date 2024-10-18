@@ -15,14 +15,15 @@ swagger可提供自動化的互動式API文件於網頁上，使相關人員(ex:
 ## 01 環境建置
 
 1. 加入到Node專案
-   - 安裝相関套件: `$ npm install swagger-autogen swagger-jsdoc swagger-ui-express --save`
+   - 安裝相関套件:
+     `$ npm install swagger-autogen swagger-jsdoc swagger-ui-express --save`
 2. 請手動或使用`swagger-autogen`來建立`swagger.json`等檔案
 3. 在負責express路由中加入如下程式碼
    ```javascript=
-      var swaggerUi = require('swagger-ui-express');
-      const swaggerDocument = require('./config/swagger.json');
-      ...
-      express.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); //API Docs
+   var swaggerUi = require('swagger-ui-express');
+   const swaggerDocument = require('./config/swagger.json');
+   ...
+   express.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); //API Docs
    ```
 4. 打開`http://[IP Address]:[Port]/docs`來檢視生成結果
 
@@ -30,20 +31,20 @@ swagger可提供自動化的互動式API文件於網頁上，使相關人員(ex:
 
 - 請手動建立供給swagger呈現的json檔案: `./config/swagger.json`
   ```json=
-     {
-        "openapi": "3.0.0",
-        "info": {
-           "title": "User API",
-           "description": "Simple RESTful API in Node.js with TypeScript",
-           "version": "0.0.1"
-         },
-        "servers": [
-           {
-             "url": "http://localhost:3000/api",
-             "description": "Local server"
-           }
-        ],
-      }
+  {
+     "openapi": "3.0.0",
+     "info": {
+        "title": "User API",
+        "description": "Simple RESTful API in Node.js with TypeScript",
+        "version": "0.0.1"
+      },
+     "servers": [
+        {
+          "url": "http://localhost:3000/api",
+          "description": "Local server"
+        }
+     ],
+   }
   ```
 
 ## 03 把寫好的API功能自動轉成文件
@@ -84,11 +85,11 @@ swagger可提供自動化的互動式API文件於網頁上，使相關人員(ex:
 
 2. 加入指定啟動的指令到`package.json`的scrpits
    ```json=
-      "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node --max-semi-space-size=128 index.js",
-        "swagger-autogen": "node ./tools/swagger.js"
-       },
+   "scripts": {
+     "test": "echo \"Error: no test specified\" && exit 1",
+     "start": "node --max-semi-space-size=128 index.js",
+     "swagger-autogen": "node ./tools/swagger.js"
+    },
    ```
 3. 自動生成: `$ npm run swagger-autogen`
 

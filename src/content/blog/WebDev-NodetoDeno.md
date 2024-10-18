@@ -12,7 +12,10 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
 
 <!--more-->
 
-到了 2.0 版本，這種兼容性更是大幅度提升，使得許多原本專為 Node.js 開發的工具和函式庫，都能在 Deno 中無縫接軌。尤其這項重大改進，不僅讓網頁開發者能夠更輕鬆地將既有專案從 Node.js 遷移到 Deno，同時也降低了轉換過程中的複雜度。
+到了 2.0 版本，這種兼容性更是大幅度提升，使得許多原本專為 Node.js
+開發的工具和函式庫，都能在 Deno
+中無縫接軌。尤其這項重大改進，不僅讓網頁開發者能夠更輕鬆地將既有專案從 Node.js
+遷移到 Deno，同時也降低了轉換過程中的複雜度。
 
 因此想寫相關的教學文，方便自己後續維護時進行查看。
 
@@ -21,29 +24,33 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
 
 ## 注意部分
 
-> 本教學使用範例程式: [neko0xff/blog_astroV2](https://github.com/neko0xff/blog_astroV2)
+> 本教學使用範例程式:
+> [neko0xff/blog_astroV2](https://github.com/neko0xff/blog_astroV2)
 
 - 開發時，各項工具&環境的版本
-  * 伺服端環境
-      * `Deno`: `2.0.0`
-      * `node`: `v21.6.2`
-  * 套件依賴管理
-      * `npm`: `10.8.0`
-      * `npx`: `10.8.0`
-  * 函式庫
-      * `Astro.js`: `v4.16.2`
-      * `@astrojs/react`: `^3.6.1`
-- 當該專案是使用 Node (ex:`npx`,`npm`) 建立時, Deno 會優先將 npm 相依項目新增到 `package.json` 中,而不是使用 Deno 自己的相依性管理系統
+  - 伺服端環境
+    - `Deno`: `2.0.0`
+    - `node`: `v21.6.2`
+  - 套件依賴管理
+    - `npm`: `10.8.0`
+    - `npx`: `10.8.0`
+  - 函式庫
+    - `Astro.js`: `v4.16.2`
+    - `@astrojs/react`: `^3.6.1`
+- 當該專案是使用 Node (ex:`npx`,`npm`) 建立時, Deno 會優先將 npm 相依項目新增到
+  `package.json` 中,而不是使用 Deno 自己的相依性管理系統
 - 在編譯完成後，若想預覽輸出結果或提供服務，則預設使用的通訊端口會是 '8085/tcp'
 
 ## 開始配置
+
 1. 在 Astro.js 專案內加入相關依賴
    ```
    $ npx astro add deno
    $ npm install @deno/astro-adapter
    ```
 2. 更新`astro.config.ts`配置檔
-   * `output`部分請盡量使用`hybird`模式，否則某些需要開啟 `prerender` 預先渲染的組件或者套件無法成功運作(ex: `@resvg/resvg-js`)
+   - `output`部分請盡量使用`hybird`模式，否則某些需要開啟 `prerender`
+     預先渲染的組件或者套件無法成功運作(ex: `@resvg/resvg-js`)
    ```typescript=
     import { defineConfig } from 'astro/config';
     import deno from '@deno/astro-adapter';
@@ -54,22 +61,25 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
     });
    ```
 3. 加入`deno.json`(方便後續使用 `deno task` 進行維護)
-  ```json=
-    {
-        "tasks": {
-          "start": "deno run -A --unstable npm:astro dev",
-          "dev": "deno run -A --unstable npm:astro dev",
-          "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
-          "build": "astro build",
-          "test": "deno test --allow-net",
-          "lint": "deno lint"
-        }
+
+```json=
+{
+    "tasks": {
+      "start": "deno run -A --unstable npm:astro dev",
+      "dev": "deno run -A --unstable npm:astro dev",
+      "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
+      "build": "astro build",
+      "test": "deno test --allow-net",
+      "lint": "deno lint"
     }
-  ```
+}
+```
 
 ## 輸出可供以預覽使用的成果
+
 - 編譯: `$ deno task build`
-  * 由於編譯過程過多，所以有做相關的刪減
+  - 由於編譯過程過多，所以有做相關的刪減
+
 ```
 # user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:22:43] 
 $ deno task build
@@ -191,14 +201,18 @@ Task build astro build
 ```
 
 ## 執行編譯完成的結果
+
 - 執行預覽: `$ deno task preview`
+
 ```
 # user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:26:57] 
 $ deno task preview
 Task preview deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs
 Server running on port 8085
 ```
+
 - 提供服務: `$ deno task serve`
+
 ```
 $ deno task serve
 Task serve deno serve --allow-net  --allow-read --allow-env ./dist/server/entry.mjs
@@ -211,6 +225,7 @@ error: deno serve requires export default { fetch } in the main module, did you 
 > 本範例會使用 Arch Linux 的 image 進行修改建置
 
 1. 先在專案目錄下建立`Dockerfile.env`
+
 ```dockerfile=
 FROM archlinux:base-devel
 WORKDIR /app
@@ -233,7 +248,9 @@ CMD ["deno", "task", "serve"]
 # 指定通訊埠
 EXPOSE 8085
 ```
+
 2. 再建立`docker-compose.yml`
+
 ```yaml=
 services:
     weblog_deno:
@@ -245,11 +262,15 @@ services:
       build:
         context: .
         dockerfile: Dockerfile.env
-
 ```
+
 3. 開始建置: `$docker compose up --build -d`
 
 ## REF
-- Lucas. (2024, October 8). Astro 初見心得和筆記. 星星的筆記. https://star-note-lucas.vercel.app/posts/astro
-- 李建興. (2024, September 24). Deno 2.0大改全域變數向Node.Js靠攏. Ithome. https://www.ithome.com.tw/news/165172
-- 如何将你的 Astro 网站部署到 Deno. (n.d.). Astro Docs. https://docs.astro.build/zh-cn/guides/deploy/deno/
+
+- Lucas. (2024, October 8). Astro 初見心得和筆記. 星星的筆記.
+  https://star-note-lucas.vercel.app/posts/astro
+- 李建興. (2024, September 24). Deno 2.0大改全域變數向Node.Js靠攏. Ithome.
+  https://www.ithome.com.tw/news/165172
+- 如何将你的 Astro 网站部署到 Deno. (n.d.). Astro Docs.
+  https://docs.astro.build/zh-cn/guides/deploy/deno/

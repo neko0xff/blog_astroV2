@@ -32,8 +32,8 @@ $ sudo nano /etc/ssh/sshd_config
 
 - 如果不要使用預設的連結埠請註解
   ```bash
-    #Port 22
-    Port 2224
+  #Port 22
+  Port 2224
   ```
 
 ### 不允許用root登入
@@ -122,7 +122,8 @@ e is 65537 (0x010001)
 
 2. 把金鑰転成csr檔
    - 國家: `Country Name (2 letter code) [XX]:tw`
-   - 要啟用的網域: `Common Name (eg, your name or your server's hostname) []:old.sivs2020.edu`
+   - 要啟用的網域:
+     `Common Name (eg, your name or your server's hostname) []:old.sivs2020.edu`
 
 ```bash
 [root@Linx-10 /etc/pki/tls/certs]# openssl req -new -key old.key -out old.csr
@@ -166,11 +167,11 @@ ca-bundle.trust.crt  linx.csr  linx.pem  old.cer        old.key
 
 1. 把憑証申請複制到`/etc/pki/tls/certs`
    ```
-    [root@Linx-10 ~/下載]# cp certnew.cer /etc/pki/tls/certs/old.cer
+   [root@Linx-10 ~/下載]# cp certnew.cer /etc/pki/tls/certs/old.cer
    ```
 2. 把憑証申請匯入本地且転成.pem檔
    ```
-     [root@Linx-10 /etc/pki/tls/certs]# openssl x509 -inform der -in old.cer -outform pem -out old.pem
+   [root@Linx-10 /etc/pki/tls/certs]# openssl x509 -inform der -in old.cer -outform pem -out old.pem
    ```
 
 ## 05 httpd
@@ -222,12 +223,12 @@ $ sudo nano /etc/httpd/conf.d/linx.conf
 
 - 建立保護目錄下的`.htaccess`檔
   ```
-    $ cd /var/www/linx
-    $ sudo nano .htaccess
-      AuthName     "Login"
-      Authtype     Basic
-      AuthUserFile /var/www/apache.passwd
-      require user root
+  $ cd /var/www/linx
+  $ sudo nano .htaccess
+    AuthName     "Login"
+    Authtype     Basic
+    AuthUserFile /var/www/apache.passwd
+    require user root
   ```
 - 建立密碼檔: `$ sudo htpasswd -c /var/www/apache.passwd root`
 - 檢視是否成立: `$ cat /var/www/apache.passwd`
@@ -237,20 +238,20 @@ $ sudo nano /etc/httpd/conf.d/linx.conf
 
 - 建立目錄和網頁
   ```
-    $ sudo mkdir /var/www/old
-    $ sudo nano /var/www/old/index.html
+  $ sudo mkdir /var/www/old
+  $ sudo nano /var/www/old/index.html
   ```
 
 #### 內容
 
 - `<meta http-equiv="refresh" content="轉跳的時間;url=轉跳的網址" />`
   ```htmlembedded=
-    <html>
-    <head>
-       <title>old</title>
-       <meta http-equiv="refresh" content="0;url=https://www.sivs2020.edu">
-    </head>
-    </html>
+  <html>
+  <head>
+     <title>old</title>
+     <meta http-equiv="refresh" content="0;url=https://www.sivs2020.edu">
+  </head>
+  </html>
   ```
 
 ### 5-3 設定httpd的虛擬主機対応
@@ -493,15 +494,15 @@ table ip filter {
 3. 在nftables設定檔加入要加戴的規則檔
 
 ```
- [root@Linx-10 ~]# nano /etc/sysconfig/nftables.conf
- include  "/etc/nftables/linx.nft"
+[root@Linx-10 ~]# nano /etc/sysconfig/nftables.conf
+include  "/etc/nftables/linx.nft"
 ```
 
 4. 啟動Nftables且重新啟動
    ```
-     [root@Linx-10 ~]# systemctl enable --now nftables
-     Created symlink /etc/systemd/system/multi-user.target.wants/nftables.service → /usr/lib/systemd/system/nftables.service.
-     [root@Linx-10 ~]# reboot
+   [root@Linx-10 ~]# systemctl enable --now nftables
+   Created symlink /etc/systemd/system/multi-user.target.wants/nftables.service → /usr/lib/systemd/system/nftables.service.
+   [root@Linx-10 ~]# reboot
    ```
 
 ## REF

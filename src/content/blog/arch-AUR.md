@@ -8,7 +8,8 @@ description: ""
 
 ## 00 緒論
 
-當官方套件庫找不到需要的套件時，Arch則提供了AUR(Arch User Repository,AUR)這個由其它使用者維護的倉庫，讓需要的使用者可自行編譯且安裝所需的套件。
+當官方套件庫找不到需要的套件時，Arch則提供了AUR(Arch User
+Repository,AUR)這個由其它使用者維護的倉庫，讓需要的使用者可自行編譯且安裝所需的套件。
 
 <!--more-->
 
@@ -23,7 +24,7 @@ description: ""
    - 取得: `$ git clone https://aur.archlinux.org/android-studio.git`
    - 更新: `$ git pull`
 3. 開始編譯
-   - 到要編譯的AUR源的資料夾:` $ cd android-studio`
+   - 到要編譯的AUR源的資料夾:`$ cd android-studio`
    - 編譯
      - 直接編譯+安裝: `$ makepkg -i`
      - 包含安裝相依的套件:`$ makepkg -is`
@@ -40,7 +41,7 @@ description: ""
   1. 將原始碼移動到 `/opt/` 目錄: `$ cd /opt/`
   2. 使用AUR倉庫的源且弄到local
      ```
-       $ git clone https://aur.archlinux.org/yay-git.git
+     $ git clone https://aur.archlinux.org/yay-git.git
      ```
   3. 転到要編譯的AUR源的資料夾: `$ cd yay-git`
   4. 開始編譯: `$ makepkg -is`

@@ -10,12 +10,12 @@ title: "關於作者"
 ## 自我介绍
 
 <div className="avatar-img">
-  <img 
-          src="https://avatars.githubusercontent.com/u/54382007" 
+  <img
+          src="https://avatars.githubusercontent.com/u/54382007"
           class="sm:w-1/2 mx-auto avatar_img rounded-full w-[10em] mb-5 overflow-hidden"
           height="auto"
           width="100%""
-         alt="Author" 
+         alt="Author"
     />
 </div>
 
@@ -68,18 +68,18 @@ title: "關於作者"
   - [前端:Flutter](https://github.com/neko0xff/2023_schoolResearch_ClientApp)
   - 流程圖
     ```mermaid
-      graph TD;
-          A["感測器"] ==>|輸出數值| B["Arduino UNO"];
-          B["Arduino UNO"] ==>|序列埠通訊| J["閘道器"];
-          J["閘道器"] ==> C["網際網路"];
-          C["網際網路"] ==>|插入| D["後端-API"];
-          D["後端-API"] ==>|執行對應動作| E[("資料庫")];
-          F["前端-介面"] ==>|查詢/修改| D["後端-API"];
-          G["使用者"] ==>|操作| H["裝置"];
-          H["裝置"] ==>|傳遞需求| F["前端-介面"];
-          I["開關"] ==>|控制狀態| L["ESP8266"];
-          L["ESP8266"] ==>|WiFi| K["分享器"];
-          K["分享器"] ==> C["網際網路"];
+    graph TD;
+        A["感測器"] ==>|輸出數值| B["Arduino UNO"];
+        B["Arduino UNO"] ==>|序列埠通訊| J["閘道器"];
+        J["閘道器"] ==> C["網際網路"];
+        C["網際網路"] ==>|插入| D["後端-API"];
+        D["後端-API"] ==>|執行對應動作| E[("資料庫")];
+        F["前端-介面"] ==>|查詢/修改| D["後端-API"];
+        G["使用者"] ==>|操作| H["裝置"];
+        H["裝置"] ==>|傳遞需求| F["前端-介面"];
+        I["開關"] ==>|控制狀態| L["ESP8266"];
+        L["ESP8266"] ==>|WiFi| K["分享器"];
+        K["分享器"] ==> C["網際網路"];
     ```
 - MessageBot
   - Line
@@ -96,12 +96,12 @@ title: "關於作者"
    - 相關文件: `public/assets/myLinks.json`
 
 ```json=
-   {
-      "name": "neko0xff",
-      "site": "Neko0xff Tech Blog",
-      "siteURL": "https://neko0xff.github.io/",
-      "icon": "https://avatars.githubusercontent.com/u/54382007?v=4"
-   },
+{
+   "name": "neko0xff",
+   "site": "Neko0xff Tech Blog",
+   "siteURL": "https://neko0xff.github.io/",
+   "icon": "https://avatars.githubusercontent.com/u/54382007?v=4"
+},
 ```
 
 3. 管理員收到後，會自己加入提出者的友站鏈結

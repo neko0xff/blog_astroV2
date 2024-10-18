@@ -11,15 +11,15 @@ description: ""
 1. 安裝相関套件
 
 ```
-   [zangmenhsu@E1304 ~]$ sudo pacman -S tk python-pip
-   [zangmenhsu@E1304 ~]$ sudo pip3 install thonny
+[zangmenhsu@E1304 ~]$ sudo pacman -S tk python-pip
+[zangmenhsu@E1304 ~]$ sudo pip3 install thonny
 ```
 
 2. 加入用Thonny連結自己板子連結埠的權限
 
 ```
-  [zangmenhsu@E1304 ~]$ sudo nano /etc/udev/rules.d/70-ttyusb.rules
-  KERNEL=="ttyUSB[0-9]*",MODE="0666"
+[zangmenhsu@E1304 ~]$ sudo nano /etc/udev/rules.d/70-ttyusb.rules
+KERNEL=="ttyUSB[0-9]*",MODE="0666"
 ```
 
 3. 請重啟系統
@@ -31,10 +31,10 @@ description: ""
 - Windows: `COM*`
 - Linux: `/dev/ttyUSB*`
   ```
-   [zangmenhsu@E1304 ~]$ ls -l /dev/tty*
-   crw-rw-rw- 1 root tty    5,  0  5月  8 13:29 /dev/tty
-   ....
-   crw-rw---- 1 root uucp 188,  0  5月  8 13:43 /dev/ttyUSB0 //自己的板子的連結埠
+  [zangmenhsu@E1304 ~]$ ls -l /dev/tty*
+  crw-rw-rw- 1 root tty    5,  0  5月  8 13:29 /dev/tty
+  ....
+  crw-rw---- 1 root uucp 188,  0  5月  8 13:43 /dev/ttyUSB0 //自己的板子的連結埠
   ```
 
 ## 03 使用串列通訊來連結自己板子
@@ -57,7 +57,7 @@ description: ""
   - Fedora: `sudo dnf install screen -y`
 - 使用方式: `screen 自己的板子的連結埠 通訊頻率`
   ```
-     [zangmenhsu@E1304 ~]$ screen /dev/ttyUSB0 115200
+  [zangmenhsu@E1304 ~]$ screen /dev/ttyUSB0 115200
   ```
 
 ### 在終端下的動作

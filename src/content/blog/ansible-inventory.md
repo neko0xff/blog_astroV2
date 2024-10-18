@@ -22,13 +22,13 @@ description: ""
    - 預設保存位置
      - Linux: `/etc/ansible/hosts`
        ```zsh
-           $ mkdir -p /etc/ansible
-           $ cd /etc/ansible
-           $ touch hosts
+       $ mkdir -p /etc/ansible
+       $ cd /etc/ansible
+       $ touch hosts
        ```
    - 或者在執行命令時,加上`-i`來指定自定義的Inventory
    ```zsh
-       $ sudo ansible all -i [自定義的Inventory] -m [指令]
+   $ sudo ansible all -i [自定義的Inventory] -m [指令]
    ```
 2. 同時在剛建立的檔案內部加入相關的檔案定義
 
@@ -72,10 +72,8 @@ description: ""
     - 密碼
       - `ansible_ssh_private_key_file`: SSH 私鑰
       - `ansible_ssh_pass`: 用於Login的使用者的密碼
-      - `ansible_sudo_pass`: 切到管理員的密碼
-        :::info
-        `ansible_*_pass`的部分，需要安裝`sshpass`才能支援
-        :::
+      - `ansible_sudo_pass`: 切到管理員的密碼 :::info
+        `ansible_*_pass`的部分，需要安裝`sshpass`才能支援 :::
     - 其它
       - `ansible_sudo_exe`: 切到管理員後的預設命令路徑
       - `ansible_connection`: 連線類型
@@ -85,7 +83,7 @@ description: ""
 
 - 不分組
   ```
-    vagrant-machine ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key
+  vagrant-machine ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key
   ```
 - 分成多組
 

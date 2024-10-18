@@ -8,7 +8,9 @@ description: ""
 
 ## 00 緒論
 
-由於萬惡的微軟在Windows 7後拿掉16位元相容性的支持(提升系統本身的安全性)，則需要自行手動啟用/加入相關的支緩，使得一些在`M$-DOS`/`Windows 9x`的老程式(ex: 比較經典的Galagame)可在現代的系統上運行。
+由於萬惡的微軟在Windows
+7後拿掉16位元相容性的支持(提升系統本身的安全性)，則需要自行手動啟用/加入相關的支緩，使得一些在`M$-DOS`/`Windows 9x`的老程式(ex:
+比較經典的Galagame)可在現代的系統上運行。
 
 <!--more-->
 
@@ -24,7 +26,8 @@ description: ""
 ## 02 環境: 64位元(EM64T/AMD64)
 
 - 需使用元件: OTVDM
-  - 相関函式庫: Microsoft Visual C++ Redistributable for Visual Studio 2017 (32-bit)
+  - 相関函式庫: Microsoft Visual C++ Redistributable for Visual Studio 2017
+    (32-bit)
     - dll: `VCRUNTIME140.dll`
     - [官方戴點](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
   - Github Project: https://github.com/otya128/winevdm

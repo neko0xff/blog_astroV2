@@ -12,7 +12,8 @@ description: ""
 ### 主機間的關係
 
 - xx:崗位碼
-- Host-xx(192.168.x.1[Eth0]) < == > vGate-xx(192.168.x.254[Eth0] & 10.19.x.1[Eth1]) < == > Internet-xx (10.19.x.2[Eth1])
+- Host-xx(192.168.x.1[Eth0]) < == > vGate-xx(192.168.x.254[Eth0] &
+  10.19.x.1[Eth1]) < == > Internet-xx (10.19.x.2[Eth1])
 
 ### vGate-xx(Fedora)網卡設定
 
@@ -45,7 +46,7 @@ description: ""
 
 - 輸入時,請輸入要設定的root密碼後,再輸一遍做確認是否有錯
   ```bash
-   [user@localhost ~]# sudo passwd root
+  [user@localhost ~]# sudo passwd root
   ```
 
 ## 03 主機名更改
@@ -64,34 +65,35 @@ description: ""
 
 - 檔案:useradd.sh
   ```
-    [root@localhost ~]# nano useradd.sh
+  [root@localhost ~]# nano useradd.sh
   ```
 - 內容:
   ```bash=
-    //username:FsuXX
-    u="Fsu"
-    //範圍:01~50
-    for i in $(seq -f "%02g" 1 1 50)
-    do
-      useradd -g Feuser -s /bin/bash $u$i
-      echo  "Fedora@2019" | passwd --stdin $u$i
-    done
+  //username:FsuXX
+  u="Fsu"
+  //範圍:01~50
+  for i in $(seq -f "%02g" 1 1 50)
+  do
+    useradd -g Feuser -s /bin/bash $u$i
+    echo  "Fedora@2019" | passwd --stdin $u$i
+  done
   ```
 - 運行批次檔: `[root@localhost ~]# bash useradd.sh`
 
 ## 06 限制特定群組或者root不能進去圖形化介面(GDM)
 
-- 需修改GDM的設定檔(增加指令): `[root@localhost ~]# nano /etc/pam.d/gdm-password`
+- 需修改GDM的設定檔(增加指令):
+  `[root@localhost ~]# nano /etc/pam.d/gdm-password`
 
 ### 加入的內容部分
 
 - 如果要限制<font color=green>群組</font>
   ```bash
-     auth   required pam_succeed_if.so user notingroup Feuser
+  auth   required pam_succeed_if.so user notingroup Feuser
   ```
 - 如果要限制<font color=red>root</font>
   ```bash
-     auth   required pam_succeed_if.so user != root quiet
+  auth   required pam_succeed_if.so user != root quiet
   ```
 
 ## 07 設定 "Command history"=只存5筆記錄
@@ -104,20 +106,20 @@ description: ""
 
 - 內容:
   ```bash=
-    HISTSIZE=5
+  HISTSIZE=5
   ```
-- 立即生效 "Command history"=只存5筆記錄: `
-[root@localhost ~]# source /etc/profile.d/custom.sh`
+- 立即生效 "Command history"=只存5筆記錄:
+  `[root@localhost ~]# source /etc/profile.d/custom.sh`
 - 檢視"Command history"的指令: `[root@localhost ~]# history`
 
 ## 08 Port Forwarding （網路転發設定）
 
 - 啟用網路転發: `[root@localhost ~]# nano /etc/sysctl.conf`
   ```shell=
-    //ipv4転發
-    net.ipv4.ip_forward=1
+  //ipv4転發
+  net.ipv4.ip_forward=1
   ```
 - 立即生效: `[root@localhost ~]# sysctl -p`
   ```shell=
-    net.ipv4.ip_forward=1
+  net.ipv4.ip_forward=1
   ```

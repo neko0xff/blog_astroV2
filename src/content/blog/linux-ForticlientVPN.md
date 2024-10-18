@@ -18,7 +18,8 @@ description: ""
 - 學校: 亞東科技大學
 - 安裝相關套件
   - Arch: `$ sudo pacman -S openfortivpn`
-- 若需要用Networkmanager來管理Fortinet的 設定,則請安裝`networkmanager-fortisslvpn`
+- 若需要用Networkmanager來管理Fortinet的
+  設定,則請安裝`networkmanager-fortisslvpn`
   - [AUR](https://aur.archlinux.org/packages/networkmanager-fortisslvpn)
 
 ## 02 使用桌面環境下的內建網路設定
@@ -37,7 +38,7 @@ description: ""
 ### 3-1 直接在終端機下設置連線
 
 ```shell
-  $ sudo openfortivpn sslvpn.aeust.edu.tw --username=[學號] --password=[(使用者自定義)]
+$ sudo openfortivpn sslvpn.aeust.edu.tw --username=[學號] --password=[(使用者自定義)]
 ```
 
 ### 3-2 編寫設定檔
@@ -48,19 +49,19 @@ description: ""
 
 1. 編寫設定檔: aeustVPN.conf
    ```shell
-     ### configuration file for openfortivpn, see man openfortivpn(1) ###
-     host = sslvpn.aeust.edu.tw
-     port = 443
-     username = [學號]
-     password = [(使用者自定義)]
+   ### configuration file for openfortivpn, see man openfortivpn(1) ###
+   host = sslvpn.aeust.edu.tw
+   port = 443
+   username = [學號]
+   password = [(使用者自定義)]
    ```
 2. 放在openfortivpn存放設定檔的目錄
    ```shell
-      $ sudo cp aeustVPN.conf /etc/openfortivpn
+   $ sudo cp aeustVPN.conf /etc/openfortivpn
    ```
 3. 進行連線
    ```shell
-     $ sudo openfortivpn -c /etc/openfortivpn/aeustVPN.conf
+   $ sudo openfortivpn -c /etc/openfortivpn/aeustVPN.conf
    ```
 
 ## REF
