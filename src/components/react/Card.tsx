@@ -8,7 +8,7 @@ export interface Props {
 	secHeading?: boolean;
 }
 
-export default function Card({ href, frontmatter, secHeading = true }: Props) {
+function Card({ href, frontmatter, secHeading = true }: Props) {
 	const { title, pubDatetime, modDatetime, description } = frontmatter;
 
 	const headerProps = {
@@ -33,3 +33,6 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
 		</li>
 	);
 }
+
+
+export default Card; 

@@ -19,7 +19,7 @@ interface SearchResult {
 	refIndex: number;
 }
 
-export default function SearchBar({ searchList }: Props) {
+function SearchBar({ searchList }: Props) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [inputVal, setInputVal] = useState("");
 	const [searchResults, setSearchResults] = useState<SearchResult[] | null>(
@@ -116,3 +116,6 @@ export default function SearchBar({ searchList }: Props) {
 		</>
 	);
 }
+
+
+export default SearchBar;

@@ -10,7 +10,33 @@ interface Props extends DatetimesProps {
 	className?: string;
 }
 
-export default function Datetime({
+const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
+	const myDatetime = new Date(
+		modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime,
+	);
+
+	const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	});
+
+	const time = myDatetime.toLocaleTimeString(LOCALE.langTag, {
+		hour: "2-digit",
+		minute: "2-digit",
+	});
+
+	return (
+		<>
+			<time dateTime={myDatetime.toISOString()}>{date}</time>
+			<span aria-hidden="true"> | </span>
+			<span className="sr-only">&nbsp;at&nbsp;</span>
+			<span className="text-nowrap">{time}</span>
+		</>
+	);
+};
+
+function Datetime({
 	pubDatetime,
 	modDatetime,
 	size = "sm",
@@ -47,28 +73,5 @@ export default function Datetime({
 	);
 }
 
-const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
-	const myDatetime = new Date(
-		modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime,
-	);
 
-	const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
-		year: "numeric",
-		month: "short",
-		day: "numeric",
-	});
-
-	const time = myDatetime.toLocaleTimeString(LOCALE.langTag, {
-		hour: "2-digit",
-		minute: "2-digit",
-	});
-
-	return (
-		<>
-			<time dateTime={myDatetime.toISOString()}>{date}</time>
-			<span aria-hidden="true"> | </span>
-			<span className="sr-only">&nbsp;at&nbsp;</span>
-			<span className="text-nowrap">{time}</span>
-		</>
-	);
-};
+export default Datetime; 

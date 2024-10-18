@@ -24,7 +24,7 @@ const Comments = () => {
 		setTheme(theme);
 		// 監聽使用者是否切換夜間模式
 		const observer = new MutationObserver(() => {
-			setTheme(getSavedTheme());
+			setTheme(getSavedTheme()!);
 		});
 
 		observer.observe(document.documentElement, {
