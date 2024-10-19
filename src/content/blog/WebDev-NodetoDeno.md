@@ -274,3 +274,4 @@ services:
   https://www.ithome.com.tw/news/165172
 - 如何将你的 Astro 网站部署到 Deno. (n.d.). Astro Docs.
   https://docs.astro.build/zh-cn/guides/deploy/deno/
+- Dahl, R., Belder, B., Iwańczuk, B., & Jiang, A. (2024, October 9). Announcing Deno 2. Deno Blog. https://deno.com/blog/v2.0
