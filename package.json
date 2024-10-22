@@ -41,7 +41,7 @@
     "marked": "^14.0.0",
     "mdast-util-to-string": "^4.0.0",
     "mdx": "^0.2.3",
-    "mermaid": "^10.9.1",
+    "mermaid": "^10.9.3",
     "reading-time": "^1.5.0",
     "remark-toc": "^9.0.0",
     "satori": "^0.10.14",
