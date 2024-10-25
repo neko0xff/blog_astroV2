@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 const primaryColorScheme = ""; // "light" | "dark"
 
 // Get theme data from local storage
@@ -24,12 +25,11 @@ function setPreference() {
 }
 
 function reflectPreference() {
-  document.firstElementChild.setAttribute("data-theme", themeValue);
-
-  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
-
   // Get a reference to the body element
-  const body = document.body;
+  const body = document.body; 
+
+  document.firstElementChild.setAttribute("data-theme", themeValue);
+  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
 
   // Check if the body element exists before using getComputedStyle
   if (body) {

@@ -24,8 +24,10 @@ import { SITE } from "./src/config";
 import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
+import process from "node:process";
 
 const isDev = process.env.NODE_ENV === 'development';
+const pathMode = isDev ? 'dev-dist' : 'dist/client';
 
 // https://astro.build/config
 export default defineConfig({
@@ -41,6 +43,11 @@ export default defineConfig({
     }),
     AstroPWA({
       /* your pwa options */
+      mode: 'development',
+      base: '/',
+      scope: '/',
+      includeAssets: ['favicon.svg'],
+      registerType: 'autoUpdate',
       manifest: {
         name: SITE.title,
         short_name: 'Tech Blog',
@@ -49,10 +56,9 @@ export default defineConfig({
         background_color: '#ffffff',
         theme_color: '#317EFB', 
       },
-      strategies: 'generateSW',
       workbox: {
-        globDirectory: isDev ? 'dev-dist' : 'dist/client', 
-        globPatterns: ['**/*.{js,css,html,wasm}'],  
+        globDirectory: pathMode, 
+        globPatterns: ['**/*.{js,css,html,wasm,svg,png,ico,txt}'],  
         globIgnores: [
           'node_modules/**/*', 
           'sw.js', 
@@ -62,7 +68,7 @@ export default defineConfig({
       devOptions: {
         enabled: true,
         type: 'module',
-        //navigateFallbackAllowlist: [/^index.html$/],
+        navigateFallbackAllowlist: [/^\//],
       }
     }),
     react(),
