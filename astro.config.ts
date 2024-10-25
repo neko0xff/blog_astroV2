@@ -3,8 +3,8 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-// add deno support
-import deno from "@deno/astro-adapter";
+import deno from "@deno/astro-adapter"; // add deno support
+import AstroPWA from '@vite-pwa/astro';
 import lighthouse from "astro-lighthouse";
 import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeGraphviz from "rehype-graphviz";
@@ -25,6 +25,8 @@ import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 
+const isDev = process.env.NODE_ENV === 'development';
+
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
@@ -36,6 +38,32 @@ export default defineConfig({
   integrations: [
     tailwind({
       applyBaseStyles: true,
+    }),
+    AstroPWA({
+      /* your pwa options */
+      manifest: {
+        name: SITE.title,
+        short_name: 'Tech Blog',
+        start_url: '/',
+        display: 'standalone',
+        background_color: '#ffffff',
+        theme_color: '#317EFB', 
+      },
+      strategies: 'generateSW',
+      workbox: {
+        globDirectory: isDev ? 'dev-dist' : 'dist/client', 
+        globPatterns: ['**/*.{js,css,html,wasm}'],  
+        globIgnores: [
+          'node_modules/**/*', 
+          'sw.js', 
+          'workbox-*.js'
+        ], 
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module',
+        //navigateFallbackAllowlist: [/^index.html$/],
+      }
     }),
     react(),
     sitemap(),

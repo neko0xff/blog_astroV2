@@ -3,6 +3,8 @@ import { LOCALE, SITE } from "@config";
 import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
 import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
+import { pwaInfo } from 'virtual:pwa-info';
+
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -121,6 +123,10 @@ const structuredData = {
             />
      -->
 
+    <!-- PWA Support -->
+    <script src="/src/plugins/pwa.ts" />
+    { pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> }
+
     <!-- KaTeX Support -->
     <link
       rel="stylesheet"
@@ -138,7 +144,6 @@ const structuredData = {
     -->
 
     <meta name="theme-color" content="" />
-
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
       // include google-site-verification tag in the heading
@@ -153,11 +158,11 @@ const structuredData = {
 
     <!-- 把換頁動畫加入至網頁中 -->
     <ViewTransitions />
-
     <script is:inline src="/toggle-theme.js"></script>
     <!-- 
             <script is:inline src="/implementation-lcp.js"></script>
      -->
+
   </head>
   <body>
     <slot />
