@@ -49,8 +49,10 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
    $ npm install @deno/astro-adapter
    ```
 2. 更新`astro.config.ts`配置檔
+
    - `output`部分請盡量使用`hybird`模式，否則某些需要開啟 `prerender`
      預先渲染的組件或者套件無法成功運作(ex: `@resvg/resvg-js`)
+
    ```typescript=
     import { defineConfig } from 'astro/config';
     import deno from '@deno/astro-adapter';
@@ -60,6 +62,7 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
       adapter: deno(),
     });
    ```
+
 3. 加入`deno.json`(方便後續使用 `deno task` 進行維護)
 
 ```json=
@@ -81,7 +84,7 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
   - 由於編譯過程過多，所以有做相關的刪減
 
 ```
-# user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:22:43] 
+# user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:22:43]
 $ deno task build
 Task build astro build
 10:23:43 [types] Generated 5.83s
@@ -98,7 +101,7 @@ Task build astro build
 10:23:57 [vite] ✓ built in 14.07s
 10:23:57 [build] ✓ Completed in 14.22s.
 
- building client (vite) 
+ building client (vite)
 10:24:01 [vite] ✓ 103 modules transformed.
 10:24:01 [vite] dist/client/_astro/hoisted.BZB3xiX9.js                                                 0.14 kB │ gzip:  0.11 kB
 10:24:01 [vite] dist/client/_astro/Header.astro_astro_type_script_index_0_lang.98jdeT3h.js             0.45 kB │ gzip:  0.26 kB
@@ -110,7 +113,7 @@ Task build astro build
 10:24:01 [vite] dist/client/_astro/client.BIGLHmRd.js                                                135.60 kB │ gzip: 44.39 kB
 10:24:01 [vite] ✓ built in 3.73s
 
- prerendering static routes 
+ prerendering static routes
 10:24:02 ▶ src/pages/404.astro
 10:24:02   └─ /404.html (+150ms)
 10:24:02 ▶ src/pages/about.astro
@@ -191,8 +194,8 @@ Task build astro build
 10:24:28   └─ /index.html (+71ms)
 10:24:28 ✓ Completed in 26.49s.
 
-10:24:28 
- finalizing server assets 
+10:24:28
+ finalizing server assets
 
 10:24:28 [build] Rearranging server assets...
 10:24:28 [@astrojs/sitemap] `sitemap-index.xml` created at `dist/client`
@@ -205,7 +208,7 @@ Task build astro build
 - 執行預覽: `$ deno task preview`
 
 ```
-# user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:26:57] 
+# user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:26:57]
 $ deno task preview
 Task preview deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs
 Server running on port 8085

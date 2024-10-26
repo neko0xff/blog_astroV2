@@ -9,11 +9,11 @@ export type FontOptions = {
 
 async function loadGoogleFont(
   font: string,
-  text: string,
+  text: string
 ): Promise<ArrayBuffer> {
-  const API = `https://fonts.googleapis.com/css2?family=${font}&text=${
-    encodeURIComponent(text)
-  }`;
+  const API = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(
+    text
+  )}`;
 
   const css = await (
     await fetch(API, {
@@ -25,7 +25,7 @@ async function loadGoogleFont(
   ).text();
 
   const resource = css.match(
-    /src: url\((.+)\) format\('(opentype|truetype)'\)/,
+    /src: url\((.+)\) format\('(opentype|truetype)'\)/
   );
 
   if (!resource) throw new Error("Failed to download dynamic font");
@@ -41,7 +41,7 @@ async function loadGoogleFont(
 }
 
 async function loadGoogleFonts(
-  text: string,
+  text: string
 ): Promise<
   Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
 > {
@@ -65,7 +65,7 @@ async function loadGoogleFonts(
     fontsConfig.map(async ({ name, font, weight, style }) => {
       const data = await loadGoogleFont(font, text);
       return { name, data, weight, style };
-    }),
+    })
   );
 
   return fonts;

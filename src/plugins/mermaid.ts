@@ -9,11 +9,10 @@ const escapeMap: Record<string, string> = {
   "'": "&#39;",
 };
 
-const escapeHtml = (str: string) =>
-  str.replace(/[&<>"']/g, (c) => escapeMap[c]);
+const escapeHtml = (str: string) => str.replace(/[&<>"']/g, c => escapeMap[c]);
 
-export const mermaid: RemarkPlugin<[]> = () => (tree) => {
-  visit(tree, "code", (node) => {
+export const mermaid: RemarkPlugin<[]> = () => tree => {
+  visit(tree, "code", node => {
     if (node.lang !== "mermaid") return;
 
     // @ts-ignore

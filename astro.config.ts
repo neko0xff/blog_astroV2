@@ -4,7 +4,7 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import deno from "@deno/astro-adapter"; // add deno support
-import AstroPWA from '@vite-pwa/astro';
+import AstroPWA from "@vite-pwa/astro";
 import lighthouse from "astro-lighthouse";
 import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeGraphviz from "rehype-graphviz";
@@ -20,20 +20,24 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import remarkToc from "remark-toc";
 import wasm from "vite-plugin-wasm";
-import { SITE } from "./src/config";
+import { SITE } from "./src/config.ts";
 import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import process from "node:process";
 
-const isDev = process.env.NODE_ENV === 'development';
-const pathMode = isDev ? 'dev-dist' : 'dist/client';
+const isDev = process.env.NODE_ENV === "development";
+const pathMode = isDev ? "dev-dist" : "dist/client";
+const patternsMode = isDev ? [] : ["**/*.{js,css,html,wasm,svg,png,ico,txt}"];
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   output: "hybrid", // 開啟 prerender 預先渲染
   adapter: deno(),
+  server: {
+    port: 8085, // 若無設置，則使用預設的 '4321/tcp'
+  },
   image: {
     service: passthroughImageService(),
   },
@@ -43,33 +47,53 @@ export default defineConfig({
     }),
     AstroPWA({
       /* your pwa options */
-      mode: 'development',
-      base: '/',
-      scope: '/',
-      includeAssets: ['favicon.svg'],
-      registerType: 'autoUpdate',
+      mode: "development",
+      base: "/",
+      scope: "/",
+      includeAssets: ["favicon.svg"],
+      registerType: "autoUpdate",
       manifest: {
         name: SITE.title,
-        short_name: 'Tech Blog',
-        start_url: '/',
-        display: 'standalone',
-        background_color: '#ffffff',
-        theme_color: '#317EFB', 
+        short_name: "Tech Blog",
+        start_url: "/",
+        display: "standalone",
+        background_color: "#ffffff",
+        theme_color: "#317EFB",
       },
       workbox: {
-        globDirectory: pathMode, 
-        globPatterns: ['**/*.{js,css,html,wasm,svg,png,ico,txt}'],  
+        globDirectory: pathMode,
+        globPatterns: patternsMode,
         globIgnores: [
-          'node_modules/**/*', 
-          'sw.js', 
-          'workbox-*.js'
-        ], 
+          "node_modules/**/*",
+          "sw.js",
+          "workbox-*.js",
+          "public/**/*",
+          "404.html",
+          "500.html",
+          "googleef3b53d5436aaff1.html",
+        ],
+        navigateFallback: "/",
+        navigateFallbackDenylist: [
+          /\/404/,
+          /\/500/,
+          /googleef3b53d5436aaff1\.html/,
+        ],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => !url.pathname.includes("404"),
+            handler: "NetworkFirst",
+          },
+          {
+            urlPattern: ({ url }) => !url.pathname.includes("500"),
+            handler: "NetworkFirst",
+          },
+        ],
       },
       devOptions: {
         enabled: true,
-        type: 'module',
+        type: "module",
         navigateFallbackAllowlist: [/^\//],
-      }
+      },
     }),
     react(),
     sitemap(),
@@ -111,6 +135,14 @@ export default defineConfig({
     },
   },
   vite: {
+    server: {
+      port: 8085,
+      hmr: {
+        protocol: "ws",
+        host: "localhost",
+        port: 8085,
+      },
+    },
     plugins: [
       wasm(),
       //nodeLoaderPlugin(),

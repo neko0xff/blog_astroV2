@@ -21,27 +21,27 @@ description: ""
   - <font color=orange>LED4(Orange)</font>: 電源
 - 各項工作的運行狀態
   - 通電時
-    |   Status   |      LED1      |      LED2      |
+    | Status | LED1 | LED2 |
     | :--------: | :------------: | :------------: |
     | 通電初始化 | 4個LED全閃一遍 | 4個LED全閃一遍 |
-    |   空閒時   |      off       |      off       |
+    | 空閒時 | off | off |
   - 使用IDE時
-    |   Status   | LED1 | LED2 |
+    | Status | LED1 | LED2 |
     | :--------: | :--: | :--: |
-    |  操作設置  |  on  | off  |
-    |  停止除錯  |  on  | off  |
-    |  開始除錯  |  on  | off  |
-    | 除錯進行中 |  on  | off  |
+    | 操作設置 | on | off |
+    | 停止除錯 | on | off |
+    | 開始除錯 | on | off |
+    | 除錯進行中 | on | off |
   - 使用ICP時
     | Status | LED1 | LED2 |
     | :----: | :--: | :--: |
-    | 配置中 |  on  | off  |
+    | 配置中 | on | off |
   - 在線下戴時
-    | Status |   LED1   |   LED2   |
+    | Status | LED1 | LED2 |
     | :----: | :------: | :------: |
     | 進行中 | 交替閃爍 | 交替閃爍 |
-    |  成功  |   off    |  慢閃爍  |
-    |  失敗  |  快閃爍  |   off    |
+    | 成功 | off | 慢閃爍 |
+    | 失敗 | 快閃爍 | off |
 
 ## 使用AT32 IDE進行除錯
 

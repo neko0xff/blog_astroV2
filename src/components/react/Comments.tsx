@@ -43,24 +43,22 @@ const Comments = () => {
 
   return (
     <div id={id} className="w-full">
-      {mounted
-        ? (
-          <Giscus
-            id={id}
-            repo="neko0xff/blog_astroV2"
-            repoId="R_kgDOMkI6YA"
-            category="Announcements"
-            categoryId="DIC_kwDOMkI6YM4CjZSo"
-            mapping="title"
-            reactionsEnabled="1"
-            emitMetadata="0"
-            inputPosition="top"
-            lang="zh-TW"
-            loading="lazy"
-            theme={theme}
-          />
-        )
-        : null}
+      {mounted ? (
+        <Giscus
+          id={id}
+          repo="neko0xff/blog_astroV2"
+          repoId="R_kgDOMkI6YA"
+          category="Announcements"
+          categoryId="DIC_kwDOMkI6YM4CjZSo"
+          mapping="title"
+          reactionsEnabled="1"
+          emitMetadata="0"
+          inputPosition="top"
+          lang="zh-TW"
+          loading="lazy"
+          theme={theme}
+        />
+      ) : null}
     </div>
   );
 };

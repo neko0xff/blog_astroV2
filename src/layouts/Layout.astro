@@ -3,54 +3,53 @@ import { LOCALE, SITE } from "@config";
 import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
 import { GoogleFontsOptimizer } from "astro-google-fonts-optimizer";
-import { pwaInfo } from 'virtual:pwa-info';
-
+import { pwaInfo } from "virtual:pwa-info";
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export interface Props {
-	title?: string;
-	author?: string;
-	profile?: string;
-	description?: string;
-	ogImage?: string;
-	canonicalURL?: string;
-	pubDatetime?: Date;
-	modDatetime?: Date | null;
-	scrollSmooth?: boolean;
+  title?: string;
+  author?: string;
+  profile?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  pubDatetime?: Date;
+  modDatetime?: Date | null;
+  scrollSmooth?: boolean;
 }
 
 const {
-	title = SITE.title,
-	author = SITE.author,
-	profile = SITE.profile,
-	description = SITE.desc,
-	ogImage = SITE.ogImage,
-	canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
-	pubDatetime,
-	modDatetime,
-	scrollSmooth = false,
+  title = SITE.title,
+  author = SITE.author,
+  profile = SITE.profile,
+  description = SITE.desc,
+  ogImage = SITE.ogImage,
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  pubDatetime,
+  modDatetime,
+  scrollSmooth = false,
 } = Astro.props;
 
 const socialImageURL = new URL(
-	ogImage ?? SITE.ogImage ?? "og.png",
-	Astro.url.origin,
+  ogImage ?? SITE.ogImage ?? "og.png",
+  Astro.url.origin
 ).href;
 
 const structuredData = {
-	"@context": "https://schema.org",
-	"@type": "BlogPosting",
-	headline: `${title}`,
-	image: `${socialImageURL}`,
-	datePublished: `${pubDatetime?.toISOString()}`,
-	...(modDatetime && { dateModified: modDatetime.toISOString() }),
-	author: [
-		{
-			"@type": "Person",
-			name: `${author}`,
-			url: `${profile}`,
-		},
-	],
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: `${title}`,
+  image: `${socialImageURL}`,
+  datePublished: `${pubDatetime?.toISOString()}`,
+  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
+  author: [
+    {
+      "@type": "Person",
+      name: `${author}`,
+      url: `${profile}`,
+    },
+  ],
 };
 ---
 
@@ -124,8 +123,8 @@ const structuredData = {
      -->
 
     <!-- PWA Support -->
-    <script src="/src/plugins/pwa.ts" />
-    { pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> }
+    <script src="/src/plugins/pwa.ts"></script>
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 
     <!-- KaTeX Support -->
     <link
@@ -162,7 +161,6 @@ const structuredData = {
     <!-- 
             <script is:inline src="/implementation-lcp.js"></script>
      -->
-
   </head>
   <body>
     <slot />

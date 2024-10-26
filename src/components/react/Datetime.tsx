@@ -12,7 +12,7 @@ interface Props extends DatetimesProps {
 
 const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
   const myDatetime = new Date(
-    modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime,
+    modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime
   );
 
   const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
@@ -53,18 +53,16 @@ function Datetime({
         } inline-block h-6 w-6 min-w-[1.375rem] fill-skin-base`}
         aria-hidden="true"
       >
-        <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z">
-        </path>
-        <path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z">
-        </path>
+        <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path>
+        <path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"></path>
       </svg>
-      {modDatetime && modDatetime > pubDatetime
-        ? (
-          <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
-            更新於:
-          </span>
-        )
-        : <span className="sr-only">發布於:</span>}
+      {modDatetime && modDatetime > pubDatetime ? (
+        <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
+          更新於:
+        </span>
+      ) : (
+        <span className="sr-only">發布於:</span>
+      )}
       <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
         <FormattedDatetime
           pubDatetime={pubDatetime}

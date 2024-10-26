@@ -44,7 +44,7 @@ on others as well._
 ## ✅ Lighthouse Score
 
 <p align="center">
-  <a href="https://pagespeed.web.dev/analysis/https-neko0xff-blog-vercel-app/kf26xjlieu?hl=zh-TW&form_factor=desktop">
+  <a href="https://pagespeed.web.dev/analysis/https-https://neko-0xff-blog-deno-dev//kf26xjlieu?hl=zh-TW&form_factor=desktop">
     <img width="710" alt="AstroPaper Lighthouse Score" src="AstroPaper-lighthouse-score.svg">
   <a>
 </p>
@@ -161,10 +161,10 @@ run this project locally. Here's how:
 
 ```bash
 # Build the Docker image
-docker build -t astropaper .
+docker build -t blog_astroV2 .
 
 # Run the Docker container
-docker run -p 4321:80 astropaper
+docker run -p 8085:80 blog_astroV2
 ```
 
 ## Google Site Verification (optional)
@@ -190,7 +190,7 @@ All commands are run from the root of the project, from a terminal:
 | Command                              | Action                                                                                                                           |
 | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
 | `npm install`                        | Installs dependencies                                                                                                            |
-| `npm run dev`                        | Starts local dev server at `localhost:4321`                                                                                      |
+| `npm run dev`                        | Starts local dev server at `localhost:8085`                                                                                      |
 | `npm run build`                      | Build your production site to `./dist/`                                                                                          |
 | `npm run preview`                    | Preview your build locally, before deploying                                                                                     |
 | `npm run format:check`               | Check code format with Prettier                                                                                                  |
@@ -200,7 +200,7 @@ All commands are run from the root of the project, from a terminal:
 | `docker compose up -d`               | Run AstroPaper on docker, You can access with the same hostname and port informed on `dev` command.                              |
 | `docker compose run app npm install` | You can run any command above into the docker container.                                                                         |
 | `docker build -t astropaper .`       | Build Docker image for AstroPaper.                                                                                               |
-| `docker run -p 4321:80 astropaper`   | Run AstroPaper on Docker. The website will be accessible at `http://localhost:4321`.                                             |
+| `docker run -p 8085:80 astropaper`   | Run AstroPaper on Docker. The website will be accessible at `http://localhost:8085`.                                             |
 
 > **_Warning!_** Windows PowerShell users may need to install the
 > [concurrently package](https://www.npmjs.com/package/concurrently) if they

@@ -12,16 +12,16 @@ description: ""
   - 本範例會以Blue Pill為例
     - MCU Part number: `STM32F103C8T6`
     - MCU Architecture: ARM Cotex M3(ARMv7e-m)
-      |                        RAM                        | ROM |
+      | RAM | ROM |
       | :-----------------------------------------------: | :-: |
-      |                        20K                        | 64K |
-      | ![圖片](https://hackmd.io/_uploads/BJ8-ZOnGA.png) |     |
+      | 20K | 64K |
+      | ![圖片](https://hackmd.io/_uploads/BJ8-ZOnGA.png) | |
     - 中國版和ST原裝的指令集架構版本可能有所不同,而導致無法進行刷寫
       - 需更動`target/stm32f1x.cfg`內的tag id的部分
-        |  版本   |     指令集架構     | tag id(SW-DP) | tag id(JTAG) |
+        | 版本 | 指令集架構 | tag id(SW-DP) | tag id(JTAG) |
         | :-----: | :----------------: | :-----------: | :----------: |
-        | Chinese | ARM Cortex-M3 r2p0 |  0x2ba01477   |  0x0ba00477  |
-        |   ST    | ARM Cortex-M3 r1p1 |  0x1ba01477   |  0x3ba00477  |
+        | Chinese | ARM Cortex-M3 r2p0 | 0x2ba01477 | 0x0ba00477 |
+        | ST | ARM Cortex-M3 r1p1 | 0x1ba01477 | 0x3ba00477 |
       - Source: https://0x1.ink/p/66
 - 軟體環境
   - OpenOCD

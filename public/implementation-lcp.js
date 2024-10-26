@@ -1,4 +1,4 @@
-new PerformanceObserver((list) => {
+new PerformanceObserver(list => {
   const latestEntry = list.getEntries().at(-1);
 
   if (latestEntry?.element?.getAttribute("loading") == "lazy") {
