@@ -53,6 +53,7 @@ export default defineConfig({
       includeAssets: ["favicon.svg"],
       registerType: "autoUpdate",
       manifest: {
+        // `manifest.webmanifest`
         name: SITE.title,
         short_name: "Tech Blog",
         start_url: "/",
