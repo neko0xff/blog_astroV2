@@ -1,11 +1,19 @@
+// deno-lint-ignore-file
 import { registerSW } from "virtual:pwa-register";
+
+const isDev = process.env.NODE_ENV === "development";
+const pwaMode = isDev ? "development" : "production";
 
 registerSW({
   immediate: true,
   onRegisteredSW(swScriptUrl: any) {
-    console.log("SW registered: ", swScriptUrl);
+    if (pwaMode == "development") {
+      console.log("SW registered: ", swScriptUrl);
+    }
   },
   onOfflineReady() {
-    console.log("PWA application ready to work offline");
+    if (pwaMode == "development") {
+      console.log("PWA application ready to work offline");
+    }
   },
 });

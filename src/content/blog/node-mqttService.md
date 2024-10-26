@@ -16,7 +16,7 @@ description: ""
     $ npm install mqtt --save
     ```
   - Server: [Aedes](https://www.npmjs.com/package/aedes)
-  `bash
+    `bash
 $ npm install aedes --save`
     <!--more-->
 

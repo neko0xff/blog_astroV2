@@ -27,6 +27,7 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import process from "node:process";
 
 const isDev = process.env.NODE_ENV === "development";
+const pwaMode = isDev ? "development" : "production";
 const pathMode = isDev ? "dev-dist" : "dist/client";
 const patternsMode = isDev ? [] : ["**/*.{js,css,html,wasm,svg,png,ico,txt}"];
 
@@ -46,8 +47,7 @@ export default defineConfig({
       applyBaseStyles: true,
     }),
     AstroPWA({
-      /* your pwa options */
-      mode: "development",
+      mode: pwaMode,
       base: "/",
       scope: "/",
       includeAssets: ["favicon.svg"],
@@ -143,10 +143,7 @@ export default defineConfig({
         port: 8085,
       },
     },
-    plugins: [
-      wasm(),
-      //nodeLoaderPlugin(),
-    ],
+    plugins: [wasm()],
     ssr: {
       // ssr instead of rollupOptions
       external: ["@resvg/resvg-js"],

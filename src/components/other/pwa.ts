@@ -1,4 +1,9 @@
+// deno-lint-ignore-file
 import { registerSW } from "virtual:pwa-register";
+import process from "node:process";
+
+const isDev = process.env.NODE_ENV === "development";
+const pwaMode = isDev ? "development" : "production";
 
 window.addEventListener("load", () => {
   const pwaToast = document.querySelector<HTMLDivElement>("#pwa-toast")!;
@@ -8,11 +13,8 @@ window.addEventListener("load", () => {
   const pwaCloseBtn = pwaToast.querySelector<HTMLButtonElement>("#pwa-close")!;
   const pwaRefreshBtn =
     pwaToast.querySelector<HTMLButtonElement>("#pwa-refresh")!;
-
   let refreshSW: ((reloadPage?: boolean) => Promise<void>) | undefined;
-
   const refreshCallback = () => refreshSW?.(true);
-
   const hidePwaToast = (raf = false) => {
     if (raf) {
       requestAnimationFrame(() => hidePwaToast(false));
@@ -33,7 +35,6 @@ window.addEventListener("load", () => {
   };
 
   pwaCloseBtn.addEventListener("click", () => hidePwaToast(true));
-
   refreshSW = registerSW({
     immediate: true,
     onOfflineReady() {
@@ -45,8 +46,14 @@ window.addEventListener("load", () => {
         "New content available, click on reload button to update";
       showPwaToast(false);
     },
-    onRegisteredSW(swScriptUrl) {
-      console.log("SW registered: ", swScriptUrl);
+    onRegisteredSW(swScriptUrl: any) {
+      if (pwaMode == "development") {
+        console.log("SW registered: ", swScriptUrl);
+      }
     },
   });
 });
+
+function requestAnimationFrame(arg0: () => void) {
+  throw new Error("Function not implemented.");
+}
