@@ -67,7 +67,8 @@ title: "關於作者"
   - [後端+硬體:Arduino+Nodejs+MariaDB](https://github.com/neko0xff/2023_schoolResearch_Server-HW)
   - [前端:Flutter](https://github.com/neko0xff/2023_schoolResearch_ClientApp)
   - 流程圖
-    ```mermaid
+
+```mermaid
     graph TD;
         A["感測器"] ==>|輸出數值| B["Arduino UNO"];
         B["Arduino UNO"] ==>|序列埠通訊| J["閘道器"];
@@ -80,7 +81,8 @@ title: "關於作者"
         I["開關"] ==>|控制狀態| L["ESP8266"];
         L["ESP8266"] ==>|WiFi| K["分享器"];
         K["分享器"] ==> C["網際網路"];
-    ```
+```
+
 - MessageBot
   - Line
     - [後端:Nodejs](https://github.com/neko0xff/2023_LineBot_Node)
@@ -95,7 +97,7 @@ title: "關於作者"
    - 由於前端框架己用Astro重寫，請用JSON格式進行提交
    - 相關文件: `public/assets/myLinks.json`
 
-```json=
+```json
 {
    "name": "neko0xff",
    "site": "Neko0xff Tech Blog",

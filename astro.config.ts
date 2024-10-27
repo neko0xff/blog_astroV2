@@ -1,5 +1,5 @@
 import markdoc from "@astrojs/markdoc";
-import mdx from "@astrojs/mdx";
+//import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
@@ -25,6 +25,7 @@ import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import process from "node:process";
+//import expressiveCode from "astro-expressive-code";
 
 const isDev = process.env.NODE_ENV === "development";
 const pwaMode = isDev ? "development" : "production";
@@ -35,7 +36,9 @@ const patternsMode = isDev ? [] : ["**/*.{js,css,html,wasm,svg,png,ico,txt}"];
 export default defineConfig({
   site: SITE.website,
   output: "hybrid", // 開啟 prerender 預先渲染
-  adapter: deno(),
+  adapter: deno({
+    port: 8085, // 若無設置，則使用預設的 '8085/tcp'
+  }),
   server: {
     port: 8085, // 若無設置，則使用預設的 '4321/tcp'
   },
@@ -98,9 +101,33 @@ export default defineConfig({
     }),
     react(),
     sitemap(),
-    mdx(),
     lighthouse(),
     markdoc(),
+    /*expressiveCode({
+      themes: [
+        'dracula',
+        'everforest-light'
+      ],
+      langs: [
+        'c',
+        'bash',
+        'yaml',
+        'makefile',
+        'typescript',
+        'config',
+        'json',
+        'dockerfile',
+        'shell',
+        'javascript',
+        'rust',
+        'bat',
+        'powershell',
+        'toml',
+        'htmlembedded',
+        'xml'
+      ],
+    }),*/
+    //mdx()
   ],
   markdown: {
     rehypePlugins: [
@@ -136,6 +163,7 @@ export default defineConfig({
     },
   },
   vite: {
+    logLevel: "error",
     server: {
       port: 8085,
       hmr: {

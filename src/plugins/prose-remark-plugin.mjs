@@ -1,5 +1,5 @@
 export const proseRemarkPlugin = () => {
-  return (tree, file) => {
+  return (_tree, file) => {
     file.data.astro.frontmatter.customProperty = "Generated property";
   };
 };

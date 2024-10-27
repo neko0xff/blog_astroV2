@@ -1,5 +1,5 @@
 import { SITE } from "@config";
-import getPageNumbers from "./getPageNumbers";
+import getPageNumbers from "./getPageNumbers.ts";
 
 interface GetPaginationProps<T> {
   posts: T;
