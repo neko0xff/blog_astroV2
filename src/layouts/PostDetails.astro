@@ -84,7 +84,6 @@ const layoutProps = {
       {tags.map((tag: string) => <Tag tag={slugifyStr(tag)} />)}
     </ul>
 
-    <!-- 使用 client:only 指令 -->
     <Comments client:only="react" />
 
     <div
