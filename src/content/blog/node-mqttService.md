@@ -34,7 +34,7 @@ $ npm install aedes --save`
 
 - `mqttBroker.js`
 
-  ```javascript=
+  ```javascript
      /*MQTT Broker lib*/
      const aedes = require('aedes')();
      const server = require('net').createServer(aedes.handle);
@@ -51,19 +51,19 @@ $ npm install aedes --save`
 
 - 發布者（Publisher）: 向伺服器發送主題的一方
 
-  ```javascript=
-     var mqtt = require("mqtt")
-     var Source="mqtt://localhost:3094"
-     var client = mqtt.connect(Source);
+  ```javascript
+  var mqtt = require("mqtt");
+  var Source = "mqtt://localhost:3094";
+  var client = mqtt.connect(Source);
 
-     /*連結後,不停發布temp的topic內容*/
-     client.on("connect", (e) => {
-       console.log("success connect mqtt server");
-        setInterval(() => {
-           client.publish("temp", "25.6")
-           console.log("send it")
-        }, 1000);
-     });
+  /*連結後,不停發布temp的topic內容*/
+  client.on("connect", e => {
+    console.log("success connect mqtt server");
+    setInterval(() => {
+      client.publish("temp", "25.6");
+      console.log("send it");
+    }, 1000);
+  });
   ```
 
 - 訂閱者（Subscriber）: 從伺服器獲取主題的一方

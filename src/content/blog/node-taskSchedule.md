@@ -30,20 +30,20 @@ const cron = require('node-cron');
 
 2. 寫成函數
 
-```javascript=
+```javascript
 // task1: 每天08點00分執行一回
-function task1(){
-   const task = schedule.scheduleJob('0 8 * * *', () => {
-       console.log(`[${clock.consoleTime()}] task is running`);
-       crawler.getData();
-   });
-   return task;
+function task1() {
+  const task = schedule.scheduleJob("0 8 * * *", () => {
+    console.log(`[${clock.consoleTime()}] task is running`);
+    crawler.getData();
+  });
+  return task;
 }
 ```
 
 3. 呼叫
 
-```javascript=
+```javascript
 task1();
 ```
 
@@ -58,25 +58,25 @@ task1();
 
 1. 引用相關函式庫
 
-```javascript=
-const schedule = require('node-schedule');
+```javascript
+const schedule = require("node-schedule");
 ```
 
 2. 寫成函數
 
-```javascript=
- // task1: 每天08點00分執行一回
-function task1(){
-   cron.schedule('0 8 * * *', () => {
-      console.log(`[${clock.consoleTime()}] task is running`);
-      crawler.getData();
+```javascript
+// task1: 每天08點00分執行一回
+function task1() {
+  cron.schedule("0 8 * * *", () => {
+    console.log(`[${clock.consoleTime()}] task is running`);
+    crawler.getData();
   });
- }
+}
 ```
 
 3. 呼叫
 
-```javascript=
+```javascript
 task1();
 ```
 

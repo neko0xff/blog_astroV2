@@ -45,7 +45,7 @@ rust
     2. 輸出: `println!("");`
 - 程式
 
-```rust=
+```rust
 /*主程式*/
 fn main(){
     println!("Hello World!"); // 輸出字串

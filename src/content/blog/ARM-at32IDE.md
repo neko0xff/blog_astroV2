@@ -59,7 +59,7 @@ description: ""
 
 - 如果你不想在重新指定腳位後，被自動生成程式(AT32
   WorkBench)覆蓋掉己寫好的程式部分時，則可在官方指定的註解內進行撰寫
-  ```c=
+  ```c
   /* add user code begin …... */
       (放置用戶自定義的程式碼)
   /* add user code end ...... */

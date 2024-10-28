@@ -44,16 +44,14 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
 ## 開始配置
 
 1. 在 Astro.js 專案內加入相關依賴
-   ```
+   ```zsh
    $ npx astro add deno
    $ npm install @deno/astro-adapter
    ```
 2. 更新`astro.config.ts`配置檔
-
    - `output`部分請盡量使用`hybird`模式，否則某些需要開啟 `prerender`
      預先渲染的組件或者套件無法成功運作(ex: `@resvg/resvg-js`)
-
-   ```typescript=
+   ```typescript
     import { defineConfig } from 'astro/config';
     import deno from '@deno/astro-adapter';
 
@@ -65,25 +63,25 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
 
 3. 加入`deno.json`(方便後續使用 `deno task` 進行維護)
 
-```json=
+```json
 {
-    "tasks": {
-      "start": "deno run -A --unstable npm:astro dev",
-      "dev": "deno run -A --unstable npm:astro dev",
-      "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
-      "build": "astro build",
-      "test": "deno test --allow-net",
-      "lint": "deno lint"
-    }
+  "tasks": {
+    "start": "deno run -A --unstable npm:astro dev",
+    "dev": "deno run -A --unstable npm:astro dev",
+    "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
+    "build": "astro build",
+    "test": "deno test --allow-net",
+    "lint": "deno lint"
+  }
 }
 ```
 
 ## 輸出可供以預覽使用的成果
 
-- 編譯: `$ deno task build`
-  - 由於編譯過程過多，所以有做相關的刪減
+> 由於編譯過程過多，所以有做相關的刪減
 
-```
+- 編譯: `$ deno task build`
+```zsh
 # user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:22:43]
 $ deno task build
 Task build astro build
@@ -207,7 +205,7 @@ Task build astro build
 
 - 執行預覽: `$ deno task preview`
 
-```
+```zsh
 # user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:26:57]
 $ deno task preview
 Task preview deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs
@@ -216,7 +214,7 @@ Server running on port 8085
 
 - 提供服務: `$ deno task serve`
 
-```
+```zsh
 $ deno task serve
 Task serve deno serve --allow-net  --allow-read --allow-env ./dist/server/entry.mjs
 Server running on port 8085
@@ -229,7 +227,7 @@ error: deno serve requires export default { fetch } in the main module, did you 
 
 1. 先在專案目錄下建立`Dockerfile.env`
 
-```dockerfile=
+```dockerfile
 FROM archlinux:base-devel
 WORKDIR /app
 
@@ -254,17 +252,17 @@ EXPOSE 8085
 
 2. 再建立`docker-compose.yml`
 
-```yaml=
+```yaml
 services:
-    weblog_deno:
-      restart: always # 跟系統服務一起重啟
-      ports:
-        # 主機端口:容器端口
-        - 8085:8085
-      # 編譯時的設置
-      build:
-        context: .
-        dockerfile: Dockerfile.env
+  weblog_deno:
+    restart: always # 跟系統服務一起重啟
+    ports:
+      # 主機端口:容器端口
+      - 8085:8085
+    # 編譯時的設置
+    build:
+      context: .
+      dockerfile: Dockerfile.env
 ```
 
 3. 開始建置: `$docker compose up --build -d`

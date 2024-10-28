@@ -61,7 +61,7 @@ WHOIS是用來查詢網際網路中域名的IP以及所有者等資訊的傳輸�
 
 ### 3-1 檢視
 
-```
+```zsh
 $ whois google.com
   Domain Name: GOOGLE.COM
    Registry Domain ID: 2138514_DOMAIN_COM-VRSN

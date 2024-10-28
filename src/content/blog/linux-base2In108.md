@@ -33,7 +33,7 @@ description: ""
    ```
 2. 転送設定
 
-```
+```bash
 [root@localhost ~]# firewall-cmd --zone=external --permanent --add-masquerade
 //允許対外的固定ip位置可以連到192.168.x.1
 [root@localhost ~]# firewall-cmd --zone=external --permanent --add-forward-port=port=80:proto=tcp:toaddr=192.168.x.1
@@ -71,13 +71,13 @@ description: ""
 ### 設定
 
 1. 在本地的Hosts文件建立內部的解析: `[root@localhost ~]# nano /etc/hosts`
-   ```bash=
+   ```bash
    //增加內部的解析
    10.19.x.1      www.nhssc2019.edu
    192.168.x.1    www.nhssc2019.edu
    ```
 2. 讓dnsmasq用本地的Hosts的文件: `[root@localhost ~]# nano /etc/dnsmasq.conf`
-   ```shell=
+   ```shell
    //使用本地的Hosts
    localise-queries
    ```

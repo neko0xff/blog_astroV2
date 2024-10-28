@@ -24,21 +24,21 @@ description: ""
 
 - IT.bat
 
-```bat=
+```bat
 For /L %%a in (1,1,9) do dsadd user "cn=IT0%%a,cn=Users,dc=sivs2020,dc=edu" -samid IT0%%a -email IT0%%a@sivs2020.edu -pwd IT@2020
 For /L %%a in (10,1,10) do dsadd user "cn=IT%%a,cn=Users,dc=sivs2020,dc=edu" -samid IT%%a -email IT%%a@sivs2020.edu -pwd IT@2020
 ```
 
 - RD.bat
 
-```bat=
+```bat
 For /L %%a in (1,1,9) do dsadd user "cn=RD0%%a,cn=Users,dc=sivs2020,dc=edu" -samid RD0%%a -email RD0%%a@sivs2020.edu -pwd RD@2020
 For /L %%a in (10,1,50) do dsadd user "cn=RD%%a,cn=Users,dc=sivs2020,dc=edu" -samid RD%%a -email RD%%a@sivs2020.edu -pwd RD@2020
 ```
 
 - Feusr.bat
 
-```bat=
+```bat
 For /L %%a in (1,1,9) do dsadd user "cn=Feusr0%%a,cn=Users,dc=sivs2020,dc=edu" -samid Feusr0%%a -email Feusr0%%a@sivs2020.edu -pwd Fedora@2020
 For /L %%a in (10,1,50) do dsadd user "cn=Feusr%%a,cn=Users,dc=sivs2020,dc=edu" -samid Feusr%%a -email Feusr%%a@sivs2020.edu -pwd Fedora@2020
 ```
@@ -49,7 +49,7 @@ For /L %%a in (10,1,50) do dsadd user "cn=Feusr%%a,cn=Users,dc=sivs2020,dc=edu" 
 
 - IT.ps1
 
-```powershell=
+```powershell
 $path="CN=Users,DC=sivs2020,DC=edu"
 $d="sivs2020.edu"
 $u="IT"
@@ -65,7 +65,7 @@ foreach($i in $count){
 
 - RD.ps1
 
-```powershell=
+```powershell
 $path="CN=Users,DC=sivs2020,DC=edu"
 $d="sivs2020.edu"
 $u="RD"
@@ -81,7 +81,7 @@ foreach($i in $count){
 
 - Feusr.ps1
 
-```powershell=
+```powershell
 $path="CN=Users,DC=sivs2020,DC=edu"
 $d="sivs2020.edu"
 $u="Feusr"

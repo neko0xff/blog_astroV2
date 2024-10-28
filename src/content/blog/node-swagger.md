@@ -30,61 +30,59 @@ swagger可提供自動化的互動式API文件於網頁上，使相關人員(ex:
 ## 02 手動生成文件
 
 - 請手動建立供給swagger呈現的json檔案: `./config/swagger.json`
-  ```json=
+  ```json
   {
-     "openapi": "3.0.0",
-     "info": {
-        "title": "User API",
-        "description": "Simple RESTful API in Node.js with TypeScript",
-        "version": "0.0.1"
-      },
-     "servers": [
-        {
-          "url": "http://localhost:3000/api",
-          "description": "Local server"
-        }
-     ],
-   }
+    "openapi": "3.0.0",
+    "info": {
+      "title": "User API",
+      "description": "Simple RESTful API in Node.js with TypeScript",
+      "version": "0.0.1"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000/api",
+        "description": "Local server"
+      }
+    ]
+  }
   ```
 
 ## 03 把寫好的API功能自動轉成文件
 
 1. 建立自動建立的程式: `./swaggerAutoGen.js`
 
-   ```javascript=
-     const swaggerAutogen = require("swagger-autogen")();
+   ```javascript
+   const swaggerAutogen = require("swagger-autogen")();
 
-     /*需加入定義的API路由規則*/
-     const file1="./rules/crawler.js";
-     const file2="./rules/sensor.js";
-     const file3="./rules/test.js";
-     const file4="./rules/users.js";
-     const file5="./rules/switch.js";
-     const file6="./rules/customValue.js";
-     const file7="./rules/mqttPub.js";
+   /*需加入定義的API路由規則*/
+   const file1 = "./rules/crawler.js";
+   const file2 = "./rules/sensor.js";
+   const file3 = "./rules/test.js";
+   const file4 = "./rules/users.js";
+   const file5 = "./rules/switch.js";
+   const file6 = "./rules/customValue.js";
+   const file7 = "./rules/mqttPub.js";
 
-    /*文件內部的相關說明*/
-    const doc = {
-        info: {
-        "version": "1.0.5",
-        "title": "REST API Test Docs",
-        "description": "該文件可提供在該專案中所需提供的功能"
-        },
-        host: 'localhost:3095',
-        basePath: "/",
-        schemes: [
-          "http"
-        ],
-    };
+   /*文件內部的相關說明*/
+   const doc = {
+     info: {
+       version: "1.0.5",
+       title: "REST API Test Docs",
+       description: "該文件可提供在該專案中所需提供的功能",
+     },
+     host: "localhost:3095",
+     basePath: "/",
+     schemes: ["http"],
+   };
 
-    /*輸出對應文件*/
-    const endpointsFiles = [file1,file2,file3,file4,file5,file6,file7];
-    const outputFile = "./modules/config/swagger.json"; // 輸出的生成結果
-    swaggerAutogen(outputFile, endpointsFiles,doc);
+   /*輸出對應文件*/
+   const endpointsFiles = [file1, file2, file3, file4, file5, file6, file7];
+   const outputFile = "./modules/config/swagger.json"; // 輸出的生成結果
+   swaggerAutogen(outputFile, endpointsFiles, doc);
    ```
 
 2. 加入指定啟動的指令到`package.json`的scrpits
-   ```json=
+   ```json
    "scripts": {
      "test": "echo \"Error: no test specified\" && exit 1",
      "start": "node --max-semi-space-size=128 index.js",

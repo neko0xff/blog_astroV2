@@ -1,5 +1,6 @@
 import markdoc from "@astrojs/markdoc";
 //import mdx from "@astrojs/mdx";
+//import expressiveCode from "astro-expressive-code";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
@@ -25,7 +26,7 @@ import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import process from "node:process";
-//import expressiveCode from "astro-expressive-code";
+
 
 const isDev = process.env.NODE_ENV === "development";
 const pwaMode = isDev ? "development" : "production";
@@ -126,8 +127,8 @@ export default defineConfig({
         'htmlembedded',
         'xml'
       ],
-    }),*/
-    //mdx()
+    }),
+    mdx()*/
   ],
   markdown: {
     rehypePlugins: [

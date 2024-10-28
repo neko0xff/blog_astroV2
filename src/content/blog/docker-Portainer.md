@@ -99,7 +99,7 @@ $ docker run -d -p 9001:9001 \
 2. 刪除舊的portainer的image: `$ sudo docker rm portainer`
 3. 重新抓取新的portainer的image: `$ docker pull portainer/portainer-ce`
 4. 重新部署環境
-   ```bash=
+   ```bash
    $ docker run -d -p 8000:8000 -p 9000:9000 \
         --name=portainer \
         --restart=always \

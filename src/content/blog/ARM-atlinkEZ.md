@@ -68,7 +68,7 @@ description: ""
   - Windows: [PuTTY](https://www.putty.org/)
   - Linux: [screen](https://linux.die.net/man/1/screen)
     - 指令用法
-    ```bash=
+    ```bash
     # 請使用管理員權限執行
     port=/dev/ttyACM0 # 位置
     bps=115200 # 通訊時，使用的鮑率

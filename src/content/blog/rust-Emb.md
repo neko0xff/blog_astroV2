@@ -61,7 +61,7 @@ description: ""
      $ cargo add rtt-target critical-section defmt-rtt
      ```
    - 修改`cargo.toml`
-     ```toml=
+     ```toml
      [dependencies]
      cortex-m = {version="*",features = ["critical-section-single-core"]} # Access to the generic ARM peripherals
      ```
@@ -69,7 +69,7 @@ description: ""
 ### 2 硬體配置
 
 - MCU的指令集架構: `.cargo/config`
-  ```toml=
+  ```toml
   [build]
   # Pick ONE of these default compilation targets
   # target = "thumbv6m-none-eabi"        # Cortex-M0 and Cortex-M0+
@@ -93,7 +93,7 @@ description: ""
   ```
 - 函式庫管理: `cargo.toml`
 
-```toml=
+```toml
 [package]
 authors = ["neko0xff <neko_0xff@protonmail.com>"]
 edition = "2021"
@@ -148,7 +148,7 @@ lto = true # better optimizations
 
 - '/src/main.rs'
 
-```rust=
+```rust
 #![deny(unsafe_code)]
 #![no_std]
 #![no_main]
@@ -246,7 +246,7 @@ $ cargo build
 ### 方案1: OpenOCD
 
 - 設置使用OpenOCD時刷寫的裝置類型: `openocd.cfg`
-  ```config=
+  ```config
   source [find interface/stlink.cfg]  # 刷寫工具
   source [find target/stm32f1x.cfg]   # MCU型號
   ```
@@ -263,7 +263,7 @@ $ cargo build
 
    - 新增`Embed.toml`
 
-     ```toml=
+     ```toml
        [default.general]
        chip = "STM32F103C8"
 

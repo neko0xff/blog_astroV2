@@ -51,7 +51,7 @@ Markup Language)格式來撰寫而成。
   - 清單(陣列): `-`
 - 任務
 
-```yaml=
+```yaml
 # task 1
 tasks:
     - name: "任務名稱"
@@ -67,7 +67,7 @@ tasks:
 1. 建立腳本: `$touch ping.yml`
 2. 同時在剛建立的檔案內部加入相關的檔案定義
 
-```yaml=
+```yaml
 ---
 - hosts: all
   tasks:
@@ -125,7 +125,7 @@ vagrant-machine            : ok=2    changed=0    unreachable=0    failed=0    s
 1. 建立腳本: `$touch site.yml`
 2. 同時在剛建立的檔案內部加入相關的檔案定義
 
-```yaml=
+```yaml
 ---
 - hosts: all
   become: true
@@ -161,7 +161,7 @@ vagrant-machine            : ok=1    changed=0    unreachable=0    failed=0    s
 1. 建立腳本: `$touch nginx.yml`
 2. 同時在剛建立的檔案內部加入相關的檔案定義
 
-```yaml=
+```yaml
 ---
 - hosts: all
   become: true
@@ -231,7 +231,7 @@ vagrant-machine            : ok=4    changed=1    unreachable=0    failed=0    s
 1. 建立腳本: `$touch repo_pull.yml`
 2. 同時在剛建立的檔案內部加入相關的檔案定義
 
-```yaml=
+```yaml
 ---
 - hosts: dev
   remote_user: user
@@ -278,7 +278,7 @@ Edge01                     : ok=3    changed=0    unreachable=0    failed=0    s
 1. 建立腳本: `$touch compose_backend.yml`
 2. 同時在剛建立的檔案內部加入相關的檔案定義
 
-```yaml=
+```yaml
 ---
 - hosts: all
   become: yes

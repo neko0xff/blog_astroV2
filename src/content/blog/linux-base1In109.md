@@ -38,7 +38,7 @@ $ sudo nano /etc/ssh/sshd_config
 
 ### 不允許用root登入
 
-```bash=
+```bash
 PermitRootLogin no
 ```
 
@@ -75,7 +75,7 @@ $ sudo systemctl enable --now sshd
 
 ### 2-1 修改 /etc/bashrc
 
-```bash=
+```bash
 $ sudo nano /etc/bashrc
 ```
 
@@ -89,7 +89,7 @@ $ sudo nano /etc/bashrc
 
 ### 2-2 讓設定立即生效
 
-```bash=
+```bash
 $ source /etc/bashrc
 ```
 
@@ -364,7 +364,7 @@ syslog only = yes
   <font color=white>請到Host-XX的"AD使用者和電腦"啟用対応的使用者帳戶</font>
 </td></tr></table>
 
-```bash=
+```bash
 u="Feusr"
 p="Fedora@2020"
 

@@ -18,7 +18,7 @@ description: ""
 
 ## 01 使用隨機產生Mac Address
 
-```shell=
+```shell
 [device]
 wifi.scan-rand-mac-address=yes
 ethernet.scan-rand-mac-address=yes
@@ -30,7 +30,7 @@ wifi.cloned-mac-address=random
 
 ## 02 使用特定Mac Address
 
-```shell=
+```shell
 [device]
 wifi.scan-rand-mac-address=no
 ethernet.scan-rand-mac-address=no
@@ -42,7 +42,7 @@ wifi.cloned-mac-address=[NEW_MAC2]
 
 ## 03 不修改+使用原機的Mac Address
 
-```shell=
+```shell
 [device]
 wifi.scan-rand-mac-address=no
 ethernet.scan-rand-mac-address=no
