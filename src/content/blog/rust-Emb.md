@@ -246,12 +246,12 @@ $ cargo build
 ### 方案1: OpenOCD
 
 - 設置使用OpenOCD時刷寫的裝置類型: `openocd.cfg`
-  ```config
+  ```txt
   source [find interface/stlink.cfg]  # 刷寫工具
   source [find target/stm32f1x.cfg]   # MCU型號
   ```
 - 開始刷寫
-  ```
+  ```zsh
   $ openocd -s /usr/share/openocd/scripts -f openocd.cfg \
     -c "program target/thumbv7m-none-eabi/debug/f103c8t6_p1 verify reset exit"
   ```

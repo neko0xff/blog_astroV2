@@ -27,7 +27,6 @@ import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import process from "node:process";
 
-
 const isDev = process.env.NODE_ENV === "development";
 const pwaMode = isDev ? "development" : "production";
 const pathMode = isDev ? "dev-dist" : "dist/client";
@@ -105,28 +104,7 @@ export default defineConfig({
     lighthouse(),
     markdoc(),
     /*expressiveCode({
-      themes: [
-        'dracula',
-        'everforest-light'
-      ],
-      langs: [
-        'c',
-        'bash',
-        'yaml',
-        'makefile',
-        'typescript',
-        'config',
-        'json',
-        'dockerfile',
-        'shell',
-        'javascript',
-        'rust',
-        'bat',
-        'powershell',
-        'toml',
-        'htmlembedded',
-        'xml'
-      ],
+      themes: ['catppuccin-mocha'],
     }),
     mdx()*/
   ],
@@ -178,16 +156,17 @@ export default defineConfig({
       // ssr instead of rollupOptions
       external: ["@resvg/resvg-js"],
     },
+    assetsInclude: ["**/*.wasm"],
     build: {
       rollupOptions: {
-        external: ["@resvg/resvg-js"],
+        external: ["@resvg/resvg-js", "@hpcc-js/wasm"],
       },
       commonjsOptions: {
         ignore: ["@resvg/resvg-js"],
       },
     },
     optimizeDeps: {
-      exclude: ["@resvg/resvg-js"],
+      exclude: ["@resvg/resvg-js", "@hpcc-js/wasm"],
     },
   },
   scopedStyleStrategy: "where",

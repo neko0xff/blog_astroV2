@@ -49,16 +49,18 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
    $ npm install @deno/astro-adapter
    ```
 2. 更新`astro.config.ts`配置檔
+
    - `output`部分請盡量使用`hybird`模式，否則某些需要開啟 `prerender`
      預先渲染的組件或者套件無法成功運作(ex: `@resvg/resvg-js`)
-   ```typescript
-    import { defineConfig } from 'astro/config';
-    import deno from '@deno/astro-adapter';
 
-    export default defineConfig({
-      output: 'hybird',
-      adapter: deno(),
-    });
+   ```typescript
+   import { defineConfig } from "astro/config";
+   import deno from "@deno/astro-adapter";
+
+   export default defineConfig({
+     output: "hybird",
+     adapter: deno(),
+   });
    ```
 
 3. 加入`deno.json`(方便後續使用 `deno task` 進行維護)
@@ -81,6 +83,7 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
 > 由於編譯過程過多，所以有做相關的刪減
 
 - 編譯: `$ deno task build`
+
 ```zsh
 # user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main o [10:22:43]
 $ deno task build
