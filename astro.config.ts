@@ -9,6 +9,7 @@ import AstroPWA from "@vite-pwa/astro";
 import lighthouse from "astro-lighthouse";
 import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeGraphviz from "rehype-graphviz";
+//import { rehypeGraphviz } from "@beoe/astro-graphviz/rehype";
 import rehypeKatex from "rehype-katex";
 import rehypeMermaid from "rehype-mermaid";
 import rehypeRaw from "rehype-raw";
@@ -26,6 +27,7 @@ import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import process from "node:process";
+//import { Graphviz } from "@hpcc-js/wasm";
 
 const isDev = process.env.NODE_ENV === "development";
 const pwaMode = isDev ? "development" : "production";
@@ -117,21 +119,27 @@ export default defineConfig({
       rehypeGraphviz,
     ],
     remarkPlugins: [
-      proseRemarkPlugin,
-      remarkMath,
-      remarkParse,
-      remarkRehype,
       remarkGraphviz,
-      remarkMermaid,
-      mermaid,
-      remarkToc,
-      remarkReadingTime,
+      /*[
+        remarkGraphviz,
+        {
+          graphviz: await Graphviz.load(),
+        },
+      ],*/
       [
         remarkCollapse,
         {
           test: "Table of contents",
         },
       ],
+      proseRemarkPlugin,
+      remarkMath,
+      remarkParse,
+      remarkRehype,
+      remarkMermaid,
+      mermaid,
+      remarkToc,
+      remarkReadingTime,
     ],
     shikiConfig: {
       themes: {
