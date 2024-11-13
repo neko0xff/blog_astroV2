@@ -81,7 +81,7 @@ swagger可提供自動化的互動式API文件於網頁上，使相關人員(ex:
    swaggerAutogen(outputFile, endpointsFiles, doc);
    ```
 
-2. 加入指定啟動的指令到`package.json`的scrpits
+2. 加入指定啟動的指令到`package.json`的script
    ```json
    "scripts": {
      "test": "echo \"Error: no test specified\" && exit 1",

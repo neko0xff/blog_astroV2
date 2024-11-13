@@ -27,6 +27,7 @@ import { mermaid } from "./src/plugins/mermaid.ts";
 import { proseRemarkPlugin } from "./src/plugins/prose-remark-plugin.mjs";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import process from "node:process";
+import partytown from "@astrojs/partytown";
 //import { Graphviz } from "@hpcc-js/wasm";
 
 const isDev = process.env.NODE_ENV === "development";
@@ -47,69 +48,62 @@ export default defineConfig({
   image: {
     service: passthroughImageService(),
   },
-  integrations: [
-    tailwind({
-      applyBaseStyles: true,
-    }),
-    AstroPWA({
-      mode: pwaMode,
-      base: "/",
-      scope: "/",
-      includeAssets: ["favicon.svg"],
-      registerType: "autoUpdate",
-      manifest: {
-        // `manifest.webmanifest`
-        name: SITE.title,
-        short_name: "Tech Blog",
-        start_url: "/",
-        display: "standalone",
-        background_color: "#ffffff",
-        theme_color: "#317EFB",
-      },
-      workbox: {
-        globDirectory: pathMode,
-        globPatterns: patternsMode,
-        globIgnores: [
-          "node_modules/**/*",
-          "sw.js",
-          "workbox-*.js",
-          "public/**/*",
-          "404.html",
-          "500.html",
-          "googleef3b53d5436aaff1.html",
-        ],
-        navigateFallback: "/",
-        navigateFallbackDenylist: [
-          /\/404/,
-          /\/500/,
-          /googleef3b53d5436aaff1\.html/,
-        ],
-        runtimeCaching: [
-          {
-            urlPattern: ({ url }) => !url.pathname.includes("404"),
-            handler: "NetworkFirst",
-          },
-          {
-            urlPattern: ({ url }) => !url.pathname.includes("500"),
-            handler: "NetworkFirst",
-          },
-        ],
-      },
-      devOptions: {
-        enabled: true,
-        type: "module",
-        navigateFallbackAllowlist: [/^\//],
-      },
-    }),
-    react(),
-    sitemap(),
-    lighthouse(),
-    markdoc(),
-    /*expressiveCode({
-      themes: ['catppuccin-mocha'],
-    }),
-    mdx()*/
-  ],
+  integrations: [tailwind({
+    applyBaseStyles: true,
+  }), AstroPWA({
+    mode: pwaMode,
+    base: "/",
+    scope: "/",
+    includeAssets: ["favicon.svg"],
+    registerType: "autoUpdate",
+    manifest: {
+      // `manifest.webmanifest`
+      name: SITE.title,
+      short_name: "Tech Blog",
+      start_url: "/",
+      display: "standalone",
+      background_color: "#ffffff",
+      theme_color: "#317EFB",
+    },
+    workbox: {
+      globDirectory: pathMode,
+      globPatterns: patternsMode,
+      globIgnores: [
+        "node_modules/**/*",
+        "sw.js",
+        "workbox-*.js",
+        "public/**/*",
+        "404.html",
+        "500.html",
+        "googleef3b53d5436aaff1.html",
+      ],
+      navigateFallback: "/",
+      navigateFallbackDenylist: [
+        /\/404/,
+        /\/500/,
+        /googleef3b53d5436aaff1\.html/,
+      ],
+      runtimeCaching: [
+        {
+          urlPattern: ({ url }) => !url.pathname.includes("404"),
+          handler: "NetworkFirst",
+        },
+        {
+          urlPattern: ({ url }) => !url.pathname.includes("500"),
+          handler: "NetworkFirst",
+        },
+      ],
+    },
+    devOptions: {
+      enabled: true,
+      type: "module",
+      navigateFallbackAllowlist: [/^\//],
+    },
+  }), react(), sitemap(), lighthouse(), markdoc()
+  /*expressiveCode({
+    themes: ['catppuccin-mocha'],
+  }),
+  mdx()*/, partytown()],
   markdown: {
     rehypePlugins: [
       rehypeRaw,

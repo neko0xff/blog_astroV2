@@ -17,6 +17,6 @@ Sitemap: ${new URL("sitemap-index.xml", SITE.website).href}
 const robots = config.trim();
 
 export const GET: APIRoute = () =>
-  new Response(robots, {
-    headers: { "Content-Type": "text/plain" },
-  });
+	new Response(robots, {
+		headers: { "Content-Type": "text/plain" },
+	});

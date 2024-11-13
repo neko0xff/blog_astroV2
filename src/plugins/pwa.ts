@@ -6,15 +6,15 @@ import { registerSW } from "virtual:pwa-register";
 //const pwaMode = isDev ? "development" : "production";
 
 registerSW({
-  immediate: true,
-  onRegisteredSW(swScriptUrl: any) {
-    /*if (pwaMode == "development") {
+	immediate: true,
+	onRegisteredSW(swScriptUrl: any) {
+		/*if (pwaMode == "development") {
       console.log("SW registered: ", swScriptUrl);
     }*/
-  },
-  onOfflineReady() {
-    /*if (pwaMode == "development") {
+	},
+	onOfflineReady() {
+		/*if (pwaMode == "development") {
       console.log("PWA application ready to work offline");
     }*/
-  },
+	},
 });

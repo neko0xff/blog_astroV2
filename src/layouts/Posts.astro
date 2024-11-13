@@ -9,9 +9,9 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 
 export interface Props {
-  currentPage: number;
-  totalPages: number;
-  paginatedPosts: CollectionEntry<"blog">[];
+	currentPage: number;
+	totalPages: number;
+	paginatedPosts: CollectionEntry<"blog">[];
 }
 
 const { currentPage, totalPages, paginatedPosts } = Astro.props;

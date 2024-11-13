@@ -189,6 +189,7 @@
         "npm:@astrojs/markdown-remark@5.3.0",
         "npm:@astrojs/mdx@3.1.8",
         "npm:@astrojs/node@8.3.4",
+        "npm:@astrojs/partytown@^2.1.2",
         "npm:@astrojs/react@3.6.2",
         "npm:@astrojs/rss@4.0.9",
         "npm:@astrojs/sitemap@3.2.1",
