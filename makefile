@@ -5,7 +5,7 @@ IMAGE:=blog
 
 .PHONY: img_build img_up img_logs img_stop img_clean  npm_update deno_build deno_dev deno_serve format  lint
 
-all: img_stop img_build
+all: img_stop img_clean img_build
 
 img_build:
 	@$(CC1) up --build -d
