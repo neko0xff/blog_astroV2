@@ -216,7 +216,7 @@
         "npm:astro-expressive-code@0.37.1",
         "npm:astro-google-fonts-optimizer@0.2.2",
         "npm:astro-lighthouse@0.1.3",
-        "npm:astro@4.16.7",
+        "npm:astro@4.16.17",
         "npm:axios@1.7.7",
         "npm:eslint-plugin-astro@1.3.0",
         "npm:eslint@9.13.0",
