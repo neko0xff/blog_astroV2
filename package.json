@@ -34,7 +34,7 @@
     "@hpcc-js/wasm": "^2.22.3",
     "@resvg/resvg-js": "2.6.2",
     "@types/axios": "0.9.36",
-    "astro": "4.16.17",
+    "astro": "4.16.18",
     "astro-diagram": "^0.0.0",
     "astro-expressive-code": "0.37.1",
     "astro-google-fonts-optimizer": "0.2.2",
