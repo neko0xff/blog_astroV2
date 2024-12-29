@@ -1,5 +1,8 @@
 ---
-import TermsMd from "../content/other/terms.md";
+import { getCollection } from 'astro:content';
+const allDocs = await getCollection('other');
+const terms = allDocs.find(doc => doc.slug === 'terms');
+const { Content } = await terms.render();
 ---
 
-<TermsMd />
+<Content />

@@ -1,16 +1,16 @@
 ---
+import { SITE } from "@config";
 import Breadcrumbs from "@components/astro/Breadcrumbs.astro";
 import Footer from "@components/astro/Footer.astro";
 import Header from "@components/astro/Header.astro";
 import Comments from "@components/react/Comments";
-import { SITE } from "@config";
 import Layout from "./Layout.astro";
 
 export interface Props {
-	frontmatter: {
-		title: string;
-		description?: string;
-	};
+  frontmatter: {
+    title: string;
+    description?: string;
+  };
 }
 
 const { frontmatter } = Astro.props;

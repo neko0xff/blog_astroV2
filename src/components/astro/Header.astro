@@ -4,7 +4,7 @@ import Hr from "./Hr.astro";
 import LinkButton from "./LinkButton.astro";
 
 export interface Props {
-	activeNav?: "posts" | "tags" | "about" | "search" | "links" | "terms";
+  activeNav?: "posts" | "archives" | "tags" | "about" | "terms" |"search" ;
 }
 
 const { activeNav } = Astro.props;
@@ -18,7 +18,7 @@ const { activeNav } = Astro.props;
         {
           LOGO_IMAGE.enable ? (
             <img
-              src={`/assets/logo.svg `}
+              src={`/assets/${LOGO_IMAGE.svg ? "logo.svg" : "logo.png"}`}
               alt={SITE.title}
               width={LOGO_IMAGE.width}
               height={LOGO_IMAGE.height}
@@ -71,15 +71,45 @@ const { activeNav } = Astro.props;
             </a>
           </li>
           <li>
-            <a href="/links/" class={activeNav === "links" ? "active" : ""}>
-              Links
-            </a>
-          </li>
-          <li>
             <a href="/terms/" class={activeNav === "terms" ? "active" : ""}>
               Terms
             </a>
           </li>
+          {
+            SITE.showArchives && (
+              <li>
+                <LinkButton
+                  href="/archives/"
+                  className={`focus-outline flex justify-center p-3 sm:p-1`}
+                  ariaLabel="archives"
+                  title="Archives"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class:list={[
+                      "icon icon-tabler icons-tabler-outline !hidden sm:!inline-block",
+                      activeNav === "archives" && "!stroke-skin-accent",
+                    ]}
+                  >
+                    <>
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                      <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+                      <path d="M10 12l4 0" />
+                    </>
+                  </svg>
+                  <span
+                    class:list={[
+                      "sm:sr-only",
+                      activeNav === "archives" && "active",
+                    ]}
+                  >
+                    Archives
+                  </span>
+                </LinkButton>
+              </li>
+            )
+          }
           <li>
             <LinkButton
               href="/search/"
@@ -165,7 +195,7 @@ const { activeNav } = Astro.props;
   nav ul li:nth-last-child(2) {
     @apply col-span-1;
   }
-  nav a.active {
+  nav .active {
     @apply underline decoration-wavy decoration-2 underline-offset-4;
   }
   nav a.active svg {

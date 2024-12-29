@@ -7,23 +7,29 @@ export type Image = {
 };
 
 export type Site = {
-	website: string;
-	heroTitle: string;
-	author: string;
-	avatar?: Image;
-	profile: string;
-	desc: string;
-	title: string;
-	ogImage?: string;
-	lightAndDarkMode: boolean;
-	postPerIndex: number;
-	postPerPage: number;
-	scheduledPostMargin: number;
+  website: string;
+  author: string;
+  heroTitle: string;
+  avatar?: Image;
+  profile: string;
+  desc: string;
+  title: string;
+  ogImage?: string;
+  lightAndDarkMode: boolean;
+  postPerIndex: number;
+  postPerPage: number;
+  scheduledPostMargin: number;
+  showArchives?: boolean;
+  editPost?: {
+    url?: URL["href"];
+    text?: string;
+    appendFilePath?: boolean;
+  };
 };
 
 export type SocialObjects = {
-	name: keyof typeof socialIcons;
-	href: string;
-	active: boolean;
-	linkTitle: string;
+  name: keyof typeof socialIcons;
+  href: string;
+  active: boolean;
+  linkTitle: string;
 }[];

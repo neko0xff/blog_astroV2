@@ -1,16 +1,16 @@
 ---
 import { getCollection } from "astro:content";
-import Footer from "@components/astro/Footer.astro";
 import Header from "@components/astro/Header.astro";
-import Tag from "@components/astro/Tag.astro";
-import { SITE } from "@config";
+import Footer from "@components/astro/Footer.astro";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
+import Tag from "@components/astro/Tag.astro";
 import getUniqueTags from "@utils/getUniqueTags";
+import { SITE } from "@config";
 
 const posts = await getCollection("blog");
 
-const tags = getUniqueTags(posts);
+let tags = getUniqueTags(posts);
 ---
 
 <Layout title={`標籤 | ${SITE.title}`}>

@@ -1,5 +1,8 @@
 ---
-import AboutMd from "../content/other/about.md";
+import { getCollection } from 'astro:content';
+const allDocs = await getCollection('other');
+const about = allDocs.find(doc => doc.slug === 'about');
+const { Content } = await about.render();
 ---
 
-<AboutMd />
+<Content />

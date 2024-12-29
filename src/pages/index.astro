@@ -1,22 +1,23 @@
 ---
 import { getCollection } from "astro:content";
-import Footer from "@components/astro/Footer.astro";
-import Header from "@components/astro/Header.astro";
-import Hr from "@components/astro/Hr.astro";
-import LinkButton from "@components/astro/LinkButton.astro";
-import Socials from "@components/astro/Socials.astro";
-import Card from "@components/react/Card";
-import { SITE, SOCIALS } from "@config";
 import Layout from "@layouts/Layout.astro";
+import Header from "@components/astro/Header.astro";
+import Footer from "@components/astro/Footer.astro";
+import LinkButton from "@components/astro/LinkButton.astro";
+import Hr from "@components/astro/Hr.astro";
+import Card from "@components/react/Card";
+import Socials from "@components/astro/Socials.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { marked } from "marked";
+import { SITE, SOCIALS } from "@config";
 
 const posts = await getCollection("blog");
+
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
-const socialCount = SOCIALS.filter((social) => social.active).length;
+const socialCount = SOCIALS.filter(social => social.active).length;
 ---
 
 <Layout>
@@ -66,7 +67,7 @@ const socialCount = SOCIALS.filter((social) => social.active).length;
         // only display if at least one social link is enabled
         socialCount > 0 && (
           <div class="social-wrapper">
-            <div class="social-links">Social Links:</div>
+            <div class="social-links">Social :</div>
             <Socials />
           </div>
         )

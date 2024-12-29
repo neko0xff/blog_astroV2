@@ -1,4 +1,4 @@
-import type { Site, SocialObjects } from "./types";
+import type { Site, SocialObjects } from "./types.ts";
 
 export const SITE: Site = {
 	website: "https://neko-0xff-blog.deno.dev", // replace this with your deployed domain
@@ -13,6 +13,7 @@ export const SITE: Site = {
 	title: "Neko0xff tech blog",
 	ogImage: "webView.jpg",
 	lightAndDarkMode: true,
+  showArchives: true,
 	postPerIndex: 4,
 	postPerPage: 3,
 	scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
@@ -24,10 +25,10 @@ export const LOCALE = {
 } as const;
 
 export const LOGO_IMAGE = {
-	enable: true,
-	svg: true,
-	width: 50,
-	height: 5,
+  enable: true,
+  svg: true,
+  width: 50,
+  height: 46,
 };
 
 export const SOCIALS: SocialObjects = [

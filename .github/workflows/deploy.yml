@@ -1,4 +1,5 @@
 name: Deploy
+
 on:
   push:
     branches: main
@@ -9,10 +10,9 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-
     permissions:
-      id-token: write # Needed for auth with Deno Deploy
-      contents: read # Needed to clone the repository
+      id-token: write 
+      contents: read 
 
     steps:
       - name: Clone repository
@@ -23,17 +23,17 @@ jobs:
         with:
           deno-version: v1.x
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - name: Cache Deno dependencies
+        uses: actions/cache@v3
         with:
-           node-version: '20'
-           cache: 'npm'
+          path: |
+            ~/.deno
+            ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/deps.ts') }}
+          restore-keys: ${{ runner.os }}-deno-
 
-      - name: Install step
-        run: "npm i"
-
-      - name: Build step
-        run: "npm run build"
+      - name: Build project
+        run: deno task build
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1

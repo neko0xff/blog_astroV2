@@ -13,7 +13,7 @@ layout: ../../layouts/TermsLayout.astro
 **最後更新於2024年8月16日**
 
 本服務條款（下稱”條款”）規定了您對
-[Neko0xff tech blog](https://neko-0xff-blog.deno.dev)（下稱”本網站”）以及由網站所有者（下稱”我們”）提供的任何相關服務的訪問和使用。
+[Neko0xff tech blog](/)（下稱”本網站”）以及由網站所有者（下稱”我們”）提供的任何相關服務的訪問和使用。
 
 在使用本網站之前，請仔細閱讀本條款。
 

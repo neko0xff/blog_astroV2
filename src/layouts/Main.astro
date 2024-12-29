@@ -1,16 +1,15 @@
 ---
 import Breadcrumbs from "@components/astro/Breadcrumbs.astro";
-import ReloadPrompt from "@components/astro/ReloadPrompt.astro";
 
 interface StringTitleProp {
-	pageTitle: string;
-	pageDesc?: string;
+  pageTitle: string;
+  pageDesc?: string;
 }
 
 interface ArrayTitleProp {
-	pageTitle: [string, string];
-	titleTransition: string;
-	pageDesc?: string;
+  pageTitle: [string, string];
+  titleTransition: string;
+  pageDesc?: string;
 }
 
 export type Props = StringTitleProp | ArrayTitleProp;
@@ -35,8 +34,6 @@ const { props } = Astro;
   <p>{props.pageDesc}</p>
   <slot />
 </main>
-
-<ReloadPrompt />
 
 <style>
   #main-content {

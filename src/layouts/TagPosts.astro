@@ -1,49 +1,41 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import Footer from "@components/astro/Footer.astro";
-import Header from "@components/astro/Header.astro";
-import Pagination from "@components/astro/Pagination.astro";
-import Card from "@components/react/Card";
-import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
+import Header from "@components/astro/Header.astro";
+import Footer from "@components/astro/Footer.astro";
+import Card from "@components/react/Card";
+import Pagination from "@components/astro/Pagination.astro";
+import { SITE } from "@config";
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-	currentPage: number;
-	totalPages: number;
-	paginatedPosts: CollectionEntry<"blog">[];
-	tag: string;
-	tagName: string;
+  page: Page<CollectionEntry<"blog">>;
+  tag: string;
+  tagName: string;
 }
 
-const { currentPage, totalPages, paginatedPosts, tag, tagName } = Astro.props;
+const { page, tag, tagName } = Astro.props;
 ---
 
-<Layout title={`Tag: ${tagName} | ${SITE.title}`}>
+<Layout title={`標籤: ${tagName} | ${SITE.title}`}>
   <Header activeNav="tags" />
   <Main
     pageTitle={[`標籤:`, `${tagName}`]}
     titleTransition={tag}
-    pageDesc={`所有帶有該 "${tagName}" 標籤的文章`}
+    pageDesc={`所有帶有該 "${tagName}" 標籤的文章 .`}
   >
     <h1 slot="title" transition:name={tag}>{`標籤:${tag}`}</h1>
     <ul>
       {
-        paginatedPosts.map(({ data, slug }) => (
+        page.data.map(({ data, slug }) => (
           <Card href={`/posts/${slug}/`} frontmatter={data} />
         ))
       }
     </ul>
   </Main>
 
-  <Pagination
-    {currentPage}
-    {totalPages}
-    prevUrl={`/tags/${tag}${
-      currentPage - 1 !== 1 ? "/" + (currentPage - 1) : ""
-    }/`}
-    nextUrl={`/tags/${tag}/${currentPage + 1}/`}
-  />
+  <Pagination {page} />
 
-  <Footer noMarginTop={totalPages > 1} />
+  <Footer noMarginTop={page.lastPage > 1} />
 </Layout>
