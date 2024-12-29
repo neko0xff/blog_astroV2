@@ -1,5 +1,4 @@
 name: Deploy
-
 on:
   push:
     branches: main
@@ -10,30 +9,30 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+
     permissions:
-      id-token: write 
-      contents: read 
+      id-token: write # Needed for auth with Deno Deploy
+      contents: read # Needed to clone the repository
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
 
       - name: Install Deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
           deno-version: v1.x
 
-      - name: Cache Deno dependencies
-        uses: actions/cache@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          path: |
-            ~/.deno
-            ~/.cache/deno
-          key: ${{ runner.os }}-deno-${{ hashFiles('**/deps.ts') }}
-          restore-keys: ${{ runner.os }}-deno-
+          node-version: lts/*
 
-      - name: Build project
-        run: deno task build
+      - name: Install step
+        run: "deno task install"
+
+      - name: Build step
+        run: "deno task build"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
@@ -41,3 +40,5 @@ jobs:
           project: "neko-0xff-blog"
           entrypoint: "server/entry.mjs"
           root: "dist"
+          
+          
