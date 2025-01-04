@@ -187,7 +187,7 @@ $ sudo nano /var/www/linx/index.html
 
 ##### 內容
 
-```htmlembedded=
+```html=
 <html>
 <head><title>linx</title>
 </head>
@@ -245,7 +245,7 @@ $ sudo nano /etc/httpd/conf.d/linx.conf
 #### 內容
 
 - `<meta http-equiv="refresh" content="轉跳的時間;url=轉跳的網址" />`
-  ```htmlembedded=
+  ```html=
   <html>
   <head>
      <title>old</title>

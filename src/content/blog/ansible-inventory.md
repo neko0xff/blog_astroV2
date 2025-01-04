@@ -32,7 +32,7 @@ description: ""
    ```
 2. 同時在剛建立的檔案內部加入相關的檔案定義
 
-   ```config=
+   ```shell=
     [dev]
     vagrant-machine ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key
     edge01 ansible_host=[server_ip] ansible_port=2444 ansible_user=user ansible_ssh_pass="<password>"
@@ -82,12 +82,12 @@ description: ""
 ### 1-3 分組方式
 
 - 不分組
-  ```
+  ```shell
   vagrant-machine ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key
   ```
 - 分成多組
 
-  ```
+  ```shell
     [node]
     vagrant-machine ansible_host=127.0.0.1 ansible_port=2222 ansible_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/default/virtualbox/private_key
 
