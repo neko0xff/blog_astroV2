@@ -2,7 +2,7 @@ CC1:=docker compose
 CC2:=deno
 IMAGE:=blog_astroV2
 
-.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build  deno_clean  format  lint
+.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build  deno_clean  deno_serve deno_debug
 
 all: img_stop img_clean img_build 
 
@@ -26,6 +26,12 @@ deno_install:
 
 deno_build:
 	@$(CC2) task build
+
+deno_serve:
+	@$(CC2) task serve
+
+deno_debug:
+	@$(CC2) task start
 
 deno_preview:
 	# default port: 8085/tcp
