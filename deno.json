@@ -4,7 +4,7 @@
     "dev": "deno run -A --unstable npm:astro dev",
     "preview": "deno run -A npm:astro preview --host 0.0.0.0 ",
     "serve": "deno serve --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
-    "build": "astro build",
+    "build": "deno run -A --unstable npm:astro build",
     "outdated": "deno outdated --update --latest",
     "install": "deno install --allow-scripts ",
     "test": "deno test --allow-net",

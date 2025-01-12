@@ -5,12 +5,12 @@ const id = "inject-comments";
 
 // 獲得模式切換的狀態
 function getSavedTheme() {
-	return window.localStorage.getItem("theme");
+	return globalThis.localStorage.getItem("theme");
 }
 
 // 決定是否切換夜間模式
 function getSystemTheme() {
-	return window.matchMedia("(prefers-color-scheme: dark)").matches
+	return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
 		? "dark"
 		: "light";
 }

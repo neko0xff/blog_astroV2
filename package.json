@@ -20,6 +20,7 @@
     "@giscus/react": "^3.1.0",
     "@resvg/resvg-js": "^2.6.2",
     "astro": "^5.1.5",
+    "axios": "^1.7.9",
     "fuse.js": "^7.0.0",
     "katex": "^0.16.19",
     "lodash.kebabcase": "^4.1.1",
@@ -30,7 +31,7 @@
     "remark-toc": "^9.0.0",
     "satori": "^0.12.1",
     "tailwindcss": "^4.0.0-beta.9",
-    "typescript": "^5.8.0-dev.20250110"
+    "typescript": "^5.8.0-dev.20250111"
   },
   "devDependencies": {
     "@astrojs/react": "^4.1.3",

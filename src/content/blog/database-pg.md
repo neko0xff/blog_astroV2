@@ -1,5 +1,5 @@
 ---
-title: Database-PostgreSQL安裝
+title: Database-PostgreSQL設置
 pubDatetime: 2025-01-11
 tags:
   - "Database"

@@ -6,7 +6,7 @@ import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import sitemap from "@astrojs/sitemap";
-import deno from "@deno/astro-adapter"; // add deno supportcc
+import deno from "@deno/astro-adapter";  //add deno deploy support
 import { SITE } from "./src/config.ts";
 
 // https://astro.build/config

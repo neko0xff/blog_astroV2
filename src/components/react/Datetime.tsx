@@ -41,7 +41,7 @@ export default function Datetime({
       {modDatetime && modDatetime > pubDatetime ? (
         <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>更新於:</span>
       ) : (
-        <span className="sr-only">更新於:</span>
+        <span className="sr-only"></span>
       )}
       <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
         <FormattedDatetime
