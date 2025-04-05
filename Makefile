@@ -1,8 +1,9 @@
 CC1:=docker compose
 CC2:=deno
+CC3:=deployctl
 IMAGE:=blog_astroV2
 
-.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build  deno_clean  deno_serve deno_debug
+.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build  deno_clean  deno_serve deno_debug deno_deploy
 
 all: img_stop img_clean img_build 
 
@@ -22,9 +23,11 @@ img_clean:
 	@$(CC1) down
 
 deno_install:
+	@echo "Install Dependencies Package"
 	@$(CC2) task install
 
 deno_build:
+	@echo "Build static Pages"
 	@$(CC2) task build
 
 deno_serve:
@@ -36,6 +39,10 @@ deno_debug:
 deno_preview:
 	# default port: 8085/tcp
 	@$(CC2) task preview
+
+deno_deploy:
+	@echo "Start Deploy to Deno Deploy"
+	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist"
 
 deno_clean:
 	@echo "Start Clean Package"

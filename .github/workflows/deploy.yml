@@ -21,7 +21,7 @@ jobs:
       - name: Install Deno
         uses: denoland/setup-deno@v2
         with:
-          deno-version: v2.2.6
+          deno-version: v2.x
 
       - name: Install step
         run: "deno task install"
@@ -29,6 +29,7 @@ jobs:
       - name: Build step
         run: "deno task build"
 
+      # local cmd: $ deployctl deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist"
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:

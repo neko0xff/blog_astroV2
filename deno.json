@@ -12,8 +12,5 @@
     "lint": "deno lint",
     "format_biomejs": "deno run -A npm:@biomejs/biome format src --write",
     "check_biomejs": "deno run -A npm:@biomejs/biome check --write"
-  },
-  "compilerOptions": {
-    "jsx": "react-jsx"
   }
 }
