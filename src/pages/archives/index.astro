@@ -1,9 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import Card from "@/components/react/Card";
+import { SITE } from "@/config";
+import Card from "@/components/astro/Card.astro";
 import Footer from "@/components/astro/Footer.astro";
 import Header from "@/components/astro/Header.astro";
-import { SITE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
 import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
@@ -15,7 +15,7 @@ if (!SITE.showArchives) {
 
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-const MonthMap: Record<string, string> = {
+const months = {
   "1": "一月",
   "2": "二月",
   "3": "三月",
@@ -32,7 +32,7 @@ const MonthMap: Record<string, string> = {
 ---
 
 <Layout title={`歸檔 | ${SITE.title}`}>
-  <Header activeNav="archives" />
+  <Header />
   <Main pageTitle="歸檔集合" pageDesc="已經歸檔的所有文章。">
     {
       Object.entries(
@@ -55,13 +55,23 @@ const MonthMap: Record<string, string> = {
               .map(([month, monthGroup]) => (
                 <div class="flex flex-col sm:flex-row">
                   <div class="mt-6 min-w-36 text-lg sm:my-6">
-                    <span class="font-bold">{MonthMap[month]}</span>
+                    <span class="font-bold">{months[Number(month) - 1]}</span>
                     <sup class="text-xs">{monthGroup.length}</sup>
                   </div>
                   <ul>
-                    {monthGroup.map(({ data, slug }) => (
-                      <Card href={`/posts/${slug}`} frontmatter={data} />
-                    ))}
+                    {monthGroup
+                      .sort(
+                        (a, b) =>
+                          Math.floor(
+                            new Date(b.data.pubDatetime).getTime() / 1000
+                          ) -
+                          Math.floor(
+                            new Date(a.data.pubDatetime).getTime() / 1000
+                          )
+                      )
+                      .map(data => (
+                        <Card {...data} />
+                      ))}
                   </ul>
                 </div>
               ))}
@@ -69,6 +79,5 @@ const MonthMap: Record<string, string> = {
         ))
     }
   </Main>
-
   <Footer />
 </Layout>

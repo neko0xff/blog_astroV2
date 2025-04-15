@@ -26,5 +26,8 @@
   },
   "unstable": [
     "sloppy-imports"
-  ]
+  ],
+  "imports": {
+    "@deno/deployctl": "jsr:@deno/deployctl@^1.13.1"
+  }
 }
