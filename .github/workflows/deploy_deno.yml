@@ -30,8 +30,10 @@ jobs:
         run: "deno task build"
 
       - name: Find Static Site Page step
+        run: "deno task pagefind"
+
+      - name: Confing copy to site
         run: |
-          deno task pagefind
           mkdir -p public/pagefind
           cp -r dist/pagefind/* public/pagefind/
       
