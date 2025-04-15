@@ -40,9 +40,13 @@ deno_preview:
 	# default port: 8085/tcp
 	@$(CC2) task preview
 
-deno_deploy:
-	@echo "Start Deploy to Deno Deploy"
+deno_deploy_test:
+	@echo "Start Deploy to Deno Deploy(Test)"
 	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist"
+
+deno_deploy_release:
+	@echo "Start Deploy to Deno Deploy(Release)"
+	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist" --prod
 
 deno_clean:
 	@echo "Start Clean Package"
