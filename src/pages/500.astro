@@ -1,22 +1,25 @@
 ---
-import Footer from "@components/astro/Footer.astro";
-import Header from "@components/astro/Header.astro";
-import LinkButton from "@components/astro/LinkButton.astro";
-import { SITE } from "@config";
-import Layout from "@layouts/Layout.astro";
-interface Props {
-	error: unknown;
-}
-const { error } = Astro.props;
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/astro/Header.astro";
+import Footer from "@/components/astro/Footer.astro";
+import LinkButton from "@/components/astro/LinkButton.astro";
+import { SITE } from "@/config";
 ---
 
-<Layout title={`500 Server Error | ${SITE.title}`}>
+<Layout title={`500 Not Found | ${SITE.title}`}>
   <Header />
 
-  <main id="main-content">
-    <br />
-    <div class="not-found-wrapper">
-      <h1>ERROR 500</h1>
+  <main
+    id="main-content"
+    class="mx-auto flex max-w-3xl flex-1 items-center justify-center"
+  >
+    <div class="mb-14 flex flex-col items-center justify-center">
+      <br />
+      <div class="flex flex-col items-center justify-center">
+        <h1 class="text-4xl font-bold mb-4">
+          <font color="red">ERROR 500</font>
+        </h1>
+      </div>
       <br />
       <img
         src="/assets/kuaikuai.png"
@@ -25,34 +28,24 @@ const { error } = Astro.props;
         height="100"
         class="mx-auto"
       />
-      <br />
-      <p>!伺服器壞壞,請等主人進行維護!</p>
-      <br />
+     
+    <br/>
+      <p class="mb-6 text-lg">
+        ! 伺服器壞壞,請等主人進行維護 !
+      </p>
+
+      <!-- 回主頁面  -->
       <LinkButton
         href="/"
-        className="my-6 text-lg underline decoration-dashed underline-offset-8"
+        class="my-6 text-lg underline decoration-dashed underline-offset-8"
       >
         ! 請按一下這邊，得以回到主頁面 !
       </LinkButton>
+      
       <br />
-      <span aria-hidden="true">¯\_(ツ)_/¯</span>
+      <span aria-hidden="true" class="mt-4 block">¯\_(ツ)_/¯</span>
     </div>
   </main>
 
   <Footer />
 </Layout>
-
-<style>
-  #main-content {
-    @apply mx-auto flex max-w-3xl flex-1 items-center justify-center;
-  }
-  .not-found-wrapper {
-    @apply mb-14 flex flex-col items-center justify-center;
-  }
-  .not-found-wrapper h1 {
-    @apply text-9xl font-bold text-skin-accent;
-  }
-  .not-found-wrapper p {
-    @apply mt-4 text-2xl sm:text-3xl;
-  }
-</style>

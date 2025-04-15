@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
-import Header from "@components/astro/Header.astro";
-import Footer from "@components/astro/Footer.astro";
-import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
-import Tag from "@components/astro/Tag.astro";
-import getUniqueTags from "@utils/getUniqueTags";
-import { SITE } from "@config";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Tag from "@/components/astro/Tag.astro";
+import Header from "@/components/astro/Header.astro";
+import Footer from "@/components/astro/Footer.astro";
+import getUniqueTags from "@/utils/getUniqueTags";
+import { SITE } from "@/config";
 
 const posts = await getCollection("blog");
 
@@ -14,10 +14,10 @@ let tags = getUniqueTags(posts);
 ---
 
 <Layout title={`標籤 | ${SITE.title}`}>
-  <Header activeNav="tags" />
-  <Main pageTitle="標籤" pageDesc="所有標籤">
+  <Header />
+  <Main pageTitle="標籤" pageDesc="所有己用標籤進行標記的文章">
     <ul>
-      {tags.map(({ tag }) => <Tag {tag} size="lg" />)}
+      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} size="lg" />)}
     </ul>
   </Main>
   <Footer />

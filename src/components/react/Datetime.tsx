@@ -1,5 +1,7 @@
-import { LOCALE, SITE } from "@config";
+import { SITE } from "@/config";
 import type { CollectionEntry } from "astro:content";
+
+const langTag = SITE.lang ?? "en";
 
 interface DatetimesProps {
   pubDatetime: string | Date;
@@ -59,13 +61,13 @@ const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
     modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime
   );
 
-  const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
+  const date = myDatetime.toLocaleDateString(langTag, {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 
-  const time = myDatetime.toLocaleTimeString(LOCALE.langTag, {
+  const time = myDatetime.toLocaleTimeString(langTag, {
     hour: "2-digit",
     minute: "2-digit",
   });

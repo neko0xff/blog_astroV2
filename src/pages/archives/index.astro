@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
-import Card from "@components/react/Card";
-import Footer from "@components/astro/Footer.astro";
-import Header from "@components/astro/Header.astro";
-import { SITE } from "@config";
-import Layout from "@layouts/Layout.astro";
-import Main from "@layouts/Main.astro";
-import getPostsByGroupCondition from "@utils/getPostsByGroupCondition";
+import Card from "@/components/react/Card";
+import Footer from "@/components/astro/Footer.astro";
+import Header from "@/components/astro/Header.astro";
+import { SITE } from "@/config";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
 
 // Redirect to 404 page if `showArchives` config is false
 if (!SITE.showArchives) {

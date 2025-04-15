@@ -1,8 +1,24 @@
 ---
-import { getCollection } from 'astro:content';
-const allDocs = await getCollection('other');
-const about = allDocs.find(doc => doc.slug === 'about');
-const { Content } = await about.render();
+import { getCollection } from "astro:content";
+import getSortedPosts from "@/utils/getSortedPosts";
+import PostDetails from "@/layouts/OtherDetails.astro";
+import { getEntry } from 'astro:content';
+import { getPath } from "@/utils/getPath";
+
+const post = await getEntry('blog', 'about');
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const postResult = posts.map(post => ({
+    params: { slug: getPath(post.id, post.filePath, false) },
+    props: { post },
+  }));
+
+  return postResult;
+}
+
+const posts = await getCollection("blog");
+const sortedPosts = getSortedPosts(posts);
 ---
 
-<Content />
+{post && <PostDetails post={post} posts={sortedPosts} />}

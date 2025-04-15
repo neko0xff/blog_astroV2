@@ -1,10 +1,10 @@
 {
   "tasks": {
-    "start": "deno run -A --unstable npm:astro dev",
-    "dev": "deno run -A --unstable npm:astro dev",
+    "start": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
+    "dev": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
     "preview": "deno run -A npm:astro preview --host 0.0.0.0 ",
     "serve": "deno serve --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
-    "build": "deno run -A --unstable npm:astro build",
+    "build": "deno run -A --unstable-ffi --unstable-kv npm:astro build",
     "outdated_check": "deno outdated --latest",
     "outdated_update": "deno outdated --update --latest",
     "install": "deno install --allow-scripts ",
@@ -21,5 +21,12 @@
     ],
     "include": [],
     "entrypoint": "dist/server/entry.mjs"
-  }
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  },
+  "unstable": [
+    "sloppy-imports"
+  ]
 }

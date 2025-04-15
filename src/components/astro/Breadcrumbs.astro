@@ -8,34 +8,61 @@ const breadcrumbList = currentUrlPath.split("/").slice(1);
 
 // if breadcrumb is Home > Posts > 1 <etc>
 // replace Posts with Posts (page number)
-breadcrumbList[0] === "posts" &&
-  breadcrumbList.splice(0, 2, `文章 ( 第 ${breadcrumbList[1] || 1} 頁 )`);
+if (breadcrumbList[0] === "posts") {
+  breadcrumbList.splice(0, 2, `文章 (第 ${breadcrumbList[1] || 1} 頁)`);
+}
+
+// if breadcrumb is Home > Archives > 1 <etc>
+// replace Archives with Archives (page number)
+if (breadcrumbList[0] === "archives") {
+  breadcrumbList.splice(0, 2, `歸檔 (第 ${breadcrumbList[1] || 1} 頁)`);
+}
+
+// if breadcrumb is Home > About
+// replace About with About
+if (breadcrumbList[0] === "about") {
+  breadcrumbList.splice(0, 1, "關於");
+}
+
+// if breadcrumb is Home > Terms
+// replace Terms with Terms
+if (breadcrumbList[0] === "terms") {
+  breadcrumbList.splice(0, 1, "條款");
+}
+
+// if breadcrumb is Home > Links
+// replace Links with Links
+if (breadcrumbList[0] === "links") {
+  breadcrumbList.splice(0, 1, "友站連結");
+}
+
+// if breadcrumb is Home > Search
+// replace Search with Search
+if (breadcrumbList[0] === "search") {
+  breadcrumbList.splice(0, 1, "搜尋");
+}
 
 // if breadcrumb is Home > Tags > [tag] > [page] <etc>
 // replace [tag] > [page] with [tag] (page number)
-breadcrumbList[0] === "tags" &&
-  !isNaN(Number(breadcrumbList[2])) &&
-  breadcrumbList.splice(
-    1,
-    3,
-    `${breadcrumbList[1]} ${
-      Number(breadcrumbList[2]) === 1 ? "" : "(  " + breadcrumbList[2] + " )"
-    }`
-  );
+if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
+  breadcrumbList.splice(1, 3, `${breadcrumbList[1]} ${Number(breadcrumbList[2]) === 1 ? "" : "(第 " + breadcrumbList[2] + "頁)"}`);
+}
 ---
 
-<nav class="breadcrumb" aria-label="breadcrumb">
-  <ul>
+<nav class="mx-auto mt-8 mb-1 w-full max-w-3xl px-4" aria-label="breadcrumb">
+  <ul
+    class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
+  >
     <li>
-      <a href="/">主頁</a>
-      <span aria-hidden="true">&raquo;</span>
+      <a href="/" class="opacity-80">主頁</a>
+      <span aria-hidden="true" class="opacity-80">&raquo;</span>
     </li>
     {
       breadcrumbList.map((breadcrumb, index) =>
         index + 1 === breadcrumbList.length ? (
           <li>
             <span
-              class={`${index > 0 ? "lowercase" : "capitalize"}`}
+              class:list={["capitalize opacity-75", { lowercase: index > 0 }]}
               aria-current="page"
             >
               {/* make the last part lowercase in Home > Tags > some-tag */}
@@ -44,30 +71,14 @@ breadcrumbList[0] === "tags" &&
           </li>
         ) : (
           <li>
-            <a href={`/${breadcrumb}/`}>{breadcrumb}</a>
+            <a href={`/${breadcrumb}/`} class="capitalize opacity-70">
+              {breadcrumb}
+            </a>
             <span aria-hidden="true">&raquo;</span>
           </li>
         )
       )
     }
   </ul>
-  <br>
 </nav>
-
-<style>
-  .breadcrumb {
-    @apply mx-auto mb-1 mt-8 w-full max-w-3xl px-4;
-  }
-  .breadcrumb ul li {
-    @apply inline;
-  }
-  .breadcrumb ul li a {
-    @apply capitalize opacity-70;
-  }
-  .breadcrumb ul li span {
-    @apply opacity-70;
-  }
-  .breadcrumb ul li:not(:last-child) a {
-    @apply hover:opacity-100;
-  }
-</style>
+<br/>
