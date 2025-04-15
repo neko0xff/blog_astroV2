@@ -3,9 +3,12 @@ CC2:=deno
 CC3:=deployctl
 IMAGE:=blog_astroV2
 
-.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build  deno_clean  deno_serve deno_debug deno_deploy
+.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build deno_pagefind  deno_clean  deno_serve deno_debug deno_deploy
 
-all: img_stop img_clean img_build 
+all: image_build
+
+image_build: img_stop img_clean img_build
+local_build: deno_clean deno_install deno_build
 
 img_build:
 	@$(CC1) up --build -d
@@ -29,6 +32,13 @@ deno_install:
 deno_build:
 	@echo "Build static Pages"
 	@$(CC2) task build
+	$(MAKE) deno_pagefind
+
+deno_pagefind:
+	@echo "Find Page "
+	@$(CC2) task pagefind
+	mkdir -p public/pagefind
+	cp -r dist/pagefind/* public/pagefind/
 
 deno_serve:
 	@$(CC2) task serve

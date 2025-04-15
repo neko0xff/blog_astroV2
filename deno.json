@@ -5,6 +5,7 @@
     "preview": "deno run -A npm:astro preview --host 0.0.0.0 ",
     "serve": "deno serve --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "build": "deno run -A --unstable-ffi --unstable-kv npm:astro build",
+    "pagefind": "sudo deno run -A npm:pagefind --site dist",
     "outdated_check": "deno outdated --latest",
     "outdated_update": "deno outdated --update --latest",
     "install": "deno install --allow-scripts ",

@@ -17,6 +17,7 @@
     "jsr:@std/fmt@^1.0.6": "1.0.6",
     "jsr:@std/html@^1.0.3": "1.0.3",
     "jsr:@std/http@1.0": "1.0.14",
+    "jsr:@std/json@0.217": "0.217.0",
     "jsr:@std/jsonc@0.217": "0.217.0",
     "jsr:@std/media-types@^1.1.0": "1.1.0",
     "jsr:@std/net@^1.0.4": "1.0.4",
@@ -139,10 +140,14 @@
         "jsr:@std/streams@^1.0.9"
       ]
     },
+    "@std/json@0.217.0": {
+      "integrity": "173f1156d23d11095b6ff7df6266c80e8f83afcd9a6af1731ec301f485806986"
+    },
     "@std/jsonc@0.217.0": {
       "integrity": "125c47f36ef8160e1b4fd5bff096e8f0ea3f49bea197de5b182eb130bb8a527c",
       "dependencies": [
-        "jsr:@std/assert"
+        "jsr:@std/assert",
+        "jsr:@std/json"
       ]
     },
     "@std/media-types@1.1.0": {
@@ -206,8 +211,8 @@
         "@volar/language-service",
         "fast-glob",
         "muggle-string",
-        "prettier-plugin-astro",
         "prettier@3.5.3",
+        "prettier-plugin-astro",
         "volar-service-css",
         "volar-service-emmet",
         "volar-service-html",
@@ -1420,9 +1425,9 @@
         "@volar/typescript",
         "path-browserify",
         "request-light@0.7.0",
+        "vscode-languageserver@9.0.1",
         "vscode-languageserver-protocol@3.17.5",
         "vscode-languageserver-textdocument",
-        "vscode-languageserver@9.0.1",
         "vscode-uri"
       ]
     },
@@ -3351,8 +3356,8 @@
     "prettier-plugin-tailwindcss@0.6.11_prettier@3.5.3_prettier-plugin-astro@0.14.1": {
       "integrity": "sha512-YxaYSIvZPAqhrrEpRtonnrXdghZg1irNg4qrjboCXrpybLWVs55cW2N3juhspVJiO0JBvYJT8SYsJpc8OQSnsA==",
       "dependencies": [
-        "prettier-plugin-astro",
-        "prettier@3.5.3"
+        "prettier@3.5.3",
+        "prettier-plugin-astro"
       ]
     },
     "prettier@2.8.7": {
@@ -3663,14 +3668,14 @@
         "@img/sharp-darwin-x64@0.33.5",
         "@img/sharp-libvips-darwin-arm64@1.0.4",
         "@img/sharp-libvips-darwin-x64@1.0.4",
-        "@img/sharp-libvips-linux-arm64@1.0.4",
         "@img/sharp-libvips-linux-arm@1.0.5",
+        "@img/sharp-libvips-linux-arm64@1.0.4",
         "@img/sharp-libvips-linux-s390x@1.0.4",
         "@img/sharp-libvips-linux-x64@1.0.4",
         "@img/sharp-libvips-linuxmusl-arm64@1.0.4",
         "@img/sharp-libvips-linuxmusl-x64@1.0.4",
-        "@img/sharp-linux-arm64@0.33.5",
         "@img/sharp-linux-arm@0.33.5",
+        "@img/sharp-linux-arm64@0.33.5",
         "@img/sharp-linux-s390x@0.33.5",
         "@img/sharp-linux-x64@0.33.5",
         "@img/sharp-linuxmusl-arm64@0.33.5",
@@ -3690,15 +3695,15 @@
         "@img/sharp-darwin-x64@0.34.1",
         "@img/sharp-libvips-darwin-arm64@1.1.0",
         "@img/sharp-libvips-darwin-x64@1.1.0",
-        "@img/sharp-libvips-linux-arm64@1.1.0",
         "@img/sharp-libvips-linux-arm@1.1.0",
+        "@img/sharp-libvips-linux-arm64@1.1.0",
         "@img/sharp-libvips-linux-ppc64",
         "@img/sharp-libvips-linux-s390x@1.1.0",
         "@img/sharp-libvips-linux-x64@1.1.0",
         "@img/sharp-libvips-linuxmusl-arm64@1.1.0",
         "@img/sharp-libvips-linuxmusl-x64@1.1.0",
-        "@img/sharp-linux-arm64@0.34.1",
         "@img/sharp-linux-arm@0.34.1",
+        "@img/sharp-linux-arm64@0.34.1",
         "@img/sharp-linux-s390x@0.34.1",
         "@img/sharp-linux-x64@0.34.1",
         "@img/sharp-linuxmusl-arm64@0.34.1",
@@ -4255,9 +4260,9 @@
         "prettier@2.8.7",
         "request-light@0.5.8",
         "vscode-json-languageservice",
+        "vscode-languageserver@7.0.0",
         "vscode-languageserver-textdocument",
         "vscode-languageserver-types@3.17.5",
-        "vscode-languageserver@7.0.0",
         "vscode-nls",
         "vscode-uri",
         "yaml@2.2.2"
