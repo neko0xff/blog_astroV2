@@ -1,6 +1,6 @@
 ---
 title: Ansible-Ad_hoc模式
-slug: 'Ansible-Ad_hoc模式'
+slug: "Ansible-Ad_hoc模式"
 description: ""
 pubDatetime: 2023-04-06
 tags:

@@ -36,5 +36,3 @@ jobs:
           project: "neko-0xff-blog"
           entrypoint: "server/entry.mjs"
           root: "dist"
-          
-          

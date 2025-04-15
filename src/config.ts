@@ -2,10 +2,10 @@ export const SITE = {
   website: "https://neko-0xff-blog.deno.dev", // replace this with your deployed domain
   heroTitle: "<span class='name'>Neko_oxff</span> Tech Blog",
   author: "neko0xff",
-	avatar: {
-		src: "https://avatars.githubusercontent.com/u/54382007",
-		alt: "neko0xff",
-	},
+  avatar: {
+    src: "https://avatars.githubusercontent.com/u/54382007",
+    alt: "neko0xff",
+  },
   profile: "https://neko-0xff-blog.deno.dev",
   desc: "該Blog會存放自己寫的技術文章!",
   title: "Neko0xff tech blog",

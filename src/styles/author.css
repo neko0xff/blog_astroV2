@@ -1,29 +1,29 @@
 /*部落格名稱*/
 .name {
-	z-index: 0;
-	background-image: -webkit-linear-gradient(315deg, #f2973b 25%, #fef1b4);
-	background-clip: text;
-	position: relative;
-	-webkit-text-fill-color: transparent;
+  z-index: 0;
+  background-image: -webkit-linear-gradient(315deg, #f2973b 25%, #fef1b4);
+  background-clip: text;
+  position: relative;
+  -webkit-text-fill-color: transparent;
 }
 .name::before {
-	z-index: -1;
-	content: "";
-	position: absolute;
-	top: 60%;
-	right: 0;
-	bottom: 10%;
-	left: 0;
-	background-image: -webkit-linear-gradient(315deg, #b42392 25%, #647eff);
-	opacity: 0.5;
-	transition: all 0.5s ease;
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 60%;
+  right: 0;
+  bottom: 10%;
+  left: 0;
+  background-image: -webkit-linear-gradient(315deg, #b42392 25%, #647eff);
+  opacity: 0.5;
+  transition: all 0.5s ease;
 }
 .name:hover::before {
-	top: 83%;
-	opacity: 1;
+  top: 83%;
+  opacity: 1;
 }
 
 /*主頁主人圖*/
 .avatar_img {
-	aspect-ratio: auto auto / 100%;
+  aspect-ratio: auto auto / 100%;
 }

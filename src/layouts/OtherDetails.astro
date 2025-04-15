@@ -3,8 +3,6 @@ import { render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/astro/Header.astro";
 import Footer from "@/components/astro/Footer.astro";
-import Tag from "@/components/astro/Tag.astro";
-import EditPost from "@/components/astro/EditPost.astro";
 import ShareLinks from "@/components/astro/ShareLinks.astro";
 import Comments from "@/components/react/Comments";
 import { getPath } from "@/utils/getPath";
@@ -27,8 +25,6 @@ const {
   canonicalURL,
   pubDatetime,
   modDatetime,
-  tags,
-  hideEditPost,
 } = post.data;
 
 const { Content } = await render(post);
@@ -62,7 +58,6 @@ const layoutProps = {
   ogImage,
   scrollSmooth: true,
 };
-
 ---
 
 <Layout {...layoutProps}>
@@ -70,30 +65,23 @@ const layoutProps = {
   <br />
   <main
     id="main-content"
-    class:list={[
-      "mx-auto w-full max-w-3xl px-4 pb-12",
-      { "mt-8": !SITE.showBackButton },
-    ]}
+    class="mx-auto w-full max-w-3xl px-4 pb-12"
     data-pagefind-body
   >
+    <!--Tittle -->
+    <br />
     <h1
       transition:name={slugifyStr(title)}
       class="inline-block text-2xl font-bold text-accent sm:text-3xl"
     >
       {title}
     </h1>
-   
+
     <article id="article" class="mx-auto prose mt-8 max-w-3xl">
-        <Content />
+      <Content />
     </article>
 
     <hr class="my-8 border-dashed" />
-
-    <EditPost class="sm:hidden" {hideEditPost} {post} />
-
-    <ul class="mt-4 mb-8 sm:my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
-    </ul>
 
     <!--評論區 -->
     <Comments client:only="react" />
@@ -111,7 +99,6 @@ const layoutProps = {
         <span>吾要到上頭</span>
       </button>
     </div>
-
   </main>
   <Footer />
 </Layout>

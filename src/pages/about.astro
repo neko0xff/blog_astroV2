@@ -2,10 +2,10 @@
 import { getCollection } from "astro:content";
 import getSortedPosts from "@/utils/getSortedPosts";
 import PostDetails from "@/layouts/OtherDetails.astro";
-import { getEntry } from 'astro:content';
+import { getEntry } from "astro:content";
 import { getPath } from "@/utils/getPath";
 
-const post = await getEntry('blog', 'about');
+const post = await getEntry("blog", "about");
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);

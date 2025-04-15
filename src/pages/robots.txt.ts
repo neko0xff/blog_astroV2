@@ -17,7 +17,6 @@ Sitemap: ${new URL("sitemap-index.xml", SITE.website).href}
 //
 // Sitemap: ${new URL("sitemap-index.xml", "https://neko0xff-blog.netlify.app").href}
 
-
 export const GET: APIRoute = () =>
   new Response(robots, {
     headers: { "Content-Type": "text/plain" },

@@ -24,18 +24,20 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 <Layout>
   <Header />
   <main id="main-content" data-layout="index">
-    <section id="hero" class="text-center py-8">
+    <section id="hero" class="py-8 text-center">
       <div class="flex flex-col items-center">
-        {SITE.avatar?.src && (
-          <div class="rounded-full w-40 h-40 mb-6 overflow-hidden">
-            <img
-              src={SITE.avatar.src}
-              alt={SITE.avatar.alt}
-              class="w-full h-full object-cover"
-            />
-          </div>
-        )}
-        <h1 class="text-4xl font-bold mb-4">
+        {
+          SITE.avatar?.src && (
+            <div class="mb-6 h-40 w-40 overflow-hidden rounded-full">
+              <img
+                src={SITE.avatar.src}
+                alt={SITE.avatar.alt}
+                class="h-full w-full object-cover"
+              />
+            </div>
+          )
+        }
+        <h1 class="mb-4 text-4xl font-bold">
           <p set:html={marked.parse(SITE.heroTitle)} />
         </h1>
         <a
@@ -48,43 +50,49 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           <IconRss width={24} height={24} class="stroke-accent stroke-2" />
           <span>RSS 訂閱</span>
         </a>
-        {SOCIALS.length > 0 && (
-          <div class="mt-6 flex flex-wrap justify-center gap-4">
-            <Socials />
-          </div>
-        )}
+        {
+          SOCIALS.length > 0 && (
+            <div class="mt-6 flex flex-wrap justify-center gap-4">
+              <Socials />
+            </div>
+          )
+        }
       </div>
     </section>
 
     <Hr />
 
-    {featuredPosts.length > 0 && (
-      <section id="featured" class="py-12">
-        <h2 class="text-3xl font-semibold mb-6">精選文章</h2>
-        <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredPosts.map((data) => (
-            <Card variant="h3" {...data} />
-          ))}
-        </ul>
-      </section>
-    )}
+    {
+      featuredPosts.length > 0 && (
+        <section id="featured" class="py-12">
+          <h2 class="mb-6 text-3xl font-semibold">精選文章</h2>
+          <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredPosts.map(data => (
+              <Card variant="h3" {...data} />
+            ))}
+          </ul>
+        </section>
+      )
+    }
 
-    {recentPosts.length > 0 && (
-      <section id="recent-posts" class="py-12">
-        <h2 class="text-3xl font-semibold mb-6">最近文章</h2>
-        <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {recentPosts.map(
-            (data, index) =>
-              index < SITE.postPerIndex && <Card variant="h3" {...data} />
-          )}
-        </ul>
-      </section>
-    )}
+    {
+      recentPosts.length > 0 && (
+        <section id="recent-posts" class="py-12">
+          <h2 class="mb-6 text-3xl font-semibold">最近文章</h2>
+          <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {recentPosts.map(
+              (data, index) =>
+                index < SITE.postPerIndex && <Card variant="h3" {...data} />
+            )}
+          </ul>
+        </section>
+      )
+    }
 
     <div class="my-12 text-center">
       <LinkButton href="/posts/" class="inline-flex items-center gap-2">
         全部文章
-        <IconArrowRight class="inline-block w-5 h-5" />
+        <IconArrowRight class="inline-block h-5 w-5" />
       </LinkButton>
     </div>
   </main>
