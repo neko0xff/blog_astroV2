@@ -1,9 +1,19 @@
+import type { FontStyle, FontWeight } from "satori";
+
+export type FontOptions = {
+  name: string;
+  data: ArrayBuffer;
+  weight: FontWeight | undefined;
+  style: FontStyle | undefined;
+};
+
 async function loadGoogleFont(
   font: string,
-  text: string,
-  weight: number
+  text: string
 ): Promise<ArrayBuffer> {
-  const API = `https://fonts.googleapis.com/css2?family=${font}:wght@${weight}&text=${encodeURIComponent(text)}`;
+  const API = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(
+    text
+  )}`;
 
   const css = await (
     await fetch(API, {
@@ -15,7 +25,7 @@ async function loadGoogleFont(
   ).text();
 
   const resource = css.match(
-    /src: url\((.+?)\) format\('(opentype|truetype)'\)/
+    /src: url\((.+)\) format\('(opentype|truetype)'\)/
   );
 
   if (!resource) throw new Error("Failed to download dynamic font");
@@ -26,7 +36,8 @@ async function loadGoogleFont(
     throw new Error("Failed to download dynamic font. Status: " + res.status);
   }
 
-  return res.arrayBuffer();
+  const fonts: ArrayBuffer = await res.arrayBuffer();
+  return fonts;
 }
 
 async function loadGoogleFonts(
@@ -35,15 +46,16 @@ async function loadGoogleFonts(
   Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>
 > {
   const fontsConfig = [
+    // 選擇自己想用的字體
     {
-      name: "IBM Plex Mono",
-      font: "IBM+Plex+Mono",
+      name: "LXGW WenKai Mono TC",
+      font: "LXGW+WenKai+Mono+TC",
       weight: 400,
       style: "normal",
     },
     {
-      name: "IBM Plex Mono",
-      font: "IBM+Plex+Mono",
+      name: "LXGW WenKai Mono TC",
+      font: "LXGW+WenKai+Mono+TC:wght@700",
       weight: 700,
       style: "bold",
     },
@@ -51,7 +63,7 @@ async function loadGoogleFonts(
 
   const fonts = await Promise.all(
     fontsConfig.map(async ({ name, font, weight, style }) => {
-      const data = await loadGoogleFont(font, text, weight);
+      const data = await loadGoogleFont(font, text);
       return { name, data, weight, style };
     })
   );

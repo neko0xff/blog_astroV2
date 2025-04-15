@@ -1,5 +1,5 @@
-import { BLOG_PATH } from "@/content.config";
-import { slugifyStr } from "./slugify";
+import { BLOG_PATH } from "../content.config.ts";
+import { slugifyStr } from "./slugify.ts";
 
 /**
  * Get full path of a blog post

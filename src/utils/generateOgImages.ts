@@ -1,7 +1,7 @@
 import { Resvg } from "@resvg/resvg-js";
 import { type CollectionEntry } from "astro:content";
-import postOgImage from "./og-templates/post.js";
-import siteOgImage from "./og-templates/site.js";
+import postOgImage from "./og-templates/post.ts";
+import siteOgImage from "./og-templates/site.ts";
 
 function svgBufferToPngBuffer(svg: string) {
   const resvg = new Resvg(svg);

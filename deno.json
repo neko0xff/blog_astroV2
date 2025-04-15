@@ -9,9 +9,7 @@
     "outdated_update": "deno outdated --update --latest",
     "install": "deno install --allow-scripts ",
     "test": "deno test --allow-net",
-    "lint": "deno lint",
-    "format_biomejs": "deno run -A npm:@biomejs/biome format src --write",
-    "check_biomejs": "deno run -A npm:@biomejs/biome check --write"
+    "lint": "deno lint --fix"
   },
   "deploy": {
     "project": "495ce49b-e4ae-4188-91d3-8a3bf56a2e90",

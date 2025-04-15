@@ -40,6 +40,11 @@ deno_preview:
 	# default port: 8085/tcp
 	@$(CC2) task preview
 
+deno_format_check:
+	@echo "Check Format"
+	@$(CC2) task lint
+	@$(CC2) task format
+
 deno_deploy_test:
 	@echo "Start Deploy to Deno Deploy(Test)"
 	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist"
