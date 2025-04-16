@@ -24,8 +24,10 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
   <Footer />
 </Layout>
 
-<script src="../utils/pageFindSearch.ts" />
+<script src="../utils/pageFindSearch.ts">
+  initSearch(); // Initialize service
+</script>
 
-<style is:global  type="text/css">
+<style is:global type="text/css">
   @import "../styles/search.css";
 </style>

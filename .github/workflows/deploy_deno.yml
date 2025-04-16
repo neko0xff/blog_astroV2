@@ -34,7 +34,7 @@ jobs:
           deno task pagefind
           mkdir -p public/pagefind
           cp -r dist/pagefind/* public/pagefind/
-      
+
       # local cmd: $ deployctl deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist"
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1

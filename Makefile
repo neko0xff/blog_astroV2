@@ -5,11 +5,13 @@ IMAGE:=blog_astroV2
 
 .PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build deno_pagefind  deno_clean  deno_serve deno_debug deno_deploy
 
-all: image_build
+all: build_image
 
-image_build: img_stop img_clean img_build
-local_build: deno_clean deno_install deno_build
+# Build Option
+build_image: img_stop img_clean img_build																	# Build: Container Image(docker)
+build_local: deno_clean deno_install deno_build		 													# Build: Local Deno Project
 
+# Commends
 img_build:
 	@$(CC1) up --build -d
 
