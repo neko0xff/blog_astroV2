@@ -6,12 +6,12 @@ const onIdle =
   globalThis.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1));
 
 /* Initialize Pagefind search component */
-function initSearch(): void {
+async function initSearch() {
   // Check if Pagefind search form exists
   if (!pageFindSearch) return;
 
   // Check if Pagefind is already initialized
-  onIdle(async () => {
+  await onIdle( () => {
     const search = new PagefindUI({
       element: "#pagefind-search",
       showSubResults: true,
@@ -64,3 +64,6 @@ document.addEventListener("astro:after-swap", () => {
 
   initSearch();
 });
+
+/*Main*/
+initSearch(); // Initialize service
