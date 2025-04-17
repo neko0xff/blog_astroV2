@@ -3,7 +3,7 @@ CC2:=deno
 CC3:=deployctl
 IMAGE:=blog_astroV2
 
-.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build deno_pagefind  deno_clean  deno_serve deno_debug deno_deploy
+.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build deno_pagefind  deno_clean  deno_serve deno_debug deno_deploy deno_bench
 
 all: build_image
 
@@ -64,6 +64,9 @@ deno_deploy_test:
 deno_deploy_release:
 	@echo "Start Deploy to Deno Deploy(Release)"
 	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist" --prod
+
+deno_bench:
+	@$(CC2) bench -A --unstable-kv bench/*
 
 deno_clean:
 	@echo "Start Clean Package"
