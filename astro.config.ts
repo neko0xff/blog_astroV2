@@ -64,7 +64,6 @@ export default defineConfig({
     experimentalLayout: "responsive",
   },
   experimental: {
-    svg: true,
     responsiveImages: true,
     preserveScriptOrder: true,
   },

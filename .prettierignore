@@ -4,6 +4,8 @@
 # Except these files & folders
 !/src
 !/public
+!/docs
+!/.vscode
 !/.github
 !tsconfig.json
 !astro.config.ts
