@@ -8,6 +8,7 @@
     "pagefind": "deno run -A npm:pagefind --site dist",
     "outdated_check": "deno outdated --latest",
     "outdated_update": "deno outdated --update --latest",
+    "bench": "deno bench -A --unstable-kv --unstable-ffi  bench/*",
     "install": "deno install --allow-scripts ",
     "test": "deno test --allow-net",
     "lint": "deno lint --fix"

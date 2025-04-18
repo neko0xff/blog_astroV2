@@ -66,7 +66,8 @@ deno_deploy_release:
 	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist" --prod
 
 deno_bench:
-	@$(CC2) bench -A --unstable-kv bench/*
+	@echo "Running Bench Script"
+	@$(CC2) task bench
 
 deno_clean:
 	@echo "Start Clean Package"

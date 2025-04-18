@@ -15,7 +15,7 @@ async function Data2(){
 };
 
 
-Deno.bench("Data1: Deno.dev Json", async() => {
+Deno.bench("Data1: Deno.dev Json", { baseline : true },async() => {
     await Data1();
 });
 
