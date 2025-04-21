@@ -1,3 +1,5 @@
+const scheduled_time = 15 * 60 * 1000; // 15 minutes
+
 export const SITE = {
   website: "https://neko-0xff-blog.deno.dev", // replace this with your deployed domain
   heroTitle: "<span class='name'>Neko_oxff</span> Tech Blog",
@@ -13,14 +15,14 @@ export const SITE = {
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
-  scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
+  scheduledPostMargin:  scheduled_time,
   showArchives: true,
   showBackButton: true, // show back button in post detail
   editPost: {
-    enabled: true,
+    enabled: false,
     text: "提出修改建議",
     icon: "pencil",
-    url: "https://github.com/neko0xff/blog_astroV2/issues",
+    url: "https://github.com/neko0xff/blog_astroV2/discussions",
   },
   dynamicOgImage: true,
   lang: "zh-TW", // html lang code. Set this empty and default will be "en"

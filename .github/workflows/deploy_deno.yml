@@ -6,9 +6,10 @@ on:
     branches: main
 
 jobs:
+  # GitHub Actions Runner Images: https://github.com/actions/runner-images/tree/main
   deploy:
     name: Deploy to Deno Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     permissions:
       id-token: write #  Auth with Deno Deploy
