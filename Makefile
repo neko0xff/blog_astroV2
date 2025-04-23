@@ -73,4 +73,5 @@ deno_clean:
 	@echo "Start Clean Package"
 	@rm -rf node_modules
 	@rm -rf dist
+	@rm -rf public/pagefind
 	@$(CC2) clean
