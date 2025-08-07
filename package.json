@@ -20,7 +20,7 @@
     "@giscus/react": "^3.1.0",
     "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.1.4",
-    "astro": "5.7.4",
+    "astro": "5.12.8",
     "axios": "^1.8.4",
     "dayjs": "^1.11.13",
     "lodash.kebabcase": "^4.1.1",
