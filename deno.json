@@ -29,5 +29,7 @@
   "unstable": [
     "sloppy-imports"
   ],
-  "importMap": "./import_map.json"
+  "imports": {
+    "@deno/deployctl": "jsr:@deno/deployctl@^1.13.1"
+  }
 }
