@@ -59,12 +59,13 @@ export default defineConfig({
     },
   },
   image: {
+    service: {
+      entrypoint: 'astro/assets/services/noop'
+    },
     // Used for all Markdown images; not configurable per-image
     // Used for all `<Image />` and `<Picture />` components unless overridden with a prop
-    experimentalLayout: "responsive",
   },
   experimental: {
-    responsiveImages: true,
     preserveScriptOrder: true,
   },
 });
