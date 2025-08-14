@@ -4627,6 +4627,15 @@
       "integrity": "sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A=="
     }
   },
+  "remote": {
+    "https://esm.sh/react-dom@19.1.1/denonext/cjs/react-dom-server-legacy.browser.production.mjs": "46093e4d958c744635246158bbe9d1448c1168acc16ee248a1cb744c0194cc72",
+    "https://esm.sh/react-dom@19.1.1/denonext/cjs/react-dom-server.browser.production.mjs": "1b65edfd064bcb0377f63e6d3d15176967ead3acd6b3aec869bd194e48522676",
+    "https://esm.sh/react-dom@19.1.1/denonext/react-dom.mjs": "a31239e9832b73257ff344fb3d8292982ee25cbc1da5edab9ba81648c30f4abd",
+    "https://esm.sh/react-dom@19.1.1/denonext/server.browser.mjs": "e6bac0b522d7f58662cc2982fd5e4a7bf3a9cc91a55696fe6f6bf193c4de2c02",
+    "https://esm.sh/react-dom@19.1.1/server.browser": "0bbec0ea0eea141c6e5edb389cac0e7d40c2207f2af0df9cf8572c0988f3e6f6",
+    "https://esm.sh/react@19.1.1": "4583aedf2a721df5ea4aa7308de82b5bcbee12e5ed7910061940f7434982847d",
+    "https://esm.sh/react@19.1.1/denonext/react.mjs": "588ff2562af9e974efdb79cc945049768bf5ee0252543fd8fb6a48472f3db587"
+  },
   "workspace": {
     "dependencies": [
       "jsr:@deno/deployctl@^1.13.1"
