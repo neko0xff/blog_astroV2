@@ -1,5 +1,5 @@
 services:
-  weblog_deno:
+  weblog:
     restart: always # 跟系統服務一起重啟
     ports:
       # 主機端口:容器端口
