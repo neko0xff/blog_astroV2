@@ -59,15 +59,14 @@ export default defineConfig({
     },
     resolve: {
       alias: {
-        "react-dom/server.browser": "https://esm.sh/react-dom@19.1.1/server.browser",
-        "react-dom": "https://esm.sh/react-dom@19.1.1",
-        "react": "https://esm.sh/react@19.1.1"
-      }
-    }
+        "react-dom/server.browser":
+          "https://esm.sh/react-dom@19.1.1/server.browser",
+      },
+    },
   },
   image: {
     service: {
-      entrypoint: 'astro/assets/services/noop'
+      entrypoint: "astro/assets/services/noop",
     },
     // Used for all Markdown images; not configurable per-image
     // Used for all `<Image />` and `<Picture />` components unless overridden with a prop

@@ -20,7 +20,6 @@
     "jsr:@std/html@^1.0.4": "1.0.4",
     "jsr:@std/http@^1.0.20": "1.0.20",
     "jsr:@std/internal@^1.0.10": "1.0.10",
-    "jsr:@std/json@0.217": "0.217.0",
     "jsr:@std/jsonc@0.217": "0.217.0",
     "jsr:@std/media-types@^1.1.0": "1.1.0",
     "jsr:@std/net@^1.0.4": "1.0.5",
@@ -33,7 +32,7 @@
     "npm:@astrojs/react@^4.3.0": "4.3.0_@types+react@19.1.10_@types+react-dom@19.1.7__@types+react@19.1.10_react@19.1.1_react-dom@19.1.1__react@19.1.1_vite@6.3.5__picomatch@4.0.3",
     "npm:@astrojs/rss@^4.0.12": "4.0.12",
     "npm:@astrojs/sitemap@^3.5.0": "3.5.0",
-    "npm:@deno/astro-adapter@~0.3.1": "0.3.1_astro@5.13.0__typescript@5.9.2__vite@6.3.5___picomatch@4.0.3__zod@3.25.76_typescript@5.9.2",
+    "npm:@deno/astro-adapter@~0.3.1": "0.3.1_astro@5.13.2__typescript@5.9.2__vite@6.3.5___picomatch@4.0.3__zod@3.25.76_typescript@5.9.2",
     "npm:@giscus/react@^3.1.0": "3.1.0_react@19.1.1_react-dom@19.1.1__react@19.1.1",
     "npm:@pagefind/default-ui@^1.3.0": "1.3.0",
     "npm:@resvg/resvg-js@^2.6.2": "2.6.2",
@@ -41,7 +40,7 @@
     "npm:@tailwindcss/vite@^4.1.12": "4.1.12_vite@6.3.5__picomatch@4.0.3",
     "npm:@types/lodash.kebabcase@^4.1.9": "4.1.9",
     "npm:@typescript-eslint/parser@^8.39.1": "8.39.1_eslint@9.33.0_typescript@5.9.2",
-    "npm:astro@5.13.0": "5.13.0_typescript@5.9.2_vite@6.3.5__picomatch@4.0.3_zod@3.25.76",
+    "npm:astro@5.13.2": "5.13.2_typescript@5.9.2_vite@6.3.5__picomatch@4.0.3_zod@3.25.76",
     "npm:axios@^1.11.0": "1.11.0",
     "npm:dayjs@^1.11.13": "1.11.13",
     "npm:eslint-plugin-astro@^1.3.1": "1.3.1_eslint@9.33.0",
@@ -153,14 +152,10 @@
     "@std/internal@1.0.10": {
       "integrity": "e3be62ce42cab0e177c27698e5d9800122f67b766a0bea6ca4867886cbde8cf7"
     },
-    "@std/json@0.217.0": {
-      "integrity": "173f1156d23d11095b6ff7df6266c80e8f83afcd9a6af1731ec301f485806986"
-    },
     "@std/jsonc@0.217.0": {
       "integrity": "125c47f36ef8160e1b4fd5bff096e8f0ea3f49bea197de5b182eb130bb8a527c",
       "dependencies": [
-        "jsr:@std/assert@0.217",
-        "jsr:@std/json"
+        "jsr:@std/assert@0.217"
       ]
     },
     "@std/media-types@1.1.0": {
@@ -213,8 +208,8 @@
     "@astrojs/compiler@2.12.2": {
       "integrity": "sha512-w2zfvhjNCkNMmMMOn5b0J8+OmUaBL1o40ipMvqcG6NRpdC+lKxmTi48DT8Xw0SzJ3AfmeFLB45zXZXtmbsjcgw=="
     },
-    "@astrojs/internal-helpers@0.7.1": {
-      "integrity": "sha512-7dwEVigz9vUWDw3nRwLQ/yH/xYovlUA0ZD86xoeKEBmkz9O6iELG1yri67PgAPW6VLL/xInA4t7H0CK6VmtkKQ=="
+    "@astrojs/internal-helpers@0.7.2": {
+      "integrity": "sha512-KCkCqR3Goym79soqEtbtLzJfqhTWMyVaizUi35FLzgGSzBotSw8DB1qwsu7U96ihOJgYhDk2nVPz+3LnXPeX6g=="
     },
     "@astrojs/language-server@2.15.4_prettier@3.6.2_prettier-plugin-astro@0.14.1_typescript@5.9.2_@volar+language-service@2.4.23": {
       "integrity": "sha512-JivzASqTPR2bao9BWsSc/woPHH7OGSGc9aMxXL4U6egVTqBycB3ZHdBJPuOCVtcGLrzdWTosAqVPz1BVoxE0+A==",
@@ -246,8 +241,8 @@
       ],
       "bin": true
     },
-    "@astrojs/markdown-remark@6.3.5": {
-      "integrity": "sha512-MiR92CkE2BcyWf3b86cBBw/1dKiOH0qhLgXH2OXA6cScrrmmks1Rr4Tl0p/lFpvmgQQrP54Pd1uidJfmxGrpWQ==",
+    "@astrojs/markdown-remark@6.3.6": {
+      "integrity": "sha512-bwylYktCTsLMVoCOEHbn2GSUA3c5KT/qilekBKA3CBng0bo1TYjNZPr761vxumRk9kJGqTOtU+fgCAp5Vwokug==",
       "dependencies": [
         "@astrojs/internal-helpers",
         "@astrojs/prism",
@@ -468,7 +463,7 @@
         "fontkit"
       ]
     },
-    "@deno/astro-adapter@0.3.1_astro@5.13.0__typescript@5.9.2__vite@6.3.5___picomatch@4.0.3__zod@3.25.76_typescript@5.9.2": {
+    "@deno/astro-adapter@0.3.1_astro@5.13.2__typescript@5.9.2__vite@6.3.5___picomatch@4.0.3__zod@3.25.76_typescript@5.9.2": {
       "integrity": "sha512-r7/5vz8G4UHK5bA/+GpB64584bTHPqih9eVdJdabMhwfQdbkgjHNjPV0rZzpfDB6WBoGSByTO8Z9Iz+BP8Y1Nw==",
       "dependencies": [
         "astro"
@@ -1714,8 +1709,8 @@
         "semver@7.7.2"
       ]
     },
-    "astro@5.13.0_typescript@5.9.2_vite@6.3.5__picomatch@4.0.3_zod@3.25.76": {
-      "integrity": "sha512-kWahyvrrxUtgxFRRWSH5X0DESvgg4ZZ0fk6tU7blVZRgmj4PY79nzfaXFT+N+Ac2vWXX7eYUPYs1kLLk5IjBfQ==",
+    "astro@5.13.2_typescript@5.9.2_vite@6.3.5__picomatch@4.0.3_zod@3.25.76": {
+      "integrity": "sha512-yjcXY0Ua3EwjpVd3GoUXa65HQ6qgmURBptA+M9GzE0oYvgfuyM7bIbH8IR/TWIbdefVUJR5b7nZ0oVnMytmyfQ==",
       "dependencies": [
         "@astrojs/compiler",
         "@astrojs/internal-helpers",
@@ -2114,8 +2109,8 @@
         "gopd"
       ]
     },
-    "electron-to-chromium@1.5.200": {
-      "integrity": "sha512-rFCxROw7aOe4uPTfIAx+rXv9cEcGx+buAF4npnhtTqCJk5KDFRnh3+KYj7rdVh6lsFt5/aPs+Irj9rZ33WMA7w=="
+    "electron-to-chromium@1.5.203": {
+      "integrity": "sha512-uz4i0vLhfm6dLZWbz/iH88KNDV+ivj5+2SA+utpgjKaj9Q0iDLuwk6Idhe9BTxciHudyx6IvTvijhkPvFGUQ0g=="
     },
     "emmet@2.4.11": {
       "integrity": "sha512-23QPJB3moh/U9sT4rQzGgeyyGIrcM+GH5uVYg2C6wZIxAIJq7Ng3QLT79tl8FUwDXhyq9SusfknOrofAKqvgyQ==",
@@ -2363,8 +2358,8 @@
         "reusify"
       ]
     },
-    "fdir@6.4.6_picomatch@4.0.3": {
-      "integrity": "sha512-hiFoqpyZcfNm1yc4u8oWCf9A2c4D3QjCrks3zmoVKVxpQRzmPNar1hUJcBG2RQHvEVGDN+Jm81ZheVLAQMK6+w==",
+    "fdir@6.5.0_picomatch@4.0.3": {
+      "integrity": "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==",
       "dependencies": [
         "picomatch@4.0.3"
       ],
@@ -4698,10 +4693,12 @@
     "https://esm.sh/react-dom@19.1.1/denonext/cjs/react-dom-server-legacy.browser.production.mjs": "46093e4d958c744635246158bbe9d1448c1168acc16ee248a1cb744c0194cc72",
     "https://esm.sh/react-dom@19.1.1/denonext/cjs/react-dom-server.browser.production.mjs": "1b65edfd064bcb0377f63e6d3d15176967ead3acd6b3aec869bd194e48522676",
     "https://esm.sh/react-dom@19.1.1/denonext/react-dom.mjs": "a31239e9832b73257ff344fb3d8292982ee25cbc1da5edab9ba81648c30f4abd",
-    "https://esm.sh/react-dom@19.1.1/denonext/server.browser.mjs": "e6bac0b522d7f58662cc2982fd5e4a7bf3a9cc91a55696fe6f6bf193c4de2c02",
-    "https://esm.sh/react-dom@19.1.1/server.browser": "0bbec0ea0eea141c6e5edb389cac0e7d40c2207f2af0df9cf8572c0988f3e6f6",
+    "https://esm.sh/react-dom@19.1.1/denonext/server.mjs": "513c3f84f3402259c315ae6788c2dd9e671e8dc2adfa2f37d51165e156b4932f",
+    "https://esm.sh/react-dom@19.1.1/server": "d8d537b44c19a05a7805396eac77f18c628e1019fb2a61cb1f1a1bce0eeeb939",
     "https://esm.sh/react@19.1.1": "4583aedf2a721df5ea4aa7308de82b5bcbee12e5ed7910061940f7434982847d",
-    "https://esm.sh/react@19.1.1/denonext/react.mjs": "588ff2562af9e974efdb79cc945049768bf5ee0252543fd8fb6a48472f3db587"
+    "https://esm.sh/react@19.1.1/denonext/jsx-runtime.mjs": "725c2f07b0ae1b880a8e091b569a7baff43d5560cddb7fe51a64c94463eec496",
+    "https://esm.sh/react@19.1.1/denonext/react.mjs": "588ff2562af9e974efdb79cc945049768bf5ee0252543fd8fb6a48472f3db587",
+    "https://esm.sh/react@19.1.1/jsx-runtime": "0baf62ea45676abb2a68daf420cc1ba2cc462a19be3dfa195330b1d0a37f84d7"
   },
   "workspace": {
     "dependencies": [
@@ -4723,7 +4720,7 @@
         "npm:@tailwindcss/vite@^4.1.12",
         "npm:@types/lodash.kebabcase@^4.1.9",
         "npm:@typescript-eslint/parser@^8.39.1",
-        "npm:astro@5.13.0",
+        "npm:astro@5.13.2",
         "npm:axios@^1.11.0",
         "npm:dayjs@^1.11.13",
         "npm:eslint-plugin-astro@^1.3.1",
