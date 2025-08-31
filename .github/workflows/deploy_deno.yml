@@ -9,7 +9,7 @@ jobs:
   # GitHub Actions Runner Images: https://github.com/actions/runner-images/tree/main
   deploy:
     name: Deploy to Deno Deploy
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     permissions:
       id-token: write #  Auth with Deno Deploy
@@ -30,17 +30,15 @@ jobs:
       - name: Build step - 1
         run: "deno task build"
 
-      # Pagefind is already handled in the build script
       - name: Pagefind step
         run: "deno task pagefind"
 
-      - name: Build step -2
+      - name: Build step - 2
         run: "deno task build"
 
-      # local cmd: $ deployctl deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist"
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "neko-0xff-blog"
-          entrypoint: "server/entry.mjs"
+          entrypoint: "dist/server/entry.mjs"
           root: "dist"
