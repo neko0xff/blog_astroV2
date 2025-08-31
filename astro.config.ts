@@ -55,6 +55,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
+      include: ["react-dom", "react"],
       exclude: ["@resvg/resvg-js"],
     },
     resolve: {
