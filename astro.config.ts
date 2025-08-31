@@ -53,18 +53,19 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [tailwindcss()],
     optimizeDeps: {
-      include: ["react-dom", "react"],
       exclude: ["@resvg/resvg-js"],
     },
     resolve: {
       alias: {
         "react-dom/server.browser": "https://esm.sh/react-dom@19.1.1/server.browser",
         "react-dom": "https://esm.sh/react-dom@19.1.1",
-        "react": "https://esm.sh/react@19.1.1"
-      }
+        "react": "https://esm.sh/react@19.1.1",
+        "@types/react": "https://esm.sh/react@19.1.1/types",
+        "@types/react-dom": "https://esm.sh/react-dom@19.1.1/types",
+      },
     },
+    plugins: [tailwindcss()],
   },
   image: {
     service: {
