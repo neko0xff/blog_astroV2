@@ -33,6 +33,7 @@ jobs:
           deno task pagefind || true
           mkdir -p public/pagefind
           cp -r dist/pagefind/* public/pagefind/ || true
+          deno task build
 
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1
