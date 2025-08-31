@@ -58,12 +58,7 @@ export default defineConfig({
       exclude: ["@resvg/resvg-js"],
     },
     resolve: {
-      alias: {
-        "react-dom/server.browser":
-          "https://esm.sh/react-dom@19.1.1/server.browser",
-        "react-dom": "https://esm.sh/react-dom@19.1.1",
-        "react": "https://esm.sh/react@19.1.1",
-      },
+      alias: {},
     },
   },
   image: {

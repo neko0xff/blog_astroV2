@@ -1,5 +1,6 @@
 {
   "tasks": {
+    "clean": "deno run -A npm:rimraf ./dist ./node_modules ./public/pagefind",
     "start": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
     "dev": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
     "preview": "deno run -A npm:astro preview --host 0.0.0.0 ",
@@ -17,7 +18,7 @@
     "project": "495ce49b-e4ae-4188-91d3-8a3bf56a2e90",
     "exclude": [
       "**/node_modules",
-      "**/node_modules"
+      "**/public/pagefind"
     ],
     "include": [],
     "entrypoint": "dist/server/entry.mjs"
@@ -30,9 +31,9 @@
     "sloppy-imports"
   ],
   "imports": {
-     "react": "https://esm.sh/react@19.1.1",                                                                                  
-    "react-dom": "https://esm.sh/react-dom@19.1.1",                                                                          
-    "react-dom/server.browser": "https://esm.sh/react-dom@19.1.1/server.browser",    
+    "react": "npm:react@^19.1.1",
+    "react-dom": "npm:react-dom@^19.1.1",
+    "react-dom/server.browser": "npm:react-dom@^19.1.1/server.browser",
     "@deno/deployctl": "jsr:@deno/deployctl@^1.13.1",
     "@std/assert": "jsr:@std/assert@^1.0.14",
     "@std/http": "jsr:@std/http@^1.0.20"
