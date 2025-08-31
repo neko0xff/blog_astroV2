@@ -27,17 +27,18 @@ jobs:
       - name: Install step
         run: "deno task install"
 
-      - name: Build step
+      - name: Build step - 1
         run: "deno task build"
 
-      - name: Find Static Site Page step
-        run: |
-          deno task pagefind
-          mkdir -p public/pagefind
-          cp -r dist/pagefind/* public/pagefind/
+      # Pagefind is already handled in the build script
+      - name: Pagefind step
+        run: "deno task pagefind"
+
+      - name: Build step -2
+        run: "deno task build"
 
       # local cmd: $ deployctl deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist"
-      - name: Upload to Deno Deploy
+      - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "neko-0xff-blog"
