@@ -1,6 +1,5 @@
 import axios from "axios";
-import type React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface Link {
   name: string;
