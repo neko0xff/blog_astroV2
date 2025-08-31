@@ -1,6 +1,6 @@
 ---
 title: docker-自架私有映像檔倉庫
-pubDatetime: 2025-08-31 07:25:11
+pubDatetime: 2025-08-31
 tags:
   - "docker"
 description: ""

@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "check": "astro check",
-    "pagefind": "pagefind --site dist",
+    "pagefind": "pagefind --source dist/client ",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",

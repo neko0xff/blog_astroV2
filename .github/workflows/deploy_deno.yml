@@ -27,13 +27,10 @@ jobs:
       - name: Install step
         run: "deno task install"
 
-      - name: Build step
+      - name: Build and prepare for deploy
         run: |
           deno task build
-          deno task pagefind || true
-          mkdir -p public/pagefind
-          cp -r dist/pagefind/* public/pagefind/ || true
-          deno task build
+          deno task pagefind
 
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1

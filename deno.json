@@ -5,8 +5,8 @@
     "dev": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
     "preview": "deno run -A npm:astro preview --host 0.0.0.0 ",
     "serve": "deno serve --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
-    "build": "deno run -A npm:astro build",
-    "pagefind": "deno run -A npm:pagefind --site dist",
+    "build": "deno run -A --unstable-ffi --unstable-kv npm:astro build",
+    "pagefind": "deno run -A npm:pagefind --site dist/client",
     "outdated_check": "deno outdated --latest",
     "outdated_update": "deno outdated --update --latest",
     "bench": "deno bench -A --unstable-kv --unstable-ffi  bench/*",
@@ -17,8 +17,7 @@
   "deploy": {
     "project": "495ce49b-e4ae-4188-91d3-8a3bf56a2e90",
     "exclude": [
-      "**/node_modules",
-      "**/public/pagefind"
+      "**/node_modules"
     ],
     "include": [],
     "entrypoint": "dist/server/entry.mjs"
