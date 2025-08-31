@@ -4943,6 +4943,7 @@
     "https://esm.sh/react-dom@19.1.1/denonext/server.browser.mjs": "e6bac0b522d7f58662cc2982fd5e4a7bf3a9cc91a55696fe6f6bf193c4de2c02",
     "https://esm.sh/react-dom@19.1.1/server.browser": "0bbec0ea0eea141c6e5edb389cac0e7d40c2207f2af0df9cf8572c0988f3e6f6",
     "https://esm.sh/react-dom@19.1.1/server.browser?external": "0bbec0ea0eea141c6e5edb389cac0e7d40c2207f2af0df9cf8572c0988f3e6f6",
+    "https://esm.sh/react@19.1.1": "4583aedf2a721df5ea4aa7308de82b5bcbee12e5ed7910061940f7434982847d",
     "https://esm.sh/react@19.1.1/denonext/react.mjs": "588ff2562af9e974efdb79cc945049768bf5ee0252543fd8fb6a48472f3db587",
     "https://esm.sh/react@19.1.1?external": "4583aedf2a721df5ea4aa7308de82b5bcbee12e5ed7910061940f7434982847d"
   },
