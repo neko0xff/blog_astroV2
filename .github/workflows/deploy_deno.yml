@@ -30,8 +30,9 @@ jobs:
       - name: Build step
         run: |
           deno task build
-          deno task pagefind
-          cp -r dist/pagefind public/
+          deno task pagefind || true
+          mkdir -p public/pagefind
+          cp -r dist/pagefind/* public/pagefind/ || true
 
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1
