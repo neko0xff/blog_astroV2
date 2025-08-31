@@ -11,6 +11,9 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import process from "node:process";
+
+const is_ci = process.env.CI === "true";
 
 /*
  * 這個配置文件是用於Astro框架的配置
@@ -57,13 +60,16 @@ export default defineConfig({
       exclude: ["@resvg/resvg-js"],
     },
     resolve: {
-      alias: {
-        "react-dom/server.browser": "https://esm.sh/react-dom@19.1.1/server.browser",
-        "react-dom": "https://esm.sh/react-dom@19.1.1",
-        "react": "https://esm.sh/react@19.1.1",
-        "@types/react": "https://esm.sh/react@19.1.1/types",
-        "@types/react-dom": "https://esm.sh/react-dom@19.1.1/types",
-      },
+      alias: is_ci
+        ? {
+            "react-dom/server.browser":
+              "https://esm.sh/react-dom@19.1.1/server.browser",
+            "react-dom": "https://esm.sh/react-dom@19.1.1",
+            "react": "https://esm.sh/react@19.1.1",
+            "@types/react": "https://esm.sh/react@19.1.1/types",
+            "@types/react-dom": "https://esm.sh/react-dom@19.1.1/types",
+          }
+        : {},
     },
     plugins: [tailwindcss()],
   },
