@@ -27,18 +27,15 @@ jobs:
       - name: Install step
         run: "deno task install"
 
-      - name: Build step - 1
-        run: "deno task build"
-
-      - name: Pagefind step
-        run: "deno task pagefind"
-
-      - name: Build step - 2
-        run: "deno task build"
+      - name: Build step
+        run: |
+          deno task build
+          deno task pagefind
+          cp -r dist/pagefind public/
 
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "neko-0xff-blog"
-          entrypoint: "dist/server/entry.mjs"
+          entrypoint: "server/entry.mjs"
           root: "dist"
