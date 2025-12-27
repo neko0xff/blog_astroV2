@@ -29,6 +29,7 @@ export default defineConfig({
   },
   adapter: deno({
     port: 8085, // 若無設置，則使用預設的 '8085/tcp'
+    start: true
   }),
   legacy: {
     collections: false, // `src/content`

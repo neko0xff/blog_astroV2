@@ -37,10 +37,10 @@ deno_build:
 	$(MAKE) deno_pagefind
 
 deno_pagefind:
-	@echo "Find Page "
+	@echo "Find Page"
 	@$(CC2) task pagefind
 	mkdir -p public/pagefind
-	cp -r dist/pagefind/* public/pagefind/
+	cp -r dist/client/pagefind/* public/pagefind/
 
 deno_serve:
 	@$(CC2) task serve
@@ -59,10 +59,12 @@ deno_format_check:
 
 deno_deploy_test:
 	@echo "Start Deploy to Deno Deploy(Test)"
+	$(MAKE) deno_build
 	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist"
 
 deno_deploy_release:
 	@echo "Start Deploy to Deno Deploy(Release)"
+	$(MAKE) deno_build
 	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="./dist/server/entry.mjs" --root="./dist" --prod
 
 deno_bench:
