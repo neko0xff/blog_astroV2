@@ -37,6 +37,7 @@ layout: "../../layouts/AboutLayout.astro"
 - Email
   - [Gmail](mailto:chzang55@gmail.com)
   - [Proton](mailto:neko0xff@protonmail.com)
+  - [Outlook](mailto:neko0xff@outlook.com)
 - [X/Twitter](https://twitter.com/neko_0xFF)
 - [YouTube](https://www.youtube.com/channel/UCfBR43eCo07mPWN6K-97TEA)
 - [Instagram](https://www.instagram.com/neko_0xff/)
@@ -57,6 +58,8 @@ layout: "../../layouts/AboutLayout.astro"
 - DataBase
   - MariaDB(MySQL)
   - M$-SQLServer
+- 系統管理
+  - Windows AD網域管理
 
 ## Side Project
 
@@ -86,12 +89,6 @@ layout: "../../layouts/AboutLayout.astro"
         L["ESP8266"] ==>|WiFi| K["分享器"];
         K["分享器"] ==> C["網際網路"];
 ```
-
-- MessageBot
-  - Line
-    - [後端:Nodejs](https://github.com/neko0xff/2023_LineBot_Node)
-  - Telegram
-    - [後端:Nodejs](https://github.com/neko0xff/2021_telegram_chatbot)
 
 ## 如何加入友站鏈結
 
