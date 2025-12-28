@@ -5,15 +5,17 @@ tags:
   - "Windows"
   - "使用者"
   - "群組"
+  - "Active Directory"
 description: "Windows AD網域上的使用者與群組的基本概念與使用方法，包括帳戶管理、權限控制與安全性設定"
 ---
 
 ## Active Directory 的本質
-- Active Directory 不只是 ”單一” 的帳號清單，而是 “身分識別和存取權管理 (Identity and access management,IAM) ” 中心
+- Active Directory(AD) 不只是 ”單一” 的帳號清單，而是 “身分識別和存取權管理 (Identity and access management,IAM) ” 中心
+  * 擔任第一層的身分安全驗證伺服器
 - 管理的核心內容（釐清並定義）
     1. 誰是誰(身分識別): 可以識別、認證和授權允許使用網域內資源的使用者個人
-    2. 能做什麼(權限授權): 識別和授權該使用者，所能使用的硬體和應用程式範圍
-- 一旦發生 Active Directory 的網域架構設計錯誤
+    2. 能做什麼(權限授權): 識別和授權該使用者，所能使用的資源 (ex: 硬體和應用程式) 範圍
+- 一旦發生 AD 的架構設計錯誤
   * 其影響可能持續 5 ~ 10 年（長期）
   * 因此在初始設計時需極為慎重（所有設定皆為全網域等級影響）
 
@@ -25,7 +27,7 @@ description: "Windows AD網域上的使用者與群組的基本概念與使用�
   * 命名需一致，以便於識別與管理（ex: "名字.姓名"）
   * 落實密碼策略控管
 - 職能分離：應將管理員&服務專用帳號與日常一般帳號分離
-  * 禁止使用 "真人"  （使用者個人）帳號跑服務
+  * 禁止使用 "真人" (使用者個人) 帳號跑服務
       * 管理員平時應使用一般帳號處理一般事務，僅在執行管理工作時才切換至管理帳號
 - 對於"離職人員"的帳號
   * 應採取 **「停用而非刪除」** 的策略,以保留相關檔案權限與歷史紀錄的完整性
@@ -80,5 +82,10 @@ description: "Windows AD網域上的使用者與群組的基本概念與使用�
   * 要動一定要知道影響範圍
 
 ## REF
-- [政府組態基準(GCB)實作文件-Windows Server 2022 | 國家資通安全研究院](https://download.nics.nat.gov.tw/api/v4/file-service/UploadFile/attachfilegcb/112%E5%B9%B4GCB%E5%AF%A6%E4%BD%9C%E6%96%87%E4%BB%B6_Windows%20Server%202022v1.0_1130702.pdf)
-- [Windows 的組策略處理 | Microsoft Learn](https://learn.microsoft.com/zh-tw/windows-server/identity/ad-ds/manage/group-policy/group-policy-processing)
+### 國家資通安全研究院(NICS)
+- [GCB數位教材-NICS](https://www.nics.nat.gov.tw/core_business/cybersecurity_defense/GCB/GCB_Digital_Materials/)
+    * [108-108年GCB實作研習活動_Windows Server 2016v1.0_1081111](https://download.nics.nat.gov.tw/api/v4/file-service/UploadFile/attachfilegcb/108%E5%B9%B4GCB%E5%AF%A6%E4%BD%9C%E7%A0%94%E7%BF%92%E6%B4%BB%E5%8B%95_Windows%20GCB%E9%83%A8%E7%BD%B2%E8%AA%AA%E6%98%8E%E8%88%87%E5%AF%A6%E4%BD%9C%E7%B7%B4%E7%BF%92v1.0_1081111.pdf)
+    * [107年GCB實作研習活動_Windows 10派送說明v1.0_1071116](https://download.nics.nat.gov.tw/api/v4/file-service/UploadFile/attachfilegcb/107%E5%B9%B4GCB%E5%AF%A6%E4%BD%9C%E7%A0%94%E7%BF%92%E6%B4%BB%E5%8B%95_Windows%2010%E6%B4%BE%E9%80%81%E8%AA%AA%E6%98%8Ev1.0_1071116.pdf)
+    * [112年GCB實作文件_Windows Server 2022v1.0_1130702](https://download.nics.nat.gov.tw/api/v4/file-service/UploadFile/attachfilegcb/112%E5%B9%B4GCB%E5%AF%A6%E4%BD%9C%E6%96%87%E4%BB%B6_Windows%20Server%202022v1.0_1130702.pdf)
+### Microsoft Learn
+- [Windows 的組策略處理](https://learn.microsoft.com/zh-tw/windows-server/identity/ad-ds/manage/group-policy/group-policy-processing)

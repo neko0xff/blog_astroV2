@@ -12,9 +12,20 @@ description: "Windows 群組原則(GPO)的基本概念與使用方法，包括�
 
 GP(Group Policy,群組原則/組策略) 是 Windows NT 作業系統核心家族(Windows 10/11 & Windows Server) 所提供方便集中控制主機上使用者帳戶&該主機上所有的組態環境配置。
 
-其中控制對象從不只單一台主機（LGPO），而是到整個 Active Directory 網域上的多台主機進行集中化管理！
+其中控制對象從不只單一台主機（LGPO），而是到整個 Active Directory 網域上的多台主機&使用者進行集中化管理！
 
 <!--more-->
+
+## 主要目的
+1. 管理使用者和電腦的一般性功能與安全性管理
+   * 配置各階層組織單位，給予不同原則限制
+   * 確保集中管理的主機 & 使用者
+       * 有相同的操作介面&系統環境設定
+       * 強制實施必要的安全性設定
+2. 軟體&批次檔腳本部署派送
+   * 應用程式(僅限MSI封裝的安裝程式)
+   * 系統更新
+   * 批次檔腳本 (ex: 登入後自動掛戴網路磁碟)
 
 ## 套用規則
 - 套用順序: L(ocal) → S(ite) → D(omain) → OU
@@ -48,12 +59,14 @@ GP(Group Policy,群組原則/組策略) 是 Windows NT 作業系統核心家族(
     - 系統會在背景中定期(預設:每隔 90 分鐘/1回) 進行套用/重新整理GPO
       * 在重新整理期間，原則設定會以異步方式套用
     - 且非所有組策略延伸模組或個別腳本都會在背景重新整理期間處理
-      * 「資料夾重新導向」僅在使用者登入時處理
-      * 「軟體安裝原則」僅在開機或登入時處理
-      * 「指令碼」雖會背景處理，但通常只在登入/登出或開/關機時執行
+      |     組策略     |                     處理時機                     |
+      |:--------------:|:------------------------------------------------:|
+      | 資料夾重新導向 |               僅在使用者登入時處理               |
+      |  軟體安裝原則  |               僅在開機或登入時處理               |
+      |     指令碼     | 雖會背景處理，但通常只在登入/登出或開/關機時執行 |
 
 ## 不同對像的複寫
-1. 客戶端： 自動重新整理時間 (Client Refresh Interval)
+1. 電腦： 自動重新整理時間 (Client Refresh Interval)
     -  預設背景更新頻率：在電腦啟動或使用者登入（前景處理）之後，系統會在背景定期套用原則
         -  對於一般的電腦與使用者，預設重新整理間隔為 90 分鐘
     - 隨機位移時間 (Random Offset)：為了避免大量電腦同時向網域控制站 (DC) 請求更新導致網路擁塞，系統會隨機加入 0 ～ 30 分鐘的位移時間
@@ -100,7 +113,10 @@ GP(Group Policy,群組原則/組策略) 是 Windows NT 作業系統核心家族(
 ### 資安這條路：學習 Active Directory Security(2022 Ithome 鐵人曬)
 - [AD Security - [Day11] 一起來學 AD 安全吧！： Group Policy & Group Policy Objects (GPO)(1)](https://ithelp.ithome.com.tw/articles/10299242)
 - [AD Security - [Day12] 一起來學 AD 安全吧！： Group 網域群組帳戶、群組類型、群組使用領域](https://ithelp.ithome.com.tw/articles/10299936)
-### Other
-- [群組原則-維基百科](https://zh.wikipedia.org/zh-tw/%E7%BB%84%E7%AD%96%E7%95%A5)
+### 國家資通安全研究院(NICS)
 - [GCB數位教材-NICS](https://www.nics.nat.gov.tw/core_business/cybersecurity_defense/GCB/GCB_Digital_Materials/)
     * [108-108年GCB實作研習活動_Windows Server 2016v1.0_1081111](https://download.nics.nat.gov.tw/api/v4/file-service/UploadFile/attachfilegcb/108%E5%B9%B4GCB%E5%AF%A6%E4%BD%9C%E7%A0%94%E7%BF%92%E6%B4%BB%E5%8B%95_Windows%20GCB%E9%83%A8%E7%BD%B2%E8%AA%AA%E6%98%8E%E8%88%87%E5%AF%A6%E4%BD%9C%E7%B7%B4%E7%BF%92v1.0_1081111.pdf)
+    * [107年GCB實作研習活動_Windows 10派送說明v1.0_1071116](https://download.nics.nat.gov.tw/api/v4/file-service/UploadFile/attachfilegcb/107%E5%B9%B4GCB%E5%AF%A6%E4%BD%9C%E7%A0%94%E7%BF%92%E6%B4%BB%E5%8B%95_Windows%2010%E6%B4%BE%E9%80%81%E8%AA%AA%E6%98%8Ev1.0_1071116.pdf)
+    * [112年GCB實作文件_Windows Server 2022v1.0_1130702](https://download.nics.nat.gov.tw/api/v4/file-service/UploadFile/attachfilegcb/112%E5%B9%B4GCB%E5%AF%A6%E4%BD%9C%E6%96%87%E4%BB%B6_Windows%20Server%202022v1.0_1130702.pdf)
+### Other
+- [群組原則-維基百科](https://zh.wikipedia.org/zh-tw/%E7%BB%84%E7%AD%96%E7%95%A5)
