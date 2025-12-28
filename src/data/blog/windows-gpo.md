@@ -1,6 +1,6 @@
 ---
 title: Windows-GPO(群組原則)簡介
-pubDatetime: 2025-12-27T06:22:44Z
+pubDatetime: 2025-12-27
 tags:
   - "Windows"
   - "GPO"

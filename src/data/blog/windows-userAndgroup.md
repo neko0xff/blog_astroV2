@@ -1,6 +1,6 @@
 ---
 title: Windows-AD網域上的使用者與群組
-pubDatetime: 2025-12-27T06:22:44Z
+pubDatetime: 2025-12-27
 tags:
   - "Windows"
   - "使用者"
