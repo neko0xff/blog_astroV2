@@ -1,6 +1,6 @@
 ---
-title: Windows-GPO(群組原則)簡介
-pubDatetime: 2025-12-27
+title: Windows-AD上的GPO(群組原則)
+pubDatetime: 2025-12-27 10:58:51
 tags:
   - "Windows"
   - "GPO"
@@ -13,6 +13,8 @@ description: "Windows 群組原則(GPO)的基本概念與使用方法，包括�
 GP(Group Policy,群組原則/組策略) 是 Windows NT 作業系統核心家族(Windows 10/11 & Windows Server) 所提供方便集中控制主機上使用者帳戶&該主機上所有的組態環境配置。
 
 其中控制對象從不只單一台主機（LGPO），而是到整個 Active Directory 網域上的多台主機進行集中化管理！
+
+<!--more-->
 
 ## 套用規則
 - 套用順序: L(ocal) → S(ite) → D(omain) → OU

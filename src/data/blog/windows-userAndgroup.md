@@ -1,6 +1,6 @@
 ---
 title: Windows-AD網域上的使用者與群組
-pubDatetime: 2025-12-27
+pubDatetime: 2025-12-27 10:58:51
 tags:
   - "Windows"
   - "使用者"
@@ -16,6 +16,8 @@ description: "Windows AD網域上的使用者與群組的基本概念與使用�
 - 一旦發生 Active Directory 的網域架構設計錯誤
   * 其影響可能持續 5 ~ 10 年（長期）
   * 因此在初始設計時需極為慎重（所有設定皆為全網域等級影響）
+
+<!--more-->
 
 ## 管理
 - 帳號
