@@ -1,6 +1,9 @@
-# 專案的檔案結構
+專案的檔案結構
+===
 
 [回專案主頁](.././README.md)
+
+## 檔案結構
 
 You'll see the following folders and files:
 
@@ -31,8 +34,7 @@ You'll see the following folders and files:
 └── astro.config.ts
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-All blog posts are stored in `src/data/blog` directory.
+## 注意事項
+- Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- Any static assets, like images, can be placed in the `public/` directory.
+- All blog posts are stored in `src/data/blog` directory.
