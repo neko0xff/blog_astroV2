@@ -7,11 +7,13 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import deno from "@deno/astro-adapter"; //add deno deploy support
+import mermaid from 'astro-mermaid';
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import process from "node:process";
+
 
 const is_ci = process.env.CI === "true";
 
@@ -39,6 +41,10 @@ export default defineConfig({
       filter: page => SITE.showArchives || !page.endsWith("/archives"),
     }),
     react(),
+    mermaid({
+      theme: 'forest',
+      autoTheme: true
+    })
   ],
   markdown: {
     remarkPlugins: [

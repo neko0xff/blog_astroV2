@@ -46,13 +46,13 @@ const time = datetime.format(" A hh:mm"); // e.g., 'PM 08:30 '
         更新於:
       </span>
     ) : (
-      <span className="sr-only">發布於:</span>
+      <span class="sr-only">發布於:</span>
     )
   }
   <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
-    <time dateTime={datetime.toISOString()}>{date}</time>
+    <time datetime={datetime.toISOString()}>{date}</time>
     <span aria-hidden="true"> | </span>
-    <span className="sr-only">&nbsp;at&nbsp;</span>
-    <span className="text-nowrap">{time}</span>
+    <span class="sr-only">&nbsp;at&nbsp;</span>
+    <span class="text-nowrap">{time}</span>
   </span>
 </div>
