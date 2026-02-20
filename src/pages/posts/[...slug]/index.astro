@@ -8,6 +8,13 @@ export interface Props {
   post: CollectionEntry<"blog">;
 }
 
+/**
+ * Generates static paths for all blog posts.
+ * - Fetches all blog posts that are not drafts
+ * - Maps each post to a path based on its ID and file path
+ * - Returns an array of paths with associated post data as props
+ * @returns An array of objects containing params for routing and props with post data
+ */
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
   const postResult = posts.map(post => ({

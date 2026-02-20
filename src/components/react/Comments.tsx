@@ -3,12 +3,20 @@ import * as React from "react";
 
 const id = "inject-comments";
 
-// 獲得模式切換的狀態
+
+/**
+ * 獲得模式切換的狀態
+ * @returns   
+ */
 function getSavedTheme() {
   return globalThis.localStorage.getItem("theme");
 }
 
-// 決定是否切換夜間模式
+/**
+ * 決定是否切換夜間模式
+ * -  Uses the `matchMedia` API to check if the user prefers a dark color scheme.
+ * @returns {"dark" | "light"} Returns "dark" if the system prefers a dark theme, otherwise "light".
+ */
 function getSystemTheme() {
   return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"

@@ -25,9 +25,10 @@ const LinksComponent: React.FC = () => {
         const json_file = "/assets/myLinks.json";
         const response = await axios.get<Link[]>(json_file);
         setLinks(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error loading data:", error);
+      } catch {
+        // 可以根據需求處理錯誤，例如顯示提示訊息
+        //console.error("Data loading failed.");
+      } finally {
         setIsLoading(false);
       }
     };

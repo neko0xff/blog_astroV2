@@ -3,10 +3,10 @@ import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
 import Header from "@/components/astro/Header.astro";
 import Footer from "@/components/astro/Footer.astro";
-import Card from "@/components/react/Card";
+import Card from "@/components/astro/Card.astro";
 import Pagination from "@/components/astro/Pagination.astro";
 import { SITE } from "@/config";
-import type { Page } from "astro";
+import type { Page } from "astro/types";
 import type { CollectionEntry } from "astro:content";
 
 export interface Props {
@@ -28,8 +28,10 @@ const { page, tag, tagName } = Astro.props;
     <h1 slot="title" transition:name={tag}>{`標籤:${tag}`}</h1>
     <ul>
       {
-        page.data.map(({ data, slug }) => (
-          <Card href={`/posts/${slug}/`} frontmatter={data} />
+        page.data.map(({ data, id }: { data: CollectionEntry<"blog">["data"]; id: string }) => (
+          <>
+            <Card id={id} collection="blog" data={data} url={`/posts/${id}/`} />
+          </>
         ))
       }
     </ul>

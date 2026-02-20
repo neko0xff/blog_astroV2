@@ -11,6 +11,11 @@ import getUniqueTags from "@/utils/getUniqueTags";
 import getPostsByTag from "@/utils/getPostsByTag";
 import { SITE } from "@/config";
 
+/**
+ * Generates static paths for tags with pagination.
+ * @param param0 The options containing the paginate function.
+ * @returns An array of paths for each tag with pagination.
+ */
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("blog");
   const tags = getUniqueTags(posts);

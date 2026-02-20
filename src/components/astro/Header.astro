@@ -37,10 +37,9 @@ const isActive = (path: string) => {
     class="mx-auto flex max-w-3xl flex-col items-center justify-between sm:flex-row"
   >
     <div
-      className="top-nav-wrap"
-      class="relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6"
+      class="top-nav-wrap relative flex w-full items-baseline justify-between bg-background p-4 sm:items-center sm:py-6"
     >
-      <a href="/" className="logo whitespace-nowrap">
+      <a href="/" class="logo whitespace-nowrap">
         {
           LOGO_IMAGE.enable ? (
             <img
@@ -70,38 +69,38 @@ const isActive = (path: string) => {
         </button>
         <ul
           id="menu-items"
-          class:list={[
+          class={[
             "mt-4 grid w-44 grid-cols-2 place-content-center gap-2",
             "[&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium [&>li>a]:hover:text-accent sm:[&>li>a]:px-2 sm:[&>li>a]:py-1",
             "hidden",
             "sm:mt-0 sm:ml-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0",
-          ]}
+          ].join(" ")}
         >
           <li class="col-span-2">
-            <a href="/posts" class:list={{ "active-nav": isActive("/posts") }}>
+            <a href="/posts" class={isActive("/posts") ? "active-nav" : ""}>
               文章
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/tags" class:list={{ "active-nav": isActive("/tags") }}>
+            <a href="/tags" class={isActive("/tags") ? "active-nav" : ""}>
               標籤
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/links" class:list={{ "active-nav": isActive("/links") }}>
+            <a href="/links" class={isActive("/links") ? "active-nav" : ""}>
               友站連結
             </a>
             <li class="col-span-2">
               <a
                 href="/terms "
-                class:list={{ "active-nav": isActive("/trems") }}
+                class={isActive("/trems") ? "active-nav" : ""}
               >
                 條款
               </a>
               <li class="col-span-2">
                 <a
                   href="/about"
-                  class:list={{ "active-nav": isActive("/about") }}
+                  class={isActive("/about") ? "active-nav" : ""}
                 >
                   關於
                 </a>
@@ -121,25 +120,24 @@ const isActive = (path: string) => {
                       ariaLabel="archives"
                       title="Archives"
                     >
-                      <IconArchive class="hidden sm:inline-block" />
-                      <span class="sm:sr-only">歸檔</span>
+                      <span slot="icon">
+                        <IconArchive class="hidden sm:inline-block" />
+                      </span>
+                      <span slot="text" class="sm:sr-only">歸檔</span>
                     </LinkButton>
                   </li>
                 )
               }
               <li class="col-span-1 flex items-center justify-center">
-                <LinkButton
+                <a
                   href="/search"
-                  class:list={[
-                    "focus-outline flex p-3 sm:p-1",
-                    { "[&>svg]:stroke-accent": isActive("/search") },
-                  ]}
-                  ariaLabel="search"
+                  class={`focus-outline flex p-3 sm:p-1${isActive("/search") ? " [&>svg]:stroke-accent" : ""}`}
+                  aria-label="search"
                   title="Search"
                 >
                   <IconSearch />
                   <span class="sr-only">尋找</span>
-                </LinkButton>
+                </a>
               </li>
               {
                 SITE.lightAndDarkMode && (

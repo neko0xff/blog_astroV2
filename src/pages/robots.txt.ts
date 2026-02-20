@@ -4,6 +4,9 @@ import { SITE } from "@/config";
 /**
  * Fetches robots.txt rules for dark visitors (AI scrapers, etc.) from external API.
  * Returns a string to be included in robots.txt.
+ * - If the DARK_VISITORS_TOKEN is not set, returns an empty string.
+ * - If the fetch fails, also returns an empty string (failsafe).
+ * @returns A string containing rules for dark visitors to be included in robots.txt
  */
 async function fetchDarkVisitorsRules(): Promise<string> {
     const token = import.meta.env.DARK_VISITORS_TOKEN;
@@ -32,6 +35,13 @@ async function fetchDarkVisitorsRules(): Promise<string> {
 
 /**
  * Generates the robots.txt content.
+ * - Includes rules for dark visitors if available
+ * - Disallows Googlebot from /nogooglebot/
+ * - Allows all other user agents
+ * - Specifies the sitemap URL
+ * @param sitemapURL The URL of the sitemap to include in robots.txt
+ * @param darkVisitors Optional rules for dark visitors to include in robots.txt
+ * @returns The complete content for robots.txt
  */
 function generateRobotsTxt({ sitemapURL, darkVisitors }: { sitemapURL: URL, darkVisitors?: string }) {
     return [

@@ -1,4 +1,4 @@
-import { SITE } from "@/config";
+import { SITE } from "../../config.ts";
 import type { CollectionEntry } from "astro:content";
 
 const langTag = SITE.lang ?? "en";
@@ -8,8 +8,15 @@ interface DatetimesProps {
   modDatetime: string | Date | undefined | null;
 }
 
+interface EditPostConfig {
+  url?: string;
+  text?: string;
+  disabled?: boolean;
+  appendFilePath?: boolean;
+}
+
 interface EditPostProps {
-  editPost?: CollectionEntry<"blog">["data"]["editPost"];
+  editPost?: EditPostConfig;
   postId?: CollectionEntry<"blog">["id"];
 }
 
@@ -18,6 +25,17 @@ interface Props extends DatetimesProps, EditPostProps {
   className?: string;
 }
 
+/**
+ * 文章發布與更新日期元件
+ * - pubDatetime: 發布日期
+ * - modDatetime: 更新日期（可選）
+ * - size: 大小（預設為 "sm"）
+ * - className: 額外的 CSS 類名（可選）
+ * - editPost: 編輯文章的相關設定（可選）
+ * - postId: 文章 ID，用於生成編輯連結（可選）
+ * @param param0 Props
+ * @returns JSX.Element
+ */
 export default function Datetime({
   pubDatetime,
   modDatetime,
@@ -88,7 +106,10 @@ const EditPost = ({ editPost, postId }: EditPostProps) => {
   let editPostUrl = editPost?.url ?? SITE?.editPost?.url ?? "";
   const showEditPost = !editPost?.disabled && editPostUrl.length > 0;
   const appendFilePath =
-    editPost?.appendFilePath ?? SITE?.editPost?.appendFilePath ?? false;
+    editPost?.appendFilePath ??
+    (SITE?.editPost && "appendFilePath" in SITE.editPost
+      ? (SITE.editPost as { appendFilePath?: boolean }).appendFilePath
+      : false);
   if (appendFilePath && postId) {
     editPostUrl += `/${postId}`;
   }
