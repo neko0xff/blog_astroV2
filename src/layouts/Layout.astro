@@ -31,7 +31,7 @@ const {
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
-const _structuredData = {
+const structuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: `${title}`,
@@ -95,7 +95,8 @@ const _structuredData = {
     <script
       type="application/ld+json"
       is:inline
-      >{JSON.stringify(structuredData)}</script>
+      set:html={JSON.stringify(structuredData)}
+    />
 
     <!-- Enable RSS feed auto-discovery  -->
     <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->
