@@ -17,15 +17,15 @@ import { marked } from "marked";
 const posts = await getCollection("blog");
 
 // Debug: Log the number of posts loaded
-console.log(`Total posts loaded: ${posts.length}`);
+//console.log(`Total posts loaded: ${posts.length}`);
 
 const sortedPosts = getSortedPosts(posts);
 
 // Debug: Log the sorted posts with their dates
-console.log('Sorted posts:');
-sortedPosts.forEach((post, index) => {
+//console.log('Sorted posts:');
+/*sortedPosts.forEach((post, index) => {
   console.log(`${index + 1}. ${post.data.title} - ${post.data.pubDatetime} (featured: ${post.data.featured || false})`);
-});
+});*/
 
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 // Get non-featured posts, sorted by date (newest first)

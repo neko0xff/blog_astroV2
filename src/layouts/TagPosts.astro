@@ -8,6 +8,7 @@ import Pagination from "@/components/astro/Pagination.astro";
 import { SITE } from "@/config";
 import type { Page } from "astro/types";
 import type { CollectionEntry } from "astro:content";
+import { Fragment } from "astro/jsx-runtime";
 
 export interface Props {
   page: Page<CollectionEntry<"blog">>;
@@ -28,11 +29,13 @@ const { page, tag, tagName } = Astro.props;
     <h1 slot="title" transition:name={tag}>{`標籤:${tag}`}</h1>
     <ul>
       {
-        page.data.map(({ data, id }: { data: CollectionEntry<"blog">["data"]; id: string }) => (
-          <Fragment>
-            <Card id={id} collection="blog" data={data} url={`/posts/${id}/`} />
-          </Fragment>
-        ))
+        page.data.map((entry: CollectionEntry<"blog">) => {
+          return (
+            <Fragment key={entry.id}>
+              <Card id={entry.id} collection="blog" data={entry.data} url={`/posts/${entry.id}/`} />
+            </Fragment>
+          );
+        })
       }
     </ul>
   </Main>
