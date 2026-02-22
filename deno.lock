@@ -5417,11 +5417,20 @@
     "https://esm.sh/react-dom@19.1.1/server": "d8d537b44c19a05a7805396eac77f18c628e1019fb2a61cb1f1a1bce0eeeb939",
     "https://esm.sh/react-dom@19.1.1/server.browser": "0bbec0ea0eea141c6e5edb389cac0e7d40c2207f2af0df9cf8572c0988f3e6f6",
     "https://esm.sh/react-dom@19.1.1/server.browser?external": "0bbec0ea0eea141c6e5edb389cac0e7d40c2207f2af0df9cf8572c0988f3e6f6",
+    "https://esm.sh/react-dom@19.2.4/denonext/cjs/react-dom-server-legacy.browser.production.mjs": "6e90cbe7a87417f484ff67023d0eebe5d8bb6e046a785ed150c92ba9b07c9f61",
+    "https://esm.sh/react-dom@19.2.4/denonext/cjs/react-dom-server.browser.production.mjs": "e738e679b174ee82671437c09e14db84ae495ee1bebc808bc7b546f5cb1632c3",
+    "https://esm.sh/react-dom@19.2.4/denonext/react-dom.mjs": "977d512e020d3902d07a2d195cb8e636e40a035112fe7bf2e95e0c5d36524020",
+    "https://esm.sh/react-dom@19.2.4/denonext/server.mjs": "70300e8f845adfc1c9098f6f3610b651639a664dde4d7f812acb89f2eacff063",
+    "https://esm.sh/react-dom@19.2.4/server": "2f21c11712df340d423749ad4f8b7c8746e43c90c5082a414f494b138a55b2a9",
     "https://esm.sh/react@19.1.1": "4583aedf2a721df5ea4aa7308de82b5bcbee12e5ed7910061940f7434982847d",
     "https://esm.sh/react@19.1.1/denonext/jsx-runtime.mjs": "725c2f07b0ae1b880a8e091b569a7baff43d5560cddb7fe51a64c94463eec496",
     "https://esm.sh/react@19.1.1/denonext/react.mjs": "588ff2562af9e974efdb79cc945049768bf5ee0252543fd8fb6a48472f3db587",
     "https://esm.sh/react@19.1.1/jsx-runtime": "0baf62ea45676abb2a68daf420cc1ba2cc462a19be3dfa195330b1d0a37f84d7",
-    "https://esm.sh/react@19.1.1?external": "4583aedf2a721df5ea4aa7308de82b5bcbee12e5ed7910061940f7434982847d"
+    "https://esm.sh/react@19.1.1?external": "4583aedf2a721df5ea4aa7308de82b5bcbee12e5ed7910061940f7434982847d",
+    "https://esm.sh/react@19.2.4": "7d859784a5b32ed39680309600da183f46df137ffde775567b32b6d19fbcd473",
+    "https://esm.sh/react@19.2.4/denonext/jsx-runtime.mjs": "88dcba11d90f7078cc77ef36cc5523a00a6039f281879d3fe4e36da2ffc5e562",
+    "https://esm.sh/react@19.2.4/denonext/react.mjs": "d54e9e11590e98b359498daf1553ba42ebe842e9d5042fa7020013dae07ae548",
+    "https://esm.sh/react@19.2.4/jsx-runtime": "eceacfa8faef786b66fee612cc16d222b9d65d533c2a9027add5693aa676ff92"
   },
   "workspace": {
     "dependencies": [
