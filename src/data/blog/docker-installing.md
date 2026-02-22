@@ -68,7 +68,6 @@ $ sudo chmod 666 /var/run/docker.sock
 ## 02 檢查docker是否正常安裝
 
 - 檢視docker運行狀態: `$ docker info`
-
   - 輸出內容
 
     ```bash
@@ -133,7 +132,6 @@ $ sudo chmod 666 /var/run/docker.sock
     ```
 
 - 檢視己安裝docker版本: `$ docker version`
-
   - 輸出內容
 
     ```bash

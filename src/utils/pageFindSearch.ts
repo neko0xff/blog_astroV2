@@ -1,3 +1,4 @@
+// @ts-ignore
 const { PagefindUI } = await import("@pagefind/default-ui");
 const pageFindSearch: HTMLElement | null =
   document.querySelector("#pagefind-search");
@@ -11,7 +12,7 @@ async function initSearch() {
   if (!pageFindSearch) return;
 
   // Check if Pagefind is already initialized
-  await onIdle( () => {
+  onIdle(() => {
     const search = new PagefindUI({
       element: "#pagefind-search",
       showSubResults: true,
@@ -67,3 +68,5 @@ document.addEventListener("astro:after-swap", () => {
 
 /*Main*/
 initSearch(); // Initialize service
+
+export {};

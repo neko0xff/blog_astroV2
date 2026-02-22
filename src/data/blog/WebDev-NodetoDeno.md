@@ -20,7 +20,7 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
 因此想寫相關的教學文，方便自己後續維護時進行查看。
 
 - [Announcing Deno 2](https://www.youtube.com/live/d35SlRgVxT8)
-  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/d35SlRgVxT8?si=U8V_dcjQn-N27P60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/d35SlRgVxT8?si=U8V_dcjQn-N27P60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## 注意部分
 
@@ -49,7 +49,6 @@ Deno 從 1.39 版本開始，便持續提升與 Node.js 環境及 npm 套件的�
    $ npm install @deno/astro-adapter
    ```
 2. 更新`astro.config.ts`配置檔
-
    - `output`部分請盡量使用`hybird`模式，否則某些需要開啟 `prerender`
      預先渲染的組件或者套件無法成功運作(ex: `@resvg/resvg-js`)
 

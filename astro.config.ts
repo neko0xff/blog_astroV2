@@ -7,15 +7,15 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import deno from "@deno/astro-adapter"; //add deno deploy support
-import mermaid from 'astro-mermaid';
+import mermaid from "astro-mermaid";
 import remarkToc from "remark-toc";
+// @ts-ignore
 import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import process from "node:process";
+//import process from "node:process";
 
-
-const is_ci = process.env.CI === "true";
+//const is_ci = process.env.CI === "true";
 
 /*
  * 這個配置文件是用於Astro框架的配置
@@ -31,7 +31,7 @@ export default defineConfig({
   },
   adapter: deno({
     port: 8085, // 若無設置，則使用預設的 '8085/tcp'
-    start: true
+    start: true,
   }),
   legacy: {
     collections: false, // `src/content`
@@ -42,9 +42,9 @@ export default defineConfig({
     }),
     react(),
     mermaid({
-      theme: 'forest',
-      autoTheme: true
-    })
+      theme: "forest",
+      autoTheme: true,
+    }),
   ],
   markdown: {
     remarkPlugins: [
@@ -67,16 +67,17 @@ export default defineConfig({
       exclude: ["@resvg/resvg-js"],
     },
     resolve: {
+      /*
       alias: is_ci
         ? {
             "react-dom/server.browser":
-              "https://esm.sh/react-dom@19.1.1/server.browser",
-            "react-dom": "https://esm.sh/react-dom@19.1.1",
-            "react": "https://esm.sh/react@19.1.1",
-            "@types/react": "https://esm.sh/react@19.1.1/types",
-            "@types/react-dom": "https://esm.sh/react-dom@19.1.1/types",
+              "https://esm.sh/react-dom@19.2.4/server.browser",
+            "react-dom": "https://esm.sh/react-dom@19.2.4",
+            react: "https://esm.sh/react@19.2.4",
+            "@types/react": "https://esm.sh/react@19.2.4/types",
+            "@types/react-dom": "https://esm.sh/react-dom@19.2.4/types",
           }
-        : {},
+        : {},*/
     },
     plugins: [tailwindcss()],
   },
@@ -84,8 +85,6 @@ export default defineConfig({
     service: {
       entrypoint: "astro/assets/services/noop",
     },
-    // Used for all Markdown images; not configurable per-image
-    // Used for all `<Image />` and `<Picture />` components unless overridden with a prop
   },
   experimental: {
     preserveScriptOrder: true,

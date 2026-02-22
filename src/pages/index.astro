@@ -99,7 +99,9 @@ const recentPosts = sortedPosts
         <section id="recent-posts" class="py-12">
           <h2 class="mb-6 text-3xl font-semibold">最近文章</h2>
           <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {recentPosts.map(data => <Card variant="h3" {...data} />)}
+            {recentPosts.map(data => (
+              <Card variant="h3" {...data} />
+            ))}
           </ul>
         </section>
       )

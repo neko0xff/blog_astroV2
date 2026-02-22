@@ -1,5 +1,4 @@
-部署指南
-===
+# 部署指南
 
 本文件說明如何建置 `blog_astroV2` 應用程式並將其部署至 Kubernetes 叢集。
 
@@ -33,6 +32,7 @@ docker push $IMAGE_NAME:$IMAGE_TAG
 Kubernetes 設定檔位於 `k8s/` 目錄中。
 
 ### 步驟 1: 建立命名空間 (Namespace)
+
 建立應用程式運行的命名空間。
 
 ```bash
@@ -40,6 +40,7 @@ kubectl apply -f k8s/namespace.yaml
 ```
 
 ### 步驟 2: 部署應用程式
+
 部署應用程式 Pods。
 
 ```bash
@@ -47,6 +48,7 @@ kubectl apply -f k8s/deployment.yaml
 ```
 
 ### 步驟 3: 揭露內部服務
+
 建立內部服務以連接 Pods 網路。
 
 ```bash
@@ -54,6 +56,7 @@ kubectl apply -f k8s/service.yaml
 ```
 
 ### 步驟 4: 設定外部存取 (Ingress)
+
 部署 Ingress 資源以路由外部流量。
 
 ```bash
@@ -95,6 +98,7 @@ chmod +x k8s/deploy-local.sh
 ```
 
 此腳本會自動執行：
+
 1. 切換到 Minikube 的 Docker 環境
 2. 在本地建置 Docker 映像檔
 3. 部署所有 Kubernetes 資源
@@ -106,17 +110,21 @@ chmod +x k8s/deploy-local.sh
 如果您偏好手動部署：
 
 #### 1. 啟動 Minikube
+
 ```bash
 minikube start
 ```
 
 #### 2. 使用 Minikube 的 Docker Daemon
+
 此指令允許您直接在 Minikube 內部建置映像檔。
+
 ```bash
 eval $(minikube docker-env)
 ```
 
 #### 3. 在本地建置映像檔
+
 ```bash
 # 使用本地映像名稱建置（不需要儲存庫前綴）
 docker build -t neko0xff/blog_astrov2:latest -f Dockerfile.env .
@@ -126,11 +134,13 @@ docker build -t neko0xff/blog_astrov2:latest -f Dockerfile.env .
 > **映像配置**：`k8s/deployment.yaml` 已配置為使用 `image: neko0xff/blog_astrov2:latest` 並設定 `imagePullPolicy: IfNotPresent`，這是為本地開發環境設計的。這可以防止 Kubernetes 嘗試從遠端儲存庫拉取映像。
 
 #### 4. 啟用 Ingress Addon
+
 ```bash
 minikube addons enable ingress
 ```
 
 #### 5. 部署
+
 ```bash
 kubectl apply -f k8s/namespace.yaml
 kubectl apply -f k8s/deployment.yaml
@@ -139,6 +149,7 @@ kubectl apply -f k8s/ingress.yaml
 ```
 
 #### 6. 驗證部署
+
 ```bash
 # 檢查所有資源
 kubectl get all -n blog-astro
@@ -155,6 +166,7 @@ kubectl logs -l app=blog-astro -n blog-astro
 您有兩種方式可以存取已部署的應用程式：
 
 #### 方式 1：Port Forward（推薦用於快速測試）
+
 ```bash
 kubectl port-forward -n blog-astro svc/blog-astro-service 8085:80
 ```
@@ -162,12 +174,14 @@ kubectl port-forward -n blog-astro svc/blog-astro-service 8085:80
 然後在瀏覽器訪問：**http://lockubectl get all -n blog-astroalhost:8085**
 
 #### 方式 2：使用 Ingress 和 Minikube Tunnel
+
 ```bash
 # 在另一個終端機中執行：
 sudo minikube tunnel
 ```
 
 將 Ingress IP 新增到您的 `/etc/hosts`：
+
 ```bash
 # 取得 Ingress IP
 kubectl get ingress -n blog-astro
@@ -181,9 +195,8 @@ kubectl get ingress -n blog-astro
 ### 疑難排解
 
 - Q1: 如果 Pod 顯示 `ImagePullBackOff` 狀態：
-   1. 確保您在 Minikube 的 Docker 環境中建置映像：`eval $(minikube docker-env)`
+  1. 確保您在 Minikube 的 Docker 環境中建置映像：`eval $(minikube docker-env)`
   2. 驗證映像是否存在：`docker images | grep blog_astrov2`
   3. 檢查 `deployment.yaml` 是否使用 `imagePullPolicy: IfNotPresent`
 
 更多疑難排解技巧，請參閱 [TROUBLESHOOTING_zh-TW.md](TROUBLESHOOTING_zh-TW.md)。
-

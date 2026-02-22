@@ -91,17 +91,11 @@ const isActive = (path: string) => {
               友站連結
             </a>
             <li class="col-span-2">
-              <a
-                href="/terms "
-                class={isActive("/trems") ? "active-nav" : ""}
-              >
+              <a href="/terms " class={isActive("/trems") ? "active-nav" : ""}>
                 條款
               </a>
               <li class="col-span-2">
-                <a
-                  href="/about"
-                  class={isActive("/about") ? "active-nav" : ""}
-                >
+                <a href="/about" class={isActive("/about") ? "active-nav" : ""}>
                   關於
                 </a>
               </li>
@@ -123,7 +117,9 @@ const isActive = (path: string) => {
                       <span slot="icon">
                         <IconArchive class="hidden sm:inline-block" />
                       </span>
-                      <span slot="text" class="sm:sr-only">歸檔</span>
+                      <span slot="text" class="sm:sr-only">
+                        歸檔
+                      </span>
                     </LinkButton>
                   </li>
                 )

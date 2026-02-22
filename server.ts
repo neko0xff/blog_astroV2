@@ -1,6 +1,9 @@
-import { serve } from "jsr:@std/http@^1.1.0";
-import { serveDir } from "jsr:@std/http@^1.1.0";
+// @ts-ignore
+import { serve } from "jsr:@std/http@1.0.25";
+// @ts-ignore
+import { serveDir } from "jsr:@std/http@1.0.25";
 
+// @ts-ignore
 const port = parseInt(Deno.env.get("PORT") || "8085");
 const handler = async (request: Request): Promise<Response> => {
   const url = new URL(request.url);

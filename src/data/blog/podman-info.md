@@ -78,11 +78,9 @@ podman是由RedHat開發的一個無背景程序(Daemonless)的容器引擎，�
 podman提供了一些管理Container&Image的工具
 
 - 終端命令列: `podman-tui`
-
   - Arch: [AUR](https://aur.archlinux.org/packages/podman-tui)
 
 - 桌面端: `podman-desktop`
-
   - Arch: [AUR](https://aur.archlinux.org/packages/podman-desktop)
 
 - Cockpit: `cockpit-podman`

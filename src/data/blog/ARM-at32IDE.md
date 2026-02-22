@@ -50,7 +50,6 @@ description: ""
 ### 2-2 Tips
 
 - 若你是使用AT-START系列的開發板，請額外加入二個檔案進入專案的對應目錄位置
-
   - `bsp/at32f423_board.c` => `/[專案]/project/AT32_IDE/`
   - `at32f423_board.h` => `/[專案]/project/inc/`
 
@@ -70,7 +69,7 @@ description: ""
 - 程式碼:
   https://github.com/neko0xff/note_hardware/tree/main/at32_F423/AT32F423VCT7_LED
 - 實做影片: https://www.youtube.com/watch?v=BSLdWruhIpM
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/BSLdWruhIpM?si=UwAgNrstewW0GrNd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/BSLdWruhIpM?si=UwAgNrstewW0GrNd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## REF
 
@@ -83,7 +82,7 @@ description: ""
     - AN0165: `AT32F423入门使用指南`
 - 影片
   - [AT32 Work Bench圖形化配置軟體介紹](https://www.youtube.com/watch?v=-25ZQxwkvQ0)
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/-25ZQxwkvQ0?si=r11Vk0_313a3Bhne" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/-25ZQxwkvQ0?si=r11Vk0_313a3Bhne" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### 21ic
 

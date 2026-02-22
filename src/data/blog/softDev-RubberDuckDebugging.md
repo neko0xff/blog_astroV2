@@ -18,7 +18,6 @@ Debugging)是指在程式的除錯/測試過程中，<font color=red>耐心的�
 當問題出現時，則可從幾個角度來看待
 
 - 發問人
-
   1. 如果使用了別人的範例來修改，再思考是否比對過自己修改的是否和原本的有差異或漏寫
   2. 若確認過無問題，可直接說「我每一個部分都確認過無問題且無漏寫」，至少可幫自己減少或者排除一個可能的情況。
   <table><tr><td bgcolor=#C0FF3E>
@@ -47,4 +46,4 @@ Debugging)是指在程式的除錯/測試過程中，<font color=red>耐心的�
 - https://dotblogs.com.tw/mis2000lab/2023/05/01/Rubber_Duck_Debugging_20230501
 - 相關影片: https://www.youtube.com/watch?v=ku61dWC5VvI
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ku61dWC5VvI?si=AWYODGe-nh44ifMk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ku61dWC5VvI?si=AWYODGe-nh44ifMk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

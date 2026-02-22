@@ -38,7 +38,7 @@ export const GET: APIRoute = async ({ props }) => {
   try {
     const png = await generateOgImageForPost(props as CollectionEntry<"blog">);
     // Convert Buffer to Uint8Array for web Response compatibility
-    const pngArray = png instanceof Buffer ? new Uint8Array(png) : png;
+    const pngArray = png.buffer as ArrayBuffer;
     return new Response(pngArray, {
       headers: { "Content-Type": "image/png" },
     });

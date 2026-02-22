@@ -15,7 +15,7 @@ export const SITE = {
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
-  scheduledPostMargin:  scheduled_time,
+  scheduledPostMargin: scheduled_time,
   showArchives: true,
   showBackButton: true, // show back button in post detail
   editPost: {

@@ -15,10 +15,12 @@ async function Data2(){
 };
 
 
+// @ts-ignore
 Deno.bench("Data1: Deno.dev Json", { baseline : true },async() => {
     await Data1();
 });
 
+// @ts-ignore
 Deno.bench("Data2: local Json", async() => {
     await Data2();
 });

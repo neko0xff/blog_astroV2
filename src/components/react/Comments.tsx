@@ -3,10 +3,9 @@ import * as React from "react";
 
 const id = "inject-comments";
 
-
 /**
  * 獲得模式切換的狀態
- * @returns   
+ * @returns
  */
 function getSavedTheme() {
   return globalThis.localStorage.getItem("theme");

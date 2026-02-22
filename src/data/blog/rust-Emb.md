@@ -260,7 +260,6 @@ $ cargo build
 
 1. 手動刷寫: `$ cargo embed --chip stm32f103c8`
 2. 使用設置檔來刷寫
-
    - 新增`Embed.toml`
 
      ```toml

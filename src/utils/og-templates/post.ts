@@ -2,6 +2,7 @@ import satori from "satori";
 // import { html } from "satori-html";
 import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont.ts";
+import React from "react";
 
 // const markup = html`<div
 //       style={{
@@ -93,7 +94,7 @@ import loadGoogleFonts from "../loadGoogleFont.ts";
 //       </div>
 //     </div>`;
 
-export default async post => {
+export default async (post: any) => {
   return satori(
     {
       type: "div",
@@ -216,7 +217,7 @@ export default async post => {
           },
         ],
       },
-    },
+    } as React.ReactElement,
     {
       width: 1200,
       height: 630,

@@ -17,35 +17,35 @@ Deno 提供了內建的基準測試工具 (Benchmarking) ，並且提供了一�
 ## 01 範例
 
 ```typescript
-async function Data1(){
-    const source = "https://neko-0xff-blog.deno.dev/assets/myLinks.json";
-    const jsonResponse = await fetch(source);
-    const jsonData = await jsonResponse.json();
-    //console.log(jsonData);
-    return jsonData;
-};
+async function Data1() {
+  const source = "https://neko-0xff-blog.deno.dev/assets/myLinks.json";
+  const jsonResponse = await fetch(source);
+  const jsonData = await jsonResponse.json();
+  //console.log(jsonData);
+  return jsonData;
+}
 
-async function Data2(){
-    const source = "http://localhost:8085/assets/myLinks.json";
-    const jsonResponse = await fetch(source);
-    const jsonData = await jsonResponse.json();
-    //console.log(jsonData);
-    return jsonData;
-};
+async function Data2() {
+  const source = "http://localhost:8085/assets/myLinks.json";
+  const jsonResponse = await fetch(source);
+  const jsonData = await jsonResponse.json();
+  //console.log(jsonData);
+  return jsonData;
+}
 
-
-Deno.bench("Data1: Deno.dev Json", { baseline : true },async() => {
-    await Data1();
+Deno.bench("Data1: Deno.dev Json", { baseline: true }, async () => {
+  await Data1();
 });
 
-Deno.bench("Data2: local Json", async() => {
-    await Data2();
+Deno.bench("Data2: local Json", async () => {
+  await Data2();
 });
 ```
 
 ## 02 執行
 
 - 單一腳本: `$ deno bench [檔案]`
+
 ```zsh
 # user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main x [12:35:02] C:1
 $ deno bench -A --unstable-kv --unstable-ffi  bench/link_loading.ts
@@ -64,9 +64,11 @@ summary
   Data1: Deno.dev Json
      2.58x slower than Data2: local Json
 ```
+
 - 目錄下的全部腳本: `$ deno bench [目錄]/*`
+
 ```zsh
-# user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main x [8:41:52] 
+# user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main x [8:41:52]
 $ sudo make deno_bench
 Running Bench Script
 Task bench deno bench -A --unstable-kv --unstable-ffi  bench/*
@@ -90,9 +92,11 @@ benchmark     time/iter (avg)        iter/s      (min … max)           p75    
 URL Parsing            1.1 µs       939,400 (892.2 ns …   3.2 µs)   1.0 µs   3.2 µs   3.2 µs
 
 ```
+
 - 把測試結果輸出成JSON格式: `$ deno bench --json [目錄]/*`
+
 ```zsh
-# user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main x [12:35:27] 
+# user @ Host-02 in ~/文件/GitHub/blog_astroV2 on git:main x [12:35:27]
 $ deno bench -A --unstable-kv --unstable-ffi --json  bench/link_loading.ts
 Check file:///home/user/文件/GitHub/blog_astroV2/bench/link_loading.ts
 {
@@ -149,13 +153,15 @@ Check file:///home/user/文件/GitHub/blog_astroV2/bench/link_loading.ts
 
 ```
 
-
 ## REF
+
 ### Deno Docs
+
 - [`deno bench`, benchmarking tool](https://docs.deno.com/runtime/reference/cli/bench)
 - [Benchmarking](https://docs.deno.com/examples/benchmarking/)
 
 ### Youtube
+
 - [Tips and tricks with deno bench-Youtube](https://www.youtube.com/watch?v=IVde_GTN6TM)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IVde_GTN6TM?si=yl1OctCEGlbMZ4K5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IVde_GTN6TM?si=yl1OctCEGlbMZ4K5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

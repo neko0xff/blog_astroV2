@@ -64,7 +64,6 @@ layout: "../../layouts/AboutLayout.astro"
 ## Side Project
 
 - Blog
-
   - 組成架構
     - 框架: [Astro](https://docs.astro.build/zh-tw/concepts/why-astro/)
     - 主題: [astro-paper](https://github.com/satnaing/astro-paper)

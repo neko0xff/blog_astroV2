@@ -1,6 +1,7 @@
 import satori from "satori";
 import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont.ts";
+import React from "react";
 
 export default async () => {
   return satori(
@@ -117,7 +118,7 @@ export default async () => {
           },
         ],
       },
-    },
+    } as React.ReactElement,
     {
       width: 1200,
       height: 630,

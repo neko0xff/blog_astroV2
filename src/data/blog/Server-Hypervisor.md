@@ -50,6 +50,7 @@ description: ""
     flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm epb pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid xsaveopt dtherm ida arat pln pts vnmi md_clear flush_l1d
     vmx flags       : vnmi preemption_timer invvpid ept_x_only flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest
   ```
+
   - 可選部分: 若你的CPU&主機版晶片組支援 AMD 的"輸入輸出主記憶體管理單元(`IOMMU`)"或 Intel 的"直接輸入/輸出虛擬化(Virtualization for Directed I/O，`VT-d`)",則可讓虛擬機直接取用宿主主機的週邊硬體資源
   ```bash
    root@pve01:~# dmesg | grep DMAR

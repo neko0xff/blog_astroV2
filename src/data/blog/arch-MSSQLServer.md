@@ -33,7 +33,6 @@ description: ""
 
 - 進入設置: `$ sudo /opt/mssql/bin/mssql-conf setup`
 - 正式開始設置
-
   1. 選擇 SQL Server 的版本
 
   ```

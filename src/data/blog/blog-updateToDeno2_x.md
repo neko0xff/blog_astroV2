@@ -45,7 +45,6 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
   - 加入: `$ deno add npm:[npm套件]`
   - 移除: `$ deno remove npm:[npm套件]`
 - 版本檢查(僅在`2.1.4`後)
-
   - 僅檢查: `$ deno outdated`
 
   ```
@@ -182,7 +181,6 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 ```
 
 4. 設定 GitHub Action & Deno Deploy
-
    - Workflow 腳本: `./.github/workflows/deploy.yml`
 
      ```yaml

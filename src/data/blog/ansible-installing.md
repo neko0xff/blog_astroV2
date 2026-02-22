@@ -28,7 +28,7 @@ Ansible是由RedHat維護的一個能讓系統管理員可簡化系統維護&部
     - Ac-hoc(臨時指令): 若是只有一個單一指令，則可完成重復性低且簡單的任務
 - 影片
   - [就是要跟你聊 Red Hat Ansible 自動化怎麼讓你更安心管理系統](https://www.youtube.com/watch?v=QOMg9f6gFOs)
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/QOMg9f6gFOs?si=l12-juyKwRGL1Lj-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/QOMg9f6gFOs?si=l12-juyKwRGL1Lj-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## 01 安裝
 

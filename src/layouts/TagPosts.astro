@@ -29,13 +29,7 @@ const { page, tag, tagName } = Astro.props;
     <h1 slot="title" transition:name={tag}>{`標籤:${tag}`}</h1>
     <ul>
       {
-        page.data.map((entry: CollectionEntry<"blog">) => {
-          return (
-            <Fragment key={entry.id}>
-              <Card id={entry.id} collection="blog" data={entry.data} url={`/posts/${entry.id}/`} />
-            </Fragment>
-          );
-        })
+        page.data.map((entry: CollectionEntry<"blog">) => <Card id={entry.id} collection="blog" data={entry.data} url={`/posts/${entry.id}/`} />)
       }
     </ul>
   </Main>
