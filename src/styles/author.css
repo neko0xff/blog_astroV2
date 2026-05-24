@@ -25,5 +25,5 @@
 
 /*主頁主人圖*/
 .avatar_img {
-  aspect-ratio: auto auto / 100%;
+  aspect-ratio: 1 / 1;
 }

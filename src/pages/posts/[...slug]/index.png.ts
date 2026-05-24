@@ -42,7 +42,7 @@ export const GET: APIRoute = async ({ props }) => {
     return new Response(pngArray, {
       headers: { "Content-Type": "image/png" },
     });
-  } catch (e) {
+  } catch {
     // 可根據需求回傳預設圖片
     return new Response(null, {
       status: 500,

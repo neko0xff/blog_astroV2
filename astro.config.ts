@@ -9,7 +9,6 @@ import sitemap from "@astrojs/sitemap";
 import deno from "@deno/astro-adapter"; //add deno deploy support
 import mermaid from "astro-mermaid";
 import remarkToc from "remark-toc";
-// @ts-ignore
 import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -31,6 +30,7 @@ export default defineConfig({
   },
   adapter: deno({
     port: 8085, // 若無設置，則使用預設的 '8085/tcp'
+    hostname: "0.0.0.0", // 明確設置，避免 virtual module 未導出造成警告
     start: true,
   }),
   legacy: {
@@ -78,15 +78,11 @@ export default defineConfig({
           }
         : {},
     },
-
     plugins: [tailwindcss()],
   },
   image: {
     service: {
-      entrypoint: "astro/assets/services/noop",
+      entrypoint: "astro/assets/services/sharp",
     },
-  },
-  experimental: {
-    preserveScriptOrder: true,
   },
 });

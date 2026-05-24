@@ -132,9 +132,6 @@ const structuredData = {
     <!--日夜模式切換按鈕 -->
     <script is:inline src="/toggle-theme.js"></script>
 
-    <!--  防止有人使用 devtools 注入程式碼 -->
-    <script  is:inline src="/console_warning.js"></script>
-
     <style>
       html,
       body {
@@ -147,5 +144,8 @@ const structuredData = {
 
   <body>
     <slot />
+
+    <!--  防止有人使用 devtools 注入程式碼 -->
+    <script is:inline src="/console_warning.js"></script>
   </body>
 </html>

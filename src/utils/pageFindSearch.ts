@@ -1,4 +1,3 @@
-// @ts-ignore
 const { PagefindUI } = await import("@pagefind/default-ui");
 const pageFindSearch: HTMLElement | null =
   document.querySelector("#pagefind-search");
@@ -7,7 +6,7 @@ const onIdle =
   globalThis.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1));
 
 /* Initialize Pagefind search component */
-async function initSearch() {
+function initSearch() {
   // Check if Pagefind search form exists
   if (!pageFindSearch) return;
 

@@ -14,11 +14,12 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
     <div id="pagefind-search" transition:persist data-backurl={backUrl}></div>
     <br />
     <img
-      src="/assets/drink.png"
+      src="/assets/drink.webp"
       alt="search"
       class="mx-auto"
       width="200"
       height="150"
+      loading="lazy"
     />
   </Main>
   <Footer />

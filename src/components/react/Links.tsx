@@ -1,4 +1,3 @@
-import axios from "axios";
 import type React from "react";
 import { useEffect, useState } from "react";
 
@@ -23,8 +22,9 @@ const LinksComponent: React.FC = () => {
     const loadData = async (): Promise<void> => {
       try {
         const json_file = "/assets/myLinks.json";
-        const response = await axios.get<Link[]>(json_file);
-        setLinks(response.data);
+        const response = await fetch(json_file);
+        const data: Link[] = await response.json();
+        setLinks(data);
       } catch {
         // 可以根據需求處理錯誤，例如顯示提示訊息
         //console.error("Data loading failed.");
@@ -67,6 +67,7 @@ const LinksComponent: React.FC = () => {
                     src={card.icon || "../assets/images/default.jpg"}
                     id={`avatar${index}`}
                     alt={`avatar${card.name}`}
+                    loading="lazy"
                   />
                   <div className="min-w-0 py-5 pr-5 pl-28">
                     <div className="truncate text-sm font-medium text-slate-900 sm:text-base dark:text-slate-200">

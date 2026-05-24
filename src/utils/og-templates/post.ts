@@ -3,6 +3,7 @@ import satori from "satori";
 import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont.ts";
 import React from "react";
+import type { CollectionEntry } from "astro:content";
 
 // const markup = html`<div
 //       style={{
@@ -94,7 +95,7 @@ import React from "react";
 //       </div>
 //     </div>`;
 
-export default async (post: any) => {
+export default async (post: CollectionEntry<"blog">) => {
   return satori(
     {
       type: "div",

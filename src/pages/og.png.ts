@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
     return new Response(new Uint8Array(buffer), {
       headers: { "Content-Type": "image/png" },
     });
-  } catch (e) {
+  } catch {
     // 產生失敗時回傳 public/og-default.png
     const res = await fetch("/og-default.png");
     if (res.ok) {

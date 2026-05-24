@@ -10,7 +10,7 @@ import Main from "@/layouts/Main.astro";
 <Layout title={`友站鏈結 | ${SITE.title}`}>
   <Header activeNav="links" />
   <Main pageTitle="友站鏈結" pageDesc="這邊存放一些認識好友的其它站">
-    <Links_URL client:load />
+    <Links_URL client:idle />
   </Main>
   <Footer />
 </Layout>

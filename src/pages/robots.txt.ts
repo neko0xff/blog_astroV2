@@ -24,7 +24,7 @@ async function fetchDarkVisitorsRules(): Promise<string> {
       }),
     });
     return await response.text();
-  } catch (e) {
+  } catch {
     // Fallback: ignore if fetch fails
     return "";
   }
