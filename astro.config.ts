@@ -6,7 +6,6 @@ import { SITE } from "./src/config.ts";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import deno from "@deno/astro-adapter"; //add deno deploy support
 import mermaid from "astro-mermaid";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
@@ -15,6 +14,20 @@ import rehypeKatex from "rehype-katex";
 import process from "node:process";
 
 const is_ci = process.env.CI === "true";
+
+// Node.js built-in modules that Deno can polyfill (from @deno/astro-adapter source)
+const COMPATIBLE_NODE_MODULES = [
+  "assert", "assert/strict", "async_hooks", "buffer", "child_process",
+  "cluster", "console", "constants", "crypto", "dgram",
+  "diagnostics_channel", "dns", "events", "fs", "fs/promises",
+  "http", "http2", "https", "inspector", "module",
+  "net", "os", "path", "path/posix", "path/win32",
+  "perf_hooks", "process", "punycode", "querystring",
+  "readline", "repl", "stream", "stream/promises", "stream/web",
+  "string_decoder", "sys", "timers", "timers/promises", "tls",
+  "trace_events", "tty", "url", "util", "util/types", "v8",
+  "vm", "wasi", "worker_threads", "zlib",
+];
 
 /*
  * 這個配置文件是用於Astro框架的配置
@@ -28,11 +41,6 @@ export default defineConfig({
   server: {
     port: 8085, // 若無設置，則使用預設的 '4321/tcp'
   },
-  adapter: deno({
-    port: 8085, // 若無設置，則使用預設的 '8085/tcp'
-    hostname: "0.0.0.0", // 明確設置，避免 virtual module 未導出造成警告
-    start: true,
-  }),
   legacy: {
     collections: false, // `src/content`
   },
@@ -67,16 +75,25 @@ export default defineConfig({
       exclude: ["@resvg/resvg-js"],
     },
     resolve: {
-      alias: is_ci
-        ? {
-            "react-dom/server.browser":
-              "https://esm.sh/react-dom@19.2.4/server.browser",
-            "react-dom": "https://esm.sh/react-dom@19.2.4",
-            react: "https://esm.sh/react@19.2.4",
-            "@types/react": "https://esm.sh/react@19.2.4/types",
-            "@types/react-dom": "https://esm.sh/react-dom@19.2.4/types",
-          }
-        : {},
+      alias: [
+        // Deno requires node: prefix for Node built-ins; Vite may strip it
+        ...COMPATIBLE_NODE_MODULES.map((mod) => ({
+          find: mod,
+          replacement: `node:${mod}`,
+        })),
+        ...(is_ci
+          ? [
+              {
+                find: "react-dom/server.browser",
+                replacement: "https://esm.sh/react-dom@19.2.4/server.browser",
+              },
+              { find: "react-dom", replacement: "https://esm.sh/react-dom@19.2.4" },
+              { find: "react", replacement: "https://esm.sh/react@19.2.4" },
+              { find: "@types/react", replacement: "https://esm.sh/react@19.2.4/types" },
+              { find: "@types/react-dom", replacement: "https://esm.sh/react-dom@19.2.4/types" },
+            ]
+          : []),
+      ],
     },
     plugins: [tailwindcss()],
   },

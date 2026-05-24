@@ -4,9 +4,9 @@
     "start": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
     "dev": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
     "preview": "deno run -A npm:astro preview --host 0.0.0.0 ",
-    "serve": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
-    "build": "deno run -A --unstable-ffi --unstable-kv npm:astro build && deno run -A scripts/patch-client-path.ts",
-    "pagefind": "deno run -A npm:pagefind --site dist/client",
+    "serve": "deno run --allow-net --allow-read --allow-env server.ts",
+    "build": "deno run -A --unstable-ffi --unstable-kv npm:astro build",
+    "pagefind": "deno run -A npm:pagefind --site dist",
     "outdated_check": "deno outdated --latest",
     "outdated_update": "deno outdated --update --latest",
     "bench": "deno bench -A --unstable-kv --unstable-ffi  bench/*",
@@ -20,7 +20,7 @@
       "**/node_modules"
     ],
     "include": [],
-    "entrypoint": "dist/server/entry.mjs"
+    "entrypoint": "https://deno.land/std@0.224.0/http/file_server.ts"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

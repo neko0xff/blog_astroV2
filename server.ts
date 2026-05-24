@@ -89,7 +89,7 @@ const handler = async (request: Request): Promise<Response> => {
     } else {
       // Serve the main application
       response = await serveDir(request, {
-        fsRoot: "./dist/client",
+        fsRoot: "./dist",
         urlRoot: "",
         showDirListing: false,
         enableCors: true,
