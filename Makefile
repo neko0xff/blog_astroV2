@@ -8,7 +8,7 @@ IMAGE:=blog_astroV2
 all: build_image
 
 # Build Option
-build_image: img_stop img_clean img_build																	# Build: Container Image(docker)
+build_image: img_stop img_clean img_build																# Build: Container Image(docker)
 build_local: deno_clean deno_install deno_build		 													# Build: Local Deno Project
 
 # Commends
