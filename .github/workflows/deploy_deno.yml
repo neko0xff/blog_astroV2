@@ -1,9 +1,11 @@
 name: Deploy deno.dev Service
 on:
   push:
-    branches: main
+    branches:
+      - main
   pull_request:
-    branches: main
+    branches:
+      - main
 
 jobs:
   # GitHub Actions Runner Images: https://github.com/actions/runner-images/tree/main
