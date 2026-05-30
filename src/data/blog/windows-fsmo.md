@@ -14,7 +14,7 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
 
 <!--more-->
 
-### 負責整個 AD 樹系
+### 負責整個網域樹系層次
 
 - 架構 (schema master)
   - 負責處理 Active Directory 上，目錄架構設計上的所有更新與修改
@@ -40,9 +40,9 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
   - 相關權限群組: Domain Admins
   - 會對執行舊版 （Windows 2000/NT 4.0前） 的工作站、成員伺服器和網域控制站通告自己是"主要"網域控制站
   - 同時兼網域中的主要的 NTP (時間同步) 伺服器
-  - 預設為修改群組原則(GPO)的主要伺服器
-    - 預設的狀態下群組原則編輯器也會連線到 PDC 模擬器主機,統一發佈群組原則物件的設定
-    - 對於使用者密碼的變更與帳戶的鎖定,也都是由此角色負責
+  - 是"修改群組原則(GPO)"的主要伺服器
+    - 預設的狀態： 群組原則編輯器會連線到 PDC 模擬器主機,統一發佈群組原則物件的設定
+  - 對於使用者密碼的變更與帳戶的鎖定,也都是由此角色負責
 
 ## 在 Windows Server 網域控制站上，負責管理五大角色的相關工具
 
