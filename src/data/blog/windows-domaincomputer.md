@@ -95,11 +95,11 @@ graph TD
   - 裝置當前 IP(在 DC 上查詢)
 
     ```
-    C:\Users\neko_admin> Get-ADComputer -Identity "K-082" -Properties IPv4Address | Select-Object Name, IPv4Address
+    C:\Users\neko_admin> Get-ADComputer -Identity "PC-01" -Properties IPv4Address | Select-Object Name, IPv4Address
 
     Name  IPv4Address
     ----  -----------
-    K-082 192.168.1.124
+    PC-01 192.168.57.124
     ```
 
   - 裝置狀態(Device State)
@@ -204,7 +204,7 @@ graph TD
   | 名稱格式 / 特徵 | 可能的解析方式 | 行為說明 |
   |:--------------------------------:|:--------------:|:-------------------------------------------------------------------------------------------------:|
   | 單純短名稱（如 `NEKOLAB`）+ `/`` |  NetBIOS 解析  |                 系統可能優先嘗試傳統 NetBIOS 名稱解析（如 WINS、廣播、LMHOSTS）。                 |
-|       名稱中包含 `@`符號        | DNS / UPN 解析 | 常見於 UPN 格式（如`user@nekolab.local`），系統通常會改走 DNS 與 Active Directory 網域定位流程。 |
+  |       名稱中包含 `@`符號        | DNS / UPN 解析 | 常見於 UPN 格式（如`user@nekolab.local`），系統通常會改走 DNS 與 Active Directory 網域定位流程。 |
 
 ## 針對不同格式的主要定義
 
