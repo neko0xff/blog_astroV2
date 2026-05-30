@@ -1,28 +1,21 @@
 import type { CollectionEntry } from "astro:content";
-import postFilter from "./postFilter.ts";
+import { post_filter } from "./postFilter.ts";
+import { parse_date_timestamp } from "./parseDateString.ts";
 
-const getSortedPosts = (posts: CollectionEntry<"blog">[]) => {
-  return posts.filter(postFilter).sort((a, b) => {
-    // Helper function to handle date-only strings
-    const parseDate = (date: Date | string) => {
-      const dateStr = date.toString();
-      return dateStr.includes("T")
-        ? new Date(dateStr).getTime()
-        : new Date(`${dateStr}T12:00:00`).getTime();
-    };
-
+const get_sorted_posts = (posts: CollectionEntry<"blog">[]) => {
+  return posts.filter(post_filter).sort((a, b) => {
     // Use modDatetime if available, otherwise fall back to pubDatetime
-    const dateA = a.data.modDatetime
-      ? parseDate(a.data.modDatetime)
-      : parseDate(a.data.pubDatetime);
+    const date_a = a.data.modDatetime
+      ? parse_date_timestamp(a.data.modDatetime)
+      : parse_date_timestamp(a.data.pubDatetime);
 
-    const dateB = b.data.modDatetime
-      ? parseDate(b.data.modDatetime)
-      : parseDate(b.data.pubDatetime);
+    const date_b = b.data.modDatetime
+      ? parse_date_timestamp(b.data.modDatetime)
+      : parse_date_timestamp(b.data.pubDatetime);
 
     // Sort in descending order (newest first)
-    return dateB - dateA;
+    return date_b - date_a;
   });
 };
 
-export default getSortedPosts;
+export default get_sorted_posts;

@@ -1,5 +1,12 @@
 const scheduled_time = 15 * 60 * 1000; // 15 minutes
 
+export const LOGO_IMAGE = {
+  enable: true,
+  svg: true,
+  width: 50,
+  height: 46,
+};
+
 export const SITE = {
   website: "https://neko-0xff-blog.deno.dev", // replace this with your deployed domain
   heroTitle: "<span class='name'>Neko_oxff</span> Tech Blog",

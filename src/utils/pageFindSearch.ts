@@ -1,54 +1,56 @@
 const { PagefindUI } = await import("@pagefind/default-ui");
-const pageFindSearch: HTMLElement | null =
-  document.querySelector("#pagefind-search");
-const params = new URLSearchParams(globalThis.location.search);
-const onIdle =
+const PARAMS = new URLSearchParams(globalThis.location.search);
+const ON_IDLE =
   globalThis.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1));
 
-/* Initialize Pagefind search component */
-function initSearch() {
-  // Check if Pagefind search form exists
-  if (!pageFindSearch) return;
+/**
+ * 初始化 Pagefind 搜尋組件
+ * 確保在 Astro View Transitions 之下能動態獲取最新的 DOM 節點
+ */
+function init_search() {
+  const page_find_search =
+    document.querySelector<HTMLElement>("#pagefind-search");
 
-  // Check if Pagefind is already initialized
-  onIdle(() => {
+  // 檢查 Pagefind 搜尋表單是否存在
+  if (!page_find_search) return;
+
+  // 確保在瀏覽器空閒時初始化
+  ON_IDLE(() => {
     const search = new PagefindUI({
       element: "#pagefind-search",
       showSubResults: true,
       showImages: false,
       processTerm: (term: string): string => {
-        const backUrl = pageFindSearch?.dataset?.backurl || "";
+        const back_url = page_find_search?.dataset?.backurl || "";
 
-        // Check if the term is empty
-        params.set("q", term); // Update the `q` parameter in the URL
-        history.replaceState(history.state, "", "?" + params.toString()); // Push the new URL without reloading
-        sessionStorage.setItem("backUrl", backUrl + "?" + params.toString()); // Store the backUrl in sessionStorage
+        // 更新網址參數且不刷新頁面
+        PARAMS.set("q", term);
+        history.replaceState(history.state, "", "?" + PARAMS.toString());
+        sessionStorage.setItem("backUrl", back_url + "?" + PARAMS.toString());
 
         return term;
       },
     });
 
-    // Check if the search input is empty
-    const query = params.get("q");
+    const query = PARAMS.get("q");
 
-    // Reset search param if search input is cleared
-    const searchInput = document.querySelector<HTMLInputElement>(
+    const search_input = document.querySelector<HTMLInputElement>(
       ".pagefind-ui__search-input"
     );
-    const clearButton = document.querySelector<HTMLButtonElement>(
+    const clear_button = document.querySelector<HTMLButtonElement>(
       ".pagefind-ui__search-clear"
     );
 
-    // If search param exists (e.g., search?q=astro), trigger search
+    // 如果網址帶有參數，觸發搜尋
     if (query) {
       search.triggerSearch(query);
     }
 
-    // If search input is empty, reset the search param
-    searchInput?.addEventListener("input", resetSearchParam);
-    clearButton?.addEventListener("click", resetSearchParam);
+    // 當搜尋欄被清空時，重設 URL 參數
+    search_input?.addEventListener("input", reset_search_param);
+    clear_button?.addEventListener("click", reset_search_param);
 
-    function resetSearchParam(e: Event): void {
+    function reset_search_param(e: Event): void {
       if ((e.target as HTMLInputElement)?.value.trim() === "") {
         history.replaceState(history.state, "", globalThis.location.pathname);
       }
@@ -56,16 +58,17 @@ function initSearch() {
   });
 }
 
+// 監聽 Astro View Transitions 切換事件
 document.addEventListener("astro:after-swap", () => {
-  const pageFindSearch = document.querySelector("#pagefind-search");
+  const page_find_search = document.querySelector("#pagefind-search");
 
-  // If Pagefind search form already exists, don't initialize search component
-  if (pageFindSearch && pageFindSearch.querySelector("form")) return;
-
-  initSearch();
+  // 如果新頁面上有搜尋框，且尚未初始化（沒有內含 form 元素），則初始化
+  if (page_find_search && !page_find_search.querySelector("form")) {
+    init_search();
+  }
 });
 
-/*Main*/
-initSearch(); // Initialize service
+/* 主程式進入點 */
+init_search();
 
 export {};

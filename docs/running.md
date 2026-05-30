@@ -19,6 +19,7 @@ Then start the project by running the following commands:
   ```
 
 - deno
+
   ```bash
   # install dependencies
   deno task install

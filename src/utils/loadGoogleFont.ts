@@ -40,9 +40,7 @@ async function loadGoogleFont(
   return fonts;
 }
 
-async function loadGoogleFonts(
-  text: string
-): Promise<FontOptions[]> {
+async function loadGoogleFonts(text: string): Promise<FontOptions[]> {
   const fontsConfig = [
     // 選擇自己想用的字體
     {
@@ -62,7 +60,12 @@ async function loadGoogleFonts(
   const fonts = await Promise.all(
     fontsConfig.map(async ({ name, font, weight, style }) => {
       const data = await loadGoogleFont(font, text);
-      return { name, data, weight: weight as FontWeight, style: style as FontStyle };
+      return {
+        name,
+        data,
+        weight: weight as FontWeight,
+        style: style as FontStyle,
+      };
     })
   );
 

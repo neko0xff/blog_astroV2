@@ -39,8 +39,6 @@ deno_build:
 deno_pagefind:
 	@echo "Find Page"
 	@$(CC2) task pagefind
-	mkdir -p public/pagefind
-	cp -r dist/pagefind/* public/pagefind/
 
 deno_serve:
 	@$(CC2) task serve

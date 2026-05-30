@@ -17,16 +17,55 @@ const is_ci = process.env.CI === "true";
 
 // Node.js built-in modules that Deno can polyfill (from @deno/astro-adapter source)
 const COMPATIBLE_NODE_MODULES = [
-  "assert", "assert/strict", "async_hooks", "buffer", "child_process",
-  "cluster", "console", "constants", "crypto", "dgram",
-  "diagnostics_channel", "dns", "events", "fs", "fs/promises",
-  "http", "http2", "https", "inspector", "module",
-  "net", "os", "path", "path/posix", "path/win32",
-  "perf_hooks", "process", "punycode", "querystring",
-  "readline", "repl", "stream", "stream/promises", "stream/web",
-  "string_decoder", "sys", "timers", "timers/promises", "tls",
-  "trace_events", "tty", "url", "util", "util/types", "v8",
-  "vm", "wasi", "worker_threads", "zlib",
+  "assert",
+  "assert/strict",
+  "async_hooks",
+  "buffer",
+  "child_process",
+  "cluster",
+  "console",
+  "constants",
+  "crypto",
+  "dgram",
+  "diagnostics_channel",
+  "dns",
+  "events",
+  "fs",
+  "fs/promises",
+  "http",
+  "http2",
+  "https",
+  "inspector",
+  "module",
+  "net",
+  "os",
+  "path",
+  "path/posix",
+  "path/win32",
+  "perf_hooks",
+  "process",
+  "punycode",
+  "querystring",
+  "readline",
+  "repl",
+  "stream",
+  "stream/promises",
+  "stream/web",
+  "string_decoder",
+  "sys",
+  "timers",
+  "timers/promises",
+  "tls",
+  "trace_events",
+  "tty",
+  "url",
+  "util",
+  "util/types",
+  "v8",
+  "vm",
+  "wasi",
+  "worker_threads",
+  "zlib",
 ];
 
 /*
@@ -42,7 +81,7 @@ export default defineConfig({
     port: 8085, // 若無設置，則使用預設的 '4321/tcp'
   },
   legacy: {
-    collections: false, // `src/content`
+    collectionsBackwardsCompat: false,
   },
   integrations: [
     sitemap({
@@ -77,7 +116,7 @@ export default defineConfig({
     resolve: {
       alias: [
         // Deno requires node: prefix for Node built-ins; Vite may strip it
-        ...COMPATIBLE_NODE_MODULES.map((mod) => ({
+        ...COMPATIBLE_NODE_MODULES.map(mod => ({
           find: mod,
           replacement: `node:${mod}`,
         })),
@@ -87,10 +126,19 @@ export default defineConfig({
                 find: "react-dom/server.browser",
                 replacement: "https://esm.sh/react-dom@19.2.4/server.browser",
               },
-              { find: "react-dom", replacement: "https://esm.sh/react-dom@19.2.4" },
+              {
+                find: "react-dom",
+                replacement: "https://esm.sh/react-dom@19.2.4",
+              },
               { find: "react", replacement: "https://esm.sh/react@19.2.4" },
-              { find: "@types/react", replacement: "https://esm.sh/react@19.2.4/types" },
-              { find: "@types/react-dom", replacement: "https://esm.sh/react-dom@19.2.4/types" },
+              {
+                find: "@types/react",
+                replacement: "https://esm.sh/react@19.2.4/types",
+              },
+              {
+                find: "@types/react-dom",
+                replacement: "https://esm.sh/react-dom@19.2.4/types",
+              },
             ]
           : []),
       ],

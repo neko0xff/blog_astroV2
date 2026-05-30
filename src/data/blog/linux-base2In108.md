@@ -24,14 +24,17 @@ description: ""
 
 1. 網卡指向区域設定
    - Eth0:`internal`(対內)
+
    ```
    [root@localhost ~]# nmcli connection modify Eth0 connection.zone internal
    ```
 
    - Eth1:`external`(対外)
+
    ```
    [root@localhost ~]# nmcli connection modify Eth1 connection.zone external
    ```
+
 2. 転送設定
 
 ```bash
@@ -42,24 +45,29 @@ description: ""
 
 3. 通過服務設定
    - 允許対外能用內部的dns服務
+
    ```
    [root@localhost ~]# firewall-cmd --zone=external --permanent --add-service=dns
    ```
 
    - 不允許対外能用內部的ssh服務
+
    ```
    [root@localhost ~]# firewall-cmd --zone=external --permanent --remove-service=ssh
    ```
 
    - 檢視対外能連或拒絕連進內部的服務
+
    ```
    [root@localhost ~]# firewall-cmd --zone=external --permanent --list-service
    ```
 
    - 允許対內能用內部的dns服務
+
    ```
    [root@localhost ~]# firewall-cmd --zone=internal --permanent --add-service=dns
    ```
+
 4. firewalld重新生效: `[root@localhost ~]# firewall-cmd --reload`
 
 ### 檢視

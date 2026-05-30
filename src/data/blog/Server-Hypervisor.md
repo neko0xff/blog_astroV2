@@ -38,6 +38,7 @@ description: ""
 
 - 硬體
   - 必要部分: 宿主主機的CPU必須支援虛擬化技術的指令(ex: `Intel VT-x`,`AMD-V`)才能正常運行
+
   ```zsh
     # user @ Host-02 in ~ [9:59:31] C:1
     $ egrep '(vmx | svm)' /proc/cpuinfo
@@ -52,6 +53,7 @@ description: ""
   ```
 
   - 可選部分: 若你的CPU&主機版晶片組支援 AMD 的"輸入輸出主記憶體管理單元(`IOMMU`)"或 Intel 的"直接輸入/輸出虛擬化(Virtualization for Directed I/O，`VT-d`)",則可讓虛擬機直接取用宿主主機的週邊硬體資源
+
   ```bash
    root@pve01:~# dmesg | grep DMAR
    [    0.008574] ACPI: DMAR 0x00000000DAE978A8 0000B8 (v01 INTEL  BDW      00000001 INTL 00000001)
@@ -79,6 +81,7 @@ description: ""
    [    0.380144] DMAR: Intel(R) Virtualization Technology for Directed I/O
    [    4.518854] i915 0000:00:02.0: [drm] DMAR active, disabling use of stolen memory
   ```
+
 - 軟體
   - 系統: 相對應支援虛擬化功能的核心模組
   - BIOS: 有些主機板可能預設未開啟或閹割，請務必確認是否有相關的設置且手動啟用

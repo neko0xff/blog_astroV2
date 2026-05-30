@@ -4,7 +4,6 @@ import { ClientRouter } from "astro:transitions";
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
-
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export interface Props {
@@ -128,7 +127,7 @@ const structuredData = {
     }
 
     <ClientRouter />
-    
+
     <!--日夜模式切換按鈕 -->
     <script is:inline src="/toggle-theme.js"></script>
 

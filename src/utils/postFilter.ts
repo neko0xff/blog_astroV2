@@ -1,25 +1,17 @@
 import type { CollectionEntry } from "astro:content";
 import { SITE } from "@/config";
+import { parse_date_timestamp } from "./parseDateString.ts";
 
-const postFilter = ({ data }: CollectionEntry<"blog">) => {
+export function post_filter({ data }: CollectionEntry<"blog">): boolean {
   // Always show all posts in development
   if (import.meta.env.DEV) {
     return !data.draft;
   }
 
   // In production, only show published posts
-  const currentTime = Date.now();
+  const current_time = Date.now();
+  const post_time = parse_date_timestamp(data.pubDatetime);
+  const is_published = current_time >= post_time - SITE.scheduledPostMargin;
 
-  // Handle date-only strings by appending a default time (12:00 PM)
-  const pubDateStr = data.pubDatetime.toString();
-  const pubDate = pubDateStr.includes("T")
-    ? new Date(pubDateStr)
-    : new Date(`${pubDateStr}T12:00:00`);
-
-  const postTime = pubDate.getTime();
-  const isPublished = currentTime >= postTime - SITE.scheduledPostMargin;
-
-  return !data.draft && isPublished;
-};
-
-export default postFilter;
+  return !data.draft && is_published;
+}

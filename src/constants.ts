@@ -8,13 +8,6 @@ import IconFacebook from "@/assets/icons/IconFacebook.svg";
 import IconTelegram from "@/assets/icons/IconTelegram.svg";
 import IconPinterest from "@/assets/icons/IconPinterest.svg";
 
-export const LOGO_IMAGE = {
-  enable: true,
-  svg: true,
-  width: 50,
-  height: 46,
-};
-
 export const SOCIALS = [
   {
     name: "Github",

@@ -103,11 +103,13 @@ GP(Group Policy,群組原則/組策略) 是 Windows NT 作業系統核心家族(
 - 手動更新主機上的GPO
   - 部分更新完成後，請重啟電腦使設定生效
     - 命令列(cmd)
+
     ```powershell
     gpupdate /force
     ```
 
     - PowerShell
+
     ```
      Invoke-GPUpdate
     ```

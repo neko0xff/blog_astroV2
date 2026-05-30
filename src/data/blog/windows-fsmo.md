@@ -17,50 +17,52 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
 ### 負責整個 AD 樹系
 
 - 架構 (schema master)
-  * 負責處理 Active Directory 上，目錄架構設計上的所有更新與修改
-  * 相關權限群組: Schema Admins
+  - 負責處理 Active Directory 上，目錄架構設計上的所有更新與修改
+  - 相關權限群組: Schema Admins
 - 網域命名 (domain name master)
-   * 主要負責樹系中網域的新增或刪除時的變更控管
-   * 同時儲存整個目錄樹狀結構的資訊
-   * 相關權限群組: Enterprise Admins
+  - 主要負責樹系中網域的新增或刪除時的變更控管
+  - 同時儲存整個目錄樹狀結構的資訊
+  - 相關權限群組: Enterprise Admins
 
 ### 網域層次
 
 - 相對識別主節點管理(relative identifier master,RID)
-  * 在網域中建立物件時(例如:使用者帳戶、群組),需要藉由這個角色來負責配置所謂的唯一安全識別碼(SID,Security ID)
-  * SID 是由兩組資訊所組合
-    1. 網域 SID 
+  - 在網域中建立物件時(例如:使用者帳戶、群組),需要藉由這個角色來負責配置所謂的唯一安全識別碼(SID,Security ID)
+  - SID 是由兩組資訊所組合
+    1. 網域 SID
     2. 建立在網城中的每個安全性主體 SID 的唯一相對ID(RID)所組成
-  * 相關權限群組: Domain Admins
+  - 相關權限群組: Domain Admins
 - 基礎結構(infrastructure master)
-    * 擁有多個網域的樹系架構中,如果網域中的群組成員有來自非本身網域的物件,則這部份的資訊維護便由基礎架構主機負責
-    * 跨網域物件參照中，負責更新物件 SID 與辨別名稱，且同時保証物件的一致性
-    * 相關權限群組: Domain Admins
+  - 擁有多個網域的樹系架構中,如果網域中的群組成員有來自非本身網域的物件,則這部份的資訊維護便由基礎架構主機負責
+  - 跨網域物件參照中，負責更新物件 SID 與辨別名稱，且同時保証物件的一致性
+  - 相關權限群組: Domain Admins
 - PDC模擬器(PDC emulator master)
-    * 相關權限群組: Domain Admins
-    * 會對執行舊版 （Windows 2000/NT 4.0前） 的工作站、成員伺服器和網域控制站通告自己是"主要"網域控制站
-    * 同時兼網域中的主要的 NTP (時間同步) 伺服器
-    * 預設為修改群組原則(GPO)的主要伺服器
-        * 預設的狀態下群組原則編輯器也會連線到 PDC 模擬器主機,統一發佈群組原則物件的設定
-        * 對於使用者密碼的變更與帳戶的鎖定,也都是由此角色負責
+  - 相關權限群組: Domain Admins
+  - 會對執行舊版 （Windows 2000/NT 4.0前） 的工作站、成員伺服器和網域控制站通告自己是"主要"網域控制站
+  - 同時兼網域中的主要的 NTP (時間同步) 伺服器
+  - 預設為修改群組原則(GPO)的主要伺服器
+    - 預設的狀態下群組原則編輯器也會連線到 PDC 模擬器主機,統一發佈群組原則物件的設定
+    - 對於使用者密碼的變更與帳戶的鎖定,也都是由此角色負責
 
 ## 在 Windows Server 網域控制站上，負責管理五大角色的相關工具
 
-1. Active Directory 使用者和電腦 (Active Directory Users and Computers) 
-   * 管理角色部分
-       * RID 集區管理員
-       * PDC 
-       * 基礎結構
-2. Active Directory 網域及信任 (Active Directory Domains and Trusts) 
-   * 管理角色部分
-       * 網域命名操作主機
+1. Active Directory 使用者和電腦 (Active Directory Users and Computers)
+   - 管理角色部分
+     - RID 集區管理員
+     - PDC
+     - 基礎結構
+2. Active Directory 網域及信任 (Active Directory Domains and Trusts)
+   - 管理角色部分
+     - 網域命名操作主機
 3. Active Directory 架構 管理單元
-   * 位置： MMC主控台
-   * 管理角色部分
-       * 架構主機
+   - 位置： MMC主控台
+   - 管理角色部分
+     - 架構主機
 
 ## 檢查重要的核心服務是否啟用(需要管理者權限)
+
 - AD DS(`ntds`): 主要的核心服務
+
   ```
   C:\Users\neko_admin>sc query ntds
 
@@ -73,20 +75,24 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
             CHECKPOINT         : 0x0
             WAIT_HINT          : 0x0
   ```
- - Netlogon(`netlogon`): 網域登入、信任關係與部分 DC 對外通訊 
-   ```
-   C:\Users\neko_admin>sc query netlogon
 
-    SERVICE_NAME: netlogon
-            TYPE               : 20  WIN32_SHARE_PROCESS
-            STATE              : 4  RUNNING
-                                    (STOPPABLE, PAUSABLE, IGNORES_SHUTDOWN)
-            WIN32_EXIT_CODE    : 0  (0x0)
-            SERVICE_EXIT_CODE  : 0  (0x0)
-            CHECKPOINT         : 0x0
-            WAIT_HINT          : 0x0
-   ```
+- Netlogon(`netlogon`): 網域登入、信任關係與部分 DC 對外通訊
+
+  ```
+  C:\Users\neko_admin>sc query netlogon
+
+   SERVICE_NAME: netlogon
+           TYPE               : 20  WIN32_SHARE_PROCESS
+           STATE              : 4  RUNNING
+                                   (STOPPABLE, PAUSABLE, IGNORES_SHUTDOWN)
+           WIN32_EXIT_CODE    : 0  (0x0)
+           SERVICE_EXIT_CODE  : 0  (0x0)
+           CHECKPOINT         : 0x0
+           WAIT_HINT          : 0x0
+  ```
+
 - 診斷網域控制站上的 DNS & NTP & LDAP 服務狀態
+
   ```
   C:\Users\neko_admin>dcdiag /v
 
@@ -360,29 +366,34 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
              跳過站台 Default-First-Site-Name，這個站台所在的領域，位在所提供之命令列引數提供的領域之外。
              ......................... nekolab.local 通過測試 Intersite
   ```
-  
+
 ## 檢查服務
+
 - 五大角色的目前所在位置
-    - PowerShell
-      ```
-      PS C:\Users\neko_admin> Get-ADDomain | select PDCEmulator,RIDMaster,InfrastructureMaster | format-list
+  - PowerShell
+
+    ```
+    PS C:\Users\neko_admin> Get-ADDomain | select PDCEmulator,RIDMaster,InfrastructureMaster | format-list
 
 
-        PDCEmulator          : WIN-ML8SV4QSBOG.nekolab.local
-        RIDMaster            : WIN-ML8SV4QSBOG.nekolab.local
-        InfrastructureMaster : WIN-ML8SV4QSBOG.nekolab.local
-      ```
-    - CMD
-      ```
-      PS C:\Users\neko_admin> netdom query fsmo
-        架構主機                    WIN-ML8SV4QSBOG.nekolab.local
-        網域命名主機                WIN-ML8SV4QSBOG.nekolab.local
-        PDC                         WIN-ML8SV4QSBOG.nekolab.local
-        RID 集區管理員              WIN-ML8SV4QSBOG.nekolab.local
-        基礎結構主機                WIN-ML8SV4QSBOG.nekolab.local
-        命令已經成功完成。
-      ```
+      PDCEmulator          : WIN-ML8SV4QSBOG.nekolab.local
+      RIDMaster            : WIN-ML8SV4QSBOG.nekolab.local
+      InfrastructureMaster : WIN-ML8SV4QSBOG.nekolab.local
+    ```
+
+  - CMD
+    ```
+    PS C:\Users\neko_admin> netdom query fsmo
+      架構主機                    WIN-ML8SV4QSBOG.nekolab.local
+      網域命名主機                WIN-ML8SV4QSBOG.nekolab.local
+      PDC                         WIN-ML8SV4QSBOG.nekolab.local
+      RID 集區管理員              WIN-ML8SV4QSBOG.nekolab.local
+      基礎結構主機                WIN-ML8SV4QSBOG.nekolab.local
+      命令已經成功完成。
+    ```
+
 - 網域相関資源（ex: 群組原則與登入腳本）位置
+
   ```
   C:\Users\neko_admin>net share
     共用名稱   資源                        說明
@@ -398,7 +409,9 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
     SYSVOL       C:\WINDOWS\SYSVOL\sysvol        登入伺服器共用
     命令已經成功完成。
   ```
+
 - 多台網域控制站之間的復寫狀態
+
   ```
   C:\Users\neko_admin>repadmin /replsummary
     複寫摘要開始時間: 2026-05-23 09:33:16
@@ -416,16 +429,19 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
 ## REF
 
 ### Microsoft Learn
-- [Repadmin -replsummary](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc835092(v=ws.11))
+
+- [Repadmin -replsummary](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc835092(v=ws.11)>)
 - [Diagnose AD replication failures - Windows Server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/diagnose-replication-failures)
 - [診斷 Active Directory 複寫失敗 - Windows Server](https://learn.microsoft.com/zh-tw/troubleshoot/windows-server/active-directory/diagnose-replication-failures)
 - [Transfer or seize Operation Master roles - Windows Server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/transfer-or-seize-operation-master-roles-in-ad-ds)
 - [AD Forest Recovery - Seizing an Operations Master Role](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-seizing-operation-master-role)
 
 ### Ithome
+
 - [ad與fsmo關係](https://ithelp.ithome.com.tw/questions/10021618)
 
 ### Other
+
 - [Active Directory Pro - How to Check FSMO Roles](https://activedirectorypro.com/how-to-check-fsmo-roles/)
 - [MiniASP - How to Transfer Active Directory FSMO to Another Domain Controller](https://blog.miniasp.com/post/2012/07/16/How-to-transfer-Active-Directory-FSMO-to-another-Domain-Controller)
 - [FSMO 五大角色轉移](https://www3.sips.ntpc.edu.tw/system/%e2%97%8efsmo%e4%ba%94%e5%a4%a7%e8%a7%92%e8%89%b2%e8%bd%89%e7%a7%bb/)
