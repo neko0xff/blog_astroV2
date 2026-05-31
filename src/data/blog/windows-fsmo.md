@@ -28,7 +28,7 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
 
 - 相對識別主節點管理(relative identifier master,RID)
   - 在網域中建立物件時(例如:使用者帳戶、群組),需要藉由這個角色來負責配置所謂的唯一安全識別碼(SID,Security ID)
-  - SID 是由兩組資訊所組合
+  - SID 主要由兩組資訊所組合
     1. 網域 SID
     2. 建立在網城中的每個安全性主體 SID 的唯一相對ID(RID)所組成
   - 相關權限群組: Domain Admins

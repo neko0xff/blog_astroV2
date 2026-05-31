@@ -35,7 +35,52 @@ if (breadcrumbList[0] in ROUTE_LABELS) {
     breadcrumbList[0] = ROUTE_LABELS[route];
   }
 }
+
+// Build BreadcrumbList JSON-LD structured data
+const baseUrl = Astro.url.origin;
+const breadcrumbJsonLdItems: Array<{
+  "@type": string;
+  position: number;
+  name: string;
+  item: string;
+}> = [];
+
+// Reusable: map segment to display name using same rules as the UI
+function getBreadcrumbDisplayName(segment: string): string {
+  return ROUTE_LABELS[segment] ?? decodeURIComponent(segment);
+}
+
+// Build hierarchy from ORIGINAL URL segments (before label normalization)
+const rawSegments = currentUrlPath.split("/").slice(1);
+let accumulatedPath = "";
+for (let i = 0; i < rawSegments.length; i++) {
+  accumulatedPath += `/${rawSegments[i]}`;
+  breadcrumbJsonLdItems.push({
+    "@type": "ListItem",
+    position: i + 2,
+    name: getBreadcrumbDisplayName(rawSegments[i]),
+    item: `${baseUrl}${accumulatedPath}/`,
+  });
+}
 ---
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "主頁",
+        item: `${baseUrl}/`,
+      },
+      ...breadcrumbJsonLdItems,
+    ],
+  })}
+/>
 
 <nav class="mx-auto mt-8 mb-1 w-full max-w-3xl px-4" aria-label="breadcrumb">
   <ul

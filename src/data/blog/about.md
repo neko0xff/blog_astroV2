@@ -26,7 +26,9 @@ layout: "../../layouts/AboutLayout.astro"
 - 台灣人
 - 屬性
   - 真人不實體出道
+  - 有時問題部分，還是會想久一點
   - 社交+口語障礙
+    * 請包容，且不要遠離
 - INTJ-T
 
 ## 主要的SNS
@@ -43,6 +45,23 @@ layout: "../../layouts/AboutLayout.astro"
 - [Instagram](https://www.instagram.com/neko_0xff/)
 - [Linkdin](https://www.linkedin.com/in/%E5%B1%95%E9%8A%98-%E8%A8%B1-823b41183/)
 
+## 工作經歷
+
+### 第一份： 外包 IT
+- 時間點： 2025/05-至今
+- 維護項目
+  * Windows AD & M365 (Entra ID)
+    * 人員&群組管理
+    * GPO 派送
+    * 指派使用者授權&權限
+  * 防火牆
+    * Fortigate
+  * NAS
+    * 群輝
+  * 內部自行開發的資訊系統
+    * 前端： Vue
+    * 後端： Fastapi(Python)
+
 ## 曾摸過的項目
 
 - 開發板
@@ -57,9 +76,10 @@ layout: "../../layouts/AboutLayout.astro"
   - Nodejs
 - DataBase
   - MariaDB(MySQL)
+  - Postgresql
   - M$-SQLServer
 - 系統管理
-  - Windows AD網域管理
+  - Windows AD 網域管理
 
 ## Side Project
 
@@ -69,7 +89,7 @@ layout: "../../layouts/AboutLayout.astro"
     - 主題: [astro-paper](https://github.com/satnaing/astro-paper)
     - PaaS: [Deno Deploy](https://deno.com/deploy)
 
-- 111專題: 空氣感測+本地SaaS
+- 111專題: 空氣感測+本地SaaS (己停止維護)
   - [後端+硬體:Arduino+Nodejs+MariaDB](https://github.com/neko0xff/2023_schoolResearch_Server-HW)
   - [前端:Flutter](https://github.com/neko0xff/2023_schoolResearch_ClientApp)
   - 流程圖
@@ -94,7 +114,7 @@ layout: "../../layouts/AboutLayout.astro"
 1. 向該站管理者私信或者提出Issues到`neko0xff/blog_astroV2`
    - 相關倉庫: https://github.com/neko0xff/blog_astroV2
 2. 加入的格式如下
-   - 由於前端框架己用Astro重寫，請用JSON格式進行提交
+   - 由於前端框架己用 Astro 重寫，請用 JSON 格式進行提交
    - 相關文件: `public/assets/myLinks.json`
 
 ```json

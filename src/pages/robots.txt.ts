@@ -33,8 +33,7 @@ async function fetchDarkVisitorsRules(): Promise<string> {
 /**
  * Generates the robots.txt content.
  * - Includes rules for dark visitors if available
- * - Disallows Googlebot from /nogooglebot/
- * - Allows all other user agents
+ * - Allows all well-behaved crawlers
  * - Specifies the sitemap URL
  * @param sitemapURL The URL of the sitemap to include in robots.txt
  * @param darkVisitors Optional rules for dark visitors to include in robots.txt
@@ -49,7 +48,6 @@ function generateRobotsTxt({
 }) {
   return [
     darkVisitors?.trim(),
-    "User-agent: Googlebot\nDisallow: /nogooglebot/",
     "User-agent: *\nAllow: /",
     `Sitemap: ${sitemapURL.href}`,
   ]

@@ -34,4 +34,7 @@ export const SITE = {
   dynamicOgImage: true,
   lang: "zh-TW", // html lang code. Set this empty and default will be "en"
   timezone: "Asia/Taipei", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+  // Social / SEO
+  twitter: "@neko0xff", // Twitter handle for twitter:site / twitter:creator meta tags
 } as const;
