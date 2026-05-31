@@ -90,7 +90,7 @@ export default defineConfig({
     react(),
     mermaid({
       theme: "forest",
-      autoTheme: true,
+      autoTheme: false,
     }),
   ],
   markdown: {
