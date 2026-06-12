@@ -30,6 +30,7 @@ layout: "../../layouts/AboutLayout.astro"
   - 社交+口語障礙
     * 請包容，且不要遠離
 - INTJ-T
+    * 超級 I 人，且
 
 ## 主要的SNS
 
@@ -47,20 +48,37 @@ layout: "../../layouts/AboutLayout.astro"
 
 ## 工作經歷
 
-### 第一份： 外包 IT
-- 時間點： 2025/05-至今
+### 第一份： 外包 IT - MIS
+- 時間點： 2025/05/03-2026/06/01 （共 1 年 1 個月）
 - 維護項目
   * Windows AD & M365 (Entra ID)
-    * 人員&群組管理
+    * 人員 & 群組權限管理
     * GPO 派送
-    * 指派使用者授權&權限
+    * 指派使用者 Office 授權 & 角色權限(RBAC)
+    * 遷移不同業者的 Mail （QQ Mail) 服務至 M365（ Exchage Online ）
+    * 用 PowerShell 盤點網域內的
+      * 系統服務
+      * 電腦軟體
+      * 硬體配置
   * 防火牆
     * Fortigate
+      * 更新韌體 & 檢查 FotiGuard 訂閱是否有效
+      * 針對進出站的政策進行調校放行流量內容
+      * 新增 VPN 使用者
   * NAS
     * 群輝
+      * 調整特定使用者&群組的檔案存取權限
+      * 加 AD 驗証整合管理
   * 內部自行開發的資訊系統
     * 前端： Vue
-    * 後端： Fastapi(Python)
+    * 後端： Fastapi(Python) + pgsql
+    * Infra
+      * Docker
+      * GitLab(內部自架)
+        * 版本： 13 => 19 (依官方的 Update Path)
+        * OS: Ubuntu 18.04 => 22.04
+      * Jenkins
+      * Habors
 
 ## 曾摸過的項目
 
@@ -71,7 +89,7 @@ layout: "../../layouts/AboutLayout.astro"
   - 8X51
 - 前端
   - Flutter
-  - Astro.js(React)
+  - Astro.js
 - 後端
   - Nodejs
 - DataBase
