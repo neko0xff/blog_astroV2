@@ -30,7 +30,7 @@ layout: "../../layouts/AboutLayout.astro"
   - 社交+口語障礙
     * 請包容，且不要遠離
 - INTJ-T
-    * 超級 I 人，且
+    * 超級 I 人，且表達能力不佳
 
 ## 主要的SNS
 
@@ -69,6 +69,9 @@ layout: "../../layouts/AboutLayout.astro"
     * 群輝
       * 調整特定使用者&群組的檔案存取權限
       * 加 AD 驗証整合管理
+      * 使用 Active backup for business 備份
+        *  ESXi / Hyper-V 的 VM 
+        *  實體機（ Windows & Linux)
   * 內部自行開發的資訊系統
     * 前端： Vue
     * 後端： Fastapi(Python) + pgsql
