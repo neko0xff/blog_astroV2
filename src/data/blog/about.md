@@ -48,7 +48,8 @@ layout: "../../layouts/AboutLayout.astro"
 
 ## 工作經歷
 
-### 第一份： 外包 IT - MIS
+### 第一份： 外包 IT - MIS (乙方)
+
 - 時間點： 2025/05/03-2026/06/01 （共 1 年 1 個月）
 - 維護項目
   * Windows AD & M365 (Entra ID)
@@ -64,7 +65,7 @@ layout: "../../layouts/AboutLayout.astro"
     * Fortigate
       * 更新韌體 & 檢查 FotiGuard 訂閱是否有效
       * 針對進出站的政策進行調校放行流量內容
-      * 新增 VPN 使用者
+      * 新增/管理 VPN 使用者帳號
   * NAS
     * 群輝
       * 調整特定使用者&群組的檔案存取權限
@@ -73,13 +74,17 @@ layout: "../../layouts/AboutLayout.astro"
         *  ESXi / Hyper-V 的 VM 
         *  實體機（ Windows & Linux)
   * 內部自行開發的資訊系統
-    * 前端： Vue
-    * 後端： Fastapi(Python) + pgsql
-    * Infra
+    * 前人遺留（僅維護）
+      * 前端： Vue.js
+      * 後端： Fastapi(Python)
+      * 資料庫： Postgresql
+        * 版本： 15 => 17
+    * Infra (著手較多部分)
       * Docker
+        * 前端： 靜態站點部分使用 Deno 當 Web Server 做正向代理至後端，且權限最小化
       * GitLab(內部自架)
         * 版本： 13 => 19 (依官方的 Update Path)
-        * OS: Ubuntu 18.04 => 22.04
+        * OS: Ubuntu 18.04 => 22.04 => 24.04
       * Jenkins
       * Habors
 
@@ -94,7 +99,8 @@ layout: "../../layouts/AboutLayout.astro"
   - Flutter
   - Astro.js
 - 後端
-  - Nodejs
+  - Nodejs/Deno
+  - Fastapi(Python)
 - DataBase
   - MariaDB(MySQL)
   - Postgresql
