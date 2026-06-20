@@ -69,12 +69,12 @@ layout: "../../layouts/AboutLayout.astro"
   * NAS
     * 群輝
       * 調整特定使用者&群組的檔案存取權限
-      * 加 AD 驗証整合管理
+      * 加入 AD 驗証，進行使用者身份整合管理
       * 使用 Active backup for business 備份
         *  ESXi / Hyper-V 的 VM 
         *  實體機（ Windows & Linux)
   * 內部自行開發的資訊系統
-    * 前人遺留（僅維護）
+    * 前人遺留（僅維護,不加入新功能）
       * 前端： Vue.js
       * 後端： Fastapi(Python)
       * 資料庫： Postgresql
@@ -106,7 +106,8 @@ layout: "../../layouts/AboutLayout.astro"
   - Postgresql
   - M$-SQLServer
 - 系統管理
-  - Windows AD 網域管理
+  - Windows Active Directory
+  - Microsoft Entra ID ( Azure Active Directory )
 
 ## Side Project
 
