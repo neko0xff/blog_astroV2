@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # pagefind
 public/pagefind
+
+# deno
+deno.lock
