@@ -48,45 +48,48 @@ layout: "../../layouts/AboutLayout.astro"
 
 ## 工作經歷
 
-### 第一份： 外包 IT - MIS (乙方)
+### 第一份： 外包 IT - MIS/IT (乙方)
 
 - 時間點： 2025/05/03-2026/06/01 （共 1 年 1 個月）
-- 維護項目
-  * Windows AD & M365 (Entra ID)
-    * 人員 & 群組權限管理
-    * GPO 派送
-    * 指派使用者 Office 授權 & 角色權限(RBAC)
-    * 遷移不同業者的 Mail （QQ Mail) 服務至 M365（ Exchage Online ）
-    * 用 PowerShell 盤點網域內的
-      * 系統服務
-      * 電腦軟體
-      * 硬體配置
-  * 防火牆
-    * Fortigate
-      * 更新韌體 & 檢查 FotiGuard 訂閱是否有效
-      * 針對進出站的政策進行調校放行流量內容
-      * 新增/管理 VPN 使用者帳號
-  * NAS
-    * 群輝
-      * 調整特定使用者&群組的檔案存取權限
-      * 加入 AD 驗証，進行使用者身份整合管理
-      * 使用 Active backup for business 備份
-        *  ESXi / Hyper-V 的 VM 
-        *  實體機（ Windows & Linux)
-  * 內部自行開發的資訊系統
-    * 前人遺留（僅維護,不加入新功能）
+- 工作項目(共分成二部分)
+  1. 資訊委外 (負責多位客戶的相關業務)
+    * Windows AD & M365 (Entra ID)
+      * 人員 & 群組權限管理
+      * 派送 GPO 至網域內的電腦&使用者
+      * 指派使用者 Office 授權 & 角色權限(RBAC)
+      * 遷移不同業者的 Mail （QQ Mail) 服務至 M365（ Exchange Online ）
+      * 用 PowerShell 盤點網域內的
+        * 系統服務
+        * 電腦軟體
+        * 硬體配置
+    * 防火牆
+      * Fortigate
+        * 更新韌體 & 檢查 FortiGuard 訂閱是否有效
+        * 針對進出站的政策進行調校放行流量內容
+        * 調整不同的 ISP 線路（中國移動&電信）
+        * 新增/管理 VPN 使用者帳號
+    * NAS
+      * 群輝
+        * 調整特定使用者&群組的檔案存取權限
+        * 設置全新機器，且建立所需的磁碟陣列
+        * 升級 DSM & 服務套件包 (離線 & 線上)
+        * 加入 AD 驗証，進行使用者身份整合管理
+        * 使用 Active backup for business 備份
+          *  ESXi / Hyper-V 的 VM 
+          *  實體機（ Windows & Linux)
+  2. 內部自行開發的資訊系統: 用於管理工單 & 進銷存
+    * 遺留系統維運（僅維護,不加入新功能）
       * 前端： Vue.js
       * 後端： Fastapi(Python)
       * 資料庫： Postgresql
         * 版本： 15 => 17
     * Infra (著手較多部分)
       * Docker
-        * 前端： 靜態站點部分使用 Deno 當 Web Server 做正向代理至後端，且權限最小化
+        * 前端： 靜態站點部分使用 Deno 當 Web Server 做正向代理至後端，且權限部分最小化
       * GitLab(內部自架)
         * 版本： 13 => 19 (依官方的 Update Path)
         * OS: Ubuntu 18.04 => 22.04 => 24.04
-      * Jenkins
-      * Habors
+      * 維護 Jenkins 流程與 Harbor 鏡像倉庫部署
 
 ## 曾摸過的項目
 
