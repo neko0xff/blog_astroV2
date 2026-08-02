@@ -8,14 +8,14 @@ export const LOGO_IMAGE = {
 };
 
 export const SITE = {
-  website: "https://blog-dev.neko0xfflab.deno.net", // replace this with your deployed domain
+  website: "https://dev-blog.nekolab.deno.net", // replace this with your deployed domain
   heroTitle: "<span class='name'>Neko_oxff</span> Tech Blog",
   author: "neko0xff",
   avatar: {
     src: "https://avatars.githubusercontent.com/u/54382007",
     alt: "neko0xff",
   },
-  profile: "https://blog-dev.neko0xfflab.deno.net",
+  profile: "https://dev-blog.nekolab.deno.net",
   desc: "分享 Neko0xff 的技術文章與系統管理經驗。",
   title: "Neko0xff tech blog",
   ogImage: "webView.jpg",
