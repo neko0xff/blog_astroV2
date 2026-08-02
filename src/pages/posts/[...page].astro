@@ -8,17 +8,24 @@ import Footer from "@/components/astro/Footer.astro";
 import Card from "@/components/astro/Card.astro";
 import Pagination from "@/components/astro/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
+import { isBlogPost } from "@/utils/isBlogPost";
 import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  const posts = await getCollection(
+    "blog",
+    entry => !entry.data.draft && isBlogPost(entry)
+  );
+
   return paginate(getSortedPosts(posts), { pageSize: SITE.postPerPage });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
 ---
 
-<Layout title={`文章 | ${SITE.title}`}>
+<Layout
+  title={`文章${page.currentPage > 1 ? ` (第 ${page.currentPage} 頁)` : ""} | ${SITE.title}`}
+>
   <Header />
   <Main pageTitle="文章" pageDesc="己發佈的所有文章">
     <ul>

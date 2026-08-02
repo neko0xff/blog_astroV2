@@ -1,24 +1,5 @@
 ---
-import { getCollection } from "astro:content";
-import getSortedPosts from "@/utils/getSortedPosts";
-import PostDetails from "@/layouts/OtherDetails.astro";
-import { getEntry } from "astro:content";
-import { getPath } from "@/utils/getPath";
-
-const post = await getEntry("blog", "terms");
-
-export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
-  const postResult = posts.map(post => ({
-    params: { slug: getPath(post.id, post.filePath, false) },
-    props: { post },
-  }));
-
-  return postResult;
-}
-
-const posts = await getCollection("blog");
-const sortedPosts = getSortedPosts(posts);
+import StaticPostPage from "@/components/astro/StaticPostPage.astro";
 ---
 
-{post && <PostDetails post={post} posts={sortedPosts} />}
+<StaticPostPage entryId="terms" />

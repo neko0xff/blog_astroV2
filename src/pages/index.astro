@@ -8,13 +8,14 @@ import LinkButton from "@/components/astro/LinkButton.astro";
 import Card from "@/components/astro/Card.astro";
 import Hr from "@/components/astro/Hr.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
+import { isBlogPost } from "@/utils/isBlogPost";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 import { marked } from "marked";
 
-const posts = await getCollection("blog");
+const posts = await getCollection("blog", isBlogPost);
 
 const heroTitleHtml = await marked.parseInline(SITE.heroTitle);
 
@@ -55,17 +56,19 @@ const recentPosts = sortedPosts
                 alt={SITE.avatar.alt}
                 width="160"
                 height="160"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
                 class="h-full w-full object-cover"
               />
             </div>
           )
         }
         <h1 class="mb-4 text-4xl font-bold">
-          <p set:html={heroTitleHtml} />
+          <span set:html={heroTitleHtml} />
         </h1>
         <a
           target="_blank"
+          rel="noopener noreferrer"
           href="/rss.xml"
           class="inline-flex items-center gap-2 text-accent hover:underline"
           aria-label="rss feed"
@@ -120,4 +123,23 @@ const recentPosts = sortedPosts
     </div>
   </main>
   <Footer />
+
+  <!-- WebSite structured data（僅首頁，避免每頁重複輸出） -->
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: SITE.title,
+      url: SITE.website,
+      description: SITE.desc,
+      inLanguage: "zh-TW",
+      author: {
+        "@type": "Person",
+        name: SITE.author,
+        url: SITE.profile,
+      },
+    })}
+  />
 </Layout>

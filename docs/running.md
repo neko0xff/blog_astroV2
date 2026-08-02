@@ -60,6 +60,8 @@ All commands are run from the root of the project, from a terminal:
 | `deno task install`                  | Installs dependencies                                                                                                            |
 | `deno task dev`                      | Starts local dev server at `localhost:8085`                                                                                      |
 | `deno task build`                    | Build your production site to `./dist/`                                                                                          |
+| `deno task pagefind`                 | Build the Pagefind search index for `./dist/` (run after `build`)                                                                |
+| `deno task clean`                    | Remove build artifacts (`./dist`, `./node_modules`)                                                                              |
 | `deno task preview`                  | Preview your build locally, before deploying                                                                                     |
 | `deno task format:check`             | Check code format with Prettier                                                                                                  |
 | `deno task format`                   | Format codes with Prettier                                                                                                       |

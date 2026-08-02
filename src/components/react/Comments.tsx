@@ -24,7 +24,9 @@ function getSystemTheme() {
 
 const Comments = () => {
   const [mounted, setMounted] = React.useState(false);
-  const [theme, setTheme] = React.useState("light");
+  const [theme, setTheme] = React.useState(
+    () => getSavedTheme() || getSystemTheme()
+  );
 
   React.useEffect(() => {
     const theme = getSavedTheme() || getSystemTheme();

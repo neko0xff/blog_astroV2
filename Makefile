@@ -1,74 +1,78 @@
-CC1:=docker compose
-CC2:=deno
-CC3:=deployctl
-IMAGE:=blog_astroV2
+DOCKER := docker compose
+DENO   := deno
 
-.PHONY: img_build img_up img_logs img_stop img_clean  deno_install deno_build deno_pagefind  deno_clean  deno_serve deno_debug deno_deploy deno_bench
+.PHONY: help all \
+	build_image build_local \
+	img_build img_up img_logs img_stop img_clean \
+	deno_install deno_build deno_pagefind deno_clean \
+	deno_debug deno_preview deno_serve deno_bench deno_format_check \
+	deno_deploy_test deno_deploy_release
 
-all: build_image
+help: ## Show all available targets
+	@echo "Available targets:"
+	@grep -E '^[a-zA-Z_]+:.*?## ' $(MAKEFILE_LIST) \
+		| awk -F ':.*?## ' '{printf "  %-22s %s\n", $$1, $$2}'
 
-# Build Option
-build_image: img_stop img_clean img_build																# Build: Container Image(docker)
-build_local: deno_clean deno_install deno_build		 													# Build: Local Deno Project
+all: build_image ## Default target: build and start Docker container
 
-# Commends
-img_build:
-	@$(CC1) up --build -d
+build_image: img_clean img_build ## Rebuild image (down) and start container (up --build -d)
+build_local: deno_clean deno_install deno_build ## Local build (clean + install + build + pagefind)
 
-img_up:
-	@$(CC1) up -d
+img_build: ## Build image and start container (background)
+	@$(DOCKER) up --build -d
 
-img_logs:
-	@$(CC1) logs --tail=100 -f
+img_up: ## Start container (background)
+	@$(DOCKER) up -d
 
-img_stop:
-	@$(CC1) stop
+img_logs: ## Follow container logs (last 100 lines)
+	@$(DOCKER) logs --tail=100 -f
 
-img_clean:
-	@$(CC1) down
+img_stop: ## Stop container
+	@$(DOCKER) stop
 
-deno_install:
+img_clean: ## Stop and remove container
+	@$(DOCKER) down
+
+deno_install: ## Install dependencies Package
 	@echo "Install Dependencies Package"
-	@$(CC2) task install
+	@$(DENO) task install
 
-deno_build:
+deno_build: ## Build static pages and generate search index
 	@echo "Build static Pages"
-	@$(CC2) task build
-	$(MAKE) deno_pagefind
+	@$(DENO) task build
+	@$(DENO) task pagefind
 
-deno_pagefind:
+deno_pagefind: ## Generate Pagefind search index
 	@echo "Find Page"
-	@$(CC2) task pagefind
+	@$(DENO) task pagefind
 
-deno_serve:
-	@$(CC2) task serve
+deno_debug: ## Start dev server
+	@$(DENO) task start
 
-deno_debug:
-	@$(CC2) task start
+deno_preview: ## Preview build result (default 8085/tcp)
+	@$(DENO) task preview
 
-deno_preview:
-	# default port: 8085/tcp
-	@$(CC2) task preview
+deno_serve: ## Serve static files via server.ts
+	@$(DENO) task serve
 
-deno_format_check:
+deno_format_check: ## Check code style (deno lint + prettier check)
 	@echo "Check Format"
-	@$(CC2) task lint
-	@$(CC2) task format
+	@$(DENO) task lint
+	@$(DENO) task format:check
 
-deno_deploy_test:
-	@echo "Start Deploy to Deno Deploy(Test)"
-	$(MAKE) deno_build
-	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="https://deno.land/std@0.224.0/http/file_server.ts" --root="./dist"
-deno_deploy_release:
-	@echo "Start Deploy to Deno Deploy(Release)"
-	$(MAKE) deno_build
-	@${CC3} deploy --project="neko-0xff-blog" --entrypoint="https://deno.land/std@0.224.0/http/file_server.ts" --root="./dist" --prod
-
-deno_bench:
+deno_bench: ## Run benchmarks
 	@echo "Running Bench Script"
-	@$(CC2) task bench
+	@$(DENO) task bench
 
-deno_clean:
+deno_clean: ## Clean build artifacts and cache
 	@echo "Start Clean Package"
-	@$(CC2) task clean
-	@$(CC2) clean
+	@$(DENO) task clean
+	@$(DENO) clean
+
+deno_deploy_test: deno_build ## Deploy to Deno Deploy (test)
+	@echo "Start Deploy to Deno Deploy(Test)"
+	@$(DENO) task deploy:test
+
+deno_deploy_release: deno_build ## Deploy to Deno Deploy (production)
+	@echo "Start Deploy to Deno Deploy(Release)"
+	@$(DENO) task deploy:release

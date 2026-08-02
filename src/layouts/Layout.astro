@@ -4,8 +4,6 @@ import { ClientRouter } from "astro:transitions";
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
-const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
-
 export interface Props {
   title?: string;
   author?: string;
@@ -32,10 +30,9 @@ const {
   ogType = "website",
 } = Astro.props;
 
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const socialImageURL = new URL(ogImage, Astro.url);
-
 const ogLocale = SITE.lang?.replace("-", "_");
-
 const isArticle = ogType === "article";
 
 const structuredData = isArticle

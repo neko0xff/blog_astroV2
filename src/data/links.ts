@@ -22,8 +22,7 @@ export const LINKS: Link[] = [
     name: "Mikan",
     site: "Aaki's Notebook",
     siteURL: "https://blog.mikan.ac.cn",
-    icon:
-      "https://gravatar.loli.net/avatar/da416f8013b9815f1e1c81754fffd701?s=300",
+    icon: "https://gravatar.loli.net/avatar/da416f8013b9815f1e1c81754fffd701?s=300",
   },
   {
     name: "Alpha UMi",

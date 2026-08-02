@@ -1,6 +1,7 @@
 /* 相關變數定義 */
 import { defineConfig } from "astro/config";
 import { SITE } from "./src/config.ts";
+import { unified, rehypeShiki } from "@astrojs/markdown-remark";
 
 /* 重要組件 */
 import tailwindcss from "@tailwindcss/vite";
@@ -12,8 +13,18 @@ import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import process from "node:process";
+import { readFileSync } from "node:fs";
 
 const is_ci = process.env.CI === "true";
+
+/* 從 package.json 讀取 react 版本，避免 CI alias 與相依宣告的版本漂移 */
+const pkg_deps = JSON.parse(
+  readFileSync(new URL("./package.json", import.meta.url), "utf-8")
+).dependencies as Record<string, string>;
+
+const strip_range = (version: string): string => version.replace(/^[\^~]/, "");
+const react_version = strip_range(pkg_deps.react);
+const react_dom_version = strip_range(pkg_deps["react-dom"]);
 
 // Node.js built-in modules that Deno can polyfill (from @deno/astro-adapter source)
 const COMPATIBLE_NODE_MODULES = [
@@ -85,7 +96,9 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: page => SITE.showArchives || !page.endsWith("/archives"),
+      filter: page =>
+        (SITE.showArchives || !page.endsWith("/archives")) &&
+        !page.endsWith("/search/"),
     }),
     react(),
     mermaid({
@@ -94,20 +107,26 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [
-      remarkToc,
-      [remarkCollapse, { test: "Table of contents" }],
-      remarkMath,
-    ],
-    rehypePlugins: [rehypeKatex],
-    shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
-      themes: {
-        light: "material-theme-lighter",
-        dark: "material-theme-darker",
-      },
-      wrap: true,
-    },
+    processor: unified({
+      remarkPlugins: [
+        remarkToc,
+        [remarkCollapse, { test: "Table of contents" }],
+        remarkMath,
+      ],
+      rehypePlugins: [
+        [
+          rehypeShiki,
+          {
+            themes: {
+              light: "material-theme-lighter",
+              dark: "material-theme-darker",
+            },
+            wrap: true,
+          },
+        ],
+        rehypeKatex,
+      ],
+    }),
   },
   vite: {
     optimizeDeps: {
@@ -124,20 +143,23 @@ export default defineConfig({
           ? [
               {
                 find: "react-dom/server.browser",
-                replacement: "https://esm.sh/react-dom@19.2.4/server.browser",
+                replacement: `https://esm.sh/react-dom@${react_dom_version}/server.browser`,
               },
               {
                 find: "react-dom",
-                replacement: "https://esm.sh/react-dom@19.2.4",
+                replacement: `https://esm.sh/react-dom@${react_dom_version}`,
               },
-              { find: "react", replacement: "https://esm.sh/react@19.2.4" },
+              {
+                find: "react",
+                replacement: `https://esm.sh/react@${react_version}`,
+              },
               {
                 find: "@types/react",
-                replacement: "https://esm.sh/react@19.2.4/types",
+                replacement: `https://esm.sh/react@${react_version}/types`,
               },
               {
                 find: "@types/react-dom",
-                replacement: "https://esm.sh/react-dom@19.2.4/types",
+                replacement: `https://esm.sh/react-dom@${react_dom_version}/types`,
               },
             ]
           : []),

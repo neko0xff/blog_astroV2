@@ -5,7 +5,11 @@
 ## 技術
 
 - Deno: 2.x
-- Astro.js: 5.6.x
+- Astro.js: 7.1.x
+- Pagefind（搜尋索引）: 1.5.x
+- 部署：
+  - Deno Deploy
+  - 靜態輸出: `dist/`
 
 ## 主題
 

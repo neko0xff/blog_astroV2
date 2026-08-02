@@ -1,6 +1,6 @@
 #!/bin/bash
 # patch-vite-nonascii.sh
-# Patches Vite 7.x config.js to fix createRequire failing with non-ASCII paths in Deno.
+# Patches Vite's config.js to fix createRequire failing with non-ASCII paths in Deno.
 # This is needed because Deno's node:module polyfill cannot parse file paths containing
 # non-ASCII characters (e.g., Chinese characters) as URLs, throwing "Invalid URL" errors.
 #
@@ -10,6 +10,10 @@
 #
 # Fix: Convert the `from` path to a file:// URL before passing to createRequire.
 #
+# Note: This only applies to Vite 7.x (dist/node/chunks/config.js). Vite 8.x moved
+# the config-resolution code and no longer hits the plain-path createRequire pattern
+# during Astro builds, so the patch is skipped automatically.
+#
 # Usage: Run after `deno install` or `deno clean && deno install`.
 # This script is idempotent - safe to run multiple times.
 
@@ -17,12 +21,20 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-VITE_CONFIG="$PROJECT_ROOT/node_modules/.deno/vite@7.3.3/node_modules/vite/dist/node/chunks/config.js"
+VITE_DENO_DIR="$PROJECT_ROOT/node_modules/.deno"
+VITE_CONFIG="$VITE_DENO_DIR/vite@7.3.3/node_modules/vite/dist/node/chunks/config.js"
 
-if [ ! -f "$VITE_CONFIG" ]; then
-  echo "⚠️  Vite config.js not found at: $VITE_CONFIG"
-  echo "   Run 'deno install' first to install dependencies."
+if [ ! -d "$VITE_DENO_DIR" ]; then
+  echo "⚠️  node_modules/.deno not found. Run 'deno install' first."
   exit 1
+fi
+
+# Vite 8.x+ does not need this patch (verified working on non-ASCII paths).
+if [ ! -f "$VITE_CONFIG" ]; then
+  INSTALLED_VITE="$(ls -d "$VITE_DENO_DIR"/vite@* 2>/dev/null | sed 's|.*/||' | sort -V | tail -1)"
+  echo "ℹ️  No vite@7.3.3 config.js found (installed: ${INSTALLED_VITE:-none})."
+  echo "   The non-ASCII createRequire patch is only needed for Vite 7.x; skipping."
+  exit 0
 fi
 
 # Check if patch is already applied

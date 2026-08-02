@@ -10,11 +10,11 @@ You'll see the following folders and files:
 /
 ├── public/
 │   ├── assets/
-|   ├── pagefind/ # auto-generated when build
 │   └── favicon.svg
 │   └── astropaper-og.jpg
 │   └── favicon.svg
 │   └── toggle-theme.js
+├── dist/ # build 輸出（含 pagefind/ 搜尋索引，auto-generated）
 ├── src/
 │   ├── assets/
 │   │   └── icons/

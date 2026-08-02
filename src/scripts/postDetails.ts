@@ -2,6 +2,9 @@
  * Create a scroll progress bar at the top of the page.
  */
 function create_progress_bar(): void {
+  if (document.querySelector(".progress-container")) {
+    return;
+  }
   const progress_container = document.createElement("div");
   progress_container.className =
     "progress-container fixed top-0 z-10 h-1 w-full bg-background";
@@ -36,9 +39,7 @@ function update_scroll_progress(): void {
  * Attach heading anchor links for easy section sharing.
  */
 function add_heading_links(): void {
-  const headings = Array.from(
-    document.querySelectorAll("h2, h3, h4, h5, h6"),
-  );
+  const headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, h6"));
   for (const heading of headings) {
     heading.classList.add("group");
     const link = document.createElement("a");

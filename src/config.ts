@@ -16,7 +16,7 @@ export const SITE = {
     alt: "neko0xff",
   },
   profile: "https://neko-0xff-blog.deno.dev",
-  desc: "該Blog會存放自己寫的技術文章!",
+  desc: "分享 Neko0xff 的技術文章與系統管理經驗。",
   title: "Neko0xff tech blog",
   ogImage: "webView.jpg",
   lightAndDarkMode: true,

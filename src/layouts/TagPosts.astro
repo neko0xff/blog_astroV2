@@ -6,9 +6,8 @@ import Footer from "@/components/astro/Footer.astro";
 import Card from "@/components/astro/Card.astro";
 import Pagination from "@/components/astro/Pagination.astro";
 import { SITE } from "@/config";
-import type { Page } from "astro/types";
+import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
-import { Fragment } from "astro/jsx-runtime";
 
 export interface Props {
   page: Page<CollectionEntry<"blog">>;
@@ -20,16 +19,15 @@ const { page, tag, tagName } = Astro.props;
 ---
 
 <Layout title={`標籤: ${tagName} | ${SITE.title}`}>
-  <Header activeNav="tags" />
+  <Header />
   <Main
     pageTitle={[`標籤:`, `${tagName}`]}
-    titleTransition={tag}
+    titleTransitionName={tag}
     pageDesc={`所有帶有該 "${tagName}" 標籤的文章 .`}
   >
-    <h1 slot="title" transition:name={tag}>{`標籤:${tag}`}</h1>
     <ul>
       {
-        page.data.map((entry: CollectionEntry<"blog">) => (
+        page.data.map(entry => (
           <Card
             id={entry.id}
             collection="blog"

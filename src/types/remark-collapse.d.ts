@@ -32,8 +32,8 @@ declare module "remark-collapse" {
    * @param options - Configuration options.
    * @returns A remark transformer function.
    */
-  declare function remarkCollapse(
-    options: RemarkCollapseOptions,
+  function remarkCollapse(
+    options: RemarkCollapseOptions
   ): (node: unknown) => void;
 
   export default remarkCollapse;

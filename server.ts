@@ -10,7 +10,7 @@ const CONTENT_SECURITY_POLICY = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
-  "connect-src 'self' https://api.darkvisitors.com https://giscus.app https://api.github.com",
+  "connect-src 'self' https://giscus.app https://api.github.com",
   "frame-src https://giscus.app",
   "media-src 'self'",
   "base-uri 'self'",

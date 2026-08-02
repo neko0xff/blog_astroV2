@@ -9,6 +9,7 @@ import Card from "@/components/astro/Card.astro";
 import Pagination from "@/components/astro/Pagination.astro";
 import getUniqueTags from "@/utils/getUniqueTags";
 import getPostsByTag from "@/utils/getPostsByTag";
+import { isBlogPost } from "@/utils/isBlogPost";
 import { SITE } from "@/config";
 
 /**
@@ -17,7 +18,7 @@ import { SITE } from "@/config";
  * @returns An array of paths for each tag with pagination.
  */
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", isBlogPost);
   const tags = getUniqueTags(posts);
 
   return tags.flatMap(({ tag, tagName }) => {
@@ -36,14 +37,15 @@ const { tag } = params;
 const { page, tagName } = Astro.props;
 ---
 
-<Layout title={`標籤: ${tagName} | ${SITE.title}`}>
+<Layout
+  title={`標籤: ${tagName}${page.currentPage > 1 ? ` (第 ${page.currentPage} 頁)` : ""} | ${SITE.title}`}
+>
   <Header />
   <Main
     pageTitle={[`標籤:`, `${tagName}`]}
-    titleTransition={tag}
+    titleTransitionName={tag}
     pageDesc={`己標記 "${tagName}" 的所有文章`}
   >
-    <h1 slot="title" transition:name={tag}>{`標籤:${tag}`}</h1>
     <ul>
       {page.data.map(data => <Card {...data} />)}
     </ul>

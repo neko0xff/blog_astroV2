@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { getPath } from "@/utils/getPath";
 import { generateOgImageForPost } from "@/utils/generateOgImages";
+import { isBlogPost } from "@/utils/isBlogPost";
 import { SITE } from "@/config";
 
 /**
@@ -14,7 +15,9 @@ export async function getStaticPaths() {
   }
 
   const posts = await getCollection("blog").then(p =>
-    p.filter(({ data }) => !data.draft && !data.ogImage)
+    p.filter(
+      entry => !entry.data.draft && !entry.data.ogImage && isBlogPost(entry)
+    )
   );
 
   return posts.map(post => ({
@@ -35,15 +38,15 @@ export const GET: APIRoute = async ({ props }) => {
       statusText: "Not found",
     });
   }
+
   try {
     const png = await generateOgImageForPost(props as CollectionEntry<"blog">);
-    // Convert Buffer to Uint8Array for web Response compatibility
     const pngArray = png.buffer as ArrayBuffer;
+
     return new Response(pngArray, {
       headers: { "Content-Type": "image/png" },
     });
   } catch {
-    // 可根據需求回傳預設圖片
     return new Response(null, {
       status: 500,
       statusText: "OG image error",

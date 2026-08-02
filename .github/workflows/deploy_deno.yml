@@ -33,6 +33,10 @@ jobs:
         run: |
           deno task build
           deno task pagefind
+        env:
+          # Required so robots.txt includes AI scraper block rules from DarkVisitors.
+          # Set this secret in GitHub repo settings: https://github.com/<owner>/<repo>/settings/secrets/actions
+          DARK_VISITORS_TOKEN: ${{ secrets.DARK_VISITORS_TOKEN }}
 
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1

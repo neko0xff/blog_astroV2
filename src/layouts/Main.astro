@@ -9,7 +9,7 @@ interface StringTitleProp {
 
 interface ArrayTitleProp {
   pageTitle: [string, string];
-  titleTransition: string;
+  titleTransitionName: string;
   pageDesc?: string;
 }
 
@@ -27,10 +27,13 @@ const backUrl = SITE.showBackButton ? Astro.url.pathname : "/";
   class="mx-auto w-full max-w-3xl px-4 pb-4"
 >
   {
-    "titleTransition" in props ? (
-      <h1 class="text-2xl font-semibold sm:text-3xl">
+    "titleTransitionName" in props ? (
+      <h1
+        transition:name={props.titleTransitionName}
+        class="text-2xl font-semibold sm:text-3xl"
+      >
         {props.pageTitle[0]}
-        <span class={props.titleTransition}>{props.pageTitle[1]}</span>
+        <span>{props.pageTitle[1]}</span>
       </h1>
     ) : (
       <h1 class="text-2xl font-semibold sm:text-3xl">{props.pageTitle}</h1>

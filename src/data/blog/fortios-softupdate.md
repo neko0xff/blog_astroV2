@@ -12,16 +12,19 @@ description: "更新的主要目的，是讓 Fortigate 能持續辨識最新的�
 - 更新的主要目的，是讓 Fortigate 能持續辨識最新的攻擊手法、惡意程式、應用程式類型與網路服務。
 
 ## 環境
+
 - Fortios: 6.2.17
-  * 測試機器
-    * FG-50E
-    * FWF-50E-2R
-    * FG-140D-POE
+  - 測試機器
+    - FG-50E
+    - FWF-50E-2R
+    - FG-140D-POE
 
 ## 注意部分
+
 - 在 Fortios 7.4.3 後，會開始限制授權合約無效（ex: 未註冊 & 過期）的機器限制手動升級至最新版本
-  * 相關控制模組： "System contracts" => "Firmware & General Updates (FMWR)"
+  - 相關控制模組： "System contracts" => "Firmware & General Updates (FMWR)"
 - 檢查現行合約授權情況: `diagnose test update info contract`
+
   ```
   System contracts:
     HDWR,Thu Apr 17 08:00:00 2025
@@ -40,110 +43,116 @@ description: "更新的主要目的，是讓 Fortigate 能持續辨識最新的�
   ```
 
 ## 每個更新檔的功能
+
 ### Fortios 系統
+
 - 設備韌體映像(`FWF_...out`)
-  * 更新後,會更新的相關核心模組
-      *  系統的 Kernel
-      *  IPS engine
-      *  AV engine
-  * 完整檔名
-    | 欄位           | 意義                | 範例                      |
+  - 更新後,會更新的相關核心模組
+    - 系統的 Kernel
+    - IPS engine
+    - AV engine
+  - 完整檔名
+    | 欄位 | 意義 | 範例 |
     | ------------ | ----------------- | ----------------------- |
-    | 產品代號         | 用於辨識產品線          | FGT、FWF、FAP、FSW、FMG、FAZ |
-    | model        | 實體機型或平台型號        | 111C、1000D              |
-    | version      | 韌體版本號            | v7.2.7、v6               |
-    | build        | 編譯建置號            | build0334、build0092     |
-    | FORTINET.out | Fortinet 官方映像檔尾碼。 | .out                    |
-  * 不同機器的設備韌體映像命名方式
-    * `FGT`: Fortigate
-    * `FWF`: FortiWiFi
-    * `FAP`: FortiAP
-    * `FSW`: FortiSwitch
-    * `FAZ`: FortiAnalyzer
-  * 韌體版本號(`x.y.z`,Major.Minor.Patch)定義
-    | 欄位 | 名稱   | 英文    | 意義                       | 遞增條件                                     |
+    | 產品代號 | 用於辨識產品線 | FGT、FWF、FAP、FSW、FMG、FAZ |
+    | model | 實體機型或平台型號 | 111C、1000D |
+    | version | 韌體版本號 | v7.2.7、v6 |
+    | build | 編譯建置號 | build0334、build0092 |
+    | FORTINET.out | Fortinet 官方映像檔尾碼。 | .out |
+  - 不同機器的設備韌體映像命名方式
+    - `FGT`: Fortigate
+    - `FWF`: FortiWiFi
+    - `FAP`: FortiAP
+    - `FSW`: FortiSwitch
+    - `FAZ`: FortiAnalyzer
+  - 韌體版本號(`x.y.z`,Major.Minor.Patch)定義
+    | 欄位 | 名稱 | 英文 | 意義 | 遞增條件 |
     | -- | ---- | ----- | ------------------------ | ---------------------------------------- |
-    | x  | 主版本號 | Major | 重大版本，通常包含 不相容的 API 或架構變更 | 當 API 不向下相容時，x 遞增，y、z 重置為 0 |
-    | y  | 次版本號 | Minor | 功能版本，新增功能但 保持向下相容        | 當新增功能但不影響 API 相容性時，y 遞增，z 重置為 0|
-    | z  | 增修  | Patch | 修補版本，僅做 Bug 修復或安全修補      | 當做 Bug 修復但不影響功能時，z 遞增 |
-  * 版本通道
-    | 標籤 | 全名                  | 英文                  | 意義                      | 適用場景                                     |
+    | x | 主版本號 | Major | 重大版本，通常包含 不相容的 API 或架構變更 | 當 API 不向下相容時，x 遞增，y、z 重置為 0 |
+    | y | 次版本號 | Minor | 功能版本，新增功能但 保持向下相容 | 當新增功能但不影響 API 相容性時，y 遞增，z 重置為 0|
+    | z | 增修 | Patch | 修補版本，僅做 Bug 修復或安全修補 | 當做 Bug 修復但不影響功能時，z 遞增 |
+  - 版本通道
+    | 標籤 | 全名 | 英文 | 意義 | 適用場景 |
     | -- | ------------------- | ------------------- | ----------------------- | ---------------------------------------- |
-    | M  | Mature              | Mature Release      | 成熟穩定版，功能定型，僅做 Bug 與安全修補 | 生產環境、關鍵業務          |
-    | F  | Feature             | Feature Release     | 持續增加新功能，較不穩定            | 實驗環境、新功能測試      |
-    | MR | Maintenance Release | Maintenance Release | 維護版，沿用於早期版本，類似 M 的修補版   | 早期 FortiOS 版本的維護更新  |
-    | P  | Patch               | Patch Release       | 修補版，主要針對特定問題或弱點         | 緊急修補或特定問題修復  |
+    | M | Mature | Mature Release | 成熟穩定版，功能定型，僅做 Bug 與安全修補 | 生產環境、關鍵業務 |
+    | F | Feature | Feature Release | 持續增加新功能，較不穩定 | 實驗環境、新功能測試 |
+    | MR | Maintenance Release | Maintenance Release | 維護版，沿用於早期版本，類似 M 的修補版 | 早期 FortiOS 版本的維護更新 |
+    | P | Patch | Patch Release | 修補版，主要針對特定問題或弱點 | 緊急修補或特定問題修復 |
 - 建議優先更新部分
-  * 版本通道: M (成熟穩定版) 
-  * 韌體版本號: z (增修)
+  - 版本通道: M (成熟穩定版)
+  - 韌體版本號: z (增修)
 
 ### IPS
+
 - APDB (`apdb_OSXXX.APDB.pkg`)
-  * 更新的安全特徵碼/資料庫部分
-      * Application Control database
-  * 用於
-      * 幫助設備判斷流量來源與應用類型
-      * 辨識
-          * 應用程式（Application Control）
-          * 裝置和系統類型（device & OS detection）
+  - 更新的安全特徵碼/資料庫部分
+    - Application Control database
+  - 用於
+    - 幫助設備判斷流量來源與應用類型
+    - 辨識
+      - 應用程式（Application Control）
+      - 裝置和系統類型（device & OS detection）
 - ISDB (`isdb_OS???.pkg`)
-  * 更新的安全特徵碼/資料庫部分
-      * Internet Service Database
-      * 工業安全攻擊定義
-  * 用於 
-      * 將特定的 IP/ASN/CIDR 範圍對應成網際網路服務（`internet-service`）名稱
-      * 同時方便讓政策規則,能直接套用在已知雲端服務或網路服務上
+  - 更新的安全特徵碼/資料庫部分
+    - Internet Service Database
+    - 工業安全攻擊定義
+  - 用於
+    - 將特定的 IP/ASN/CIDR 範圍對應成網際網路服務（`internet-service`）名稱
+    - 同時方便讓政策規則,能直接套用在已知雲端服務或網路服務上
 - NIDS (`nids_OSXXX.NIDS.pkg`)
-  * 更新的安全特徵碼/資料庫部分
-      * Attack Definition
-      * IPS / NIDS 簽名資料庫
-  * 用於
-      * 偵測辨識已知特徵
-          * 入侵行為
-          * 漏洞利用
-          * 網路攻擊
+  - 更新的安全特徵碼/資料庫部分
+    - Attack Definition
+    - IPS / NIDS 簽名資料庫
+  - 用於
+    - 偵測辨識已知特徵
+      - 入侵行為
+      - 漏洞利用
+      - 網路攻擊
 - IRIS (`IRISUpdate-OSXXX-fgt.pkg`)
-  * 更新的安全特徵碼/資料庫部分
-      * Botnet IP database
-  * 用於
-      * 提供已知惡意 Botnet 來源 IP 的資料
-      * 幫助設備攔截與辨識殭屍網路相關流量
+  - 更新的安全特徵碼/資料庫部分
+    - Botnet IP database
+  - 用於
+    - 提供已知惡意 Botnet 來源 IP 的資料
+    - 幫助設備攔截與辨識殭屍網路相關流量
 
 ### AV(AntiVirus,防毒特徵碼)
+
 - ETDB (`vsigupdate-OSXXX.ETDB.High.pkg`)
-  * 更新的安全特徵碼/資料庫部分
-      * Emerging Threat DB
-  * 快速更新的高優先威脅簽名（Emerging Threats / ET signatures）
-  * 主要補強新出現的攻擊或高風險事件的偵測能力
-- MMDB(`vsigupdate-OSXXX.MMDB.pkg`) 
-  * 針對移動端的惡意程式與威脅資料庫
-  * 更新的安全特徵碼/資料庫部分
-      * malware
-      * reputation
-      * intelligence DB
-  * 用於
-      * malware 偵測
-      * IP/domain reputation
+  - 更新的安全特徵碼/資料庫部分
+    - Emerging Threat DB
+  - 快速更新的高優先威脅簽名（Emerging Threats / ET signatures）
+  - 主要補強新出現的攻擊或高風險事件的偵測能力
+- MMDB(`vsigupdate-OSXXX.MMDB.pkg`)
+  - 針對移動端的惡意程式與威脅資料庫
+  - 更新的安全特徵碼/資料庫部分
+    - malware
+    - reputation
+    - intelligence DB
+  - 用於
+    - malware 偵測
+    - IP/domain reputation
 
 ### other-objects（其它類型）
-- FFDB (`ffdb_OS???.pkg`)
-  * 更新的安全特徵碼/資料庫部分
-      * Internet Service Definition
-      * FortiGuard Web Filter: Web URL 分類資料庫
 
-## 主要相關指令: `execute restore` 
+- FFDB (`ffdb_OS???.pkg`)
+  - 更新的安全特徵碼/資料庫部分
+    - Internet Service Definition
+    - FortiGuard Web Filter: Web URL 分類資料庫
+
+## 主要相關指令: `execute restore`
+
 - 支援
-  * 可還原項目
-      * av：還原 AntiVirus database（avdb.pkg）
-      * config：還原整個 device config（backup.conf）
-      * image：還原/更新 FortiOS firmware 映像檔
-      * ips：還原 IPS signatures（nids.pkg）
-      * ipsuserdefsig：匯入自訂的 IPS signature
-      * other-objects：還原其他物件（objects）
-      * script：匯入 CLI automation script
-      * secondary-image：寫入 secondary firmware slot（便於 rollback）
+  - 可還原項目
+    - av：還原 AntiVirus database（avdb.pkg）
+    - config：還原整個 device config（backup.conf）
+    - image：還原/更新 FortiOS firmware 映像檔
+    - ips：還原 IPS signatures（nids.pkg）
+    - ipsuserdefsig：匯入自訂的 IPS signature
+    - other-objects：還原其他物件（objects）
+    - script：匯入 CLI automation script
+    - secondary-image：寫入 secondary firmware slot（便於 rollback）
     ```
-    Nekolab_FG-50E # execute restore 
+    Nekolab_FG-50E # execute restore
     av                 av
     config             config
     image              image
@@ -153,23 +162,24 @@ description: "更新的主要目的，是讓 Fortigate 能持續辨識最新的�
     script             script
     secondary-image    secondary-image
     ```
-  * 更新方式
-      * tftp
-      * ftp
+  - 更新方式
+    - tftp
+    - ftp
     ```
-    Nekolab_FG-50E # execute restore ips 
+    Nekolab_FG-50E # execute restore ips
     ftp     Restore IPS database from FTP server.
     tftp    Restore IPS database from TFTP server.
     ```
 - 手動更新範例
-  * IPS: `execute restore ips tftp nids_OS6.2.0_35.00180.NIDS.pkg <tftp-server-ip>`
-  * AV: `execute restore av tftp avdb.pkg <tftp-server-ip>`
-  * Fortios image: `execute restore image tftp FWF_50E_2R-v6-build1405-FORTINET.out <tftp-server-ip>`
+  - IPS: `execute restore ips tftp nids_OS6.2.0_35.00180.NIDS.pkg <tftp-server-ip>`
+  - AV: `execute restore av tftp avdb.pkg <tftp-server-ip>`
+  - Fortios image: `execute restore image tftp FWF_50E_2R-v6-build1405-FORTINET.out <tftp-server-ip>`
 
 ## 更新類別顯示圖標
+
 - 當你更新完 IPS & APDB 類別的特徵庫後,界面上 App 類別圖標顯示不對時
-  * 可自行手動去向 Fortiguard 下戴，己修正後的 CSS & png
-  * 不需相關授權，即可正常進行更新
+  - 可自行手動去向 Fortiguard 下戴，己修正後的 CSS & png
+  - 不需相關授權，即可正常進行更新
 
 ```
 Nekolab_FG-50E # diagnose fortiguard-resource update sprite-map.png
@@ -206,10 +216,12 @@ MD5:    f3d55bcbda1e48ea6bbcfa1cd0601eb3
 ```
 
 ## 檢查現行機器的版本
+
 - GUI
-  * FortiOS: "系統管理" > "韌體管理"
-  * 特徵庫: "系統管理" > "FortiGuard"
+  - FortiOS: "系統管理" > "韌體管理"
+  - 特徵庫: "系統管理" > "FortiGuard"
 - CLI
+
   ```
   Nekolab_FG-50E # diagnose autoupdate versions
 
@@ -375,11 +387,12 @@ MD5:    f3d55bcbda1e48ea6bbcfa1cd0601eb3
   ```
 
 ## 升級時的除錯方式
+
 - 允許降級刷機
-   ```
-    Nekolab_FG-50E # diagnose autoupdate downgrade enable
-    Update downgrade enabled
-   ```
+  ```
+   Nekolab_FG-50E # diagnose autoupdate downgrade enable
+   Update downgrade enabled
+  ```
 
 ## REF
 
@@ -388,7 +401,6 @@ MD5:    f3d55bcbda1e48ea6bbcfa1cd0601eb3
 - [FortiGate-手動更新防護特徵碼](https://andyitsite.blog/%E6%89%8B%E5%8B%95%E6%9B%B4%E6%96%B0fortigate%E9%98%B2%E8%AD%B7%E7%89%B9%E5%BE%B5%E7%A2%BC/)
 - [Technical Tip: Cannot upload the IPS database manually from the GUI without internet connection to FortiGate-Fortinet Community](https://community.fortinet.com/t5/FortiGate/Technical-Tip-Cannot-upload-the-IPS-database-manually-from-the/ta-p/198603)
 - [过期 License 升级限制](https://handbook.fortinet.com.cn/system_mgmt/firmware_and_config/firmware_version/firmware_license#%E5%8D%87%E7%BA%A7%E6%9D%83%E9%99%90%E7%A4%BA%E4%BE%8B)
-
 
 ### Other
 

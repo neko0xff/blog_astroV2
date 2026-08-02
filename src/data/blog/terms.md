@@ -2,11 +2,11 @@
 title: "服務條款"
 slug: "terms"
 pubDatetime: 2024-01-01T00:00:00Z
-description: Explore the terms and conditions of Dante website for a clear understanding of guidelines and responsibilities.
+description: 本服務條款規範您對 Neko0xff tech blog 及其相關服務的訪問與使用，請在使用前詳細閱讀。
 draft: false
 seo:
   title: 服務條款
-  description: Explore the terms and conditions of Dante website for a clear understanding of guidelines and responsibilities.
+  description: 本服務條款規範您對 Neko0xff tech blog 及其相關服務的訪問與使用，請在使用前詳細閱讀。
 layout: "../../layouts/TermsLayout.astro"
 ---
 

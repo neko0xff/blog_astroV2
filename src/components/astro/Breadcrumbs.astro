@@ -17,22 +17,47 @@ const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
 // eg: /tags/tailwindcss => ['tags', 'tailwindcss']
 const breadcrumbList = currentUrlPath.split("/").slice(1);
 
-// Normalize route segments to display labels
-if (breadcrumbList[0] in ROUTE_LABELS) {
-  const route = breadcrumbList[0];
+// RegExp-based path parser: extract route, segment and optional page number
+// eg: /tags/tailwindcss/2 => { route: "tags", segment: "tailwindcss", page: "2" }
+const routeMatch = currentUrlPath.match(
+  /^\/(?<route>[^/]+)(?:\/(?<segment>[^/]+))?(?:\/(?<page>\d+))?$/
+);
 
-  // Handle paginated routes: /posts/2, /archives/3, /tags/[tag]/2
-  if ((route === "posts" || route === "archives") && breadcrumbList[1]) {
-    breadcrumbList.splice(0, 2, `${ROUTE_LABELS[route]} (第 ${breadcrumbList[1]} 頁)`);
-  } else if (
-    route === "tags" &&
-    breadcrumbList[2] &&
-    !isNaN(Number(breadcrumbList[2]))
-  ) {
-    const pageLabel = Number(breadcrumbList[2]) === 1 ? "" : `(第 ${breadcrumbList[2]}頁)`;
-    breadcrumbList.splice(1, 3, `${breadcrumbList[1]} ${pageLabel}`);
-  } else if (breadcrumbList.length === 1 || route !== "tags") {
-    breadcrumbList[0] = ROUTE_LABELS[route];
+// Normalize route segments to display labels
+if (routeMatch?.groups) {
+  const { route, segment, page } = routeMatch.groups;
+
+  switch (route) {
+    // Paginated routes: /posts/2, /archives/3
+    case "posts":
+    case "archives":
+      if (segment) {
+        breadcrumbList.splice(
+          0,
+          2,
+          `${ROUTE_LABELS[route]} (第 ${segment} 頁)`
+        );
+      } else {
+        breadcrumbList[0] = ROUTE_LABELS[route];
+      }
+      break;
+
+    // Tag routes: /tags, /tags/[tag], /tags/[tag]/2
+    case "tags":
+      if (page) {
+        const pageLabel = Number(page) === 1 ? "" : `(第 ${page} 頁)`;
+        breadcrumbList.splice(1, 3, `${segment} ${pageLabel}`);
+      } else if (breadcrumbList.length === 1) {
+        breadcrumbList[0] = ROUTE_LABELS.tags;
+      }
+      break;
+
+    // Simple labeled routes: /about, /search, ...
+    default:
+      if (route in ROUTE_LABELS) {
+        breadcrumbList[0] = ROUTE_LABELS[route];
+      }
+      break;
   }
 }
 
