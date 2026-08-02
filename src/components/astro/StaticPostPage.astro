@@ -1,0 +1,18 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import getSortedPosts from "@/utils/getSortedPosts";
+import OtherDetails from "@/layouts/OtherDetails.astro";
+
+export interface Props {
+  /** 要渲染的部落格文章 entry id（例如 "about"、"terms"） */
+  entryId: string;
+}
+
+const { entryId } = Astro.props;
+
+const post = await getEntry("blog", entryId);
+const posts = await getCollection("blog");
+const sortedPosts = getSortedPosts(posts);
+---
+
+{post && <OtherDetails post={post} posts={sortedPosts} />}
