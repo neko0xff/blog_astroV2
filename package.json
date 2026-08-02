@@ -3,7 +3,7 @@
   "type": "module",
   "version": "5.2.0",
   "scripts": {
-    "clean": "rimraf ./dist ./node_modules ./public/pagefind",
+    "clean": "rimraf ./dist ./node_modules",
     "dev": "astro dev",
     "build": "astro build",
     "check": "astro check",

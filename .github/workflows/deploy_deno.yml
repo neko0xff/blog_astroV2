@@ -24,7 +24,9 @@ jobs:
       - name: Install Deno
         uses: denoland/setup-deno@v2
         with:
-          deno-version: v2.x
+          # Pinned: Deno 2.7.x has a napi regression that breaks Vite 8 / rolldown builds
+          # (see denoland/deno#33137). Keep in sync with local env and Dockerfile.env (2.9.4).
+          deno-version: 2.9.4
 
       - name: Install step
         run: "deno task install"
