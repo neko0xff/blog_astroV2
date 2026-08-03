@@ -22,10 +22,9 @@ function create_progress_bar(): void {
  */
 function update_scroll_progress(): void {
   document.addEventListener("scroll", () => {
-    const win_scroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
-    const height =
-      document.documentElement.scrollHeight -
+    const win_scroll = document.body.scrollTop ||
+      document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight -
       document.documentElement.clientHeight;
     const scrolled = (win_scroll / height) * 100;
     const bar = document.getElementById("myBar");

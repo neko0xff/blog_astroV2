@@ -11,8 +11,10 @@
 
 ## ✨ Feedback & Suggestions
 
-- If you have any suggestions/feedback, you can contact me via [my email](mailto:chzang55@gmail.com).
-- Alternatively, feel free to open an issue if you find bugs or want to request new features.
+- If you have any suggestions/feedback, you can contact me via
+  [my email](mailto:chzang55@gmail.com).
+- Alternatively, feel free to open an issue if you find bugs or want to request
+  new features.
 
 ## 📜 License
 

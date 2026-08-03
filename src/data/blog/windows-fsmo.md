@@ -10,7 +10,8 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
 
 ## 何為 FSMO
 
-彈性單一主機操作（FSMO，Flexible single master operation）,主要是指AD上的五大不同功能的操作主機服務，且這五大角色算AD上不可缺一的服務功能。
+彈性單一主機操作（FSMO，Flexible single master
+operation）,主要是指AD上的五大不同功能的操作主機服務，且這五大角色算AD上不可缺一的服務功能。
 
 <!--more-->
 
@@ -27,7 +28,8 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
 ### 網域層次
 
 - 相對識別主節點管理(relative identifier master,RID)
-  - 在網域中建立物件時(例如:使用者帳戶、群組),需要藉由這個角色來負責配置所謂的唯一安全識別碼(SID,Security ID)
+  - 在網域中建立物件時(例如:使用者帳戶、群組),需要藉由這個角色來負責配置所謂的唯一安全識別碼(SID,Security
+    ID)
   - SID 主要由兩組資訊所組合
     1. 網域 SID
     2. 建立在網城中的每個安全性主體 SID 的唯一相對ID(RID)所組成
@@ -38,10 +40,12 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
   - 相關權限群組: Domain Admins
 - PDC模擬器(PDC emulator master)
   - 相關權限群組: Domain Admins
-  - 會對執行舊版 （Windows 2000/NT 4.0前） 的工作站、成員伺服器和網域控制站通告自己是"主要"網域控制站
+  - 會對執行舊版 （Windows 2000/NT 4.0前）
+    的工作站、成員伺服器和網域控制站通告自己是"主要"網域控制站
   - 同時兼網域中的主要的 NTP (時間同步) 伺服器
   - 是"修改群組原則(GPO)"的主要伺服器
-    - 預設的狀態： 群組原則編輯器會連線到 PDC 模擬器主機,統一發佈群組原則物件的設定
+    - 預設的狀態： 群組原則編輯器會連線到 PDC
+      模擬器主機,統一發佈群組原則物件的設定
   - 對於使用者密碼的變更與帳戶的鎖定,也都是由此角色負責
 
 ## 在 Windows Server 網域控制站上，負責管理五大角色的相關工具
@@ -430,7 +434,7 @@ description: "彈性單一主機操作（FSMO，Flexible single master operation
 
 ### Microsoft Learn
 
-- [Repadmin -replsummary](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc835092(v=ws.11)>)
+- [Repadmin -replsummary](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc835092(v=ws.11))
 - [Diagnose AD replication failures - Windows Server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/diagnose-replication-failures)
 - [診斷 Active Directory 複寫失敗 - Windows Server](https://learn.microsoft.com/zh-tw/troubleshoot/windows-server/active-directory/diagnose-replication-failures)
 - [Transfer or seize Operation Master roles - Windows Server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/transfer-or-seize-operation-master-roles-in-ad-ds)

@@ -12,7 +12,8 @@ description: ""
 
 - Arch: `$ sudo pacman -S postgresql`
 - RHEL 9 Like(Rocky&Alma): 使用 PostgreSQL 官方來源庫
-  1. 加入來源: `$ sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm`
+  1. 加入來源:
+     `$ sudo dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-9-x86_64/pgdg-redhat-repo-latest.noarch.rpm`
   2. 安裝: `$ sudo dnf install postgresql17 postgresql17-server`
 
 ## 系統設置
@@ -98,7 +99,6 @@ description: ""
                                           # (change requires restart)
   port = 5432                             # (change requires restart)
   max_connections = 200                   # (change requires restart)
-
   ```
 
 - `pg_hba.conf`: 指定允許連接哪些主機、它們的驗證方法以及它們可以存取的資料庫
@@ -238,9 +238,11 @@ max_connections = 200                   # (change requires restart)
 
 ## 異質資料庫轉換
 
-當想從其它不同類型的資料庫（ex: MariaDB/MySQL , SQLServer）遷移到 PostgreSQL 時，需要進行相關的轉換工程 (即異質資料庫轉換)。
+當想從其它不同類型的資料庫（ex: MariaDB/MySQL , SQLServer）遷移到 PostgreSQL
+時，需要進行相關的轉換工程 (即異質資料庫轉換)。
 
-在進行轉換過程中，由於兩者的 SQL 語法和結構的差異，可能會導致轉換過程中出現錯誤。
+在進行轉換過程中，由於兩者的 SQL
+語法和結構的差異，可能會導致轉換過程中出現錯誤。
 
 > 本範例使用 MariaDB / MySQL
 
@@ -248,9 +250,9 @@ max_connections = 200                   # (change requires restart)
   - Github: [dimitri/pgloader](https://github.com/dimitri/pgloader)
   - docker
   ```bash
-   $ docker run --rm -it ghcr.io/dimitri/pgloader \
-    pgloader  mysql://[user]:[password]@[server_ip]:3306/[DBname] \
-    postgresql://[user]:[password]@[server_ip]:5432/[DBname]
+  $ docker run --rm -it ghcr.io/dimitri/pgloader \
+   pgloader  mysql://[user]:[password]@[server_ip]:3306/[DBname] \
+   postgresql://[user]:[password]@[server_ip]:5432/[DBname]
   ```
 
 ## 備份&還原管理
@@ -271,7 +273,7 @@ max_connections = 200                   # (change requires restart)
 ## REF
 
 - [ArchWiki-PostgreSQL](https://wiki.archlinuxcn.org/wiki/PostgreSQL)
-- [Cassius. (2022, June 22). Arch Linux 安装 PostgreSQL 数据库. Cassius’s Blog. ](https://www.yuweihung.com/posts/2022/archlinux-install-postgresql/)
+- [Cassius. (2022, June 22). Arch Linux 安装 PostgreSQL 数据库. Cassius’s Blog.](https://www.yuweihung.com/posts/2022/archlinux-install-postgresql/)
 - [布丁. (2012, December 18). PostgreSQL的備份與復原. 布丁布丁吃什麼？.](https://blog.pulipuli.info/2012/12/postgresql.html)
 - [III. 系統管理 26. 備份及還原. PostgreSQL 17.2 Documentation.](https://docs.postgresql.tw/server-administration/backup-and-restore)
 - [Gmfcd128 . (2022, September 24). 三十天，PG與我-PostgreSQL資料庫備份還原. 2022 IThome 鐵人賽.](https://ithelp.ithome.com.tw/articles/10297869)

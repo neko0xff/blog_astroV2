@@ -1,4 +1,4 @@
-name: Deploy Web Service
+name: "CI: Build & Validate"
 on:
   push:
     branches:
@@ -7,18 +7,21 @@ on:
     branches:
       - main
 
+# 同一 ref 的新 push 會取消還在跑的舊 run，避免浪費資源
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   # GitHub Actions Runner Images: https://github.com/actions/runner-images/tree/main
-  deploy:
-    name: Deploy to Deno Deploy
+  #
+  # 注意：實際部署已改由新版 Deno Deploy（console.deno.com）的 GitHub 整合處理
+  # （Deploy Classic + deployctl 已於 2026-07-20 停用），此 workflow 只負責 CI 驗證。
+  build:
+    name: Build & validate
     runs-on: ubuntu-latest
 
     permissions:
-      id-token: write #  Auth with Deno Deploy
       contents: read # Clone the repository
 
     steps:
@@ -29,8 +32,7 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           # Pinned: Deno 2.7.x has a napi regression that breaks Vite 8 / rolldown builds
-          # (see denoland/deno#33137).
-          # Keep in sync with local env and Dockerfile.env (2.9.4).
+          # (see denoland/deno#33137). Keep in sync with local env and Dockerfile.env (2.9.4).
           deno-version: 2.9.4
 
       - name: Cache Deno dependencies
@@ -46,7 +48,7 @@ jobs:
       - name: Install step
         run: "deno task install"
 
-      - name: Build and prepare for deploy
+      - name: Build and generate search index
         run: |
           set -e
           # Retry: intermittent Deno napi/rolldown race (denoland/deno#33137, #34008).
@@ -62,14 +64,3 @@ jobs:
           # Required so robots.txt includes AI scraper block rules from DarkVisitors.
           # Set this secret in GitHub repo settings: https://github.com/<owner>/<repo>/settings/secrets/actions
           DARK_VISITORS_TOKEN: ${{ secrets.DARK_VISITORS_TOKEN }}
-
-      # 佈署情況
-      # 1. 只有 push 到 main 才真正部署
-      # 2. PR 只做 build 驗證
-      - name: Deploy to Deno Deploy
-        if: github.event_name == 'push'
-        uses: denoland/deployctl@v1
-        with:
-          project: "neko-0xff-blog"
-          entrypoint: "https://deno.land/std@0.224.0/http/file_server.ts"
-          root: "dist"

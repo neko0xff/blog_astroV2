@@ -10,7 +10,8 @@ description: ""
 
 如果您想測試專案中某個函式或功能的目前執行速度，並比較它在不同作業系統平台或硬體配置上的效能表現時！
 
-Deno 提供了內建的基準測試工具 (Benchmarking) ，並且提供了一套標準化的腳本編寫方式和一致的效能測量方法。
+Deno 提供了內建的基準測試工具 (Benchmarking)
+，並且提供了一套標準化的腳本編寫方式和一致的效能測量方法。
 
 這樣做的好處是，在開發過程中可方便地收集和比較不同環境和硬體下的效能比較的相關資訊，並且整個過程完全不需要依賴或安裝任何額外的第三方測試工具。
 
@@ -90,7 +91,6 @@ file:///home/user/%E6%96%87%E4%BB%B6/GitHub/blog_astroV2/bench/url_bench.ts
 benchmark     time/iter (avg)        iter/s      (min … max)           p75      p99     p995
 ------------- ----------------------------- --------------------- --------------------------
 URL Parsing            1.1 µs       939,400 (892.2 ns …   3.2 µs)   1.0 µs   3.2 µs   3.2 µs
-
 ```
 
 - 把測試結果輸出成JSON格式: `$ deno bench --json [目錄]/*`
@@ -150,7 +150,6 @@ Check file:///home/user/文件/GitHub/blog_astroV2/bench/link_loading.ts
     }
   ]
 }
-
 ```
 
 ## REF

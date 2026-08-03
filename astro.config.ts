@@ -1,7 +1,7 @@
 /* 相關變數定義 */
 import { defineConfig } from "astro/config";
 import { SITE } from "./src/config.ts";
-import { unified, rehypeShiki } from "@astrojs/markdown-remark";
+import { rehypeShiki, unified } from "@astrojs/markdown-remark";
 
 /* 重要組件 */
 import tailwindcss from "@tailwindcss/vite";
@@ -19,7 +19,7 @@ const is_ci = process.env.CI === "true";
 
 /* 從 package.json 讀取 react 版本，避免 CI alias 與相依宣告的版本漂移 */
 const pkg_deps = JSON.parse(
-  readFileSync(new URL("./package.json", import.meta.url), "utf-8")
+  readFileSync(new URL("./package.json", import.meta.url), "utf-8"),
 ).dependencies as Record<string, string>;
 
 const strip_range = (version: string): string => version.replace(/^[\^~]/, "");
@@ -96,7 +96,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: page =>
+      filter: (page) =>
         (SITE.showArchives || !page.endsWith("/archives")) &&
         !page.endsWith("/search/"),
     }),
@@ -135,33 +135,35 @@ export default defineConfig({
     resolve: {
       alias: [
         // Deno requires node: prefix for Node built-ins; Vite may strip it
-        ...COMPATIBLE_NODE_MODULES.map(mod => ({
+        ...COMPATIBLE_NODE_MODULES.map((mod) => ({
           find: mod,
           replacement: `node:${mod}`,
         })),
         ...(is_ci
           ? [
-              {
-                find: "react-dom/server.browser",
-                replacement: `https://esm.sh/react-dom@${react_dom_version}/server.browser`,
-              },
-              {
-                find: "react-dom",
-                replacement: `https://esm.sh/react-dom@${react_dom_version}`,
-              },
-              {
-                find: "react",
-                replacement: `https://esm.sh/react@${react_version}`,
-              },
-              {
-                find: "@types/react",
-                replacement: `https://esm.sh/react@${react_version}/types`,
-              },
-              {
-                find: "@types/react-dom",
-                replacement: `https://esm.sh/react-dom@${react_dom_version}/types`,
-              },
-            ]
+            {
+              find: "react-dom/server.browser",
+              replacement:
+                `https://esm.sh/react-dom@${react_dom_version}/server.browser`,
+            },
+            {
+              find: "react-dom",
+              replacement: `https://esm.sh/react-dom@${react_dom_version}`,
+            },
+            {
+              find: "react",
+              replacement: `https://esm.sh/react@${react_version}`,
+            },
+            {
+              find: "@types/react",
+              replacement: `https://esm.sh/react@${react_version}/types`,
+            },
+            {
+              find: "@types/react-dom",
+              replacement:
+                `https://esm.sh/react-dom@${react_dom_version}/types`,
+            },
+          ]
           : []),
       ],
     },

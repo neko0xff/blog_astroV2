@@ -1,15 +1,16 @@
 const { PagefindUI } = await import("@pagefind/default-ui");
 const PARAMS = new URLSearchParams(globalThis.location.search);
-const ON_IDLE =
-  globalThis.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1));
+const ON_IDLE = globalThis.requestIdleCallback ||
+  ((cb: () => void) => setTimeout(cb, 1));
 
 /**
  * 初始化 Pagefind 搜尋組件
  * 確保在 Astro View Transitions 之下能動態獲取最新的 DOM 節點
  */
 function init_search() {
-  const page_find_search =
-    document.querySelector<HTMLElement>("#pagefind-search");
+  const page_find_search = document.querySelector<HTMLElement>(
+    "#pagefind-search",
+  );
 
   // 檢查 Pagefind 搜尋表單是否存在
   if (!page_find_search) return;
@@ -35,10 +36,10 @@ function init_search() {
     const query = PARAMS.get("q");
 
     const search_input = document.querySelector<HTMLInputElement>(
-      ".pagefind-ui__search-input"
+      ".pagefind-ui__search-input",
     );
     const clear_button = document.querySelector<HTMLButtonElement>(
-      ".pagefind-ui__search-clear"
+      ".pagefind-ui__search-clear",
     );
 
     // 如果網址帶有參數，觸發搜尋

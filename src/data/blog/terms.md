@@ -79,9 +79,9 @@ _感謝您閱讀我們的服務條款。_ _使用本網站，即表示您同意�
 **Last uppublishDated on January 11, 2024**
 
 These Terms of Service ("Terms") govern your access to and use of
-[Neko0xff tech blog](/) and any related services
-provided by [Website Owner/Company] ("we," "us," or "our"). Please read these
-Terms carefully before using the Website.
+[Neko0xff tech blog](/) and any related services provided by [Website
+Owner/Company] ("we," "us," or "our"). Please read these Terms carefully before
+using the Website.
 
 **1. Acceptance of Terms**
 

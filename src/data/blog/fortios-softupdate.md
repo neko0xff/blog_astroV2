@@ -9,7 +9,8 @@ description: "更新的主要目的，是讓 Fortigate 能持續辨識最新的�
 
 ## 前提
 
-- 更新的主要目的，是讓 Fortigate 能持續辨識最新的攻擊手法、惡意程式、應用程式類型與網路服務。
+- 更新的主要目的，是讓 Fortigate
+  能持續辨識最新的攻擊手法、惡意程式、應用程式類型與網路服務。
 
 ## 環境
 
@@ -21,7 +22,8 @@ description: "更新的主要目的，是讓 Fortigate 能持續辨識最新的�
 
 ## 注意部分
 
-- 在 Fortios 7.4.3 後，會開始限制授權合約無效（ex: 未註冊 & 過期）的機器限制手動升級至最新版本
+- 在 Fortios 7.4.3 後，會開始限制授權合約無效（ex: 未註冊 &
+  過期）的機器限制手動升級至最新版本
   - 相關控制模組： "System contracts" => "Firmware & General Updates (FMWR)"
 - 檢查現行合約授權情況: `diagnose test update info contract`
 
@@ -52,13 +54,13 @@ description: "更新的主要目的，是讓 Fortigate 能持續辨識最新的�
     - IPS engine
     - AV engine
   - 完整檔名
-    | 欄位 | 意義 | 範例 |
-    | ------------ | ----------------- | ----------------------- |
-    | 產品代號 | 用於辨識產品線 | FGT、FWF、FAP、FSW、FMG、FAZ |
-    | model | 實體機型或平台型號 | 111C、1000D |
-    | version | 韌體版本號 | v7.2.7、v6 |
-    | build | 編譯建置號 | build0334、build0092 |
-    | FORTINET.out | Fortinet 官方映像檔尾碼。 | .out |
+    | 欄位         | 意義                      | 範例                         |
+    | ------------ | ------------------------- | ---------------------------- |
+    | 產品代號     | 用於辨識產品線            | FGT、FWF、FAP、FSW、FMG、FAZ |
+    | model        | 實體機型或平台型號        | 111C、1000D                  |
+    | version      | 韌體版本號                | v7.2.7、v6                   |
+    | build        | 編譯建置號                | build0334、build0092         |
+    | FORTINET.out | Fortinet 官方映像檔尾碼。 | .out                         |
   - 不同機器的設備韌體映像命名方式
     - `FGT`: Fortigate
     - `FWF`: FortiWiFi
@@ -66,18 +68,18 @@ description: "更新的主要目的，是讓 Fortigate 能持續辨識最新的�
     - `FSW`: FortiSwitch
     - `FAZ`: FortiAnalyzer
   - 韌體版本號(`x.y.z`,Major.Minor.Patch)定義
-    | 欄位 | 名稱 | 英文 | 意義 | 遞增條件 |
-    | -- | ---- | ----- | ------------------------ | ---------------------------------------- |
-    | x | 主版本號 | Major | 重大版本，通常包含 不相容的 API 或架構變更 | 當 API 不向下相容時，x 遞增，y、z 重置為 0 |
-    | y | 次版本號 | Minor | 功能版本，新增功能但 保持向下相容 | 當新增功能但不影響 API 相容性時，y 遞增，z 重置為 0|
-    | z | 增修 | Patch | 修補版本，僅做 Bug 修復或安全修補 | 當做 Bug 修復但不影響功能時，z 遞增 |
+    | 欄位 | 名稱     | 英文  | 意義                                       | 遞增條件                                            |
+    | ---- | -------- | ----- | ------------------------------------------ | --------------------------------------------------- |
+    | x    | 主版本號 | Major | 重大版本，通常包含 不相容的 API 或架構變更 | 當 API 不向下相容時，x 遞增，y、z 重置為 0          |
+    | y    | 次版本號 | Minor | 功能版本，新增功能但 保持向下相容          | 當新增功能但不影響 API 相容性時，y 遞增，z 重置為 0 |
+    | z    | 增修     | Patch | 修補版本，僅做 Bug 修復或安全修補          | 當做 Bug 修復但不影響功能時，z 遞增                 |
   - 版本通道
-    | 標籤 | 全名 | 英文 | 意義 | 適用場景 |
-    | -- | ------------------- | ------------------- | ----------------------- | ---------------------------------------- |
-    | M | Mature | Mature Release | 成熟穩定版，功能定型，僅做 Bug 與安全修補 | 生產環境、關鍵業務 |
-    | F | Feature | Feature Release | 持續增加新功能，較不穩定 | 實驗環境、新功能測試 |
-    | MR | Maintenance Release | Maintenance Release | 維護版，沿用於早期版本，類似 M 的修補版 | 早期 FortiOS 版本的維護更新 |
-    | P | Patch | Patch Release | 修補版，主要針對特定問題或弱點 | 緊急修補或特定問題修復 |
+    | 標籤 | 全名                | 英文                | 意義                                      | 適用場景                    |
+    | ---- | ------------------- | ------------------- | ----------------------------------------- | --------------------------- |
+    | M    | Mature              | Mature Release      | 成熟穩定版，功能定型，僅做 Bug 與安全修補 | 生產環境、關鍵業務          |
+    | F    | Feature             | Feature Release     | 持續增加新功能，較不穩定                  | 實驗環境、新功能測試        |
+    | MR   | Maintenance Release | Maintenance Release | 維護版，沿用於早期版本，類似 M 的修補版   | 早期 FortiOS 版本的維護更新 |
+    | P    | Patch               | Patch Release       | 修補版，主要針對特定問題或弱點            | 緊急修補或特定問題修復      |
 - 建議優先更新部分
   - 版本通道: M (成熟穩定版)
   - 韌體版本號: z (增修)
@@ -171,9 +173,11 @@ description: "更新的主要目的，是讓 Fortigate 能持續辨識最新的�
     tftp    Restore IPS database from TFTP server.
     ```
 - 手動更新範例
-  - IPS: `execute restore ips tftp nids_OS6.2.0_35.00180.NIDS.pkg <tftp-server-ip>`
+  - IPS:
+    `execute restore ips tftp nids_OS6.2.0_35.00180.NIDS.pkg <tftp-server-ip>`
   - AV: `execute restore av tftp avdb.pkg <tftp-server-ip>`
-  - Fortios image: `execute restore image tftp FWF_50E_2R-v6-build1405-FORTINET.out <tftp-server-ip>`
+  - Fortios image:
+    `execute restore image tftp FWF_50E_2R-v6-build1405-FORTINET.out <tftp-server-ip>`
 
 ## 更新類別顯示圖標
 
@@ -390,8 +394,8 @@ MD5:    f3d55bcbda1e48ea6bbcfa1cd0601eb3
 
 - 允許降級刷機
   ```
-   Nekolab_FG-50E # diagnose autoupdate downgrade enable
-   Update downgrade enabled
+  Nekolab_FG-50E # diagnose autoupdate downgrade enable
+  Update downgrade enabled
   ```
 
 ## REF

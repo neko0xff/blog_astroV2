@@ -12,7 +12,7 @@ description: ""
 
 > 服役時間: 2024-11-26~2025-03-07(己用軍訓課學分，折了約 10 日)
 
-> 2025-01: 當前使用 Deno 版本為 2.1.4
+> 2025-01: 當前使用 Deno 版本為 2.1.4 2026-08: 當前使用 Deno 版本為 2.9.4
 
 ## 專案建立: 透過 deno 重新建 Astro.js 樣版
 
@@ -31,14 +31,17 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 - 環境配置
   - 預覽正式環境: `$ deno run -A npm:astro preview --host 0.0.0.0`
   - 開發除錯: `$ deno run -A --unstable npm:astro dev`
-    - 支援 HMR ( hot module replacement ,熱更新)，不需重新手動加戴且即時預覽修改效果
+    - 支援 HMR ( hot module replacement
+      ,熱更新)，不需重新手動加戴且即時預覽修改效果
 - 結果建置
   - 把專案輸出成靜態網頁或 SSR 服務: `$ deno run -A --unstable npm:astro build`
-  - 提供服務: `$ deno serve --allow-net --allow-read --allow-env ./dist/server/entry.mjs`
+  - 提供服務:
+    `$ deno serve --allow-net --allow-read --allow-env ./dist/server/entry.mjs`
 
 ## 套件管理: 不使用`npm`,直接使用 deno 管理
 
-由於 Deno 2.x 提供了 npm 套件兼容功能，其中套件依賴部分可以直接記錄在 `deno.json`(Deno) 或 `package.json`(npm) 內方便集中管理。
+由於 Deno 2.x 提供了 npm 套件兼容功能，其中套件依賴部分可以直接記錄在
+`deno.json`(Deno) 或 `package.json`(npm) 內方便集中管理。
 
 - 套件管理
   - 安裝: `$ deno install --allow-scripts`
@@ -117,111 +120,120 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 - Dockerfile
 
   ```dockerfile
-    FROM denoland/deno:2.1.5
+    FROM denoland/deno:debian-2.9.4 AS builder
 
-    # 設定使用者權限&工作目錄&環境
+    # Install system dependencies
+    RUN apt-get update && apt-get install -y \
+        python3 \
+        make \
+        npm \
+        g++ \
+        && rm -rf /var/lib/apt/lists/*
+
+    # Setup Environment
     WORKDIR /app
     ENV NODE_ENV=production
 
-    # Copy Project Source Code
-    COPY package*.json deno.json* deno.lock* ./
     COPY . .
 
-    # Building
-    RUN  deno task install && \
-        deno task build
+    RUN mkdir -p /app/.npm && \
+        npm config set cache /app/.npm --global
 
-    # Service Start
-    CMD ["deno", "task", "serve"]
+    RUN deno install --allow-scripts --no-lock && deno task build
 
-    # 指定通訊埠
+    # Generate search index
+    RUN deno task pagefind
+
+    # Final stage
+    FROM denoland/deno:alpine-2.9.4
+    WORKDIR /app
+
+    # Copy built files
+    COPY --from=builder /app/dist ./dist
+    COPY --from=builder /app/server.ts ./server.ts
+    COPY --from=builder /app/public ./public
+    COPY --from=builder /app/deno_prod.json ./deno.json
+
+    # Expose port
     EXPOSE 8085
 
+    # Switch to non-root user for security
+    USER deno
+
+    # Start the server with logging
+    CMD ["task", "serve"]
   ```
 
 ## PaaS: 使用 Deno Deploy 服務
 
-在研究 Deno 時，發現能用 Github Action 搭配自身的 Deploy 服務來提供 Serverless 環境。
-其中會分配 `[project_name].deno.dev` 的域名給開發者使用，且支援主流的前端框架(ex: Astro,Next.js,.....)！
+在研究 Deno 時，發現能用 Github Action 搭配自身的 Deploy 服務來提供 Serverless
+環境。 其中會分配 `[project_name].deno.dev`
+的域名給開發者使用，且支援主流的前端框架(ex: Astro,Next.js,.....)！
+
+- 2026-08-03 更新：由於 Deno Deploy Classic（`dash.deno.com`）與 deployctl
+  工具已於 2026-07-20 停用，所以原有服務須手動遷移至新版 Deno
+  Deploy（`console.deno.com`)
+  - 新版平台變更部分
+    - 分配網域： `{project_name}.deno.dev` =>
+      `{project_name}.{org_name}.deno.net`
+    - 操作界面: 從個人變組織
+    - 更換到新版後，必須驗証信用卡付款部分是否有效
+    - 改用 Deno 2.x 內建的 deno deploy 指令
+    - 並支援整合式建置（build 日誌直接於 dashboard 即時串流，不再需要透過 GitHub
+      Actions 進行部署）
+    - 同時 GitHub Actions workflow（`.github/workflows/ci.yml`）部分，僅保留 CI
+      驗證用途
 
 ### 限制(免費版)
 
 - 請求
-  - 1M 次/每月
+  - 100 萬次/每月
   - 每次請求時，最多只需 10ms CPU 時間
-- 流量: 100GB/每月
+- 流量: 20GB/每月（出站頻寬）
 - 網域
   - 提供免費的 `deno.dev` 子網域和自訂網域
-  - HTTPS / TLS 憑証
+  - HTTPS / TLS 憑証 (Let's Encrypt)
 - 伺服器
   - 整合 Github 上公開與私有套件庫
-  - 可在所有 12 個網路位置執行(其中由GCP代管，且使用者不可指定位置而是隨機分配)
+  - 代管位置
+    - 目前僅有美國(us)、歐洲(eu)與全球(global)三區可用
   - 無限制次數建置，供以生產部署與預覽
+- 其他限制
+  - 記憶體分配：最大 512MB
+  - 單次部署大小上限：1 GB（含原始檔案與靜態檔案）
+  - 每組織最多 20 個活躍應用
+  - 每組織最多 50 個自訂網域
 
 ### 流程
 
-1. 安裝橋接器: `$ deno add npm:@deno/astro-adapter`
-   - Github: [denoland/deno-astro-adapter](https://github.com/denoland/deno-astro-adapter)
-2. 在`astro.config.ts`加入相關設置
+1. 在 `deno.json` 設定 `deploy` 設定（新版平台的整合式建置會讀取）：
 
-```typescript
-  import deno from "@deno/astro-adapter"; // add deno deploy support
+   ```json
+   {
+     "deploy": {
+       "install": "deno task install",
+       "build": "deno task build && deno task pagefind",
+       "runtime": {
+         "type": "static",
+         "cwd": "./dist"
+       }
+     }
+   }
+   ```
 
-  export default defineConfig({
-    site: SITE.website,
-    output: "static", // 輸出選項: Astro 4 = "hybrid" , Astro 5 = "static"
-    server: {
-      port: 8085, // 若無設置，則使用預設的 '4321/tcp'
-    },
-    adapter: deno({
-      port: 8085, // 若無設置，則使用預設的 '8085/tcp'
-    }),
-    ......
-  })
-```
+2. 到 [console.deno.com](https://console.deno.com) 建立 app 並連接 GitHub 倉庫， 之後每次 push 都會自動觸發建置與部署，build 日誌直接在 dashboard 串流（本專案為靜態站台，直接服務 `dist/` 目錄）。 
+   * 部署完成後，應用程式將可於 `https://<your-project-name>.<your-org-name>.deno.net` 存取
 
-4. 設定 GitHub Action & Deno Deploy
-   - Workflow 腳本: `./.github/workflows/deploy.yml`
+3. 或者使用 CLI 手動部署：
+   - 必需先在 `https://console.deno.com/account/access-tokens` 建立 token，並設定相関的環境變數 `DENO_DEPLOY_TOKEN`
+   
+   ```sh
+   $ deno deploy --app neko-0xff-blog          # 預覽部署
+   $ deno deploy --app neko-0xff-blog --prod   # 正式部署
+   ```
 
-     ```yaml
-     name: Deploy
-     on:
-       push:
-         branches: main
-       pull_request:
-         branches: main
-
-     jobs:
-       deploy:
-         name: Deploy
-         runs-on: ubuntu-latest
-
-     permissions:
-       id-token: write # Needed for auth with Deno Deploy
-       contents: read # Needed to clone the repository
-
-     steps:
-       - name: Clone repository
-         uses: actions/checkout@v4
-
-       - name: Install Deno
-         uses: denoland/setup-deno@v2
-         with:
-           deno-version: v2.x
-
-       - name: Install step
-         run: "deno task install"
-
-       - name: Build step
-         run: "deno task build"
-
-       - name: Upload to Deno Deploy
-         uses: denoland/deployctl@v1
-         with:
-           project: "neko-0xff-blog"
-           entrypoint: "server/entry.mjs"
-           root: "dist"
-     ```
+4. GitHub Actions（`.github/workflows/ci.yml`）服務部分
+   - 只負責 CI 驗證（install / build / pagefind），不再負責部署
 
 ## REF
 
@@ -236,6 +248,7 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 
 - [Node and npm support](https://docs.deno.com/runtime/fundamentals/node/)
 - [`deno install`](https://docs.deno.com/runtime/reference/cli/install/)
+- [Migrating from Deploy Classic to Deno Deploy](https://docs.deno.com/deploy/migration_guide/)
 
 #### Blog
 

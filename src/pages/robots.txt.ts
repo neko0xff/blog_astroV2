@@ -37,9 +37,10 @@ const AI_USER_AGENTS = [
  * @returns A string with one "User-agent ... Disallow: /" block per agent
  */
 function generate_builtin_rules(): string {
-  return AI_USER_AGENTS.map(agent => `User-agent: ${agent}\nDisallow: /`).join(
-    "\n\n"
-  );
+  return AI_USER_AGENTS.map((agent) => `User-agent: ${agent}\nDisallow: /`)
+    .join(
+      "\n\n",
+    );
 }
 
 /**

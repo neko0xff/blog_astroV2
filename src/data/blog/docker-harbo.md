@@ -36,7 +36,8 @@ description: ""
 $ curl -s https://api.github.com/repos/goharbor/harbor/releases/latest | grep browser_download_url | cut -d '"' -f 4 | grep '\.tgz$' | wget -i -
 ```
 
-2. 解壓縮剛下戴好的安裝檔(本教學使用offline版本): `$ tar xzvf harbor-offline-installer-[version].tgz`
+2. 解壓縮剛下戴好的安裝檔(本教學使用offline版本):
+   `$ tar xzvf harbor-offline-installer-[version].tgz`
 3. 完成後,您會得到一個目錄,則請把該目錄復制至`/usr/local` 下
    ```
    $ cp -R ./harbor /usr/local
@@ -198,7 +199,8 @@ Note: stopping existing Harbor instance ...
 
 #### 生命週期
 
-由於 harbor 是用`docker-compose.yml`進行服務管理。所以使用時，您必須了解 docker compose 的指令!
+由於 harbor 是用`docker-compose.yml`進行服務管理。所以使用時，您必須了解 docker
+compose 的指令!
 
 - 相關指令
   - 查看己啟動: `$ docker compose ps`
@@ -206,9 +208,9 @@ Note: stopping existing Harbor instance ...
   - 停止: `$ docker compose stop`
   - 刪除相關服務的配置檔&存放於倉庫的image
     ```
-      $ docker compose down -v
-      $ rm -r /data/database
-      $ rm -r /data/registry
+    $ docker compose down -v
+    $ rm -r /data/database
+    $ rm -r /data/registry
     ```
 
 #### 檢視運行記錄
@@ -223,7 +225,9 @@ jobservice.log  postgresql.log  redis.log  registry.lo
 
 #### 讓 Systemd 管理相關服務
 
-為了解決 Docker 啟動後 Harbor 無法同步啟動的問題，我們需撰寫一個服務設定檔，並利用 Systemd 進行服務管理，以實現 Harbor 隨系統自動啟動。
+為了解決 Docker 啟動後 Harbor
+無法同步啟動的問題，我們需撰寫一個服務設定檔，並利用 Systemd
+進行服務管理，以實現 Harbor 隨系統自動啟動。
 
 1. 請在`/etc/systemd/system` 目錄下建立 `harbor.service` , 且填入如下內容
 
@@ -283,7 +287,8 @@ jobservice.log  postgresql.log  redis.log  registry.lo
 
 ### 如何使 docker 允許上傳或下戴未經 SSL 驗証的私有倉庫
 
-由於是自架環境(無相關SSL驗証),必須在 Client 端部分，得手動建立 Docker Engine 的相關配置文件(`/etc/docker/daemon.json`).
+由於是自架環境(無相關SSL驗証),必須在 Client 端部分，得手動建立 Docker Engine
+的相關配置文件(`/etc/docker/daemon.json`).
 
 1. 請修改: `/etc/docker/daemon.json`
    ```json
@@ -291,7 +296,8 @@ jobservice.log  postgresql.log  redis.log  registry.lo
      "insecure-registries": ["localhost:8081", "localhost:8443"]
    }
    ```
-2. 修改完成後,請務必重啟系統上的docker服務: `$ sudo systemctl restart docker.service`
+2. 修改完成後,請務必重啟系統上的docker服務:
+   `$ sudo systemctl restart docker.service`
 3. 測試是否可使用
 
    ```shell
@@ -313,7 +319,8 @@ jobservice.log  postgresql.log  redis.log  registry.lo
      ```
      $ docker login localhost:8081
      ```
-  2. 標記要上傳的image: `$ docker tag [剛建置完成的image名稱] [server]/[專案]/[image name]:[version]`
+  2. 標記要上傳的image:
+     `$ docker tag [剛建置完成的image名稱] [server]/[專案]/[image name]:[version]`
      ```
      $ docker tag build_frontend-frontend_deno localhost:8081/swt_erp/frontend:1.0.0
      ```
@@ -329,10 +336,12 @@ jobservice.log  postgresql.log  redis.log  registry.lo
 
 ### 配合 Jenkins 把流程自動化
 
-在試完手動推送後,您可選擇在 Jenkins 內寫 pipeline 腳本來跑自動化程序,把己經建置完成的 image 丟到 Harbor 上.
+在試完手動推送後,您可選擇在 Jenkins 內寫 pipeline
+腳本來跑自動化程序,把己經建置完成的 image 丟到 Harbor 上.
 
 1. 先新增一個Credential: 用於定義pipeline的環境變數
-   - 位置: `[管理Jenkins]` -> `[Credentials]` -> `[System]` -> `[Global credentials (unrestricted)]`
+   - 位置: `[管理Jenkins]` -> `[Credentials]` -> `[System]` ->
+     `[Global credentials (unrestricted)]`
      1. 在`[Stores coped to Jenkins]`部份，找到`[Domains]`欄位，然後按下`[(global)]`
      2. 按下 `[+ Add Credentials]`
      3. 輸入Harbor相關資料

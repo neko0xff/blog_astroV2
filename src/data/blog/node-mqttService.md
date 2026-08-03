@@ -35,16 +35,17 @@ $ npm install aedes --save`
 - `mqttBroker.js`
 
   ```javascript
-     /*MQTT Broker lib*/
-     const aedes = require('aedes')();
-     const server = require('net').createServer(aedes.handle);
-     const port=3094; # 可自訂通訊埠
+  /*MQTT Broker lib*/
+  const aedes = require("aedes")();
+  const server = require("net").createServer(aedes.handle);
+  const port = 3094;
+  #可自訂通訊埠;
 
-     /*啟動伺服端*/
-    server.listen(port, function () {
-       console.log('MQTT Server Started!');
-       console.log('MQTT Server URL: http://[Server_IP]:'+port);
-    });
+  /*啟動伺服端*/
+  server.listen(port, function () {
+    console.log("MQTT Server Started!");
+    console.log("MQTT Server URL: http://[Server_IP]:" + port);
+  });
   ```
 
 ### 1-2 Client
@@ -57,7 +58,7 @@ $ npm install aedes --save`
   var client = mqtt.connect(Source);
 
   /*連結後,不停發布temp的topic內容*/
-  client.on("connect", e => {
+  client.on("connect", (e) => {
     console.log("success connect mqtt server");
     setInterval(() => {
       client.publish("temp", "25.6");

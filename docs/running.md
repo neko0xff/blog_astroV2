@@ -31,7 +31,8 @@ Then start the project by running the following commands:
 
 ### 打包成容器
 
-As an alternative approach, if you have Docker installed, you can use Docker to run this project locally. Here's how:
+As an alternative approach, if you have Docker installed, you can use Docker to
+run this project locally. Here's how:
 
 ```bash
 # Build the Docker image
@@ -52,8 +53,8 @@ docker run -p 8085:80 blog_astroV2
 
 All commands are run from the root of the project, from a terminal:
 
-> **_Note!_**
-> For `Docker` commands we must have it [installed](https://docs.docker.com/engine/install/) in your machine.
+> **_Note!_** For `Docker` commands we must have it
+> [installed](https://docs.docker.com/engine/install/) in your machine.
 
 | Command                              | Action                                                                                                                           |
 | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
@@ -72,4 +73,9 @@ All commands are run from the root of the project, from a terminal:
 | `docker build -t astropaper .`       | Build Docker image                                                                                                               |
 | `docker run -p 4321:80 astropaper`   | Run AstroPaper on Docker. The website will be accessible at `http://localhost:4321`.                                             |
 
-> **_Warning!_** Windows PowerShell users may need to install the [concurrently package](https://www.npmjs.com/package/concurrently) if they want to [run diagnostics](https://docs.astro.build/en/reference/cli-reference/#astro-check) during development (`astro check --watch & astro dev`). For more info, see [this issue](https://github.com/satnaing/astro-paper/issues/113).
+> **_Warning!_** Windows PowerShell users may need to install the
+> [concurrently package](https://www.npmjs.com/package/concurrently) if they
+> want to
+> [run diagnostics](https://docs.astro.build/en/reference/cli-reference/#astro-check)
+> during development (`astro check --watch & astro dev`). For more info, see
+> [this issue](https://github.com/satnaing/astro-paper/issues/113).

@@ -8,11 +8,15 @@ description: ""
 
 ## 00 緒論
 
-當你使用 Deno 編寫函式時，會發現模組的匯出 (export) & 匯入 (import) 方式，與 Node.js 常見的作法有所不同。
+當你使用 Deno 編寫函式時，會發現模組的匯出 (export) & 匯入 (import) 方式，與
+Node.js 常見的作法有所不同。
 
-因為 Deno 在函式模組化的部分，是不支援 Node 常用的 CJS/CommonJS 語法(`module.exports`,`require(<value>)`)，而是支援 ESM/ES Modules 語法(`export`,`import`)。
+因為 Deno 在函式模組化的部分，是不支援 Node 常用的 CJS/CommonJS
+語法(`module.exports`,`require(<value>)`)，而是支援 ESM/ES Modules
+語法(`export`,`import`)。
 
-故為了幫助大家能快速理解這兩種不同的模組系統，以下將同時列出 ESM & CJS 的範例，供以大家進行對照參考。
+故為了幫助大家能快速理解這兩種不同的模組系統，以下將同時列出 ESM & CJS
+的範例，供以大家進行對照參考。
 
 ## 02 導出函式
 
@@ -86,5 +90,5 @@ description: ""
 
 ### Other
 
-- [【程式語言 - Javascript】 ESM與CJS — 阿Han的沙龍 ](https://vocus.cc/article/649cc0e0fd89780001a7d34d)
+- [【程式語言 - Javascript】 ESM與CJS — 阿Han的沙龍](https://vocus.cc/article/649cc0e0fd89780001a7d34d)
 - [Day 20 - JavaScript 模組化標準 ESM - 重造會 Slide 的輪子！深入 JavaScript、CSS 模組化設計](https://ithelp.ithome.com.tw/articles/10295127)

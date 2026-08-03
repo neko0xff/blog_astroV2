@@ -23,25 +23,26 @@
 
 ## 相關指令：
 
-- 啟動開發環境： deno task dev 
-- 編譯專案： deno task build 
-- 預覽專案： deno task preview 
-- 檢查且更新專案的依賴套件： deno task outdated_update 
-- 僅檢查專案的依賴套件： deno task outdated_check 
-- 安裝專案的依賴套件： deno task install 
-- 格式化專案： deno task fmt 
-- 建置搜尋索引： deno task pagefind 
-- 同步專案： deno task sync 
+- 啟動開發環境： deno task dev
+- 編譯專案： deno task build
+- 預覽專案： deno task preview
+- 檢查且更新專案的依賴套件： deno task outdated_update
+- 僅檢查專案的依賴套件： deno task outdated_check
+- 安裝專案的依賴套件： deno task install
+- 格式化專案： deno task fmt
+- 建置搜尋索引： deno task pagefind
+- 同步專案： deno task sync
 - 檢查專案中的語言語法和樣式問題：
   - 使用內建： deno task lint
   - 使用 prettier： deno task format
   - 使用 prettier（檢查）： deno task format:check
-- 部署專案至 deno.dev： deno task deploy 
-- 啟動生產環境： deno task serve 
+- 部署專案至 deno.dev： deno task deploy
+- 啟動生產環境： deno task serve
 - 建立容器： docker compose up -d
 - 停止容器： docker compose down -v
 
 ## 建議
+
 - 產生新的 TypeScript 程式碼時，請遵循現有的編碼風格。
 - 確保所有新的函式和類別都有 TypeScript 的 docstring 註解。
 - 在適當的情況下，偏好使用函數式程式設計範例。
@@ -58,12 +59,12 @@
 ## 使用的套件&工具：
 
 - 工具
-    - deno
-    - astro
-    - docker
-    - git
-    - npm
-    - make
+  - deno
+  - astro
+  - docker
+  - git
+  - npm
+  - make
 
 ## 關於相依性：
 
@@ -73,15 +74,15 @@
 ## 優化方向：
 
 1. 程式碼結構與可讀性：檢查是否有可以重構或簡化的地方，提升程式碼品質。
-    - 產生新的 TypeScript 程式碼時，請遵循現有的編碼風格。
-    - 確保所有新的函式和類別都有 TypeScript 的 docstring 註解。
-    - 在適當的情況下，偏好使用函數式程式設計範例。
-    - 所有程式碼都應與 TypeScript & Deno 相容。
+   - 產生新的 TypeScript 程式碼時，請遵循現有的編碼風格。
+   - 確保所有新的函式和類別都有 TypeScript 的 docstring 註解。
+   - 在適當的情況下，偏好使用函數式程式設計範例。
+   - 所有程式碼都應與 TypeScript & Deno 相容。
 2. 性能：找出潛在的性能瓶頸，例如低效率的程式碼或 I/O 操作。
-    - 提升網頁的性能
-    - 提升 API 的回應速度
-    - 提升圖片的載入速度
-    - 提升檔案的載入速度
+   - 提升網頁的性能
+   - 提升 API 的回應速度
+   - 提升圖片的載入速度
+   - 提升檔案的載入速度
 3. 安全性：檢查常見的安全漏洞。
 4. 相依性：檢查專案的相依性，看看是否有可以更新或移除的套件。
 5. 跨平台：檢查專案是否可以跨平台運行(Windows, Linux, macOS)。
@@ -91,56 +92,73 @@
 ## 文件查詢
 
 1. 搜尋時機
-  - 查詢套件 API、型別定義、版本相容性
-  - 確認框架最新用法或 breaking changes
-  - 需要官方文件作為實作依據時
+
+- 查詢套件 API、型別定義、版本相容性
+- 確認框架最新用法或 breaking changes
+- 需要官方文件作為實作依據時
+
 2. 可用工具
-  - `context7`
-    * 查詢函式庫與套件文件（npm、PyPI 等）
-    * 優先用於：套件用法、API 參考、範例程式碼
-  - `microsoft-learn`
-    * Microsoft / Azure / .NET / TypeScript / Powershell 官方文件
-    * 優先用於：
-      * Azure SDK
-      * VS Code API
-      * C# 
-      * Powershell
-  - `duckduckgo`
-    * 一般網頁搜尋，不追蹤
-    * 優先用於：錯誤訊息查詢、社群解法、部落格教學
-  - `tavily`
-    * AI 優化搜尋，結果品質較高
-    * 優先用於：需要摘要整理的複雜問題
-  - `websearch`
-    * 備用通用搜尋工具
-    * 當其他工具無法滿足時使用
+
+- `context7`
+  - 查詢函式庫與套件文件（npm、PyPI 等）
+  - 優先用於：套件用法、API 參考、範例程式碼
+- `microsoft-learn`
+  - Microsoft / Azure / .NET / TypeScript / Powershell 官方文件
+  - 優先用於：
+    - Azure SDK
+    - VS Code API
+    - C#
+    - Powershell
+- `duckduckgo`
+  - 一般網頁搜尋，不追蹤
+  - 優先用於：錯誤訊息查詢、社群解法、部落格教學
+- `tavily`
+  - AI 優化搜尋，結果品質較高
+  - 優先用於：需要摘要整理的複雜問題
+- `websearch`
+  - 備用通用搜尋工具
+  - 當其他工具無法滿足時使用
+
 3. 使用原則
-  - 優先使用 `context7` 查套件文件，再考慮網頁搜尋
-  - 搜尋前先判斷最適合的工具，避免重複查詢
-  - 找到文件來源後，引用原始連結作為依據
-  - 若多個工具結果衝突，以官方文件為準
-  
+
+- 優先使用 `context7` 查套件文件，再考慮網頁搜尋
+- 搜尋前先判斷最適合的工具，避免重複查詢
+- 找到文件來源後，引用原始連結作為依據
+- 若多個工具結果衝突，以官方文件為準
+
 ## 重構計畫
 
 1. 程式碼結構與可讀性
-  * 代碼重複：多個 API 端點有相似的 CRUD 操作，可以考慮使用泛型或工廠模式來減少重複代碼
-  * 文檔：為重要的函數和類添加完整的 docstring 和類型提示
+
+- 代碼重複：多個 API 端點有相似的 CRUD
+  操作，可以考慮使用泛型或工廠模式來減少重複代碼
+- 文檔：為重要的函數和類添加完整的 docstring 和類型提示
+
 2. 性能優化
 3. 安全性
-  * 依賴更新：多個依賴版本較舊，建議更新到最新穩定版，特別是安全相關的包
-  * 敏感信息：確保敏感配置（如數據庫憑證、API 密鑰）不硬編碼在代碼中
-  * 輸入驗證：為所有 API 端點實現嚴格的輸入驗證
+
+- 依賴更新：多個依賴版本較舊，建議更新到最新穩定版，特別是安全相關的包
+- 敏感信息：確保敏感配置（如數據庫憑證、API 密鑰）不硬編碼在代碼中
+- 輸入驗證：為所有 API 端點實現嚴格的輸入驗證
+
 4. 依賴管理
-  * 清理未使用的依賴：移除未使用的依賴，減少攻擊面
-  * 版本固定：為所有依項指定確切版本號，確保一致性
-  * 依賴分組：將依賴分為開發、測試和生產環境
+
+- 清理未使用的依賴：移除未使用的依賴，減少攻擊面
+- 版本固定：為所有依項指定確切版本號，確保一致性
+- 依賴分組：將依賴分為開發、測試和生產環境
+
 5. 跨平台兼容性
-  * 文件路徑處理
-  * 特定平台代碼：隔離特定平台的代碼（如 Windows 註冊表訪問）
+
+- 文件路徑處理
+- 特定平台代碼：隔離特定平台的代碼（如 Windows 註冊表訪問）
+
 6. 維護性
-  * 日誌記錄：實現結構化日誌記錄，便於問題排查
-  * 配置管理：使用環境變量或配置文件管理不同環境的配置
-  * 代碼風格：實施統一的代碼風格檢查（如 black, isort, flake8）
+
+- 日誌記錄：實現結構化日誌記錄，便於問題排查
+- 配置管理：使用環境變量或配置文件管理不同環境的配置
+- 代碼風格：實施統一的代碼風格檢查（如 black, isort, flake8）
+
 7. 可擴展性
-  * 微服務架構：考慮將大型模組拆分為獨立的微服務
-  * API 版本控制：實現 API 版本控制，便於未來更新
+
+- 微服務架構：考慮將大型模組拆分為獨立的微服務
+- API 版本控制：實現 API 版本控制，便於未來更新

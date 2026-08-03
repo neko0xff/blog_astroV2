@@ -66,9 +66,9 @@ function log_request(request: Request): void {
     timestamp: new Date().toISOString(),
     method: request.method,
     path: url.pathname,
-    ip: request.headers.get("x-forwarded-for")
-      || request.headers.get("x-real-ip")
-      || "unknown",
+    ip: request.headers.get("x-forwarded-for") ||
+      request.headers.get("x-real-ip") ||
+      "unknown",
     userAgent: request.headers.get("user-agent") || "unknown",
     referer: request.headers.get("referer") || "direct",
   }));
