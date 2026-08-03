@@ -1,4 +1,4 @@
-name: Deploy deno.dev Service
+name: Deploy Web Service
 on:
   push:
     branches:
@@ -6,6 +6,10 @@ on:
   pull_request:
     branches:
       - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   # GitHub Actions Runner Images: https://github.com/actions/runner-images/tree/main
@@ -19,28 +23,51 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Deno
         uses: denoland/setup-deno@v2
         with:
           # Pinned: Deno 2.7.x has a napi regression that breaks Vite 8 / rolldown builds
-          # (see denoland/deno#33137). Keep in sync with local env and Dockerfile.env (2.9.4).
+          # (see denoland/deno#33137).
+          # Keep in sync with local env and Dockerfile.env (2.9.4).
           deno-version: 2.9.4
+
+      - name: Cache Deno dependencies
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/deno
+            node_modules
+          key: ${{ runner.os }}-deno-${{ hashFiles('deno.lock', 'package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-deno-
 
       - name: Install step
         run: "deno task install"
 
       - name: Build and prepare for deploy
         run: |
-          deno task build
-          deno task pagefind
+          set -e
+          # Retry: intermittent Deno napi/rolldown race (denoland/deno#33137, #34008).
+          # Deterministic errors still fail fast after 3 attempts.
+          for attempt in 1 2 3; do
+            if deno task build && deno task pagefind; then
+              exit 0
+            fi
+            echo "::warning::Build attempt ${attempt}/3 failed (known intermittent Deno napi race), retrying..."
+          done
+          exit 1
         env:
           # Required so robots.txt includes AI scraper block rules from DarkVisitors.
           # Set this secret in GitHub repo settings: https://github.com/<owner>/<repo>/settings/secrets/actions
           DARK_VISITORS_TOKEN: ${{ secrets.DARK_VISITORS_TOKEN }}
 
+      # 佈署情況
+      # 1. 只有 push 到 main 才真正部署
+      # 2. PR 只做 build 驗證
       - name: Deploy to Deno Deploy
+        if: github.event_name == 'push'
         uses: denoland/deployctl@v1
         with:
           project: "neko-0xff-blog"
