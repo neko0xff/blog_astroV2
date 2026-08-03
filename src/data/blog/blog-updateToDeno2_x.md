@@ -1,6 +1,7 @@
 ---
 title: blog-升上 Deno2.x 後的重構記錄
 pubDatetime: 2025-01-12
+updated: 2026-08-03
 tags:
   - "blog"
 description: ""
@@ -12,7 +13,9 @@ description: ""
 
 > 服役時間: 2024-11-26~2025-03-07(己用軍訓課學分，折了約 10 日)
 
-> 2025-01: 當前使用 Deno 版本為 2.1.4 2026-08: 當前使用 Deno 版本為 2.9.4
+> 2025-01: 當前使用 Deno 版本為 2.1.4 
+
+> 2026-08: 當前使用 Deno 版本為 2.9.4
 
 ## 專案建立: 透過 deno 重新建 Astro.js 樣版
 
@@ -31,8 +34,7 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 - 環境配置
   - 預覽正式環境: `$ deno run -A npm:astro preview --host 0.0.0.0`
   - 開發除錯: `$ deno run -A --unstable npm:astro dev`
-    - 支援 HMR ( hot module replacement
-      ,熱更新)，不需重新手動加戴且即時預覽修改效果
+    - 支援 HMR ( hot module replacement,熱更新)，不需重新手動加戴且即時預覽修改效果
 - 結果建置
   - 把專案輸出成靜態網頁或 SSR 服務: `$ deno run -A --unstable npm:astro build`
   - 提供服務:
@@ -166,25 +168,23 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 
 ## PaaS: 使用 Deno Deploy 服務
 
-在研究 Deno 時，發現能用 Github Action 搭配自身的 Deploy 服務來提供 Serverless
-環境。 其中會分配 `[project_name].deno.dev`
-的域名給開發者使用，且支援主流的前端框架(ex: Astro,Next.js,.....)！
+在研究 Deno 時，發現能用 Github Action 搭配自身的 Deploy 服務來提供 Serverless 環境。 
 
-- 2026-08-03 更新：由於 Deno Deploy Classic（`dash.deno.com`）與 deployctl
-  工具已於 2026-07-20 停用，所以原有服務須手動遷移至新版 Deno
-  Deploy（`console.deno.com`)
-  - 新版平台變更部分
-    - 分配網域： `{project_name}.deno.dev` =>
-      `{project_name}.{org_name}.deno.net`
-    - 操作界面: 從個人變組織
-    - 更換到新版後，必須驗証信用卡付款部分是否有效
-    - 改用 Deno 2.x 內建的 deno deploy 指令
-    - 並支援整合式建置（build 日誌直接於 dashboard 即時串流，不再需要透過 GitHub
-      Actions 進行部署）
-    - 同時 GitHub Actions workflow（`.github/workflows/ci.yml`）部分，僅保留 CI
-      驗證用途
+其中會分配 `[project_name].deno.dev` 的域名給開發者使用，且支援主流的前端框架(ex: Astro,Next.js,.....)！
 
-### 限制(免費版)
+### 從 Deno Deploy Classic 遷移至新版 Deno Deploy 
+
+> 2026-08-03 更新：由於 Deno Deploy Classic（`dash.deno.com`）與 deployctl 工具已於 2026-07-20 停用，所以原有服務須手動遷移至新版 Deno Deploy（`console.deno.com`)
+
+- 新版平台和 Classic 所變更部分
+  * 分配網域： `{project_name}.deno.dev` => `{project_name}.{org_name}.deno.net`
+  * 收費模式: 從個人變組織
+  * 更換到新版後，必須驗証信用卡付款部分是否有效
+  * 改用 Deno 2.x 內建的 deno deploy 指令
+  * 並支援整合式建置（build 日誌直接於 dashboard 即時串流，不再需要透過 GitHub Actions 進行部署）
+    * 同時 GitHub Actions workflow（`.github/workflows/ci.yml`）部分，僅保留 CI 驗證用途
+
+### 免費方案所提供的資源限制 (2026-08-03)
 
 - 請求
   - 100 萬次/每月
@@ -201,8 +201,9 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 - 其他限制
   - 記憶體分配：最大 512MB
   - 單次部署大小上限：1 GB（含原始檔案與靜態檔案）
-  - 每組織最多 20 個活躍應用
-  - 每組織最多 50 個自訂網域
+  - 每組織最多
+    * 20 個活躍應用
+    * 50 個自訂網域
 
 ### 流程
 
