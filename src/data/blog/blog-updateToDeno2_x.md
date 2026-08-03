@@ -189,7 +189,7 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 - 請求
   - 100 萬次/每月
   - 每次請求時，最多只需 10ms CPU 時間
-- 流量: 20GB/每月（出站頻寬）
+- 流量: 100GB/每月（出站頻寬）
 - 網域
   - 提供免費的 `deno.dev` 子網域和自訂網域
   - HTTPS / TLS 憑証 (Let's Encrypt)
