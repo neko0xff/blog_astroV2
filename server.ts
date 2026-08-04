@@ -90,7 +90,8 @@ const handler = async (request: Request): Promise<Response> => {
     return with_security_headers(response);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error("Error serving request:", error);
+    console.error(`[Website] serving request: ${error}`);
+
     return with_security_headers(
       new Response("Internal Server Error", { status: 500 }),
     );
@@ -100,5 +101,5 @@ const handler = async (request: Request): Promise<Response> => {
 // ── Entrypoint ──────────────────────────────────────────────────────────────
 
 // eslint-disable-next-line no-console
-console.log(`HTTP webserver running on port ${PORT}`);
+console.log(`[Website] running on port ${PORT}`);
 Deno.serve({ port: PORT }, handler);

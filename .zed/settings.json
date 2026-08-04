@@ -1,0 +1,25 @@
+{
+  "languages": {
+    "TypeScript": {
+      "language_servers": ["typescript-language-server"],
+      "formatter": "prettier"
+    },
+    "TSX": {
+      "language_servers": ["typescript-language-server"],
+      "formatter": "prettier"
+    }
+  },
+  "lsp": {
+    "typescript-language-server": {
+      "initialization_options": {
+        "typescript": {
+          "tsdk": "node_modules/typescript/lib"
+        },
+        "deno": {
+          "enable": true,
+          "config": "./deno.json"
+        }
+      }
+    }
+  }
+}

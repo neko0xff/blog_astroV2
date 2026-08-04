@@ -18,3 +18,16 @@ pnpm-debug.log*
 .idea/
 .vscode/
 .github/
+.omo/
+.astro/
+.zed/
+
+# macOS-specific files
+.DS_Store
+
+# Other File
+AGRNTS.md
+
+# environment variables
+.env
+.env.production

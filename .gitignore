@@ -1,11 +1,17 @@
 # build output
 dist/
 
-# generated types
+# pagefind (auto-generated inside dist/)
+dist/pagefind
+
+# setting folder
+.idea/
+.omo/
 .astro/
 
 # dependencies
 node_modules/
+deno.lock
 
 # logs
 npm-debug.log*
@@ -19,12 +25,3 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
-
-# jetbrains setting folder
-.idea/
-
-# pagefind (auto-generated inside dist/)
-dist/pagefind
-
-# deno
-deno.lock
