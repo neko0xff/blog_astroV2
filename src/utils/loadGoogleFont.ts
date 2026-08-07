@@ -39,6 +39,7 @@ async function loadGoogleFont(
   }
 
   const fonts: ArrayBuffer = await res.arrayBuffer();
+
   return fonts;
 }
 

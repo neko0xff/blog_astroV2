@@ -1,8 +1,8 @@
 import satori from "satori";
 // import { html } from "satori-html";
-import { SITE } from "@/config";
+import { SITE } from "../../config.ts";
 import loadGoogleFonts from "../loadGoogleFont.ts";
-import React from "react";
+import type React from "react";
 import type { CollectionEntry } from "astro:content";
 
 // const markup = html`<div

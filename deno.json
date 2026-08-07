@@ -4,20 +4,20 @@
     "start": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
     "dev": "deno run -A --unstable-ffi --unstable-kv npm:astro dev",
     "preview": "deno run -A npm:astro preview --host 0.0.0.0 ",
-    "serve": "deno run --allow-net --allow-read --allow-env server.ts",
-    "build": "deno run -A --unstable-ffi --unstable-kv npm:astro build",
+    "serve": "deno run --allow-net --allow-read --allow-env dist/server.ts",
+    "build": "deno run -A --unstable-ffi --unstable-kv npm:astro build && deno run -A scripts/precompress.ts",
     "check": "deno run -A --unstable-ffi --unstable-kv npm:astro check",
     "sync": "deno run -A npm:astro sync",
     "pagefind": "deno run -A npm:pagefind --site dist --include-characters \"[]{}\\<>~\"",
-    "outdated_check": "deno outdated --latest",
-    "outdated_update": "deno outdated --update --latest",
+    "outdated:check": "deno outdated --latest",
+    "outdated:update": "deno outdated --update --latest",
     "bench": "deno bench -A --unstable-kv --unstable-ffi  bench/*",
     "install": "deno install --allow-scripts && bash scripts/patch-vite-nonascii.sh",
     "test": "deno test --allow-net",
     "lint": "deno lint --fix",
     "fmt": "deno fmt",
-    "format": "deno run -A npm:prettier@3.8.4 --write .",
-    "format:check": "deno run -A npm:prettier@3.8.4 --check .",
+    "format": "deno run -A npm:prettier --write .",
+    "format:check": "deno run -A npm:prettier --check .",
     "deploy:test": "deno deploy --app neko-0xff-blog",
     "deploy:release": "deno deploy --app neko-0xff-blog --prod"
   },
@@ -30,18 +30,13 @@
       "cwd": "./dist"
     }
   },
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
-  },
   "unstable": [
     "sloppy-imports"
   ],
   "imports": {
-    "react": "npm:react@^19.2.8",
-    "react-dom": "npm:react-dom@^19.2.8",
-    "react-dom/server.browser": "npm:react-dom@^19.2.8/server.browser",
     "@std/assert": "jsr:@std/assert@^1.0.19",
-    "@std/http": "jsr:@std/http@^1.1.2"
+    "@std/http": "jsr:@std/http@^1.1.2",
+    "@std/media-types": "jsr:@std/media-types@^1.1.0",
+    "@std/path": "jsr:@std/path@^1.1.6"
   }
 }

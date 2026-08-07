@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { SITE } from "@/config";
+import { SITE } from "../config.ts";
 
 /**
  * Built-in list of known AI crawler user agents.

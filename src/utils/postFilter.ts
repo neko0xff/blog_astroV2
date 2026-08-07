@@ -1,5 +1,5 @@
 import type { CollectionEntry } from "astro:content";
-import { SITE } from "@/config";
+import { SITE } from "../config.ts";
 import { parse_date_timestamp } from "./parseDateString.ts";
 
 export function post_filter({ data }: CollectionEntry<"blog">): boolean {

@@ -52,7 +52,7 @@ deno_debug: ## Start dev server
 deno_preview: ## Preview build result (default 8085/tcp)
 	@$(DENO) task preview
 
-deno_serve: ## Serve static files via server.ts
+deno_serve: ## Serve static files via dist/server.ts
 	@$(DENO) task serve
 
 deno_format_check: ## Check code style (deno lint + prettier check)

@@ -11,7 +11,21 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
 <Layout title={`搜尋 | ${SITE.title}`}>
   <Header />
   <Main pageTitle="搜尋" pageDesc="搜尋任何事物...">
-    <div id="pagefind-search" transition:persist data-backurl={backUrl}></div>
+    <div id="pagefind-search" transition:persist data-backurl={backUrl}>
+      <form role="search" class="pagefind-form">
+        <input
+          type="search"
+          class="pagefind-input"
+          placeholder="搜尋文章..."
+          aria-label="搜尋"
+          autocomplete="off"
+        />
+        <button type="button" class="pagefind-clear" aria-label="清除搜尋" hidden>
+          ✕
+        </button>
+      </form>
+      <div class="pagefind-results" aria-live="polite"></div>
+    </div>
     <br />
     <img
       src="/assets/drink.webp"

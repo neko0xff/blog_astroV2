@@ -6,7 +6,7 @@ metadata:
   labels:
     app: blog-astro
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: blog-astro
@@ -32,14 +32,18 @@ spec:
             httpGet:
               path: /
               port: 8085
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
           readinessProbe:
             httpGet:
               path: /
               port: 8085
-            initialDelaySeconds: 15
-            periodSeconds: 5
+            initialDelaySeconds: 35
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           env:
             - name: NODE_ENV
               value: production

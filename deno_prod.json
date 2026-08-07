@@ -2,7 +2,7 @@
   "lock": false,
   "tasks": {
     "install": "deno install --allow-scripts",
-    "service": "deno run --no-lock --allow-net --allow-read --allow-env --no-check ./server.ts"
+    "service": "deno run --no-lock --allow-net --allow-read --allow-env --no-check ./dist/server.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.19",
@@ -13,9 +13,6 @@
     "@std/internal": "jsr:@std/internal@^1.0.14",
     "@std/cli": "jsr:@std/cli@^1.0.30",
     "@std/net": "jsr:@std/net@^1.0.6",
-    "@std/html": "jsr:@std/html@^1.0.7",
-    "react": "npm:react@^19.2.4",
-    "react-dom": "npm:react-dom@^19.2.4",
-    "react-dom/server": "npm:react-dom@^19.2.4/server"
+    "@std/html": "jsr:@std/html@^1.0.7"
   }
 }

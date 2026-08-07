@@ -1,12 +1,18 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import getSortedPosts from "@/utils/getSortedPosts.ts";
-import { isBlogPost } from "@/utils/isBlogPost";
-import { SITE } from "@/config";
+import { isBlogPost } from "../utils/isBlogPost.ts";
+import { SITE } from "../config.ts";
 
 /**
  * 從 markdown 內文擷取 RSS description 用文字
- * - 移除程式碼區塊、標題/列表/引用/行內碼等標記,並壓縮空白
+ * - 移除特定項目的標記
+ *    * 程式碼區塊
+ *    * 標題
+ *    * 列表
+ *    * 引用
+ *    * 行內碼
+ * - 並壓縮不必要的空白
  *
  * @param body markdown 內文
  * @returns 擷取後的前 120 字元描述

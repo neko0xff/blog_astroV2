@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { generateOgImageForSite } from "@/utils/generateOgImages.ts";
 import { Buffer } from "node:buffer";
-import { SITE } from "@/config";
+import { SITE } from "../config.ts";
 
 export const GET: APIRoute = async () => {
   try {

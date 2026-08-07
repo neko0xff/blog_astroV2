@@ -1,6 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { SITE } from "@/config";
+import { SITE } from "./config.ts";
 
 export const BLOG_PATH = "src/data/blog";
 

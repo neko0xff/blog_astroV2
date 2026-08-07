@@ -1,81 +1,114 @@
-# 如何運行該專案
+如何運行該專案
+===
 
 [回專案主頁](.././README.md)
 
-## 手動
+## 前置需求
 
-### 在本地開發環境
+- [Deno](https://deno.com/)
+- [Docker](https://www.docker.com/)
 
-Then start the project by running the following commands:
+## 手動執行
 
-- npm
+### 本地開發環境
 
-  ```bash
-  # install dependencies
-  npm run install
+1. 安裝相依套件: 
+   ```zsh
+   deno task install
+   ```
 
-  # start running the project
-  npm run dev
-  ```
-
-- deno
-
-  ```bash
-  # install dependencies
-  deno task install
-
-  # start running the project
-  deno task start
+2. 啟動開發伺服器（`localhost:8085`）：
+  ```zsh
   deno task dev
+  # 或
+  deno task start
   ```
 
-### 打包成容器
+### 建置靜態站點
 
-As an alternative approach, if you have Docker installed, you can use Docker to
-run this project locally. Here's how:
+- 建置流程
+  1. 建置靜態網站到 `./dist/`，並執行 `scripts/precompress.ts` 產生 .gz 變體
+     ```zsh
+     deno task build
+     ```
+  2. 產生 Pagefind 搜尋索引（輸出至 `./dist/pagefind/`）
+     ```zsh
+     deno task pagefind
+     ```
+  3. 以 `dist/server.ts` 啟動正式伺服器（`http://localhost:8085`）
+     * `server.ts` 位於 `public/`，Astro build 時會一併複製進 `dist/`
+     ```zsh
+     deno task serve
+     ```
 
-```bash
-# Build the Docker image
-docker build -t blog_astroV2 .
+### 容器鏡像打包
 
-# Run the Docker container
-docker run -p 8085:80 blog_astroV2
-```
+- 本專案使用 `docker compose` 搭配 `Dockerfile.env` 建置，以下為須注意的重點：
+  1. `docker-compose.yml` 的相關配置
+     * 對外埠號為 `8585`，對應容器內的 `8085`
+     * 瀏覽器請開啟：`http://localhost:8585`
+  2. 容器內的正式環境
+     * 靜態伺服器的相關檔案路徑：`dist/server.ts`
+     * 容器內的啟動行為由 `deno_prod.json` 的 `service` 任務定義
 
-## 使用專案內的自動化腳本
+- 建置相關指令
+  * 建置映像檔並啟動容器（背景執行）
+    ```zsh
+    docker compose up -d --build
+    ```
+  * 查看容器運行時的記錄日誌（100 筆內）
+    ```zsh
+    docker compose logs --tail=100 -f
+    ```
+  * 停止並移除現在所運行的容器
+    ```zsh
+    docker compose down
+    ```
 
-- 預設: 建置成容器
-- 指令
+## 使用專案內的自動化腳本（Makefile）
+
+- 預設目標（`make`）：列出所有可用目標
+- 指令前綴：
   - `deno_xxx`: 使用 deno 做為開發選項
   - `img_xxx`: 建置成容器選項
 
-## 開發時的指令
+### 常用目標
 
-All commands are run from the root of the project, from a terminal:
+| Target             | 作用                                    |
+| :----------------- | :-------------------------------------- |
+| `make all`         | 建置並啟動容器（預設）                  |
+| `make build_local` | 本機建置（clean + install + build）     |
+| `make img_build`   | 建置映像檔並啟動容器（背景）            |
+| `make img_logs`    | 追蹤容器日誌（最後 100 行）             |
+| `make img_stop`    | 停止容器                                |
+| `make img_clean`   | 停止並移除容器                          |
+| `make deno_serve`  | 以 `dist/server.ts` 啟動正式伺服器      |
+| `make deno_clean`  | 清除建置產物與相依套件                  |
 
-> **_Note!_** For `Docker` commands we must have it
-> [installed](https://docs.docker.com/engine/install/) in your machine.
+## 開發時的常用指令
 
-| Command                              | Action                                                                                                                           |
-| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
-| `deno task install`                  | Installs dependencies                                                                                                            |
-| `deno task dev`                      | Starts local dev server at `localhost:8085`                                                                                      |
-| `deno task build`                    | Build your production site to `./dist/`                                                                                          |
-| `deno task pagefind`                 | Build the Pagefind search index for `./dist/` (run after `build`)                                                                |
-| `deno task clean`                    | Remove build artifacts (`./dist`, `./node_modules`)                                                                              |
-| `deno task preview`                  | Preview your build locally, before deploying                                                                                     |
-| `deno task format:check`             | Check code format with Prettier                                                                                                  |
-| `deno task format`                   | Format codes with Prettier                                                                                                       |
-| `deno task sync`                     | Generates TypeScript types for all Astro modules. [Learn more](https://docs.astro.build/en/reference/cli-reference/#astro-sync). |
-| `deno task lint`                     | Lint with ESLint                                                                                                                 |
-| `docker compose up -d`               | Run AstroPaper on docker, You can access with the same hostname and port informed on `dev` command.                              |
-| `docker compose run app npm install` | You can run any command above into the docker container.                                                                         |
-| `docker build -t astropaper .`       | Build Docker image                                                                                                               |
-| `docker run -p 4321:80 astropaper`   | Run AstroPaper on Docker. The website will be accessible at `http://localhost:4321`.                                             |
+所有指令皆在專案根目錄執行：
 
-> **_Warning!_** Windows PowerShell users may need to install the
-> [concurrently package](https://www.npmjs.com/package/concurrently) if they
-> want to
-> [run diagnostics](https://docs.astro.build/en/reference/cli-reference/#astro-check)
-> during development (`astro check --watch & astro dev`). For more info, see
-> [this issue](https://github.com/satnaing/astro-paper/issues/113).
+| Command                      | Action                                                                                         |
+| :--------------------------- | :--------------------------------------------------------------------------------------------- |
+| `deno task install`          | 安裝相依套件（含 vite non-ASCII patch）                                                        |
+| `deno task dev`              | 啟動開發伺服器 `localhost:8085`                                                                |
+| `deno task build`            | 建置正式網站至 `./dist/`，並執行 `scripts/precompress.ts` 產生 `.gz` 預壓縮變體                |
+| `deno task pagefind`         | 為 `./dist/` 建置 Pagefind 搜尋索引（需在 build 之後執行）                                     |
+| `deno task serve`            | 以 `./dist/server.ts` 啟動正式伺服器（含安全性標頭、快取策略、預壓縮變體支援）                 |
+| `deno task preview`          | 以 `astro preview` 預覽建置結果                                                                |
+| `deno task check`            | 以 `astro check` 檢查型別                                                                      |
+| `deno task sync`             | 為所有 Astro 模組產生 TypeScript 型別定義                                                      |
+| `deno task lint`             | 以 Deno lint 檢查程式碼                                                                        |
+| `deno task fmt` / `format`   | 格式化程式碼（Deno fmt / Prettier）                                                            |
+| `deno task clean`            | 清除建置產物（`./dist`、`./node_modules`）                                                     |
+| `deno task outdated:check`   | 檢查相依套件是否有新版                                                                         |
+| `deno task deploy:release`   | 部署至 Deno Deploy（production，static mode）                                                  |
+| `docker compose up -d`       | 以 Docker 啟動正式伺服器（port `8585`）                                                        |
+| `docker compose down -v`     | 停止並移除容器與相關資源                                                                       |
+
+## 注意事項
+
+- `deno task serve` 與容器內的伺服器皆為 `dist/server.ts`，
+- 執行前必須先 `deno task build` & `deno task pagefind`
+  * `public/` 下的檔案（含 `server.ts`、`_headers`）會由 Astro build 原封不動複製到 `./dist/`

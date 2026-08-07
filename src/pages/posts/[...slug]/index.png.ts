@@ -1,9 +1,9 @@
 import type { APIRoute } from "astro";
 import { type CollectionEntry, getCollection } from "astro:content";
-import { getPath } from "@/utils/getPath";
-import { generateOgImageForPost } from "@/utils/generateOgImages";
-import { isBlogPost } from "@/utils/isBlogPost";
-import { SITE } from "@/config";
+import { getPath } from "../../../utils/getPath.ts";
+import { generateOgImageForPost } from "../../../utils/generateOgImages.ts";
+import { isBlogPost } from "../../../utils/isBlogPost.ts";
+import { SITE } from "../../../config.ts";
 
 /**
  *  Generates static paths for posts with dynamic OG images.

@@ -8,7 +8,7 @@ import Datetime from "@/components/astro/Datetime.astro";
 import EditPost from "@/components/astro/EditPost.astro";
 import ShareLinks from "@/components/astro/ShareLinks.astro";
 import BackButton from "@/components/astro/BackButton.astro";
-import Comments from "@/components/react/Comments";
+import Comments from "@/components/astro/Comments.astro";
 import { getPath } from "@/utils/getPath";
 import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
@@ -119,7 +119,7 @@ const nextPost =
     </ul>
 
     <!--評論區 -->
-    <Comments client:only="react" />
+    <Comments />
 
     <!-- 分享 & 吾要到上頭 -->
     <div

@@ -1,4 +1,5 @@
 Deno.bench("[Task 1] URL Parsing", () => {
-  const source = "https://neko-0xff-blog.deno.dev/";
+  const source = "https://dev-blog.nekolab.deno.net//";
+
   new URL(source);
 });

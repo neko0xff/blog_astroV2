@@ -1,0 +1,50 @@
+---
+---
+
+<div id="inject-comments" class="w-full"></div>
+
+<script is:inline>
+  // deno-lint-ignore-file
+  (() => {
+    const container = document.getElementById("inject-comments");
+    if (!container) return;
+
+    const getTheme = () =>
+      document.documentElement.getAttribute("data-theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light");
+
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    script.setAttribute("data-repo", "neko0xff/blog_astroV2");
+    script.setAttribute("data-repo-id", "R_kgDOMkI6YA");
+    script.setAttribute("data-category", "Announcements");
+    script.setAttribute("data-category-id", "DIC_kwDOMkI6YM4CjZSo");
+    script.setAttribute("data-mapping", "title");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-lang", "zh-TW");
+    script.setAttribute("data-loading", "lazy");
+    script.setAttribute("data-theme", getTheme());
+    container.appendChild(script);
+
+    // Keep giscus in sync with manual/system theme changes.
+    const observer = new MutationObserver(() => {
+      const iframe = container.querySelector("iframe.giscus-frame");
+      if (!iframe) return;
+      iframe.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: getTheme() } } },
+        "https://giscus.app",
+      );
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+  })();
+</script>

@@ -1,4 +1,4 @@
-import { SITE } from "@/config";
+import { SITE } from "./config.ts";
 import IconMail from "@/assets/icons/IconMail.svg";
 import IconGitHub from "@/assets/icons/IconGitHub.svg";
 import IconBrandX from "@/assets/icons/IconBrandX.svg";

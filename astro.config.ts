@@ -5,26 +5,13 @@ import { rehypeShiki, unified } from "@astrojs/markdown-remark";
 
 /* 重要組件 */
 import tailwindcss from "@tailwindcss/vite";
-import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import mermaid from "astro-mermaid";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import process from "node:process";
-import { readFileSync } from "node:fs";
-
-const is_ci = process.env.CI === "true";
-
-/* 從 package.json 讀取 react 版本，避免 CI alias 與相依宣告的版本漂移 */
-const pkg_deps = JSON.parse(
-  readFileSync(new URL("./package.json", import.meta.url), "utf-8"),
-).dependencies as Record<string, string>;
-
-const strip_range = (version: string): string => version.replace(/^[\^~]/, "");
-const react_version = strip_range(pkg_deps.react);
-const react_dom_version = strip_range(pkg_deps["react-dom"]);
+import mermaid from "astro-mermaid";
+import { pagefind_dev_server } from "./src/integrations/pagefind-dev-server.ts";
 
 // Node.js built-in modules that Deno can polyfill (from @deno/astro-adapter source)
 const COMPATIBLE_NODE_MODULES = [
@@ -100,11 +87,10 @@ export default defineConfig({
         (SITE.showArchives || !page.endsWith("/archives")) &&
         !page.endsWith("/search/"),
     }),
-    react(),
     mermaid({
       theme: "forest",
-      autoTheme: false,
-    }),
+      autoTheme: true,
+    })
   ],
   markdown: {
     processor: unified({
@@ -139,35 +125,9 @@ export default defineConfig({
           find: mod,
           replacement: `node:${mod}`,
         })),
-        ...(is_ci
-          ? [
-            {
-              find: "react-dom/server.browser",
-              replacement:
-                `https://esm.sh/react-dom@${react_dom_version}/server.browser`,
-            },
-            {
-              find: "react-dom",
-              replacement: `https://esm.sh/react-dom@${react_dom_version}`,
-            },
-            {
-              find: "react",
-              replacement: `https://esm.sh/react@${react_version}`,
-            },
-            {
-              find: "@types/react",
-              replacement: `https://esm.sh/react@${react_version}/types`,
-            },
-            {
-              find: "@types/react-dom",
-              replacement:
-                `https://esm.sh/react-dom@${react_dom_version}/types`,
-            },
-          ]
-          : []),
       ],
     },
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), pagefind_dev_server()],
   },
   image: {
     service: {
