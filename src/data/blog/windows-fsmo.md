@@ -434,7 +434,7 @@ operation）,主要是指AD上的五大不同功能的操作主機服務，且�
 
 ### Microsoft Learn
 
-- [Repadmin -replsummary](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc835092(v=ws.11))
+- [Repadmin -replsummary](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc835092(v=ws.11)>)
 - [Diagnose AD replication failures - Windows Server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/diagnose-replication-failures)
 - [診斷 Active Directory 複寫失敗 - Windows Server](https://learn.microsoft.com/zh-tw/troubleshoot/windows-server/active-directory/diagnose-replication-failures)
 - [Transfer or seize Operation Master roles - Windows Server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/transfer-or-seize-operation-master-roles-in-ad-ds)

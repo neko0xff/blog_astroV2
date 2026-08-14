@@ -13,7 +13,7 @@ description: ""
 
 > 服役時間: 2024-11-26~2025-03-07(己用軍訓課學分，折了約 10 日)
 
-> 2025-01: 當前使用 Deno 版本為 2.1.4 
+> 2025-01: 當前使用 Deno 版本為 2.1.4
 
 > 2026-08: 當前使用 Deno 版本為 2.9.4
 
@@ -168,21 +168,21 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
 
 ## PaaS: 使用 Deno Deploy 服務
 
-在研究 Deno 時，發現能用 Github Action 搭配自身的 Deploy 服務來提供 Serverless 環境。 
+在研究 Deno 時，發現能用 Github Action 搭配自身的 Deploy 服務來提供 Serverless 環境。
 
 其中會分配 `[project_name].deno.dev` 的域名給開發者使用，且支援主流的前端框架(ex: Astro,Next.js,.....)！
 
-### 從 Deno Deploy Classic 遷移至新版 Deno Deploy 
+### 從 Deno Deploy Classic 遷移至新版 Deno Deploy
 
 > 2026-08-03 更新：由於 Deno Deploy Classic（`dash.deno.com`）與 deployctl 工具已於 2026-07-20 停用，所以原有服務須手動遷移至新版 Deno Deploy（`console.deno.com`)
 
 - 新版平台和 Classic 所變更部分
-  * 分配網域： `{project_name}.deno.dev` => `{project_name}.{org_name}.deno.net`
-  * 收費模式: 從個人變組織
-  * 更換到新版後，必須驗証信用卡付款部分是否有效
-  * 改用 Deno 2.x 內建的 deno deploy 指令
-  * 並支援整合式建置（build 日誌直接於 dashboard 即時串流，不再需要透過 GitHub Actions 進行部署）
-    * 同時 GitHub Actions workflow（`.github/workflows/ci.yml`）部分，僅保留 CI 驗證用途
+  - 分配網域： `{project_name}.deno.dev` => `{project_name}.{org_name}.deno.net`
+  - 收費模式: 從個人變組織
+  - 更換到新版後，必須驗証信用卡付款部分是否有效
+  - 改用 Deno 2.x 內建的 deno deploy 指令
+  - 並支援整合式建置（build 日誌直接於 dashboard 即時串流，不再需要透過 GitHub Actions 進行部署）
+    - 同時 GitHub Actions workflow（`.github/workflows/ci.yml`）部分，僅保留 CI 驗證用途
 
 ### 免費方案所提供的資源限制 (2026-08-03)
 
@@ -202,8 +202,8 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
   - 記憶體分配：最大 512MB
   - 單次部署大小上限：1 GB（含原始檔案與靜態檔案）
   - 每組織最多
-    * 20 個活躍應用
-    * 50 個自訂網域
+    - 20 個活躍應用
+    - 50 個自訂網域
 
 ### 流程
 
@@ -222,12 +222,12 @@ $ deno -A npm:create-astro@latest --template satnaing/astro-paper
    }
    ```
 
-2. 到 [console.deno.com](https://console.deno.com) 建立 app 並連接 GitHub 倉庫， 之後每次 push 都會自動觸發建置與部署，build 日誌直接在 dashboard 串流（本專案為靜態站台，直接服務 `dist/` 目錄）。 
-   * 部署完成後，應用程式將可於 `https://<your-project-name>.<your-org-name>.deno.net` 存取
+2. 到 [console.deno.com](https://console.deno.com) 建立 app 並連接 GitHub 倉庫， 之後每次 push 都會自動觸發建置與部署，build 日誌直接在 dashboard 串流（本專案為靜態站台，直接服務 `dist/` 目錄）。
+   - 部署完成後，應用程式將可於 `https://<your-project-name>.<your-org-name>.deno.net` 存取
 
 3. 或者使用 CLI 手動部署：
    - 必需先在 `https://console.deno.com/account/access-tokens` 建立 token，並設定相関的環境變數 `DENO_DEPLOY_TOKEN`
-   
+
    ```sh
    $ deno deploy --app neko-0xff-blog          # 預覽部署
    $ deno deploy --app neko-0xff-blog --prod   # 正式部署

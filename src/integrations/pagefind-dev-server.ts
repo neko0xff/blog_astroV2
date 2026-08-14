@@ -1,15 +1,19 @@
-import { readFileSync } from "node:fs";
-
-/*
- * Vite 外掛：在開發模式下直接服務 /pagefind/* 靜態檔案。
+/**
+ * @file Vite Plugin - Pagefind Dev Server Middleware
+ * @description
+ * 在開發模式（`vite dev`）下為 Pagefind 提供靜態檔案服務。
  *
- * Astro dev server 只服務 public/，而 pagefind 索引是 build 產物（dist/pagefind/）。
- * 若把索引複製到 public/，會違反 Vite「public 檔案不得從原始碼 import()」的限制，
- * 導致 dev 模式載入 pagefind.js 失敗。此外掛在 Vite 內建 middleware 之前攔截
- * /pagefind/* 請求，直接從 dist/pagefind/ 讀檔回應，讓 dev 與正式環境行為一致。
+ * @context
+ * 1. Astro Dev Server 預設僅服務 `public/` 資料夾。
+ * 2. Pagefind 搜尋索引為建置產物（位於 `dist/pagefind/`）。
+ * 3. Vite 限制不可動態 `import()` 位於 `public/` 的檔案，否則 `pagefind.js` 會載入失敗。
+ *
+ * @solution
+ * 於 Vite Middleware Chain 前端優先攔截 `/pagefind/*` 路由，
+ * 直接讀取 `dist/pagefind/` 實體檔案並回應，維持 Dev 與 Prod 環境行為一致。
  */
 
-/** pagefind build 產物所在的目錄（由 `deno task pagefind` 產生） */
+import { readFileSync } from "node:fs";
 const PAGEFIND_DIST = new URL("../../dist/pagefind/", import.meta.url);
 
 /** 可被 pagefind 索引抓取的檔案副檔名 → MIME type 對照表 */
@@ -48,14 +52,19 @@ export function pagefind_dev_server(): {
   name: string;
   configureServer: (server: {
     middlewares: {
-      use: (handler: (
-        req: { url?: string },
-        res: {
-          writeHead: (status: number, headers?: Record<string, string>) => void;
-          end: (body?: string | Uint8Array) => void;
-        },
-        next: () => void,
-      ) => void) => void;
+      use: (
+        handler: (
+          req: { url?: string },
+          res: {
+            writeHead: (
+              status: number,
+              headers?: Record<string, string>
+            ) => void;
+            end: (body?: string | Uint8Array) => void;
+          },
+          next: () => void
+        ) => void
+      ) => void;
     };
   }) => void;
 } {
@@ -69,7 +78,9 @@ export function pagefind_dev_server(): {
           return;
         }
 
-        const pathname = decodeURIComponent(new URL(url, "http://localhost").pathname);
+        const pathname = decodeURIComponent(
+          new URL(url, "http://localhost").pathname
+        );
         const relative = pathname.slice("/pagefind/".length);
 
         // 防止目錄穿越（../）與空路徑
@@ -83,6 +94,7 @@ export function pagefind_dev_server(): {
 
         try {
           const data = readFileSync(file_url);
+
           res.writeHead(200, {
             "Content-Type": mime_type_for(relative),
             "Cache-Control": "no-cache",

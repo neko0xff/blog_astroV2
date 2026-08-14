@@ -68,6 +68,7 @@ graph TD
 
 - 演變：NETBIOS(Network Basic Input/Output System,網路基本輸入輸出系統) ⇒ FQDN
   (Fully qualified domain name,完整網域名稱)
+
   |   特性   |         NetBIOS 名稱         |    FQDN (DNS 名稱)     |
   | :------: | :--------------------------: | :--------------------: |
   | 長度限制 | 最多 15 個字元 (+1 服務字元) |    無此 15 字元限制    |
@@ -208,10 +209,10 @@ graph TD
   |   主要用途   | 用於回溯相容舊版 Windows 或傳統應用程式 |           直覺且與電郵外觀一致            |
   |     格式     |          `NetBIOS 名稱\使用者`          |   `使用者@完整網域名稱` (FQDN/DNS 名稱)   |
 - 當使用者在己加入網域的電腦上登入時，系統會自動判斷格式
-  |         名稱格式 / 特徵          | 可能的解析方式 |                             行為說明                              |
-  | :------------------------------: | :------------: | :---------------------------------------------------------------: |
-  | 單純短名稱（如 `NEKOLAB`）+ `/`` |  NetBIOS 解析  | 系統可能優先嘗試傳統 NetBIOS 名稱解析（如 WINS、廣播、LMHOSTS）。 |
-  | 名稱中包含 `@`符號 | DNS / UPN 解析 | 常見於 UPN格式（如`user@nekolab.local`），系統通常會改走 DNS 與 Active Directory 網域定位流程。 |
+  |         名稱格式 / 特徵          | 可能的解析方式 |                                            行為說明                                             |
+  | :------------------------------: | :------------: | :---------------------------------------------------------------------------------------------: |
+  | 單純短名稱（如 `NEKOLAB`）+ `/`` |  NetBIOS 解析  |                系統可能優先嘗試傳統 NetBIOS 名稱解析（如 WINS、廣播、LMHOSTS）。                |
+  |        名稱中包含 `@`符號        | DNS / UPN 解析 | 常見於 UPN格式（如`user@nekolab.local`），系統通常會改走 DNS 與 Active Directory 網域定位流程。 |
 
 ## 針對不同格式的主要定義
 
@@ -288,7 +289,7 @@ graph TD
 - [Windows 中的 Active Directory FSMO 角色](https://learn.microsoft.com/zh-tw/troubleshoot/windows-server/active-directory/fsmo-roles#pdc-emulator-fsmo-role)
 - [Active Directory 網域服務-功能等級](https://learn.microsoft.com/zh-tw/windows-server/identity/ad-ds/active-directory-functional-levels)
 - [安全原則](https://learn.microsoft.com/zh-tw/windows-server/identity/ad-ds/manage/understand-security-principals)
-- [Repadmin -replsummary](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc835092(v=ws.11))
+- [Repadmin -replsummary](<https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc835092(v=ws.11)>)
 - [Diagnose AD replication failures - Windows Server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/diagnose-replication-failures)
 - [診斷 Active Directory 複寫失敗 - Windows Server](https://learn.microsoft.com/zh-tw/troubleshoot/windows-server/active-directory/diagnose-replication-failures)
 - [Transfer or seize Operation Master roles - Windows Server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/transfer-or-seize-operation-master-roles-in-ad-ds)

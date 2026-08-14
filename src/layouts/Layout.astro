@@ -23,7 +23,7 @@ const {
   profile = SITE.profile,
   description = SITE.desc,
   ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
-  canonicalURL = new URL(Astro.url.pathname, Astro.url),
+  canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url),
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
@@ -160,6 +160,14 @@ const structuredData = isArticle
     <!--日夜模式切換按鈕 -->
     <script is:inline src="/toggle-theme.js"></script>
 
+    <!--
+       引進動態載入（Lazy Loading）機制
+       * 當使用者將頁面滾動至圖表區域（可視區）時，才啟動下載與初始化 Mermaid 核心模組，避免載入不必要的資源。
+    -->
+    <script>
+      import "@/scripts/mermaid-lazy.ts";
+    </script>
+
     <style>
       html,
       body {
@@ -172,8 +180,7 @@ const structuredData = isArticle
 
   <body>
     <slot />
-
-    <!--  防止有人使用 devtools 注入程式碼 -->
+    <!--  防止有使用者故意使用 devtools 注入用途不明的程式碼 -->
     <script is:inline src="/console_warning.js"></script>
   </body>
 </html>

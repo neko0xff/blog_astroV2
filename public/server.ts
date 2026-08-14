@@ -2,7 +2,6 @@ import { serveFile } from "@std/http/file-server";
 import { contentType } from "@std/media-types";
 import { extname, join, normalize, SEPARATOR } from "@std/path";
 
-
 const PORT = parseInt(Deno.env.get("PORT") || "8085");
 const FS_ROOT = import.meta.dirname ?? join(Deno.cwd(), "dist");
 const NOT_FOUND_PAGE = join(FS_ROOT, "404.html");
@@ -32,8 +31,8 @@ const COMPRESSIBLE_EXT_RE =
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://giscus.app",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://giscus.app",
+  "font-src 'self' https://fonts.gstatic.com https://giscus.app",
   "img-src 'self' data: https:",
   "connect-src 'self' https://giscus.app https://api.github.com",
   "frame-src https://giscus.app",
@@ -87,20 +86,20 @@ function with_security_headers(response: Response): Response {
  * @param pathname - The URL pathname of the request
  * @returns A Cache-Control directive string
  */
- function cache_control_for(pathname: string): string {
-   switch (true) {
-     case pathname.startsWith("/_astro/"):
-       return IMMUTABLE_CACHE;
+function cache_control_for(pathname: string): string {
+  switch (true) {
+    case pathname.startsWith("/_astro/"):
+      return IMMUTABLE_CACHE;
 
-     case pathname.startsWith("/assets/"):
-     case pathname.startsWith("/pagefind/"):
-     case ASSET_EXT_RE.test(pathname):
-       return ASSET_CACHE;
+    case pathname.startsWith("/assets/"):
+    case pathname.startsWith("/pagefind/"):
+    case ASSET_EXT_RE.test(pathname):
+      return ASSET_CACHE;
 
-     default:
-       return NO_CACHE;
-   }
- }
+    default:
+      return NO_CACHE;
+  }
+}
 
 /**
  * Checks whether a path points to an existing file on disk.
@@ -121,20 +120,23 @@ function file_exists(path: string): boolean {
  * @param accept_encoding - The request's Accept-Encoding header (nullable)
  * @returns The variant path and encoding, or null when none is available
  */
- function pick_variant(
-   file_path: string,
-   accept_encoding: string | null,
- ): { path: string; encoding: "br" | "gzip" } | null {
-   if (!accept_encoding) return null;
+function pick_variant(
+  file_path: string,
+  accept_encoding: string | null
+): { path: string; encoding: "br" | "gzip" } | null {
+  if (!accept_encoding) return null;
 
-   for (const { encoding, ext } of COMPRESSED_VARIANTS) {
-     if (accept_encoding.includes(encoding) && file_exists(`${file_path}${ext}`)) {
-       return { path: `${file_path}${ext}`, encoding };
-     }
-   }
+  for (const { encoding, ext } of COMPRESSED_VARIANTS) {
+    if (
+      accept_encoding.includes(encoding) &&
+      file_exists(`${file_path}${ext}`)
+    ) {
+      return { path: `${file_path}${ext}`, encoding };
+    }
+  }
 
-   return null;
- }
+  return null;
+}
 
 /**
  * Resolves a URL pathname to an absolute file path inside FS_ROOT,
@@ -165,10 +167,9 @@ function resolve_file(pathname: string): string | null {
 /**
  * Service Start a Console Log
  */
-function log_start(){
+function log_start() {
   console.log(`[Website] Service use port: ${PORT}`);
   console.log(`[Website] Serving a Directory: ${FS_ROOT}`);
-
 }
 
 // ── Request Handler ─────────────────────────────────────────────────────────
@@ -190,13 +191,15 @@ const handler = async (request: Request): Promise<Response> => {
     if (file_exists(NOT_FOUND_PAGE)) {
       const body = await Deno.readFile(NOT_FOUND_PAGE);
 
-      return with_security_headers(new Response(body, {
-        status: 404,
-        headers: {
-          "Content-Type": "text/html; charset=utf-8",
-          "Cache-Control": NO_CACHE,
-        },
-      }));
+      return with_security_headers(
+        new Response(body, {
+          status: 404,
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": NO_CACHE,
+          },
+        })
+      );
     }
     return with_security_headers(new Response("Not Found", { status: 404 }));
   }
@@ -211,7 +214,7 @@ const handler = async (request: Request): Promise<Response> => {
       headers.set("Vary", "Accept-Encoding");
       headers.set(
         "Content-Type",
-        contentType(extname(file_path)) ?? "application/octet-stream",
+        contentType(extname(file_path)) ?? "application/octet-stream"
       );
     } else if (COMPRESSIBLE_EXT_RE.test(file_path)) {
       headers.set("Vary", "Accept-Encoding");
@@ -219,22 +222,24 @@ const handler = async (request: Request): Promise<Response> => {
 
     headers.set("Cache-Control", cache_control_for(pathname));
 
-    return with_security_headers(new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
-    }));
+    return with_security_headers(
+      new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      })
+    );
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(`[Website] serving request: ${error}`);
 
     return with_security_headers(
-      new Response("Internal Server Error", { status: 500 }),
+      new Response("Internal Server Error", { status: 500 })
     );
   }
 };
 
 // ── Entrypoint ──────────────────────────────────────────────────────────────
 // eslint-disable-next-line no-console
-log_start()
+log_start();
 Deno.serve({ port: PORT }, handler);

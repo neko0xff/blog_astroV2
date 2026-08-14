@@ -58,7 +58,7 @@ $ npm install aedes --save`
   var client = mqtt.connect(Source);
 
   /*連結後,不停發布temp的topic內容*/
-  client.on("connect", (e) => {
+  client.on("connect", e => {
     console.log("success connect mqtt server");
     setInterval(() => {
       client.publish("temp", "25.6");

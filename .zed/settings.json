@@ -7,6 +7,10 @@
     "TSX": {
       "language_servers": ["typescript-language-server"],
       "formatter": "prettier"
+    },
+    "CSS": {
+      "language_servers": ["vscode-css-language-server"],
+      "formatter": "prettier"
     }
   },
   "lsp": {
@@ -18,6 +22,15 @@
         "deno": {
           "enable": true,
           "config": "./deno.json"
+        }
+      }
+    },
+    "vscode-css-language-server": {
+      "initialization_options": {
+        "css": {
+          "lint": {
+            "unknownAtRules": ["custom-variant", "apply", "theme", "layer", "tailwind"]
+          }
         }
       }
     }

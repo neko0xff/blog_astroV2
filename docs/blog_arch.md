@@ -37,10 +37,10 @@ flowchart LR
 ### 靜態檔案伺服器（server.ts）
 
 - 原始碼位於 `public/server.ts`，隨 Astro build 複製至 `dist/server.ts`
-  * `server.ts` 隨 `public/` 被 Astro 打包進 `dist/`，因此以腳本所在目錄為服務根目錄
+  - `server.ts` 隨 `public/` 被 Astro 打包進 `dist/`，因此以腳本所在目錄為服務根目錄
 - 服務根目錄
-  * 以 `import.meta.dirname` 決定（即 `dist/`）
-  * 不依賴啟動時的命令列指令
+  - 以 `import.meta.dirname` 決定（即 `dist/`）
+  - 不依賴啟動時的命令列指令
 - 功能：
   - 安全性標頭（CSP、HSTS、X-Frame-Options 等）
   - 分層快取策略（`/_astro/` immutable、靜態資源 7 天、HTML no-cache）

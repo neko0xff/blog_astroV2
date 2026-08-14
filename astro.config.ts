@@ -10,7 +10,7 @@ import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import mermaid from "astro-mermaid";
+import { mermaid_remark } from "./src/utils/mermaid-remark.ts";
 import { pagefind_dev_server } from "./src/integrations/pagefind-dev-server.ts";
 
 // Node.js built-in modules that Deno can polyfill (from @deno/astro-adapter source)
@@ -73,6 +73,7 @@ const COMPATIBLE_NODE_MODULES = [
 export default defineConfig({
   site: SITE.website,
   base: "/",
+  trailingSlash: "always", // 統一結尾斜線，避免 /post 與 /post/ 被視為重複網頁或觸發重新導向
   /*提供服務部分*/
   output: "static", // 靜態輸出選項: Astro 4 = "hybrid" , Astro 5 = "static"
   server: {
@@ -83,14 +84,10 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) =>
+      filter: page =>
         (SITE.showArchives || !page.endsWith("/archives")) &&
         !page.endsWith("/search/"),
     }),
-    mermaid({
-      theme: "forest",
-      autoTheme: true,
-    })
   ],
   markdown: {
     processor: unified({
@@ -98,6 +95,7 @@ export default defineConfig({
         remarkToc,
         [remarkCollapse, { test: "Table of contents" }],
         remarkMath,
+        mermaid_remark,
       ],
       rehypePlugins: [
         [
@@ -121,7 +119,7 @@ export default defineConfig({
     resolve: {
       alias: [
         // Deno requires node: prefix for Node built-ins; Vite may strip it
-        ...COMPATIBLE_NODE_MODULES.map((mod) => ({
+        ...COMPATIBLE_NODE_MODULES.map(mod => ({
           find: mod,
           replacement: `node:${mod}`,
         })),
