@@ -5,9 +5,9 @@ echo "[Dev] 開始本地 Kubernetes 部署流程..."
 echo "[Dev] 01 切換到 Minikube Docker 環境..."
 eval $(minikube docker-env)
 echo "[Dev] 02 建置 Docker 映像..."
-docker build -f Dockerfile.env -t neko0xff/blog_astrov2:latest .
+docker build -f Dockerfile.env -t neko0xff/blog_astrov2:5.2.0 .
 echo "[Dev] 03 驗證映像..."
-docker images | grep blog_astrov2
+docker images | grep blog_astrov2:5.2.0
 
 echo "[Dev] 04 部署到 Kubernetes..."
 kubectl apply -f k8s/namespace.yaml

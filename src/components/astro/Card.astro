@@ -6,10 +6,10 @@ import Datetime from "@/components/astro/Datetime.astro";
 
 export interface Props extends CollectionEntry<"blog"> {
   variant?: "h2" | "h3";
-  url?: string;
+  href?: string;
 }
 
-const { variant = "h2", data, id, filePath, url } = Astro.props;
+const { variant = "h2", data, id, filePath, href } = Astro.props;
 
 const { title, description, pubDatetime, modDatetime, timezone } = data;
 
@@ -21,7 +21,7 @@ const headerProps = {
 
 <li class="my-6">
   <a
-    href={url ?? getPath(id, filePath)}
+    href={href ?? `${getPath(id, filePath)}/`}
     class="inline-block text-lg font-medium text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
   >
     {

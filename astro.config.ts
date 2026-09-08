@@ -113,6 +113,10 @@ export default defineConfig({
     }),
   },
   vite: {
+    build: {
+      // Mermaid is intentionally isolated and loaded only when a diagram is visible.
+      chunkSizeWarningLimit: 700,
+    },
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],
     },

@@ -58,8 +58,40 @@ const log = ENABLE_LOG
 /** Mermaid 基礎配置 */
 const base_config = {
   startOnLoad: false,
+  securityLevel: "strict" as const,
   theme: DEFAULT_THEME,
 };
+
+/**
+ * 將 Mermaid 產生的 SVG 安全地加入圖表容器。
+ * @param container - 圖表容器
+ * @param svg - Mermaid 產生的 SVG 字串
+ */
+function append_safe_svg(container: HTMLElement, svg: string): void {
+  const parsed = new DOMParser().parseFromString(svg, "image/svg+xml");
+  const root = parsed.documentElement;
+  if (root.tagName.toLowerCase() !== "svg") {
+    throw new Error("Mermaid output is not an SVG document");
+  }
+
+  const sanitize = (element: Element) => {
+    for (const attribute of [...element.attributes]) {
+      const name = attribute.name.toLowerCase();
+      const value = attribute.value.trim().toLowerCase();
+      if (
+        name.startsWith("on") ||
+        ((name === "href" || name === "xlink:href") &&
+          (value.startsWith("javascript:") || value.startsWith("data:")))
+      ) {
+        element.removeAttribute(attribute.name);
+      }
+    }
+    for (const child of element.children) sanitize(child);
+  };
+
+  sanitize(root);
+  container.replaceChildren(document.importNode(root, true));
+}
 
 /**
  * 動態載入 Mermaid 核心模組並回傳單例
@@ -69,11 +101,11 @@ async function load_mermaid(): Promise<(typeof import("mermaid"))["default"]> {
   if (mermaid_instance) return mermaid_instance;
   if (!mermaid_loading) {
     mermaid_loading = import("mermaid")
-      .then(m => {
+      .then((m) => {
         mermaid_instance = m.default;
         return m.default;
       })
-      .catch(err => {
+      .catch((err) => {
         log_error("Failed to load mermaid:", err);
         mermaid_loading = null;
         throw err;
@@ -85,8 +117,7 @@ async function load_mermaid(): Promise<(typeof import("mermaid"))["default"]> {
 /** 取得當前環境對應的 Mermaid 主題 */
 function get_current_theme(): MermaidTheme {
   if (!AUTO_THEME) return base_config.theme;
-  const data_theme =
-    document.documentElement.getAttribute("data-theme") ||
+  const data_theme = document.documentElement.getAttribute("data-theme") ||
     document.body.getAttribute("data-theme");
   return theme_map[data_theme ?? ""] || base_config.theme;
 }
@@ -99,7 +130,7 @@ function get_current_theme(): MermaidTheme {
  */
 async function render_diagram(
   diagram: HTMLElement,
-  force = false
+  force = false,
 ): Promise<void> {
   if (!diagram || (!force && diagram.hasAttribute("data-processed"))) return;
 
@@ -129,7 +160,7 @@ async function render_diagram(
     if (existing) existing.remove();
 
     const { svg, bindFunctions } = await mermaid.render(id, def);
-    diagram.innerHTML = svg;
+    append_safe_svg(diagram, svg);
     if (bindFunctions) bindFunctions(diagram);
     diagram.setAttribute("data-processed", "true");
     log("rendered", id);
@@ -160,30 +191,30 @@ async function render_diagram(
  */
 function observe_diagrams(): void {
   const diagrams = document.querySelectorAll<HTMLElement>(
-    "pre.mermaid:not([data-processed])"
+    "pre.mermaid:not([data-processed])",
   );
 
   if (!diagrams.length) return;
 
   // 降級處理：不支援 IntersectionObserver 時立即渲染全部圖表
   if (!("IntersectionObserver" in window)) {
-    diagrams.forEach(d => void render_diagram(d));
+    diagrams.forEach((d) => void render_diagram(d));
     return;
   }
 
   const io = new IntersectionObserver(
     (entries, obs) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           void render_diagram(entry.target as HTMLElement);
           obs.unobserve(entry.target);
         }
       });
     },
-    { rootMargin: "200px" }
+    { rootMargin: "200px" },
   );
 
-  diagrams.forEach(d => io.observe(d));
+  diagrams.forEach((d) => io.observe(d));
 }
 
 // 初次載入：若頁面含有圖表即開始觀察
@@ -202,7 +233,7 @@ if (AUTO_THEME) {
     if (!mermaid_instance) return;
     document
       .querySelectorAll<HTMLElement>("pre.mermaid[data-processed]")
-      .forEach(d => void render_diagram(d, true));
+      .forEach((d) => void render_diagram(d, true));
   };
 
   const mo = new MutationObserver(handle_theme_change);

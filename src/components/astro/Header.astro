@@ -76,27 +76,27 @@ const isActive = (path: string) => {
           ].join(" ")}
         >
           <li class="col-span-2">
-            <a href="/posts" class={isActive("/posts") ? "active-nav" : ""}>
+            <a href="/posts/" class={isActive("/posts") ? "active-nav" : ""}>
               文章
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/tags" class={isActive("/tags") ? "active-nav" : ""}>
+            <a href="/tags/" class={isActive("/tags") ? "active-nav" : ""}>
               標籤
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/links" class={isActive("/links") ? "active-nav" : ""}>
+            <a href="/links/" class={isActive("/links") ? "active-nav" : ""}>
               友站連結
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/terms" class={isActive("/terms") ? "active-nav" : ""}>
+            <a href="/terms/" class={isActive("/terms") ? "active-nav" : ""}>
               條款
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/about" class={isActive("/about") ? "active-nav" : ""}>
+            <a href="/about/" class={isActive("/about") ? "active-nav" : ""}>
               關於
             </a>
           </li>
@@ -104,7 +104,7 @@ const isActive = (path: string) => {
             SITE.showArchives && (
               <li class="col-span-2">
                 <LinkButton
-                  href="/archives"
+                  href="/archives/"
                   class:list={[
                     "flex justify-center p-3 sm:p-1",
                     {
@@ -126,7 +126,7 @@ const isActive = (path: string) => {
           }
           <li class="col-span-1 flex items-center justify-center">
             <a
-              href="/search"
+              href="/search/"
               class={`flex p-3 sm:p-1${isActive("/search") ? " [&>svg]:stroke-accent" : ""}`}
               aria-label="search"
               title="Search"

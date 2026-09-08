@@ -17,8 +17,17 @@ spec:
     spec:
       containers:
         - name: blog-astro
-          image: neko0xff/blog_astrov2:latest
+          image: neko0xff/blog_astrov2:5.2.0
           imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
           ports:
             - containerPort: 8085
           resources:
