@@ -108,6 +108,28 @@ function parse_svg_root(svg: string): Element | null {
 }
 
 /**
+ * 判斷 URL 屬性值是否為危險 scheme（javascript: / data: / vbscript:）。
+ *
+ * 以 WHATWG URL 解析取代字串前綴比對：瀏覽器導覽前會依規範正規化 URL
+ * （剝除夾藏的 tab/LF/CR 與前後控制字元、scheme 強制小寫），
+ * 因此 `java&#9;script:` 等控制字元夾藏寫法能繞過 `startsWith("javascript:")`
+ * 卻仍會被瀏覽器當成 javascript: 執行；`new URL().protocol` 與瀏覽器行為一致。
+ *
+ * @param value - URL 屬性原始值（HTML 實體已由屬性取得時解碼）
+ * @returns 若為危險 scheme 或無法解析，回傳 true
+ */
+function is_dangerous_url(value: string): boolean {
+  try {
+    const protocol = new URL(value, document.baseURI).protocol;
+    return protocol === "javascript:" || protocol === "data:" ||
+      protocol === "vbscript:";
+  } catch {
+    // 無法解析成 URL → 保守處理，視為危險並移除
+    return true;
+  }
+}
+
+/**
  * 將 Mermaid 產生的 SVG 安全地加入圖表容器。
  * @param container - 圖表容器
  * @param svg - Mermaid 產生的 SVG 字串
@@ -126,11 +148,10 @@ function append_safe_svg(container: HTMLElement, svg: string): void {
     }
     for (const attribute of [...element.attributes]) {
       const name = attribute.name.toLowerCase();
-      const value = attribute.value.trim().toLowerCase();
       if (
         name.startsWith("on") ||
         ((name === "href" || name === "xlink:href") &&
-          (value.startsWith("javascript:") || value.startsWith("data:")))
+          is_dangerous_url(attribute.value))
       ) {
         element.removeAttribute(attribute.name);
       }
