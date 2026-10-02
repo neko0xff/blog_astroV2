@@ -1,6 +1,6 @@
 ---
 title: 身份認証 - Windows AD 和 LDAP 関係
-pubDatetime: 2026-10-02 09:16:45
+pubDatetime: 2026-10-02 09:16:45+08:00
 tags:
   - "身份認証"
   - "IdP"
