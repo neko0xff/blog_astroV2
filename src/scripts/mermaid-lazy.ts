@@ -121,8 +121,11 @@ function parse_svg_root(svg: string): Element | null {
 function is_dangerous_url(value: string): boolean {
   try {
     const protocol = new URL(value, document.baseURI).protocol;
-    return protocol === "javascript:" || protocol === "data:" ||
-      protocol === "vbscript:";
+    return (
+      protocol === "javascript:" ||
+      protocol === "data:" ||
+      protocol === "vbscript:"
+    );
   } catch {
     // 無法解析成 URL → 保守處理，視為危險並移除
     return true;
@@ -172,11 +175,11 @@ async function load_mermaid(): Promise<(typeof import("mermaid"))["default"]> {
   if (mermaid_instance) return mermaid_instance;
   if (!mermaid_loading) {
     mermaid_loading = import("mermaid")
-      .then((m) => {
+      .then(m => {
         mermaid_instance = m.default;
         return m.default;
       })
-      .catch((err) => {
+      .catch(err => {
         log_error("Failed to load mermaid:", err);
         mermaid_loading = null;
         throw err;
@@ -188,7 +191,8 @@ async function load_mermaid(): Promise<(typeof import("mermaid"))["default"]> {
 /** 取得當前環境對應的 Mermaid 主題 */
 function get_current_theme(): MermaidTheme {
   if (!AUTO_THEME) return base_config.theme;
-  const data_theme = document.documentElement.getAttribute("data-theme") ||
+  const data_theme =
+    document.documentElement.getAttribute("data-theme") ||
     document.body.getAttribute("data-theme");
   return theme_map[data_theme ?? ""] || base_config.theme;
 }
@@ -198,7 +202,7 @@ function get_current_theme(): MermaidTheme {
  * @param ms - 等待毫秒數
  */
 function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
@@ -208,7 +212,7 @@ function sleep(ms: number): Promise<void> {
  * @returns 初始化完成的 Mermaid API 實例
  */
 async function ensure_initialized(
-  theme: MermaidTheme,
+  theme: MermaidTheme
 ): Promise<(typeof import("mermaid"))["default"]> {
   const mermaid = await load_mermaid();
   if (initialized_theme !== theme) {
@@ -263,7 +267,7 @@ function show_render_error(diagram: HTMLElement, err: unknown): void {
  */
 async function render_inner(
   diagram: HTMLElement,
-  force = false,
+  force = false
 ): Promise<void> {
   if (!diagram.isConnected) return;
   if (!force && diagram.hasAttribute("data-processed")) return;
@@ -272,7 +276,7 @@ async function render_inner(
   // 防禦性處理：即使其他腳本（如 copy 按鈕）已注入按鈕到 pre 內，也不污染語法
   if (!diagram.getAttribute("data-diagram")) {
     const clone = diagram.cloneNode(true) as HTMLElement;
-    clone.querySelectorAll("button").forEach((btn) => btn.remove());
+    clone.querySelectorAll("button").forEach(btn => btn.remove());
     diagram.setAttribute("data-diagram", clone.textContent || "");
   }
   const def = diagram.getAttribute("data-diagram") || "";
@@ -324,10 +328,7 @@ async function render_inner(
  * @param {boolean} [force=false] - 是否強制重新渲染（即使已有 data-processed）
  * @returns 渲染完成的 Promise
  */
-function render_diagram(
-  diagram: HTMLElement,
-  force = false,
-): Promise<void> {
+function render_diagram(diagram: HTMLElement, force = false): Promise<void> {
   if (!diagram) return Promise.resolve();
   if (!force && diagram.hasAttribute("data-processed")) {
     return Promise.resolve();
@@ -352,9 +353,9 @@ function render_diagram(
  */
 function handle_intersections(
   entries: IntersectionObserverEntry[],
-  obs: IntersectionObserver,
+  obs: IntersectionObserver
 ): void {
-  entries.forEach((entry) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
       obs.unobserve(entry.target);
       void render_diagram(entry.target as HTMLElement);
@@ -391,14 +392,14 @@ function observe_diagrams(): void {
     current_observer = null;
   }
   const diagrams = document.querySelectorAll<HTMLElement>(
-    "pre.mermaid:not([data-processed]):not([data-error])",
+    "pre.mermaid:not([data-processed]):not([data-error])"
   );
 
   if (!diagrams.length) return;
 
   // 降級處理：不支援 IntersectionObserver 時立即渲染全部圖表
   if (!("IntersectionObserver" in window)) {
-    diagrams.forEach((d) => void render_diagram(d));
+    diagrams.forEach(d => void render_diagram(d));
     return;
   }
 
@@ -406,7 +407,7 @@ function observe_diagrams(): void {
     rootMargin: "200px",
   });
 
-  diagrams.forEach((d) => current_observer?.observe(d));
+  diagrams.forEach(d => current_observer?.observe(d));
 }
 
 /**
@@ -422,8 +423,8 @@ function rerender_for_theme(): void {
 
   document
     .querySelectorAll<HTMLElement>("pre.mermaid[data-processed]")
-    .forEach((d) => void render_diagram(d, true));
-  failed.forEach((d) => {
+    .forEach(d => void render_diagram(d, true));
+  failed.forEach(d => {
     d.removeAttribute("data-error");
     void render_diagram(d, true);
   });
@@ -436,9 +437,9 @@ function schedule_theme_rerender(): void {
   // 僅重新渲染「已經載入 Mermaid 模組」的頁面，避免下載不必要的資源
   if (!mermaid_instance) return;
   if (theme_rerender_timer !== null) {
-    window.clearTimeout(theme_rerender_timer);
+    globalThis.clearTimeout(theme_rerender_timer);
   }
-  theme_rerender_timer = window.setTimeout(() => {
+  theme_rerender_timer = globalThis.setTimeout(() => {
     theme_rerender_timer = null;
     rerender_for_theme();
   }, THEME_RERENDER_DEBOUNCE_MS);

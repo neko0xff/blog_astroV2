@@ -122,7 +122,7 @@ function file_exists(path: string): boolean {
  */
 function pick_variant(
   file_path: string,
-  accept_encoding: string | null,
+  accept_encoding: string | null
 ): { path: string; encoding: "br" | "gzip" } | null {
   if (!accept_encoding) return null;
 
@@ -207,7 +207,7 @@ const handler = async (request: Request): Promise<Response> => {
             "Content-Type": "text/html; charset=utf-8",
             "Cache-Control": NO_CACHE,
           },
-        }),
+        })
       );
     }
     return with_security_headers(new Response("Not Found", { status: 404 }));
@@ -223,7 +223,7 @@ const handler = async (request: Request): Promise<Response> => {
       headers.set("Vary", "Accept-Encoding");
       headers.set(
         "Content-Type",
-        contentType(extname(file_path)) ?? "application/octet-stream",
+        contentType(extname(file_path)) ?? "application/octet-stream"
       );
     } else if (COMPRESSIBLE_EXT_RE.test(file_path)) {
       headers.set("Vary", "Accept-Encoding");
@@ -236,14 +236,14 @@ const handler = async (request: Request): Promise<Response> => {
         status: response.status,
         statusText: response.statusText,
         headers,
-      }),
+      })
     );
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(`[Website] serving request: ${error}`);
 
     return with_security_headers(
-      new Response("Internal Server Error", { status: 500 }),
+      new Response("Internal Server Error", { status: 500 })
     );
   }
 };

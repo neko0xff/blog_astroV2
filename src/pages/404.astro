@@ -10,6 +10,12 @@ import { SITE } from "@/config";
   title={`404 Not Found | ${SITE.title}`}
   description="找不到頁面，請返回首頁繼續瀏覽 Neko0xff 技術文章。"
   robots="noindex, nofollow"
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "404 Not Found",
+    description: "找不到頁面，請返回首頁繼續瀏覽 Neko0xff 技術文章。",
+  }}
 >
   <Header />
 
@@ -42,7 +48,9 @@ import { SITE } from "@/config";
           ! 請按一下這邊，得以回到主頁面 !
         </LinkButton>
 
-        <span aria-hidden="true" class="mt-4 block">¯\_(ツ)_/¯</span>
+        <span aria-hidden="true" class="mt-4 block">
+          ¯\_(ツ)_/¯
+        </span>
       </div>
     </div>
   </main>

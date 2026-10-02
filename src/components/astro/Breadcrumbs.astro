@@ -106,46 +106,45 @@ for (let i = 0; i < rawSegments.length; i++) {
     ],
   })}
 />
-
 <nav class="mx-auto mt-8 mb-1 w-full max-w-3xl px-4" aria-label="breadcrumb">
-  <ul
-    class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100"
-  >
+  <ul class="font-light [&>li]:inline [&>li:not(:last-child)>a]:hover:opacity-100">
     <li>
-      <a href="/" class="opacity-80">主頁</a>
-      <span aria-hidden="true" class="opacity-80">&raquo;</span>
+      <a href="/" class="opacity-80">
+        主頁
+      </a>
+      <span aria-hidden="true" class="opacity-80">
+        &raquo;
+      </span>
     </li>
-    {
-      breadcrumbList.map((breadcrumb, index) => {
-        const isLast = index === breadcrumbList.length - 1;
-        const decoded = decodeURIComponent(breadcrumb);
-        // 用原始 URL 段累積路徑，避免標籤化後的文字拼出錯誤內連
-        const href =
-          "/" +
-          rawSegments
-            .slice(0, index + 1)
-            .map(segment => encodeURIComponent(segment))
-            .join("/") +
-          "/";
-        return isLast ? (
-          <li>
-            <span
-              class={`capitalize opacity-75${index > 0 ? " lowercase" : ""}`}
-              aria-current="page"
-            >
-              {decoded}
-            </span>
-          </li>
-        ) : (
-          <li>
-            <a href={href} class="capitalize opacity-70">
-              {decoded}
-            </a>
-            <span aria-hidden="true">&raquo;</span>
-          </li>
-        );
-      })
-    }
+    {breadcrumbList.map((breadcrumb, index) => {
+      const isLast = index === breadcrumbList.length - 1;
+      const decoded = decodeURIComponent(breadcrumb);
+      // 用原始 URL 段累積路徑，避免標籤化後的文字拼出錯誤內連
+      const href =
+        "/" +
+        rawSegments
+          .slice(0, index + 1)
+          .map(segment => encodeURIComponent(segment))
+          .join("/") +
+        "/";
+      return isLast ? (
+        <li>
+          <span
+            class={`capitalize opacity-75${index > 0 ? " lowercase" : ""}`}
+            aria-current="page"
+          >
+            {decoded}
+          </span>
+        </li>
+      ) : (
+        <li>
+          <a href={href} class="capitalize opacity-70">
+            {decoded}
+          </a>
+          <span aria-hidden="true">&raquo;</span>
+        </li>
+      );
+    })}
   </ul>
 </nav>
 <br />

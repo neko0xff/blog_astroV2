@@ -18,7 +18,17 @@ export interface Props {
 const { page, tag, tagName } = Astro.props;
 ---
 
-<Layout title={`標籤: ${tagName} | ${SITE.title}`}>
+<Layout
+  title={`標籤: ${tagName} | ${SITE.title}`}
+  description={`瀏覽 Neko0xff 已發佈的所有標籤: ${tagName} 的文章`}
+  ,
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `標籤: ${tagName} `,
+    description: `瀏覽 Neko0xff 已發佈的所有標籤: ${tagName} 的文章`,
+  }}
+>
   <Header />
   <Main
     pageTitle={[`標籤:`, `${tagName}`]}
@@ -26,16 +36,14 @@ const { page, tag, tagName } = Astro.props;
     pageDesc={`所有帶有該 "${tagName}" 標籤的文章 .`}
   >
     <ul>
-      {
-        page.data.map(entry => (
-          <Card
-            id={entry.id}
-            collection="blog"
-            data={entry.data}
-            href={`/posts/${entry.id}/`}
-          />
-        ))
-      }
+      {page.data.map(entry => (
+        <Card
+          id={entry.id}
+          collection="blog"
+          data={entry.data}
+          href={`/posts/${entry.id}/`}
+        />
+      ))}
     </ul>
   </Main>
 

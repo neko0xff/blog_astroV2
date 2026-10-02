@@ -24,7 +24,7 @@ interface MdastCodeNode {
  * @param text - 需進行轉譯的文字
  * @returns 轉譯後的文字
  */
-function escape_html(text: string): string {
+export function escape_html(text: string): string {
   const map: Record<string, string> = {
     "&": "&amp;",
     "<": "&lt;",

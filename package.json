@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rimraf ./dist ./node_modules",
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && deno run --allow-read --allow-write scripts/enhance-sitemap.mjs",
     "check": "astro check",
     "pagefind": "pagefind --site dist --include-characters \"[]{}\\<>~\"",
     "preview": "astro preview",

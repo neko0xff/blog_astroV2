@@ -13,7 +13,7 @@
     "outdated:update": "deno outdated --update --latest",
     "bench": "deno bench -A --unstable-kv --unstable-ffi  bench/*",
     "install": "deno install --allow-scripts && bash scripts/patch-vite-nonascii.sh",
-    "test": "deno test --allow-net",
+    "test": "deno test --allow-read --allow-env --allow-net",
     "lint": "deno lint --fix",
     "fmt": "deno fmt",
     "format": "deno run -A npm:prettier --write .",

@@ -16,22 +16,26 @@ export interface Props {
 const { page } = Astro.props;
 ---
 
-<Layout title={`文章歸檔 | ${SITE.title}`}>
+<Layout
+  title={`文章歸檔 | ${SITE.title}`}
+  ,
+  description={`文章歸檔`}
+  ,
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `文章歸檔`,
+    description: `瀏覽 Neko0xff 已發佈的文章歸檔`,
+  }}
+>
   <Header />
   <Main pageTitle="文章歸檔" pageDesc="這邊是存放一堆文章集合。。。">
     <ul class="post-list">
-      {
-        page.data.map(({ data, id }) => (
-          <li>
-            <Card
-              id={id}
-              collection="blog"
-              data={data}
-              href={`/posts/${id}/`}
-            />
-          </li>
-        ))
-      }
+      {page.data.map(({ data, id }) => (
+        <li>
+          <Card id={id} collection="blog" data={data} href={`/posts/${id}/`} />
+        </li>
+      ))}
     </ul>
   </Main>
 

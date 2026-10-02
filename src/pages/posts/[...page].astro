@@ -26,11 +26,21 @@ const { page } = Astro.props;
 <Layout
   title={`文章${page.currentPage > 1 ? ` (第 ${page.currentPage} 頁)` : ""} | ${SITE.title}`}
   description={`瀏覽 Neko0xff 已發佈的所有技術文章${page.currentPage > 1 ? `（第 ${page.currentPage} 頁）` : ""}。`}
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `文章${page.currentPage > 1 ? ` (第 ${page.currentPage} 頁)` : ""}`,
+    description: `瀏覽 Neko0xff 已發佈的所有技術文章${page.currentPage > 1 ? `（第 ${page.currentPage} 頁）` : ""}。`,
+  }}
+  prevUrl={page.url.prev}
+  nextUrl={page.url.next}
 >
   <Header />
   <Main pageTitle="文章" pageDesc="己發佈的所有文章">
     <ul>
-      {page.data.map(data => <Card {...data} />)}
+      {page.data.map(data => (
+        <Card {...data} />
+      ))}
     </ul>
   </Main>
 

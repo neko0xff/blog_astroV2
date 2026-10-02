@@ -10,6 +10,12 @@ import { SITE } from "@/config";
   title={`500 Not Found | ${SITE.title}`}
   description="伺服器發生錯誤，請稍後再試或返回首頁。"
   robots="noindex, nofollow"
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "500 Not Found",
+    description: "伺服器發生錯誤，請稍後再試或返回首頁。",
+  }}
 >
   <Header />
 
@@ -44,7 +50,9 @@ import { SITE } from "@/config";
       </LinkButton>
 
       <br />
-      <span aria-hidden="true" class="mt-4 block">¯\_(ツ)_/¯</span>
+      <span aria-hidden="true" class="mt-4 block">
+        ¯\_(ツ)_/¯
+      </span>
     </div>
   </main>
 

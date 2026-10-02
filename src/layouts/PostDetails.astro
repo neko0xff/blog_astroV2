@@ -37,6 +37,17 @@ const {
 
 const { Content } = await render(post);
 
+// Fallback description from body if frontmatter description is empty
+const fallbackDescription = description?.trim()
+  ? description
+  : post.body
+      ?.replace(/```[\s\S]*?```/g, "")
+      .replace(/[#>*`]/g, "")
+      .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 160) || SITE.desc;
+
 let ogImageUrl: string | undefined;
 
 // Determine OG image source
@@ -53,19 +64,22 @@ if (!ogImageUrl && SITE.dynamicOgImage) {
 
 // Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
 const ogImage = ogImageUrl
-  ? new URL(ogImageUrl, Astro.url.origin).href
+  ? new URL(ogImageUrl, Astro.site ?? Astro.url).href
   : undefined;
 
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   author,
-  description,
+  description: fallbackDescription,
   pubDatetime,
   modDatetime,
-  canonicalURL,
+  canonicalURL:
+    canonicalURL ?? new URL(Astro.url.pathname, Astro.site ?? Astro.url).href,
   ogImage,
   scrollSmooth: true,
   ogType: "article" as const,
+  articleSection: tags[0] ?? "others",
+  articleTags: tags,
 };
 
 /* ========== Prev/Next Posts ========== */
@@ -115,16 +129,16 @@ const nextPost =
     <EditPost class="sm:hidden" {hideEditPost} {post} />
 
     <ul class="mt-4 mb-8 sm:my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+      {tags.map(tag => (
+        <Tag tag={slugifyStr(tag)} tagName={tag} />
+      ))}
     </ul>
 
     <!--評論區 -->
     <Comments />
 
     <!-- 分享 & 吾要到上頭 -->
-    <div
-      class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end sm:gap-4"
-    >
+    <div class="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end sm:gap-4">
       <ShareLinks />
       <button id="back-to-top" class="py-1 whitespace-nowrap hover:opacity-75">
         <IconChevronLeft class="inline-block rotate-90" />
@@ -136,34 +150,30 @@ const nextPost =
 
     <!-- Previous/Next Post Buttons -->
     <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-      {
-        prevPost && (
-          <a
-            href={`/posts/${prevPost.slug}/`}
-            class="flex w-full gap-1 hover:opacity-75"
-          >
-            <IconChevronLeft class="inline-block flex-none" />
-            <div>
-              <span>上一篇</span>
-              <div class="text-sm text-accent/85">{prevPost.title}</div>
-            </div>
-          </a>
-        )
-      }
-      {
-        nextPost && (
-          <a
-            href={`/posts/${nextPost.slug}/`}
-            class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
-          >
-            <div>
-              <span>下一篇</span>
-              <div class="text-sm text-accent/85">{nextPost.title}</div>
-            </div>
-            <IconChevronRight class="inline-block flex-none" />
-          </a>
-        )
-      }
+      {prevPost && (
+        <a
+          href={`/posts/${prevPost.slug}/`}
+          class="flex w-full gap-1 hover:opacity-75"
+        >
+          <IconChevronLeft class="inline-block flex-none" />
+          <div>
+            <span>上一篇</span>
+            <div class="text-sm text-accent/85">{prevPost.title}</div>
+          </div>
+        </a>
+      )}
+      {nextPost && (
+        <a
+          href={`/posts/${nextPost.slug}/`}
+          class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
+        >
+          <div>
+            <span>下一篇</span>
+            <div class="text-sm text-accent/85">{nextPost.title}</div>
+          </div>
+          <IconChevronRight class="inline-block flex-none" />
+        </a>
+      )}
     </div>
   </main>
   <Footer />

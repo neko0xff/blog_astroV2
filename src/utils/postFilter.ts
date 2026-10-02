@@ -2,9 +2,13 @@ import type { CollectionEntry } from "astro:content";
 import { SITE } from "../config.ts";
 import { parse_date_timestamp } from "./parseDateString.ts";
 
+function isDev(): boolean {
+  return Deno.env.get("NODE_ENV") !== "production";
+}
+
 export function post_filter({ data }: CollectionEntry<"blog">): boolean {
   // Always show all posts in development
-  if (import.meta.env.DEV) {
+  if (isDev()) {
     return !data.draft;
   }
 

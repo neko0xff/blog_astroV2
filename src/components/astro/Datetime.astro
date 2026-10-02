@@ -39,15 +39,13 @@ const time = datetime.format(" A hh:mm"); // e.g., 'PM 08:30 '
       { "scale-90": size === "sm" },
     ]}
   />
-  {
-    modDatetime && modDatetime > pubDatetime ? (
-      <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
-        更新於:
-      </span>
-    ) : (
-      <span class="sr-only">發布於:</span>
-    )
-  }
+  {modDatetime && modDatetime > pubDatetime ? (
+    <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
+      更新於:
+    </span>
+  ) : (
+    <span class="sr-only">發布於:</span>
+  )}
   <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
     <time datetime={datetime.toISOString()}>{date}</time>
     <span aria-hidden="true"> | </span>

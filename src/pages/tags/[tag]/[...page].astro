@@ -40,6 +40,14 @@ const { page, tagName } = Astro.props;
 <Layout
   title={`標籤: ${tagName}${page.currentPage > 1 ? ` (第 ${page.currentPage} 頁)` : ""} | ${SITE.title}`}
   description={`瀏覽標記為「${tagName}」的 Neko0xff 技術文章${page.currentPage > 1 ? `（第 ${page.currentPage} 頁）` : ""}。`}
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `標籤: ${tagName}${page.currentPage > 1 ? ` (第 ${page.currentPage} 頁)` : ""}`,
+    description: `瀏覽標記為「${tagName}」的 Neko0xff 技術文章${page.currentPage > 1 ? `（第 ${page.currentPage} 頁）` : ""}。`,
+  }}
+  prevUrl={page.url.prev}
+  nextUrl={page.url.next}
 >
   <Header />
   <Main
@@ -48,7 +56,9 @@ const { page, tagName } = Astro.props;
     pageDesc={`己標記 "${tagName}" 的所有文章`}
   >
     <ul>
-      {page.data.map(data => <Card {...data} />)}
+      {page.data.map(data => (
+        <Card {...data} />
+      ))}
     </ul>
   </Main>
 

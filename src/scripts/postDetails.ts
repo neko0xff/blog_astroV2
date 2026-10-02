@@ -64,7 +64,7 @@ function add_heading_links(): void {
 function attach_copy_buttons(): void {
   const copy_button_label = "Copy";
   const code_blocks = Array.from(document.querySelectorAll("pre")).filter(
-    block => !block.classList.contains("mermaid"),
+    block => !block.classList.contains("mermaid")
   );
 
   for (const code_block of code_blocks) {

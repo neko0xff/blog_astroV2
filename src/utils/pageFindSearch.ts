@@ -19,8 +19,8 @@ interface PagefindModule {
 }
 
 const PARAMS = new URLSearchParams(globalThis.location.search);
-const ON_IDLE = globalThis.requestIdleCallback ||
-  ((cb: () => void) => setTimeout(cb, 1));
+const ON_IDLE =
+  globalThis.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1));
 const PAGE_FINDFIND_ENTRY = "/pagefind/pagefind.js";
 const MAX_RESULTS = 10;
 
@@ -57,7 +57,7 @@ function update_url(term: string, back_url: string): void {
   history.replaceState(
     history.state,
     "",
-    query ? `?${query}` : globalThis.location.pathname,
+    query ? `?${query}` : globalThis.location.pathname
   );
   sessionStorage.setItem("backUrl", back_url + (query ? `?${query}` : ""));
 }
@@ -106,9 +106,10 @@ function append_search_markup(container: HTMLElement, value: string): void {
     if (node.nodeType !== Node.ELEMENT_NODE) return;
 
     const element = node as Element;
-    const next_target = element.tagName.toLowerCase() === "mark"
-      ? target.appendChild(document.createElement("mark"))
-      : target;
+    const next_target =
+      element.tagName.toLowerCase() === "mark"
+        ? target.appendChild(document.createElement("mark"))
+        : target;
     for (const child of element.childNodes) append_node(child, next_target);
   };
 
@@ -125,7 +126,7 @@ function append_search_markup(container: HTMLElement, value: string): void {
 async function run_search(
   results_box: HTMLElement,
   back_url: string,
-  term: string,
+  term: string
 ): Promise<void> {
   update_url(term, back_url);
 
@@ -146,7 +147,7 @@ async function run_search(
 
   const search = await api.search(term);
   const results = await Promise.all(
-    search.results.slice(0, MAX_RESULTS).map((result) => result.data()),
+    search.results.slice(0, MAX_RESULTS).map(result => result.data())
   );
 
   results_box.replaceChildren();
@@ -173,9 +174,8 @@ function init_search(): void {
   container.dataset.searchInit = "true";
 
   const input = container.querySelector<HTMLInputElement>(".pagefind-input");
-  const clear_button = container.querySelector<HTMLButtonElement>(
-    ".pagefind-clear",
-  );
+  const clear_button =
+    container.querySelector<HTMLButtonElement>(".pagefind-clear");
   const results_box = container.querySelector<HTMLElement>(".pagefind-results");
   const back_url = container.dataset.backurl ?? "";
   if (!input || !clear_button || !results_box) return;
@@ -193,7 +193,7 @@ function init_search(): void {
     globalThis.clearTimeout(debounce_timer);
     debounce_timer = globalThis.setTimeout(
       () => run_search(results_box, back_url, input.value),
-      200,
+      200
     );
   });
 
@@ -205,7 +205,7 @@ function init_search(): void {
   });
 
   // 阻止表單送出造成整頁跳轉，改為直接執行搜尋
-  container.querySelector("form")?.addEventListener("submit", (event) => {
+  container.querySelector("form")?.addEventListener("submit", event => {
     event.preventDefault();
     run_search(results_box, back_url, input.value);
   });

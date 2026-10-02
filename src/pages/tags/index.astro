@@ -17,11 +17,19 @@ let tags = getUniqueTags(posts);
 <Layout
   title={`標籤 | ${SITE.title}`}
   description="依標籤瀏覽 Neko0xff 技術文章分類。"
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "標籤",
+    description: "依標籤瀏覽 Neko0xff 技術文章分類。",
+  }}
 >
   <Header />
   <Main pageTitle="標籤" pageDesc="所有己用標籤進行標記的文章">
     <ul>
-      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} size="lg" />)}
+      {tags.map(({ tag, tagName }) => (
+        <Tag {tag} {tagName} size="lg" />
+      ))}
     </ul>
   </Main>
   <Footer />

@@ -7,7 +7,16 @@ import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
 ---
 
-<Layout title={`友站鏈結 | ${SITE.title}`}>
+<Layout
+  title={`友站鏈結 | ${SITE.title}`}
+  description="Neko0xff 推薦的友站與技術部落格鏈結。"
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "友站鏈結",
+    description: "Neko0xff 推薦的友站與技術部落格鏈結。",
+  }}
+>
   <Header />
   <Main pageTitle="友站鏈結" pageDesc="這邊存放一些認識好友的其它站">
     <Links />

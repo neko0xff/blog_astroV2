@@ -13,8 +13,8 @@ blog_astroV2
 ## Feedback & Suggestions
 
 - If you have any suggestions/feedback, you can contact me via
-  * [gmail：chzang55@gmail.com](mailto:chzang55@gmail.com)
-  * [Proton: neko0xff@protonmail.com](mailto:neko0xff@protonmail.com)
+  - [gmail：chzang55@gmail.com](mailto:chzang55@gmail.com)
+  - [Proton: neko0xff@protonmail.com](mailto:neko0xff@protonmail.com)
 - Alternatively, feel free to open an issue if you find bugs or want to request
   new features.
 
