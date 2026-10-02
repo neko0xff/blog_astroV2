@@ -4,6 +4,7 @@
 # Ignore node_modules directory
 node_modules/
 deno.lock
+package-lock.json
 
 # Ignore build output
 dist/
@@ -21,6 +22,8 @@ pnpm-debug.log*
 .omo/
 .astro/
 .zed/
+.codex/
+.agents/
 
 # macOS-specific files
 .DS_Store
