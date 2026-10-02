@@ -57,10 +57,15 @@ function add_heading_links(): void {
 
 /**
  * Attach copy buttons to code blocks.
+ *
+ * 注意：`pre.mermaid` 必須排除——按鈕文字 "Copy" 會混入 textContent，
+ * 導致 mermaid-lazy 取得的圖表語法解析失敗（且複製功能對 mermaid 也無效）。
  */
 function attach_copy_buttons(): void {
   const copy_button_label = "Copy";
-  const code_blocks = Array.from(document.querySelectorAll("pre"));
+  const code_blocks = Array.from(document.querySelectorAll("pre")).filter(
+    block => !block.classList.contains("mermaid"),
+  );
 
   for (const code_block of code_blocks) {
     const wrapper = document.createElement("div");

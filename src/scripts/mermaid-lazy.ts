@@ -89,18 +89,41 @@ let theme_rerender_timer: number | null = null;
 let current_observer: IntersectionObserver | null = null;
 
 /**
+ * 解析 Mermaid 產生的 SVG 字串為 SVG 根元素。
+ *
+ * mermaid v12 會將含 `<br/>` 的標籤渲染成 foreignObject 內的 HTML 標籤
+ * （未閉合的 `<br>`），此類輸出不是良構 XML，嚴格的 `image/svg+xml` 解析會失敗。
+ * 因此在 XML 解析失敗時退回 `text/html` 寬鬆解析，再取出 `<svg>` 元素。
+ *
+ * @param svg - Mermaid 產生的 SVG 字串
+ * @returns SVG 根元素；解析失敗回傳 null
+ */
+function parse_svg_root(svg: string): Element | null {
+  const xml_doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+  const xml_root = xml_doc.documentElement;
+  if (xml_root && xml_root.tagName.toLowerCase() === "svg") return xml_root;
+
+  const html_doc = new DOMParser().parseFromString(svg, "text/html");
+  return html_doc.body?.querySelector("svg") ?? null;
+}
+
+/**
  * 將 Mermaid 產生的 SVG 安全地加入圖表容器。
  * @param container - 圖表容器
  * @param svg - Mermaid 產生的 SVG 字串
  */
 function append_safe_svg(container: HTMLElement, svg: string): void {
-  const parsed = new DOMParser().parseFromString(svg, "image/svg+xml");
-  const root = parsed.documentElement;
-  if (root.tagName.toLowerCase() !== "svg") {
+  const root = parse_svg_root(svg);
+  if (!root || root.tagName.toLowerCase() !== "svg") {
     throw new Error("Mermaid output is not an SVG document");
   }
 
   const sanitize = (element: Element) => {
+    // 防禦性移除：Mermaid(strict) 不應產生 script，但一旦出現直接移除
+    if (element.tagName.toLowerCase() === "script") {
+      element.remove();
+      return;
+    }
     for (const attribute of [...element.attributes]) {
       const name = attribute.name.toLowerCase();
       const value = attribute.value.trim().toLowerCase();
@@ -112,7 +135,8 @@ function append_safe_svg(container: HTMLElement, svg: string): void {
         element.removeAttribute(attribute.name);
       }
     }
-    for (const child of element.children) sanitize(child);
+    // 以快照迭代：sanitize 內可能移除子節點（script）
+    for (const child of [...element.children]) sanitize(child);
   };
 
   sanitize(root);
@@ -224,8 +248,11 @@ async function render_inner(
   if (!force && diagram.hasAttribute("data-processed")) return;
 
   // 首次渲染時將原始語法快取至 data-diagram，確保後續重新渲染時內容不遺失
+  // 防禦性處理：即使其他腳本（如 copy 按鈕）已注入按鈕到 pre 內，也不污染語法
   if (!diagram.getAttribute("data-diagram")) {
-    diagram.setAttribute("data-diagram", diagram.textContent || "");
+    const clone = diagram.cloneNode(true) as HTMLElement;
+    clone.querySelectorAll("button").forEach((btn) => btn.remove());
+    diagram.setAttribute("data-diagram", clone.textContent || "");
   }
   const def = diagram.getAttribute("data-diagram") || "";
   if (!def.trim()) {
