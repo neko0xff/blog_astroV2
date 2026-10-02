@@ -86,7 +86,9 @@ export default defineConfig({
     sitemap({
       filter: page =>
         (SITE.showArchives || !page.endsWith("/archives")) &&
-        !page.endsWith("/search/"),
+        !page.endsWith("/search/") &&
+        !page.endsWith("/404/") &&
+        !page.endsWith("/500/"),
     }),
   ],
   markdown: {

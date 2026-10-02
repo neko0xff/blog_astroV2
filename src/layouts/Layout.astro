@@ -15,6 +15,8 @@ export interface Props {
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
   ogType?: "website" | "article";
+  robots?: string;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
@@ -28,10 +30,12 @@ const {
   modDatetime,
   scrollSmooth = false,
   ogType = "website",
+  robots,
+  jsonLd,
 } = Astro.props;
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
-const socialImageURL = new URL(ogImage, Astro.url);
+const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
 const ogLocale = SITE.lang?.replace("-", "_");
 const isArticle = ogType === "article";
 
@@ -77,6 +81,7 @@ const structuredData = isArticle
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
+    {robots && <meta name="robots" content={robots} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph / Facebook -->
@@ -87,6 +92,9 @@ const structuredData = isArticle
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
 
     <!-- Article Published/Modified time -->
     {
@@ -112,6 +120,7 @@ const structuredData = isArticle
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageURL} />
+    <meta name="twitter:image:alt" content={title} />
     {
       SITE.twitter && (
         <>
@@ -132,6 +141,17 @@ const structuredData = isArticle
       )
     }
 
+    <!-- Extra JSON-LD (e.g. WebSite on homepage) -->
+    {
+      jsonLd && (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(jsonLd)}
+        />
+      )
+    }
+
     <!-- Enable RSS feed auto-discovery  -->
     <!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery -->
     <link
@@ -141,7 +161,9 @@ const structuredData = isArticle
       href={new URL("rss.xml", Astro.site)}
     />
 
-    <meta name="theme-color" content="" />
+    {/* 靜態 fallback 給爬蟲用，toggle-theme.js 會在 runtime 用實際背景色覆寫 */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fdfdfd" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#212737" />
 
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,

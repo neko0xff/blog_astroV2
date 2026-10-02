@@ -39,6 +39,7 @@ const { page, tagName } = Astro.props;
 
 <Layout
   title={`標籤: ${tagName}${page.currentPage > 1 ? ` (第 ${page.currentPage} 頁)` : ""} | ${SITE.title}`}
+  description={`瀏覽標記為「${tagName}」的 Neko0xff 技術文章${page.currentPage > 1 ? `（第 ${page.currentPage} 頁）` : ""}。`}
 >
   <Header />
   <Main

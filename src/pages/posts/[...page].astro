@@ -25,6 +25,7 @@ const { page } = Astro.props;
 
 <Layout
   title={`文章${page.currentPage > 1 ? ` (第 ${page.currentPage} 頁)` : ""} | ${SITE.title}`}
+  description={`瀏覽 Neko0xff 已發佈的所有技術文章${page.currentPage > 1 ? `（第 ${page.currentPage} 頁）` : ""}。`}
 >
   <Header />
   <Main pageTitle="文章" pageDesc="己發佈的所有文章">

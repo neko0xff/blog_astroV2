@@ -14,7 +14,10 @@ const posts = await getCollection("blog", isBlogPost);
 let tags = getUniqueTags(posts);
 ---
 
-<Layout title={`標籤 | ${SITE.title}`}>
+<Layout
+  title={`標籤 | ${SITE.title}`}
+  description="依標籤瀏覽 Neko0xff 技術文章分類。"
+>
   <Header />
   <Main pageTitle="標籤" pageDesc="所有己用標籤進行標記的文章">
     <ul>

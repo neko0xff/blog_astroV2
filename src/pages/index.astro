@@ -43,7 +43,21 @@ const recentPosts = sortedPosts
 // });
 ---
 
-<Layout>
+<Layout
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE.title,
+    url: SITE.website,
+    description: SITE.desc,
+    inLanguage: "zh-TW",
+    author: {
+      "@type": "Person",
+      name: SITE.author,
+      url: SITE.profile,
+    },
+  }}
+>
   <Header />
   <main id="main-content" data-layout="index">
     <section id="hero" class="py-8 text-center">
@@ -123,23 +137,4 @@ const recentPosts = sortedPosts
     </div>
   </main>
   <Footer />
-
-  <!-- WebSite structured data（僅首頁，避免每頁重複輸出） -->
-  <script
-    type="application/ld+json"
-    is:inline
-    set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      name: SITE.title,
-      url: SITE.website,
-      description: SITE.desc,
-      inLanguage: "zh-TW",
-      author: {
-        "@type": "Person",
-        name: SITE.author,
-        url: SITE.profile,
-      },
-    })}
-  />
 </Layout>

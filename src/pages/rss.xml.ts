@@ -47,7 +47,7 @@ export async function GET() {
       link: `posts/${id}/`,
       title: data.title,
       description: data.description || extractDescription(body ?? ""),
-      pubDate: new Date(data.modDatetime ?? data.pubDatetime),
+      pubDate: new Date(data.pubDatetime),
     })),
   });
 }

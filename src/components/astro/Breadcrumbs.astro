@@ -119,6 +119,14 @@ for (let i = 0; i < rawSegments.length; i++) {
       breadcrumbList.map((breadcrumb, index) => {
         const isLast = index === breadcrumbList.length - 1;
         const decoded = decodeURIComponent(breadcrumb);
+        // 用原始 URL 段累積路徑，避免標籤化後的文字拼出錯誤內連
+        const href =
+          "/" +
+          rawSegments
+            .slice(0, index + 1)
+            .map(segment => encodeURIComponent(segment))
+            .join("/") +
+          "/";
         return isLast ? (
           <li>
             <span
@@ -130,7 +138,7 @@ for (let i = 0; i < rawSegments.length; i++) {
           </li>
         ) : (
           <li>
-            <a href={`/${breadcrumb}/`} class="capitalize opacity-70">
+            <a href={href} class="capitalize opacity-70">
               {decoded}
             </a>
             <span aria-hidden="true">&raquo;</span>
