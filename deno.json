@@ -18,8 +18,8 @@
     "fmt": "deno fmt",
     "format": "deno run -A npm:prettier --write .",
     "format:check": "deno run -A npm:prettier --check .",
-    "deploy:test": "deno deploy --app neko-0xff-blog",
-    "deploy:release": "deno deploy --app neko-0xff-blog --prod"
+    "deploy:test": "deno deploy --org nekolab --app dev-blog",
+    "deploy:release": "deno deploy --org nekolab --app dev-blog --prod"
   },
   "nodeModulesDir": "auto",
   "deploy": {

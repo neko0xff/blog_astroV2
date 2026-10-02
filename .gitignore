@@ -13,7 +13,6 @@ dist/pagefind
 
 # dependencies
 node_modules/
-deno.lock
 package-lock.json
 
 # logs

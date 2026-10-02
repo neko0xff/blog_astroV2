@@ -2,7 +2,7 @@
  * 測試： Deno Dev
  */
 async function Data1() {
-  const source = "https://neko-0xff-blog.deno.dev/assets/myLinks.json";
+  const source = "https://dev-blog.nekolab.deno.net/assets/myLinks.json";
   const jsonResponse = await fetch(source);
   const jsonData = await jsonResponse.json();
 
@@ -22,7 +22,7 @@ async function Data2() {
   return jsonData;
 }
 
-Deno.bench("[Data1] Deno.dev Json", { baseline: true }, async () => {
+Deno.bench("[Data1] Deno Deploy Json", { baseline: true }, async () => {
   await Data1();
 });
 
