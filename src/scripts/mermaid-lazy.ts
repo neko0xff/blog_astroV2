@@ -83,8 +83,9 @@ let render_chain: Promise<void> = Promise.resolve();
 const in_flight_renders = new Map<HTMLElement, Promise<void>>();
 /** 目前 `mermaid.initialize` 使用的主題；主題未變時跳過，避免干擾進行中的渲染 */
 let initialized_theme: MermaidTheme | null = null;
-/** 主題切換防抖計時器 */
-let theme_rerender_timer: number | null = null;
+/** 主題切換防抖計時器。用 ReturnType 推導，避免 DOM lib（number）與 Node 型別（Timeout）不一致 */
+let theme_rerender_timer: ReturnType<typeof globalThis.setTimeout> | null =
+  null;
 /** 作用中的 IntersectionObserver；重建前先斷開舊的，避免洩漏與重複觸發 */
 let current_observer: IntersectionObserver | null = null;
 

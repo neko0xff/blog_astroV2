@@ -1,0 +1,44 @@
+# 永久轉址規則
+# - Netlify 語法
+# - deno Deploy 的 staticd 與本專案的 dist/server.ts 共用
+#
+# 用途：getPath() 對文章 id 套用 slugifyStr 後，部分文章的網址改變了。
+# 這裡把舊網址以 HTTP 301 永久導向新網址，避免既有的外部連結與搜尋引擎
+# 排名失效。
+#
+# 每個來源都註冊「帶尾端斜線」與「不帶尾端斜線」兩種形式，因為 staticd 預設
+# trailing-slash=ignore 不會自動正規化路徑。
+#
+# 新增規則的取得方式：
+#   1. 先在未套用 slugify 的版本建置，記下 dist/posts/ 的目錄名（舊網址）
+#   2. 套用後重新建置，比對新舊清單
+#   3. 或直接對每個來源跑 slugifyStr() 取得新網址
+#
+# 語法說明：https://github.com/denoland/staticd#_redirects
+
+/posts/Ansible-Ad_hoc模式/ /posts/ansible-ad-hoc模式/ 301
+/posts/Ansible-Ad_hoc模式 /posts/ansible-ad-hoc模式 301
+/posts/Ansible-Inventory/ /posts/ansible-inventory/ 301
+/posts/Ansible-Inventory /posts/ansible-inventory 301
+/posts/Ansible-Playbooks/ /posts/ansible-playbooks/ 301
+/posts/Ansible-Playbooks /posts/ansible-playbooks 301
+/posts/Ansible-安裝&相關設置/ /posts/ansible-安裝-相關設置/ 301
+/posts/Ansible-安裝&相關設置 /posts/ansible-安裝-相關設置 301
+/posts/arm-at32ide/ /posts/arm-at-32-ide/ 301
+/posts/arm-at32ide /posts/arm-at-32-ide 301
+/posts/blog-updatetodeno2_x/ /posts/blog-updatetodeno-2-x/ 301
+/posts/blog-updatetodeno2_x /posts/blog-updatetodeno-2-x 301
+/posts/espif-d1miniandmicropython/ /posts/espif-d-1-miniandmicropython/ 301
+/posts/espif-d1miniandmicropython /posts/espif-d-1-miniandmicropython 301
+/posts/espif-esp32can/ /posts/espif-esp-32-can/ 301
+/posts/espif-esp32can /posts/espif-esp-32-can 301
+/posts/linux-base1in108/ /posts/linux-base-1-in-108/ 301
+/posts/linux-base1in108 /posts/linux-base-1-in-108 301
+/posts/linux-base1in109/ /posts/linux-base-1-in-109/ 301
+/posts/linux-base1in109 /posts/linux-base-1-in-109 301
+/posts/linux-base2in108/ /posts/linux-base-2-in-108/ 301
+/posts/linux-base2in108 /posts/linux-base-2-in-108 301
+/posts/windows-16bit/ /posts/windows-16-bit/ 301
+/posts/windows-16bit /posts/windows-16-bit 301
+/posts/windowsserver-base1in109/ /posts/windowsserver-base-1-in-109/ 301
+/posts/windowsserver-base1in109 /posts/windowsserver-base-1-in-109 301

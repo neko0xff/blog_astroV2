@@ -17,7 +17,9 @@ export const getStaticPaths = (async ({ paginate }) => {
     entry => !entry.data.draft && isBlogPost(entry)
   );
 
-  return paginate(getSortedPosts(posts), { pageSize: SITE.postPerPage });
+  return paginate(getSortedPosts(posts, import.meta.env.DEV), {
+    pageSize: SITE.postPerPage,
+  });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;

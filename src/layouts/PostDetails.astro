@@ -84,9 +84,12 @@ const layoutProps = {
 
 /* ========== Prev/Next Posts ========== */
 
-const allPosts = posts.map(({ data: { title }, id }) => ({
+// 網址一律交給 getPath 產生，避免這裡自行拼 `/posts/${id}/` 而漏掉 slugify
+// 或文章子目錄，導致上一篇／下一篇連結與實際路由不一致
+const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
   slug: id,
   title,
+  path: getPath(id, filePath),
 }));
 
 const currentPostIndex = allPosts.findIndex(a => a.slug === post.id);
@@ -152,7 +155,7 @@ const nextPost =
     <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {prevPost && (
         <a
-          href={`/posts/${prevPost.slug}/`}
+          href={`${prevPost.path}/`}
           class="flex w-full gap-1 hover:opacity-75"
         >
           <IconChevronLeft class="inline-block flex-none" />
@@ -164,7 +167,7 @@ const nextPost =
       )}
       {nextPost && (
         <a
-          href={`/posts/${nextPost.slug}/`}
+          href={`${nextPost.path}/`}
           class="flex w-full justify-end gap-1 text-right hover:opacity-75 sm:col-start-2"
         >
           <div>

@@ -31,9 +31,9 @@ const { page } = Astro.props;
   <Header />
   <Main pageTitle="文章歸檔" pageDesc="這邊是存放一堆文章集合。。。">
     <ul class="post-list">
-      {page.data.map(({ data, id }) => (
+      {page.data.map(({ data, id, filePath }) => (
         <li>
-          <Card id={id} collection="blog" data={data} href={`/posts/${id}/`} />
+          <Card id={id} collection="blog" data={data} filePath={filePath} />
         </li>
       ))}
     </ul>

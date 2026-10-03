@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [".astro/types.d.ts", "tests/**/*.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": ["@types/deno"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@std/assert": ["./node_modules/@jsr/std__assert/_dist/mod.d.ts"]
+    }
+  }
+}

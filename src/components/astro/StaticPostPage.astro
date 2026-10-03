@@ -12,7 +12,7 @@ const { entryId } = Astro.props;
 
 const post = await getEntry("blog", entryId);
 const posts = await getCollection("blog");
-const sortedPosts = getSortedPosts(posts);
+const sortedPosts = getSortedPosts(posts, import.meta.env.DEV);
 ---
 
 {post && <OtherDetails post={post} posts={sortedPosts} />}

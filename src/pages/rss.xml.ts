@@ -37,7 +37,7 @@ function extractDescription(body: string): string {
  */
 export async function GET() {
   const posts = await getCollection("blog", isBlogPost);
-  const sortedPosts = getSortedPosts(posts);
+  const sortedPosts = getSortedPosts(posts, import.meta.env.DEV);
 
   return rss({
     title: SITE.title,

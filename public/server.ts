@@ -1,3 +1,10 @@
+/**
+ * @file Web Service
+ * ## 功能 (who)
+ * 在正式環境下，給輸出靜態站點的前端提供 HTTP Web Service
+ *
+ */
+
 import { serveFile } from "@std/http/file-server";
 import { contentType } from "@std/media-types";
 import { extname, join, normalize, SEPARATOR } from "@std/path";
@@ -77,6 +84,54 @@ function with_security_headers(response: Response): Response {
     headers,
   });
 }
+
+// ── Redirects ───────────────────────────────────────────────────────────────
+
+const REDIRECTS_FILE = join(FS_ROOT, "_redirects");
+
+/**
+ * Reads permanent redirect rules from `_redirects` at startup.
+ *
+ * The file uses Netlify syntax (`<source> <destination> [status]`), the same
+ * format Deno Deploy's staticd reads, so both deployment targets stay in sync
+ * from a single source. Only 3xx rules are honoured here; staticd additionally
+ * supports rewrites (status 200/404), which this server has no use for.
+ * @returns A map of request path to redirect destination
+ */
+async function load_redirects(): Promise<Map<string, string>> {
+  const rules = new Map<string, string>();
+
+  let text: string;
+  try {
+    text = await Deno.readTextFile(REDIRECTS_FILE);
+  } catch {
+    // No rules file is a valid state; the site simply has no redirects
+    return rules;
+  }
+
+  for (const line of text.split("\n")) {
+    // Strip comments and surrounding whitespace before splitting on spaces
+    const rule = line.split("#")[0].trim();
+    if (!rule) continue;
+
+    const parts = rule.split(/\s+/);
+    if (parts.length < 2) continue;
+
+    const [source, destination, status] = parts;
+    // Only follow explicit redirects; a missing status defaults to 302 in
+    // staticd, so treat it the same way here
+    const code = Number(status ?? 302);
+    if (!Number.isInteger(code) || code < 300 || code > 399) continue;
+
+    rules.set(source, destination);
+  }
+
+  return rules;
+}
+
+// Loaded once at startup: the file is baked into the image at build time and
+// never changes while the process runs
+const REDIRECTS = await load_redirects();
 
 // ── Caching ─────────────────────────────────────────────────────────────────
 
@@ -192,6 +247,29 @@ const handler = async (request: Request): Promise<Response> => {
     pathname = decodeURIComponent(url.pathname);
   } catch {
     return with_security_headers(new Response("Bad Request", { status: 400 }));
+  }
+
+  // Honour _redirects before touching the filesystem so renamed articles keep
+  // their old URLs working. Runs first so a redirect wins even if a stale file
+  // still sits at the old path.
+  const destination = REDIRECTS.get(pathname);
+  if (destination) {
+    // Carry the query string across so `?utm_source=...` survives the redirect
+    const target = url.search
+      ? `${destination}?${url.search.slice(1)}`
+      : destination;
+
+    // The Location header must be ASCII (ByteString). Paths containing
+    // non-ASCII characters, e.g. `/posts/Ansible-安裝&相關設置/`, have to be
+    // percent-encoded or the Response constructor throws and the request 500s.
+    const location = encodeURI(target);
+
+    return with_security_headers(
+      new Response(null, {
+        status: 301,
+        headers: { Location: location, "Cache-Control": NO_CACHE },
+      })
+    );
   }
 
   const file_path = resolve_file(pathname);

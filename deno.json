@@ -7,6 +7,7 @@
     "serve": "deno run --allow-net --allow-read --allow-env dist/server.ts",
     "build": "deno run -A --unstable-ffi --unstable-kv npm:astro build",
     "check": "deno run -A --unstable-ffi --unstable-kv npm:astro check",
+    "check:tests": "deno run -A --unstable-ffi --unstable-kv npm:astro check --tsconfig tsconfig.tests.json",
     "sync": "deno run -A npm:astro sync",
     "pagefind": "deno run -A npm:pagefind --site dist --include-characters \"[]{}\\<>~\"",
     "outdated:check": "deno outdated --latest",
@@ -22,6 +23,22 @@
     "deploy:release": "deno deploy --org nekolab --app dev-blog --prod"
   },
   "nodeModulesDir": "auto",
+  "fmt": {
+    "exclude": [
+      "src/",
+      "public/",
+      "docs/",
+      "AGENTS.md",
+      "README.md",
+      "astro.config.ts",
+      "eslint.config.js",
+      ".prettierrc.mjs",
+      "tsconfig.json",
+      ".vscode/",
+      ".zed/",
+      ".github/"
+    ]
+  },
   "deploy": {
     "install": "deno task install",
     "build": "deno task build && deno task pagefind",

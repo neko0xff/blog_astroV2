@@ -99,7 +99,9 @@ deno task start
 | `deno task pagefind`       | 為 `./dist/` 建置 Pagefind 搜尋索引（需在 build 之後執行）                      |
 | `deno task serve`          | 以 `./dist/server.ts` 啟動正式伺服器（含安全性標頭、快取策略、預壓縮變體支援）  |
 | `deno task preview`        | 以 `astro preview` 預覽建置結果                                                 |
-| `deno task check`          | 以 `astro check` 檢查型別                                                       |
+| `deno task check`          | 以 `astro check` 檢查 Astro 側（`src/` 等）型別                                 |
+| `deno task check:tests`    | 以 `astro check --tsconfig tsconfig.tests.json` 檢查 `tests/` 型別              |
+| `deno task test`           | 執行單元測試並做 Deno 型別檢查                                                  |
 | `deno task sync`           | 為所有 Astro 模組產生 TypeScript 型別定義                                       |
 | `deno task lint`           | 以 Deno lint 檢查程式碼                                                         |
 | `deno task fmt` / `format` | 格式化程式碼（Deno fmt / Prettier）                                             |
@@ -113,4 +115,35 @@ deno task start
 
 - `deno task serve` 與容器內的伺服器皆為 `dist/server.ts`，
 - 執行前必須先 `deno task build` & `deno task pagefind`
-  - `public/` 下的檔案（含 `server.ts`、`_headers`）會由 Astro build 原封不動複製到 `./dist/`
+  - `public/` 下的檔案（含 `server.ts`、`_headers`、`_redirects`）會由 Astro build 原封不動複製到 `./dist/`
+
+## 網址異動與轉址
+
+`getPath()` 會對文章 id 套用 `slugifyStr()`。若日後改用不同的 slug 規則、
+或文章改名，網址可能跟著改變，舊的外部連結與搜尋引擎排名就會失效。
+
+轉址規則集中在 `public/_redirects`（Netlify 語法），同時被兩個部署環境使用：
+
+| 環境                       | 讀取方式                              |
+| -------------------------- | ------------------------------------- |
+| Deno Deploy（static mode） | staticd 自動解析 `_redirects`         |
+| Docker / `deno task serve` | `dist/server.ts` 啟動時載入同一份檔案 |
+
+規則格式為 `<來源> <目標> <狀態碼>`。每個來源都要註冊「帶尾端斜線」與
+「不帶尾端斜線」兩種形式，因為 staticd 預設不會自動正規化路徑。
+
+```
+/posts/Ansible-Playbooks/ /posts/ansible-playbooks/ 301
+/posts/Ansible-Playbooks  /posts/ansible-playbooks  301
+```
+
+改完後務必實際驗證轉址有生效：
+
+```zsh
+deno task build
+PORT=8099 deno run --allow-net --allow-read --allow-env dist/server.ts &
+
+curl -s -o /dev/null -w "%{http_code} -> %{redirect_url}\n" \
+  "http://localhost:8099/posts/Ansible-Playbooks/"
+# 預期：301 -> http://localhost:8099/posts/ansible-playbooks/
+```

@@ -1,8 +1,9 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { SITE } from "./config.ts";
+import { BLOG_PATH, SITE } from "./config.ts";
 
-export const BLOG_PATH = "src/data/blog";
+// 轉發 BLOG_PATH，維持 `from "../content.config.ts"` 的既有 import 相容性
+export { BLOG_PATH };
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: `./${BLOG_PATH}` }),

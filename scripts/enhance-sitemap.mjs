@@ -24,8 +24,12 @@ async function buildPostLastmodMap() {
       try {
         const content = await fs.promises.readFile(indexPath, "utf-8");
         // Extract article:published_time or article:modified_time from meta tags
-        const publishedMatch = content.match(/property="article:published_time" content="([^"]+)"/);
-        const modifiedMatch = content.match(/property="article:modified_time" content="([^"]+)"/);
+        const publishedMatch = content.match(
+          /property="article:published_time" content="([^"]+)"/,
+        );
+        const modifiedMatch = content.match(
+          /property="article:modified_time" content="([^"]+)"/,
+        );
         const lastmod = modifiedMatch?.[1] || publishedMatch?.[1];
         if (lastmod) {
           // Use decoded entry name as key
@@ -70,29 +74,32 @@ function extractPostSlug(loc) {
 // Enhance a single sitemap file
 async function enhanceSitemap(sitemapPath, postLastmodMap) {
   const content = await fs.promises.readFile(sitemapPath, "utf-8");
-  
+
   // Use a simpler approach - replace using regex with callback
   let modified = false;
-  const newContent = content.replace(/<url>([\s\S]*?)<\/url>/g, (fullMatch, urlBlock) => {
-    const locMatch = urlBlock.match(/<loc>([^<]+)<\/loc>/);
-    if (!locMatch) return fullMatch;
+  const newContent = content.replace(
+    /<url>([\s\S]*?)<\/url>/g,
+    (fullMatch, urlBlock) => {
+      const locMatch = urlBlock.match(/<loc>([^<]+)<\/loc>/);
+      if (!locMatch) return fullMatch;
 
-    const loc = locMatch[1];
-    const postSlug = extractPostSlug(loc);
+      const loc = locMatch[1];
+      const postSlug = extractPostSlug(loc);
 
-    if (postSlug && postLastmodMap.has(postSlug)) {
-      const lastmod = postLastmodMap.get(postSlug);
-      if (!urlBlock.includes("<lastmod>")) {
-        // Add lastmod after loc
-        modified = true;
-        return urlBlock.replace(
-          /<loc>[^<]+<\/loc>/,
-          `$&<lastmod>${lastmod}</lastmod>`
-        );
+      if (postSlug && postLastmodMap.has(postSlug)) {
+        const lastmod = postLastmodMap.get(postSlug);
+        if (!urlBlock.includes("<lastmod>")) {
+          // Add lastmod after loc
+          modified = true;
+          return urlBlock.replace(
+            /<loc>[^<]+<\/loc>/,
+            `$&<lastmod>${lastmod}</lastmod>`,
+          );
+        }
       }
-    }
-    return fullMatch;
-  });
+      return fullMatch;
+    },
+  );
 
   if (modified) {
     await fs.promises.writeFile(sitemapPath, newContent, "utf-8");
@@ -106,7 +113,10 @@ async function main() {
   const postLastmodMap = await buildPostLastmodMap();
   console.log(`Found ${postLastmodMap.size} posts with dates`);
 
-  const sitemapIndexContent = await fs.promises.readFile(sitemapIndexPath, "utf-8");
+  const sitemapIndexContent = await fs.promises.readFile(
+    sitemapIndexPath,
+    "utf-8",
+  );
   const sitemapFiles = getSitemapFiles(sitemapIndexContent);
 
   for (const file of sitemapFiles) {

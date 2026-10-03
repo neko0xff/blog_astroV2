@@ -22,7 +22,7 @@ const heroTitleHtml = await marked.parseInline(SITE.heroTitle);
 // Debug: Log the number of posts loaded
 //console.log(`Total posts loaded: ${posts.length}`);
 
-const sortedPosts = getSortedPosts(posts);
+const sortedPosts = getSortedPosts(posts, import.meta.env.DEV);
 
 // Debug: Log the sorted posts with their dates
 //console.log('Sorted posts:');

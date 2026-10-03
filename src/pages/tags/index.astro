@@ -11,7 +11,7 @@ import { SITE } from "@/config";
 
 const posts = await getCollection("blog", isBlogPost);
 
-let tags = getUniqueTags(posts);
+let tags = getUniqueTags(posts, import.meta.env.DEV);
 ---
 
 <Layout

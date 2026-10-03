@@ -38,8 +38,10 @@ async function compress_file(file_path: string): Promise<boolean> {
   try {
     const gz_stat = Deno.statSync(gz_path);
     const source_stat = Deno.statSync(file_path);
-    if (gz_stat.isFile && gz_stat.mtime &&
-      gz_stat.mtime >= source_stat.mtime) {
+    if (
+      gz_stat.isFile && gz_stat.mtime &&
+      gz_stat.mtime >= source_stat.mtime
+    ) {
       return false;
     }
   } catch {
@@ -70,7 +72,6 @@ for (const file of files) {
   }
 }
 
-// eslint-disable-next-line no-console
 console.log(
   `[precompress] ${compressed} compressed, ${skipped} skipped (${files.length} total)`,
 );

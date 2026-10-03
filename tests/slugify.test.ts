@@ -1,8 +1,26 @@
 /**
- * 測試：slug 轉換工具函式（slugifyStr 與 slugifyAll）的功能性與邊界條件
+ * @file Unit tests for slugify
+ *
+ * ## 功能 (who)
+ * slugify.ts 中的字串轉換工具
+ *
+ * ## 範圍（what)
+ * - `slugifyStr()`：單一字串轉換（小寫化、連字號）
+ * - `slugifyAll()`：字串陣列批次轉換
+ *
+ * ## 可能遇到的情況條件 (Where)
+ * - 中文字元（保留原樣）
+ * - 混合中英文（英文轉小寫、中文保留）
+ * - 特殊字元（轉為連字號或移除）
+ * - 多空格、前後空格、空字串
+ *
+ * ## 執行(how)
+ * ```bash
+ * deno test --allow-read --allow-env tests/slugify.test.ts
+ * ```
  */
 import { assertEquals } from "@std/assert";
-import { slugifyStr, slugifyAll } from "../src/utils/slugify.ts";
+import { slugifyAll, slugifyStr } from "../src/utils/slugify.ts";
 
 Deno.test("[slugifyStr] basic lowercase", () => {
   assertEquals(slugifyStr("Hello World"), "hello-world");

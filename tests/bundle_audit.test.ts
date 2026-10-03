@@ -1,4 +1,22 @@
-
+/**
+ * @file Unit tests for bundle audit
+ *
+ * ## 功能 (who)
+ * bundle_audit.test.ts 中的 Bundle 大小報告與基準測試
+ *
+ * ## 範圍（what)
+ * - `list_bundle_items()`：掃描 dist/_astro 下的 JS bundle，取得大小資訊
+ * - `print_top_items()`：格式化並打印前 N 大的 bundle
+ *
+ * ## 可能遇到的情況條件 (Where)
+ * - .gz 預壓縮檔案可能不存在（返回 null）
+ * - 非 .js 檔案會被跳過
+ *
+ * ## 執行(how)
+ * ```bash
+ * deno test --allow-read --allow-env --allow-net scripts/bundle_audit.test.ts
+ * ```
+ */
 
 /**
  * 代表單一 Bundle 檔案的資源體積數據。
@@ -51,16 +69,18 @@ function print_top_items(items: BundleItem[], limit = 10): void {
     items.slice(0, limit).map((item) => ({
       file: item.name,
       size_kb: (item.bytes / 1024).toFixed(2),
-      gzip_kb: item.gzipBytes === null ? "-" : (item.gzipBytes / 1024).toFixed(2),
+      gzip_kb: item.gzipBytes === null
+        ? "-"
+        : (item.gzipBytes / 1024).toFixed(2),
     })),
   );
 }
 
-Deno.test("bundle size report", () => {
+Deno.test("[Report] bundle size", () => {
   const items = list_bundle_items();
   print_top_items(items, 10);
 });
 
-Deno.bench("scan dist/_astro client chunks", () => {
+Deno.bench("[Scan] dist/_astro client chunks", () => {
   list_bundle_items();
 });

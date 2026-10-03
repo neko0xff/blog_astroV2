@@ -6,7 +6,7 @@
 ## 技術
 
 - Deno: 2.9.x
-- Astro.js: 7.1.x
+- Astro.js: 7.3.x
 - Pagefind（搜尋索引）: 1.5.x
 - 部署：
   - Deno Deploy（static mode，`./dist/`）
@@ -31,6 +31,8 @@ flowchart LR
     subgraph Deploy["部署目標"]
         S1 -->|Docker/K8s| C1[容器 :8085]
         D2 -->|Deno Deploy static| C2[Deno Deploy]
+        R[public/_redirects] -->|301 規則| C2
+        R -->|server.ts 啟動時載入| S1
     end
 ```
 
@@ -46,7 +48,19 @@ flowchart LR
   - 分層快取策略（`/_astro/` immutable、靜態資源 7 天、HTML no-cache）
   - 預壓縮變體支援（`.br` / `.gz`，依 `Accept-Encoding` 挑選）
   - 目錄穿越防護與 404 頁面處理
+  - 依 `public/_redirects` 回應 301 永久轉址（保留 query string）
 - 靜態部署（Deno Deploy）的快取規則由 `public/_headers` 定義，與 server.ts 對應
+
+### 轉址規則（_redirects）
+
+- 靜態網址變更（例如 `getPath()` 的 slug 規則調整）會讓舊連結失效
+- 規則集中在 `public/_redirects`，格式為 `<來源> <目標> <狀態碼>`
+- 單一資料來源，同時供應兩個部署環境：
+  - Deno Deploy 的 staticd 直接解析此檔
+  - `dist/server.ts` 於啟動時載入並建立查表
+- 因為 staticd 預設不自動正規化路徑，每個來源需註冊帶／不帶尾端斜線兩種形式
+- `Location` 標頭必須是 ASCII，含非 ASCII 字元的路徑需 `encodeURI()` 編碼，
+  否則 `Response` 建構時會拋錯並回應 500
 
 ## 主題
 

@@ -1,5 +1,23 @@
 /**
- * 測試： Mermaid 語法在前端進行渲染的情況
+ * @file Unit tests for mermaid-remark
+ *
+ * ## 功能 (who)
+ * mermaid-remark.ts 中的 HTML 跳脫函式
+ *
+ * ## 範圍（what)
+ * - `escape_html(text)`：將 HTML 特殊字元（& < > " '）轉譯為 HTML Entity
+ *
+ * ## 可能遇到的情況條件 (Where)
+ * - 基本特殊字元（& < > " '）
+ * - 多個特殊字元同時出現（XSS payload）
+ * - 無特殊字元的純文字
+ * - 空字串
+ * - Mermaid 圖表語法（graph TD, ==>, -->）
+ *
+ * ## 執行(how)
+ * ```bash
+ * deno test --allow-read --allow-env tests/mermaidRemark.test.ts
+ * ```
  */
 
 import { assertEquals } from "@std/assert";
@@ -24,7 +42,8 @@ Deno.test("[escape_html] basic characters", () => {
 Deno.test("[escape_html] multiple characters", () => {
   assertEquals(
     escape_html("<script>alert('xss')</script>"),
-    LT_ENTITY + "script" + GT_ENTITY + "alert(" + SQ_ENTITY + "xss" + SQ_ENTITY + ")" + LT_ENTITY + "/script" + GT_ENTITY
+    LT_ENTITY + "script" + GT_ENTITY + "alert(" + SQ_ENTITY + "xss" +
+      SQ_ENTITY + ")" + LT_ENTITY + "/script" + GT_ENTITY,
   );
 });
 
@@ -37,7 +56,8 @@ Deno.test("[escape_html] empty string", () => {
 });
 
 Deno.test("[escape_html] mermaid diagram syntax", () => {
-  const mermaidCode = "graph TD;\n    A[\u0022Input\u0022] ==>|data| B[\u0022Process\u0022];\n    B --> C[\u0022Output\u0022];";
+  const mermaidCode =
+    "graph TD;\n    A[\u0022Input\u0022] ==>|data| B[\u0022Process\u0022];\n    B --> C[\u0022Output\u0022];";
   const result = escape_html(mermaidCode);
   // Should escape the double quotes to "
   assertEquals(result.includes(DQUOTE_ENTITY), true);

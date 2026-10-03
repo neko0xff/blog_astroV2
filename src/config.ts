@@ -1,5 +1,15 @@
 const scheduled_time = 15 * 60 * 1000; // 15 minutes
 
+/**
+ * 部落格文章來源目錄（相對於專案根目錄）。
+ *
+ * 刻意放在這裡而不是 `src/content.config.ts`：後者 import 了
+ * `astro:content`，那是 Astro 在 Vite 建置期才提供的虛擬模組。
+ * Deno 原生載入模組時看不懂 `astro:` scheme，只要任何測試的
+ * 依賴鏈經過 content.config.ts，`deno test` 就會整個失敗。
+ */
+export const BLOG_PATH = "src/data/blog";
+
 export const LOGO_IMAGE = {
   enable: true,
   svg: true,

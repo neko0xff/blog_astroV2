@@ -12,12 +12,13 @@ Astro + Deno 部落格。回覆使用繁體中文（台灣用語），簡潔，�
 | 建置 | `deno task build` | 輸出 `dist/` |
 | 預覽 | `deno task preview` | 綁定 `0.0.0.0`，區網可存取 |
 | 正式環境 | `deno task serve` | 須先 `build`，執行 `dist/server.ts` |
-| Astro 型別檢查 | `deno task check` | |
+| Astro 型別檢查 | `deno task check` | 不含 `tests/` |
+| 測試型別檢查 | `deno task check:tests` | `tsconfig.tests.json` |
 | 內容同步 | `deno task sync` | 產生內容型別 |
 | 搜尋索引 | `deno task pagefind` | 須先 `build` |
 | Lint | `deno task lint` | 含 `--fix`，會直接修改檔案 |
-| 格式化 (Deno) | `deno task fmt` | |
-| 格式化 (Prettier) | `deno task format` | 會修改檔案 |
+| 格式化 (Deno) | `deno task fmt` | 管 `tests/`、`bench/`、`scripts/` |
+| 格式化 (Prettier) | `deno task format` | 管 `src/`、`public/`、`docs/`；會修改檔案 |
 | 格式檢查 | `deno task format:check` | 唯讀 |
 | 測試 | `deno task test` | 僅 `--allow-net` |
 | 效能基準 | `deno task bench` | 檔案位於 `bench/` |
@@ -38,8 +39,9 @@ Astro + Deno 部落格。回覆使用繁體中文（台灣用語），簡潔，�
 2. `deno task format:check`
 3. `deno task lint`
 4. `deno task check`
-5. `deno task test`
-6. `deno task build`
+5. `deno task check:tests`
+6. `deno task test`
+7. `deno task build`
 
 - 失敗須修正後重跑，不可略過。
 - `lint` 會自動修正，執行後以 `git diff` 確認變更範圍，避免改到無關檔案。
@@ -72,8 +74,11 @@ Astro + Deno 部落格。回覆使用繁體中文（台灣用語），簡潔，�
 
 ### 3.4 專案特殊規則
 
+- `astro:content`、`astro:transitions` 等是 Astro 在 Vite 建置期注入的虛擬模組，Deno 原生無法解析。`src/utils/` 下的模組**不得** import `content.config.ts`（常數改從 `src/config.ts` 取得），也**不得**使用 `import.meta.env`（改為可注入參數，由 `.astro` 呼叫端傳入）。詳見 `docs/testing.md` §8.2、§8.3。
+- 格式化工具各管各的目錄：Prettier 管 `src/`、`public/`、`docs/`；`deno fmt` 管 `tests/`、`bench/`、`scripts/`。兩者規則不同（Prettier 為 `arrowParens: "avoid"`），`deno.json` 的 `fmt.exclude` 已劃分權責，避免互相覆寫產生無關 diff。
+- 文章網址由 `getPath()` 產生，會對 id 套用 `slugifyStr()`。改動 slug 規則或文章改名會使舊網址失效，須在 `public/_redirects` 補 301 規則（staticd 與 `dist/server.ts` 共用此檔）。每個來源需註冊帶／不帶尾端斜線兩種形式。
 - `deno task install` 會執行 `scripts/patch-vite-nonascii.sh`（修補 Vite 非 ASCII 路徑問題）；重新安裝依賴須用此 task，不可改用 `deno install` 或 `npm install`。
-- 修改該腳本或升級 Vite 前，須確認修補是否仍需要，並標註 `[套件版本]`。
+- 該腳本目前只修補 Vite 7.x，遇到 8.x 會跳過；修改該腳本或升級 Vite 前，須確認修補是否仍需要，並標註 `[套件版本]`。
 - `pagefind` 的 `--include-characters` 已設定特殊字元，不可隨意移除。
 - 現有 task 多以 `-A` 執行；新增 task 時，權限盡量最小化。
 - `lint` 帶 `--fix`、`install` 帶外部腳本，行為超出名稱暗示，審查時特別留意。

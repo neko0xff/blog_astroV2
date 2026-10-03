@@ -1,5 +1,22 @@
 /**
- * 測試：時間點字串転換成數值
+ * @file Unit tests for parseDateString
+ *
+ * ## 功能 (who)
+ * parseDateString.ts 中的日期字串解析邏輯
+ *
+ * ## 範圍（what)
+ * - `parse_date_timestamp(date)`：將 Date 物件或日期字串轉換為毫秒級 timestamp
+ *
+ * ## 可能遇到的情況條件 (Where)
+ * - Date 物件（直接取 getTime()）
+ * - ISO 8601 字串（含時間與時區）
+ * - 純日期字串（YYYY-MM-DD，無時間部分）會自動補上 T12:00:00
+ * - 純日期字串與明確帶時間的字串應產生相同結果（時區無關）
+ *
+ * ## 執行(how)
+ * ```bash
+ * deno test --allow-read --allow-env tests/parseDateString.test.ts
+ * ```
  */
 
 import { assertEquals } from "@std/assert";

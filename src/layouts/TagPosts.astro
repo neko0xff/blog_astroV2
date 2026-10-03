@@ -41,7 +41,7 @@ const { page, tag, tagName } = Astro.props;
           id={entry.id}
           collection="blog"
           data={entry.data}
-          href={`/posts/${entry.id}/`}
+          filePath={entry.filePath}
         />
       ))}
     </ul>
