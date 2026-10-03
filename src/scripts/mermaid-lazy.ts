@@ -1,9 +1,9 @@
 /**
  * @file Mermaid 可視區延遲載入 (Viewport Lazy Loading) 腳本
  * @description
- * 採用 IntersectionObserver 監聽所有 `<pre class="mermaid">` 元素。
- * 當圖表接近 Viewport 時才觸發動態 import("mermaid")（約 662 KB）並執行渲染，
- * 避免阻塞首屏渲染與浪費頻寬。
+ * - 採用 IntersectionObserver 監聽所有 `<pre class="mermaid">` 元素。
+ * - 當圖表接近 Viewport 時才觸發動態 import("mermaid")（約 662 KB）並執行渲染，
+ * - 避免阻塞首屏渲染與浪費頻寬。
  *
  * @stability
  * - 序列化渲染：所有 `mermaid.render` 共用一條 Promise 鏈，同一時間只跑一個，
@@ -16,6 +16,8 @@
  * - Astro View Transitions: 於 `astro:after-swap` 時自動重置 Observer
  * - Fallback: 舊版瀏覽器自動降級為全數同步渲染
  */
+
+import { close_void_elements } from "../utils/closeVoidElements.ts";
 
 const log_error = (...args: unknown[]) =>
   console.error("[mermaid-lazy]", ...args);
@@ -50,8 +52,15 @@ const theme_map: Record<string, MermaidTheme> = {
   dark: "dark",
 };
 
-/** 是否在 Console 輸出偵錯日誌 */
-const ENABLE_LOG = true;
+/**
+ * 是否在 Console 輸出偵錯日誌
+ *
+ * 正式環境請保持 false：`[mermaid-lazy] no mermaid diagrams on this page`
+ * 在無圖表的頁面每次載入都會出現，而 `rendered <id>` 則是每張圖一條，
+ * 兩者都是除錯資訊，不是警告。真正的渲染失敗仍走 `log_error`
+ *（console.error），不受此開關影響。
+ */
+const ENABLE_LOG = false;
 /** 預設主題名稱 */
 const DEFAULT_THEME = "forest" as const;
 /** 是否依據 `<html data-theme>` 自動切換主題 */
@@ -89,18 +98,22 @@ let theme_rerender_timer: ReturnType<typeof globalThis.setTimeout> | null =
 /** 作用中的 IntersectionObserver；重建前先斷開舊的，避免洩漏與重複觸發 */
 let current_observer: IntersectionObserver | null = null;
 
+// `close_void_elements` 住在純函式模組（`src/utils/closeVoidElements.ts`），
+// 可被 `deno test` 直接驗證；此處僅引用，不再自備一份。
+
 /**
- * 解析 Mermaid 產生的 SVG 字串為 SVG 根元素。
+ * @function 解析 Mermaid 產生的 SVG 字串為 SVG 根元素。
  *
- * mermaid v12 會將含 `<br/>` 的標籤渲染成 foreignObject 內的 HTML 標籤
- * （未閉合的 `<br>`），此類輸出不是良構 XML，嚴格的 `image/svg+xml` 解析會失敗。
- * 因此在 XML 解析失敗時退回 `text/html` 寬鬆解析，再取出 `<svg>` 元素。
+ * @description
+ * - 先把 void 元素正規化成自封閉形式，再用嚴格的 `image/svg+xml` 解析
+ * - 若仍失敗（非 void 元素造成的不良構），才退回 `text/html` 寬鬆解析取出 `<svg>` 元素。
  *
  * @param svg - Mermaid 產生的 SVG 字串
  * @returns SVG 根元素；解析失敗回傳 null
  */
 function parse_svg_root(svg: string): Element | null {
-  const xml_doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+  const normalized = close_void_elements(svg);
+  const xml_doc = new DOMParser().parseFromString(normalized, "image/svg+xml");
   const xml_root = xml_doc.documentElement;
   if (xml_root && xml_root.tagName.toLowerCase() === "svg") return xml_root;
 
@@ -109,8 +122,9 @@ function parse_svg_root(svg: string): Element | null {
 }
 
 /**
- * 判斷 URL 屬性值是否為危險 scheme（javascript: / data: / vbscript:）。
+ * @function 判斷 URL 屬性值是否為危險 scheme（javascript: / data: / vbscript:）
  *
+ * @description
  * 以 WHATWG URL 解析取代字串前綴比對：瀏覽器導覽前會依規範正規化 URL
  * （剝除夾藏的 tab/LF/CR 與前後控制字元、scheme 強制小寫），
  * 因此 `java&#9;script:` 等控制字元夾藏寫法能繞過 `startsWith("javascript:")`
@@ -263,8 +277,8 @@ function show_render_error(diagram: HTMLElement, err: unknown): void {
  * 呼叫前已由 `render_diagram` 保證：同一時間只有一個 render_inner 執行，
  * 且同一元素不會重入。
  *
- * @param {HTMLElement} diagram - 包含 Mermaid 語法的 `<pre class="mermaid">` 元素
- * @param {boolean} [force=false] - 是否強制重新渲染（即使已有 data-processed）
+ * @param diagram - 包含 Mermaid 語法的 `<pre class="mermaid">` 元素
+ * @param [force=false] - 是否強制重新渲染（即使已有 data-processed）
  */
 async function render_inner(
   diagram: HTMLElement,
@@ -325,8 +339,8 @@ async function render_inner(
  * 渲染單一 Mermaid 圖表（Viewport Lazy Loading 的最小執行單元）。
  * 任務會排入全域序列化鏈；同一元素已有進行中任務時直接回傳該任務。
  *
- * @param {HTMLElement} diagram - 包含 Mermaid 語法的 `<pre class="mermaid">` 元素
- * @param {boolean} [force=false] - 是否強制重新渲染（即使已有 data-processed）
+ * @param diagram - 包含 Mermaid 語法的 `<pre class="mermaid">` 元素
+ * @param [force=false] - 是否強制重新渲染（即使已有 data-processed）
  * @returns 渲染完成的 Promise
  */
 function render_diagram(diagram: HTMLElement, force = false): Promise<void> {

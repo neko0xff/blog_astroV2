@@ -4,6 +4,7 @@ import PostDetails from "@/layouts/PostDetails.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { getPath } from "@/utils/getPath";
 import { isBlogPost } from "@/utils/isBlogPost";
+import { post_filter } from "@/utils/postFilter";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -11,7 +12,7 @@ export interface Props {
 
 /**
  * Generates static paths for all blog posts.
- * - Fetches all blog posts that are not drafts and are real blog posts
+ * - Fetches all blog posts that pass `post_filter` (排除草稿與尚未到發布時間的排程文章)
  * - Maps each post to a path based on its ID and file path
  * - Returns an array of paths with associated post data as props
  * @returns An array of objects containing params for routing and props with post data
@@ -19,7 +20,14 @@ export interface Props {
 export async function getStaticPaths() {
   const posts = await getCollection(
     "blog",
-    entry => !entry.data.draft && isBlogPost(entry)
+    // 為什麼一定要委派給 post_filter：它是全站唯一的發布閘門，列表頁
+    // (getSortedPosts / getUniqueTags) 都走它。若這裡自己刻一份 `!draft`，
+    // 會漏掉 pubDatetime 那一半，導致排程中的文章提前產生公開頁面，
+    // 進而洩漏到 sitemap 與 pagefind 索引。
+    //
+    // 為什麼用箭頭包起來：post_filter 的第二個參數是 is_dev，若直接把它
+    // 當成 Array.filter 的 callback，filter 會把「陣列索引」當成 is_dev 傳進來。
+    entry => isBlogPost(entry) && post_filter(entry, import.meta.env.DEV)
   );
   const postResult = posts.map(post => ({
     params: { slug: getPath(post.id, post.filePath, false) },

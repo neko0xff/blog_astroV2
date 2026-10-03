@@ -34,6 +34,7 @@ const AI_USER_AGENTS = [
 
 /**
  * Generates robots.txt disallow rules for the built-in AI user agent list.
+ *
  * @returns A string with one "User-agent ... Disallow: /" block per agent
  */
 function generate_builtin_rules(): string {
@@ -44,6 +45,8 @@ function generate_builtin_rules(): string {
 
 /**
  * Fetches robots.txt rules for dark visitors (AI scrapers, etc.) from external API.
+ *
+ * @description
  * Returns a string to be included in robots.txt.
  * - If the DARK_VISITORS_TOKEN is not set, returns an empty string.
  * - If the fetch fails, also returns an empty string (failsafe).

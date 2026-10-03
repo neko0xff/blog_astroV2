@@ -1,3 +1,11 @@
+/**
+ * @file giscus 留言版組件功能
+ *
+ * @description
+ * - 該模組主要負責呈現 Blog 的文章下，供使用者使用留言部分
+ * - 僅限己Login Github 使用者留言
+ */
+
 let giscus_ready = false;
 const container = document.getElementById("inject-comments");
 
@@ -20,38 +28,15 @@ const post_theme = (theme: string): void => {
 };
 
 /**
- * 安全地初始化 giscus，捕獲並靜默處理已知警告（如 clipboard-write Feature Policy）
+ * 初始化 giscus 留言框
+ *
+ * @description
+ * - 這裡刻意「不」再覆寫 console.warn / console.error。
+ * - 舊版為了消掉 clipboard-write 的 Feature Policy 警告而做的全域 console 補丁，等於把開發者唯一看不到警告的管道一起關掉了。
+ * - 現在 public/_headers 改成 `clipboard-write=(self)`，警告的來源（政策封鎖）已不存在，補丁也一併移除。
  */
-function init_giscus_safely(): void {
+function init_giscus(): void {
   if (!container) return;
-
-  // 捕獲並過濾 console.warn/error，抑制 giscus 的 clipboard-write 警告
-  const original_warn = console.warn.bind(console);
-  const original_error = console.error.bind(console);
-
-  const suppress_clipboard_warning = (
-    method: "warn" | "error",
-    ...args: unknown[]
-  ) => {
-    const msg = args.join(" ");
-    if (
-      msg.includes("clipboard-write") &&
-      msg.includes("Feature Policy") &&
-      msg.includes("Skipping unsupported feature name")
-    ) {
-      // 靜默忽略此特定警告
-      return;
-    }
-    // 其他警告/錯誤正常輸出
-    if (method === "warn") {
-      original_warn(...args);
-    } else {
-      original_error(...args);
-    }
-  };
-
-  console.warn = suppress_clipboard_warning.bind(null, "warn");
-  console.error = suppress_clipboard_warning.bind(null, "error");
 
   try {
     const script = document.createElement("script");
@@ -70,21 +55,8 @@ function init_giscus_safely(): void {
     script.setAttribute("data-lang", "zh-TW");
     script.setAttribute("data-loading", "lazy");
     script.setAttribute("data-theme", get_theme());
-
-    // 添加錯誤處理：腳本載入失敗時不中斷頁面
     script.addEventListener("error", err => {
       console.error("[giscus] Failed to load client.js:", err);
-      // 恢復原始 console
-      console.warn = original_warn;
-      console.error = original_error;
-    });
-
-    script.addEventListener("load", () => {
-      // 腳本載入成功後恢復原始 console（保留過濾器一段時間以捕獲初始化警告）
-      setTimeout(() => {
-        console.warn = original_warn;
-        console.error = original_error;
-      }, 2000);
     });
 
     container.appendChild(script);
@@ -112,11 +84,7 @@ function init_giscus_safely(): void {
     });
   } catch (err) {
     console.error("[giscus] Initialization error:", err);
-    // 確保恢復原始 console
-    console.warn = original_warn;
-    console.error = original_error;
   }
 }
 
-// 安全初始化 giscus
-init_giscus_safely();
+init_giscus();

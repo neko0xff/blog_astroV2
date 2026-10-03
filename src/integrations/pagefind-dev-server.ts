@@ -14,6 +14,7 @@
  */
 
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 const PAGEFIND_DIST = new URL("../../dist/pagefind/", import.meta.url);
 
 /** 可被 pagefind 索引抓取的檔案副檔名 → MIME type 對照表 */
@@ -42,6 +43,51 @@ function extension_for(filename: string): string {
  */
 function mime_type_for(filename: string): string {
   return MIME_TYPES[extension_for(filename)] ?? "application/octet-stream";
+}
+
+/**
+ * 把 `/pagefind/<name>` 的路徑片段解析成 `dist/pagefind/` 底下的實體檔案路徑。
+ *
+ * @description
+ * 為什麼需要這個函式：原本的守衛只檢查字串是否含 `..`，但後續還會呼叫
+ * `new URL(relative, PAGEFIND_DIST)`。當 `relative` 以 `/` 開頭時，WHATWG URL
+ * 解析會把它當成「絕對路徑參考」而**丟掉 base**，於是守衛檢查的字串和實際
+ * 拿去開檔的值不是同一個，`/pagefind//etc/passwd` 就能讀到 dist/pagefind/ 以外。
+ *
+ * 這裡做兩層防護，兩層都必須成立才回傳路徑：
+ * 1. 形狀檢查：必須是純相對路徑（不開頭 `/`、不含反斜線、不含 `..` 或 NUL）。
+ * 2. 包含性檢查：解析後的實體路徑必須仍在 `dist/pagefind/` 之下，確保
+ *    「檢查的字串」與「實際開檔的值」永遠一致。
+ *
+ * @param pathname - 已解碼的請求路徑，應以 `/pagefind/` 開頭
+ * @returns 安全的實體檔案路徑；任一條件不成立時回傳 `null`
+ */
+function resolve_pagefind_file(pathname: string): string | null {
+  const relative = pathname.slice("/pagefind/".length);
+
+  // 形狀檢查：以 / 開頭者會讓 new URL() 丟掉 base；反斜線是 Windows 分隔符，
+  // 在跨平台情境下同樣危險，兩者都必須擋掉。
+  if (
+    !relative ||
+    relative.startsWith("/") ||
+    relative.includes("\\") ||
+    relative.includes("..") ||
+    relative.includes("\0")
+  ) {
+    return null;
+  }
+
+  const file_url = new URL(relative, PAGEFIND_DIST);
+
+  // 包含性檢查：實際要用來讀檔的值必須仍在 dist/pagefind/ 之內。
+  // PAGEFIND_DIST 結尾自帶 "/"，所以直接 startsWith 即可，
+  // 且天然擋掉 /pagefind-evil/ 這種同前綴的兄弟目錄。
+  const dist_root = fileURLToPath(PAGEFIND_DIST);
+  if (!fileURLToPath(file_url).startsWith(dist_root)) {
+    return null;
+  }
+
+  return file_url.pathname;
 }
 
 /**
@@ -78,25 +124,35 @@ export function pagefind_dev_server(): {
           return;
         }
 
-        const pathname = decodeURIComponent(
-          new URL(url, "http://localhost").pathname
-        );
-        const relative = pathname.slice("/pagefind/".length);
-
-        // 防止目錄穿越（../）與空路徑
-        if (!relative || relative.includes("..") || relative.includes("\0")) {
+        // 惡意的 percent-escape（例如 /pagefind/%zz）會讓 decodeURIComponent 丟出
+        // URIError。production 的 public/server.ts 有 try/catch 擋成 400，
+        // dev 這邊也要一致，否則會變成 Vite 產生的 404/500，掩蓋真正的問題。
+        let pathname: string;
+        try {
+          pathname = decodeURIComponent(
+            new URL(url, "http://localhost").pathname
+          );
+        } catch {
           res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
           res.end("Bad Request");
           return;
         }
 
-        const file_url = new URL(relative, PAGEFIND_DIST);
+        const file_path = resolve_pagefind_file(pathname);
+
+        // 400：形狀不合法（有 ../ 或開頭的絕對路徑）
+        // 404：形狀合法但檔案不存在
+        if (file_path === null) {
+          res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+          res.end("Bad Request");
+          return;
+        }
 
         try {
-          const data = readFileSync(file_url);
+          const data = readFileSync(file_path);
 
           res.writeHead(200, {
-            "Content-Type": mime_type_for(relative),
+            "Content-Type": mime_type_for(pathname),
             "Cache-Control": "no-cache",
           });
           res.end(data);

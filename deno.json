@@ -13,7 +13,7 @@
     "outdated:check": "deno outdated --latest",
     "outdated:update": "deno outdated --update --latest",
     "bench": "deno bench -A --unstable-kv --unstable-ffi  bench/*",
-    "install": "deno install --allow-scripts && bash scripts/patch-vite-nonascii.sh",
+    "install": "deno install --allow-scripts=npm:esbuild --frozen-lockfile && bash scripts/patch-vite-nonascii.sh",
     "test": "deno test --allow-read --allow-env --allow-net",
     "lint": "deno lint --fix",
     "fmt": "deno fmt",

@@ -118,6 +118,22 @@ export default defineConfig({
     build: {
       // Mermaid is intentionally isolated and loaded only when a diagram is visible.
       chunkSizeWarningLimit: 700,
+      // 不要把 script chunk inline 進 HTML，但維持 CSS 的預設行為。
+      //
+      // 為什麼：public/_headers 的 CSP 是 `script-src 'self' https://giscus.app`，
+      // 沒有 'unsafe-inline' 也沒有任何 hash。Astro 預設會把 <4096B 的 script
+      // chunk 直接 inline 成 <script type="module">…</script>（見 Astro 的
+      // shouldInlineScriptChunk），那些 inline 腳本在 CSP 下全部被擋下，
+      // 導致選單開關、BackButton、sessionStorage 寫入、giscus 注入全部失效。
+      //
+      // 這裡回傳 false 只針對 .js；回傳 undefined 讓 Astro 沿用預設的 4096B
+      // 規則。刻意不用 `assetsInlineLimit: 0`：那會連 CSS 一起改成外部檔
+      // （實測外部 stylesheet 從 104 個增到 206 個），是不必要的行为改變。
+      //
+      // 也刻意不在 CSP 裡掛 sha256 hash：hash 會隨任何腳本內容變動而失效，
+      // 每次建置都得重算並同步 _headers 與 server.ts，維護成本高且容易漏。
+      assetsInlineLimit: (filePath: string) =>
+        filePath.endsWith(".js") ? false : undefined,
     },
     optimizeDeps: {
       exclude: ["@resvg/resvg-js"],

@@ -42,11 +42,13 @@ Astro + Deno 部落格。回覆使用繁體中文（台灣用語），簡潔，�
 5. `deno task check:tests`
 6. `deno task test`
 7. `deno task build`
+8. `deno task pagefind`
 
 - 失敗須修正後重跑，不可略過。
 - `lint` 會自動修正，執行後以 `git diff` 確認變更範圍，避免改到無關檔案。
 - `fmt` 與 `format` 並存，若兩者格式衝突，以 `format:check` 結果為準並回報。
 - 不在未驗證前宣稱完成。
+- 本清單與 Makefile 的 `deno_code_review` 目標保持一致；增刪步驟時兩處須同步。
 
 ## 3. 開發規範
 

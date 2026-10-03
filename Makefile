@@ -6,7 +6,7 @@ DENO   := deno
 	img_build img_up img_logs img_stop img_clean \
 	deno_install deno_build deno_pagefind deno_clean \
 	deno_debug deno_preview deno_serve deno_bench deno_format_check \
-	deno_deploy_test deno_deploy_release
+	deno_deploy_test deno_deploy_release \ deno_code_review
 
 help: ## Show all available targets
 	@echo "Available targets:"
@@ -76,3 +76,14 @@ deno_deploy_test: deno_build ## Deploy to Deno Deploy (test)
 deno_deploy_release: deno_build ## Deploy to Deno Deploy (production)
 	@echo "Start Deploy to Deno Deploy(Release)"
 	@$(DENO) task deploy:release
+
+deno_code_review: ## Code Review this Project
+	@echo "Code Review"
+	@$(DENO) task fmt
+	@$(DENO) task format:check
+	@$(DENO) task lint
+	@$(DENO) task check
+	@$(DENO) task check:tests
+	@$(DENO) task test
+	@$(DENO) task build
+	@$(DENO) task pagefind

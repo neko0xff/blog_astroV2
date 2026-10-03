@@ -29,6 +29,8 @@ function extractDescription(body: string): string {
 
 /**
  * RSS feed API 路由
+ *
+ * @description
  * - 成功時回傳 application/xml
  * - 失敗時回傳 500 與錯誤訊息
  * - 排除有獨立頁面的 entry（about / terms），避免與站內頁面重複內容

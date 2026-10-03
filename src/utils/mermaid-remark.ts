@@ -62,7 +62,7 @@ function walk_code(
  * - Transformer 會將 Markdown AST 中所有 Mermaid 程式碼區塊（Code Node）
  *   皆轉換為 `<pre class="mermaid">` HTML 節點，後續交由 Rehype 管線原樣輸出為 HTML DOM。
  *
- * @returns {import("unified").Transformer} Unified Transformer 處理函式
+ * @returns Unified Transformer 處理函式
  */
 export function mermaid_remark() {
   function transformer(tree: unknown) {
