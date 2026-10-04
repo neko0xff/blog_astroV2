@@ -14,7 +14,7 @@
  *
  * ## 執行(how)
  * ```bash
- * deno test --allow-read --allow-env --allow-net scripts/bundle_audit.test.ts
+ * deno test --allow-read --allow-env --allow-net tests/bundle_audit.test.ts
  * ```
  */
 
