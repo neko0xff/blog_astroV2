@@ -1,11 +1,13 @@
 /**
- * @file Web Service
- * ## 功能 (who)
- * 在正式環境下，給輸出靜態站點的前端提供 HTTP Web Service
+ * @file 正式環境靜態站點伺服器的入口
  *
- * 薄入口：只負責讀環境變數、組運行期上下文、啟動伺服器；
- * 實際邏輯在 `./server/` 各模組（設定、安全標頭、快取、檔案、
- * 轉址、預壓縮、日誌、請求處理）。
+ * @description 依 5W1H 說明：
+ * - What：讀環境變數、建立 `ServerContext`、啟動 `Deno.serve`。
+ * - Why：把所有「需要環境」的決策集中在入口，其他模組保持可注入、可測試。
+ * - Who：`deno task serve` / `deno_prod.json service` / Docker CMD 在呼叫。
+ * - When：容器、K8s Post、本機正式預覽都從這裡進入。
+ * - Where：`public/server.ts`，build 後複製成 `dist/server.ts`。
+ * - How：解析 PORT、`import.meta.dirname` 定位根目錄、載入 `_redirects`、建立 handler。
  */
 
 import { join } from "@std/path";
@@ -18,7 +20,7 @@ const FS_ROOT = import.meta.dirname ?? join(Deno.cwd(), "dist");
 const NOT_FOUND_PAGE = join(FS_ROOT, "404.html");
 
 /**
- * Service Start a Console Log
+ * 印出啟動時的監聽資訊。
  * @param port - 監聽的埠號
  * @param fs_root - 服務的網站根目錄
  */

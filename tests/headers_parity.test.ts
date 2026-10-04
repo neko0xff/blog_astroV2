@@ -17,7 +17,7 @@ const HEADERS_PATH = new URL("../public/_headers", import.meta.url);
 const SERVER_PATH = new URL("../public/server/config.ts", import.meta.url);
 
 /**
- * 從 `_headers` 取出指定標頭的值。
+ * 從 `_headers` 取出指定標頭的值
  * @param headers_text - `_headers` 檔案全文
  * @param name - 標頭名稱
  * @returns 去掉前後空白的標頭值
@@ -31,7 +31,7 @@ function read_header_value(headers_text: string, name: string): string {
 }
 
 /**
- * 從 `server.ts` 取出字串陣列常數的內容（例如 CONTENT_SECURITY_POLICY）。
+ * 從 `server.ts` 取出字串陣列常數的內容（例如 CONTENT_SECURITY_POLICY）
  * @param server_text - `server.ts` 檔案全文
  * @param const_name - 常數名稱
  * @returns 陣列中的字串列表
@@ -45,7 +45,7 @@ function read_string_array(server_text: string, const_name: string): string[] {
 }
 
 /**
- * 從 `server/config.ts` 的 SECURITY_HEADERS 取出字串字面量標頭值。
+ * 從 `server/config.ts` 的 SECURITY_HEADERS 取出字串字面量標頭值
  * @param server_text - `server.ts` 檔案全文
  * @param name - 標頭名稱
  * @returns 標頭值字串
