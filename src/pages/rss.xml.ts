@@ -1,6 +1,7 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import getSortedPosts from "@/utils/getSortedPosts.ts";
+import { getPath } from "../utils/getPath.ts";
 import { isBlogPost } from "../utils/isBlogPost.ts";
 import { SITE } from "../config.ts";
 
@@ -45,8 +46,10 @@ export async function GET() {
     title: SITE.title,
     description: SITE.desc,
     site: SITE.website,
-    items: sortedPosts.map(({ data, id, body }) => ({
-      link: `posts/${id}/`,
+    // 連結必須經 getPath() 產生（會套用 slugifyStr），與正式路由一致；
+    // 直接用原生 id（如 windows-16bit）會與實際網址脫鉤。
+    items: sortedPosts.map(({ data, id, body, filePath }) => ({
+      link: `${getPath(id, filePath)}/`,
       title: data.title,
       description: data.description || extractDescription(body ?? ""),
       pubDate: new Date(data.pubDatetime),
