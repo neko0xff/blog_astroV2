@@ -19,8 +19,9 @@ import { file_exists } from "./fs.ts";
  *
  * @description
  * - What：把原始標頭解析成「客戶端可接受的 coding 名稱集合」。
- * - Why：舊版用子字串比對會誤判，例如 `gzip;q=0` 明確拒絕仍被接受、
- *   `xbr` / `gzippy` 因含 `br`/`gzip` 字元被誤收為接受；必須嚴格照 RFC 9110 §12.5.3。
+ * - Why：
+ *   * 舊版用子字串比對會誤判，例如 `gzip;q=0` 明確拒絕仍被接受、`xbr` / `gzippy` 因含 `br`/`gzip` 字元被誤收為接受
+ *   * 必須嚴格照 RFC 9110 §12.5.3
  * - Who：`pick_variant` 與未來需要協商內容編碼的地方呼叫。
  * - When：每次有請求要決定是否回傳預壓縮檔。
  * - Where：本函式的純字串解析邏輯。
@@ -31,8 +32,9 @@ import { file_exists } from "./fs.ts";
  */
 export function acceptable_codings(header: string): Set<string> {
   const explicit = new Map<string, number>();
-  // RFC 9110 §12.5.3：未明列的 coding、且沒有 `*` 萬用字元時，
-  // 預設就是不可接受；若萬用字元預設改為 1，`xbr`、`deflate` 會被誤判。
+  // RFC 9110 §12.5.3：
+  // 1. 未明列的 coding、且沒有 `*` 萬用字元時，預設就是不可接受
+  // 2. 若萬用字元預設改為 1，`xbr`、`deflate` 會被誤判。
   let wildcard = 0;
 
   for (const part of header.split(",")) {
@@ -44,8 +46,8 @@ export function acceptable_codings(header: string): Set<string> {
     let q = 1;
     for (const param of params) {
       const [key, value] = param.split("=").map(s => s.trim());
-      // q > 0 才算明確接受；0（明確拒絕）與 1（預設）無法區分，
-      // 但參數未明給時視為 1，依 RFC 是可接受的。
+      // q > 0 才算明確接受
+      // 0（明確拒絕）與 1（預設）無法區分，但參數未明給時視為 1，依 RFC 是可接受的。
       if (key?.toLowerCase() === "q") {
         const parsed = Number.parseFloat(value ?? "");
         // q 值解析失敗時視為拒絕（fail-closed）：寧可少給壓縮，也不要給錯的。
@@ -61,7 +63,8 @@ export function acceptable_codings(header: string): Set<string> {
   for (const [name, q] of explicit) {
     if (q > 0) accepted.add(name);
   }
-  // 萬用字元只補上「沒有被明列」的 coding；明列者（含 q=0）以明列為準。
+  // 萬用字元只補上「沒有被明列」的 coding
+  // 明列者（含 q=0）以明列為準。
   if (wildcard > 0) {
     for (const { encoding } of COMPRESSED_VARIANTS) {
       if (!explicit.has(encoding)) accepted.add(encoding);

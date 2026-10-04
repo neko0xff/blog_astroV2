@@ -7,7 +7,9 @@
  * - Who：外層 `create_handler` 呼叫；錯誤路徑也會寫一行。
  * - When：每次請求結束（含 400/301/404/500），healthz 除外。
  * - Where：`public/server/logging.ts`。
- * - How：text 用人讀單行格式；json 用 `JSON.stringify` 結構化欄位輸出。
+ * - How：
+ *   1. text 用人讀單行格式
+ *   2. json 用 `JSON.stringify` 結構化欄位輸出
  */
 
 import type { LogFormat } from "./config.ts";
@@ -25,9 +27,11 @@ export type AccessEntry = {
 };
 
 /**
- * 把 Date 格式化為本地時間 `YYYY-MM-DD HH:mm:ss`。
+ * 把 Date 格式化為本地時間 `YYYY-MM-DD HH:mm:ss`
  *
- * @description 5W1H：給人讀的時間戳，與 log 行開頭 `[時間]` 對齊。
+ * @description
+ * - 給使用者讀的時間戳
+ * - 與 log 行開頭 `[時間]` 對齊
  * @param date - 要格式化的日期
  * @returns 格式化後的時間字串
  */
@@ -45,7 +49,9 @@ export function format_timestamp(date: Date): string {
 /**
  * 從 Deno serve handler info 取出客戶端 IP。
  *
- * @description 5W1H：取不到時回傳 `"-"`，讓 log 欄位永遠有佔位符；unix/vsock 回傳 transport 名稱。
+ * @description
+ * - 取不到時回傳 `"-"`，讓 log 欄位永遠有佔位符
+ * - unix/vsock 回傳 transport 名稱
  * @param info - Deno.serve 傳入的連線資訊
  * @returns 客戶端 IP 字串
  */
@@ -68,7 +74,9 @@ export function sanitize_log_value(value: string): string {
 /**
  * 組出單行 access log。
  *
- * @description 5W1H：開頭固定 `[時間] [METHOD] path status`，後面接耗時、bytes、ip、ua、ref。
+ * @description
+ * 1. 開頭固定 `[時間] [METHOD] path status`
+ * 2. 後面接耗時、bytes、ip、ua、ref。
  * @param timestamp - 呼叫端產生的時間字串
  * @param entry - 請求與回應的結構化欄位
  * @returns 單行 log 字串
@@ -85,9 +93,16 @@ export function format_access_log(
 }
 
 /**
- * 依格式輸出 access log。
+ * 依格式輸出 access log
  *
- * @description 5W1H：text 給人讀、JSON 給收集器；格式由 `ctx.log_format`決定。
+ * @description
+ * ## 目標對像(Who)
+ * 1. text ：給使用者讀
+ * 2. JSON ：日誌收集器
+ *
+ * ## 格式(How)
+ * - 由 `ctx.log_format`決定
+
  * @param timestamp - 呼叫端產生的時間字串
  * @param entry - 請求與回應的結構化欄位
  * @param format - 輸出格式
@@ -97,7 +112,6 @@ export function log_access(
   entry: AccessEntry,
   format: LogFormat
 ): void {
-  // eslint-disable-next-line no-console
   if (format === "json") {
     console.log(JSON.stringify({ timestamp, ...entry }));
   } else {

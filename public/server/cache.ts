@@ -7,7 +7,9 @@
  * - Who（誰用）：`public/server/handler.ts` 在組回應標頭時呼叫。
  * - When（何時）：每個非轉址、且成功解析到檔案的請求，回應前呼叫一次。
  * - Where（在何處）：模組 `public/server/cache.ts` 的 `cache_control_for`。
- * - How（怎麼做）：用路徑分流規則分類；與 `public/_headers` 對齊，修改時兩處同步。
+ * - How（怎麼做）：
+ *   * 用路徑分流規則分類
+ *   * 與 `public/_headers` 對齊，修改時兩處同步
  */
 
 import {
@@ -18,7 +20,7 @@ import {
 } from "./config.ts";
 
 /**
- * 依請求路徑決定 `Cache-Control`。
+ * 依請求路徑決定 `Cache-Control`
  *
  * @description
  * - What：回傳對該 pathname 套用的 Cache-Control 值。
@@ -26,7 +28,9 @@ import {
  * - Who：handler 產生回應標頭時呼叫。
  * - When：靜態檔案已找到、即將回傳前。
  * - Where：函式內依 `pathname` 與副檔名規則分流。
- * - How：用 `switch (true)` 依序比對 `/_astro/`、`/assets/`、`/pagefind/` 與資產副檔名；其他回 no-cache。
+ * - How：
+ *   * 用 `switch (true)` 依序比對 `/_astro/`、`/assets/`、`/pagefind/` 與資產副檔名
+ *   * 其他回 no-cache
  *
  * @param pathname - 請求的 URL pathname
  * @returns Cache-Control 指令字串
