@@ -22,6 +22,7 @@ Deno.test("測試名稱", () => {
 ```
 tests/
 ├── bundle_audit.test.ts    # Bundle 大小稽核
+├── closeVoidElements.test.ts # SVG void 元素正規化測試
 ├── enhanceSitemap.test.ts  # sitemap lastmod 測試
 ├── getPath.test.ts         # 文章路徑測試
 ├── mermaidRemark.test.ts   # Mermaid HTML 跳脫測試
@@ -129,6 +130,7 @@ Deno.test("[post_filter] excludes future posts in production", () => {
 | `getPostsByGroupCondition.ts` | getPostsByGroupCondition      | 依年份、依月份、空陣列                                                                                 |
 | `postFilter.ts`               | post_filter                   | draft、`is_dev` 兩種模式、未來文章                                                                     |
 | `mermaid-remark.ts`           | escape_html                   | `<>` `&` `"` `'` 字元                                                                                  |
+| `closeVoidElements.ts`        | close_void_elements           | 未閉合 `<br>`、已自封閉保留、屬性值含 `>`、大小寫、冪等                                                |
 | `enhance-sitemap.mjs`         | extractPostSlug、lastmod 注入 | 非 post URL、重複 lastmod、URL 編碼                                                                    |
 
 ---
