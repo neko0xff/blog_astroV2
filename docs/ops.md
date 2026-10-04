@@ -22,6 +22,8 @@
 - 查看記錄檔：
   - docker: `docker compose logs --tail=100 -f`
   - K8s: `kubectl logs -n blog-astro -l app=blog-astro --tail=100 -f`
+  - Deno Deploy（static 模式）：**不會**執行 `server.ts`，因此我們的 access log / `/healthz` 不適用於 Deploy；
+    請到 console.deno.com 的 app → Observability 查看平台內建 request log。
 
 ## 回滾
 

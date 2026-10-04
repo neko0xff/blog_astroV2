@@ -33,6 +33,7 @@ flowchart LR
         D2 -->|Deno Deploy static| C2[Deno Deploy]
         R[public/_redirects] -->|301 規則| C2
         R -->|redirects.ts 啟動時載入| S1
+        C2 -.->|平台 Observability log| L[console.deno.com]
     end
 ```
 
