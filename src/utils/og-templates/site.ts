@@ -1,7 +1,8 @@
 import satori from "satori";
 import { SITE } from "../../config.ts";
 import loadGoogleFonts from "../loadGoogleFont.ts";
-import type React from "react";
+
+type SatoriElement = Parameters<typeof satori>[0];
 
 export default async () => {
   return satori(
@@ -118,7 +119,7 @@ export default async () => {
           },
         ],
       },
-    } as React.ReactElement,
+    } as SatoriElement,
     {
       width: 1200,
       height: 630,

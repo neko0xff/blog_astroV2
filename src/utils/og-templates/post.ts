@@ -2,8 +2,9 @@ import satori from "satori";
 // import { html } from "satori-html";
 import { SITE } from "../../config.ts";
 import loadGoogleFonts from "../loadGoogleFont.ts";
-import type React from "react";
 import type { CollectionEntry } from "astro:content";
+
+type SatoriElement = Parameters<typeof satori>[0];
 
 // const markup = html`<div
 //       style={{
@@ -218,7 +219,7 @@ export default async (post: CollectionEntry<"blog">) => {
           },
         ],
       },
-    } as React.ReactElement,
+    } as SatoriElement,
     {
       width: 1200,
       height: 630,
