@@ -76,9 +76,22 @@ function print_top_items(items: BundleItem[], limit = 10): void {
   );
 }
 
-Deno.test("[Report] bundle size", () => {
-  const items = list_bundle_items();
-  print_top_items(items, 10);
+Deno.test({
+  name: "[Report] bundle size",
+  ignore: (() => {
+    // dist/ 不存在（CI 在 build 前跑 test、或 clean 後）時略過，
+    // 否則 Deno.readDirSync 會 NotFound 而非有效的測試失敗。
+    try {
+      Deno.statSync("dist/_astro");
+      return false;
+    } catch {
+      return true;
+    }
+  })(),
+  fn: () => {
+    const items = list_bundle_items();
+    print_top_items(items, 10);
+  },
 });
 
 Deno.bench("[Scan] dist/_astro client chunks", () => {
