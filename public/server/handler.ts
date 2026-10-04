@@ -1,5 +1,16 @@
 /**
- * @file 請求處理：靜態檔案服務（內層）＋ access log 包裝（外層）。
+ * @file 請求處理模組
+ *
+ * @description
+ * - What：靜態檔案服務（內層 serve_inner）＋ access log 包裝（外層 create_handler）。
+ * - Why：把「業務邏輯」與「日誌/健康檢查」分層，便於測試與維運。
+ * - Who：`public/server.ts` 啟動時以 `create_handler(ctx)` 建立 handler。
+ * - When：每次 HTTP 請求進來。
+ * - Where：`public/server/handler.ts`。
+ * - How：
+ *   1. 先處理轉址與健康檢查
+ *   2. 再找檔、協商壓縮、補安全/快取欄位
+ *   3. 最後用 ctx 統一 logging。
  */
 
 import { serveFile } from "@std/http/file-server";
@@ -20,8 +31,15 @@ import type { AccessEntry } from "./logging.ts";
 import { with_security_headers } from "./security.ts";
 
 /**
- * serve_inner 與外層 handler 共用的運行期上下文。
- * 由入口 `public/server.ts` 在啟動時組好，模組本身不碰環境變數。
+ * `serve_inner` 與外層 handler 共用的運行期上下文。
+ *
+ * @description 5W1H：
+ * - What：裝著 redirects、404 頁、根目錄、log 格式的設定包。
+ * - Why：讓內層與外層共用同一份設定，避免每個函式都各自讀環境變數。
+ * - Who：`public/server.ts` 建立一份後傳給 `serve_inner` 與 `create_handler`。
+ * - When：進程啟動一次組好，之後唯讀。
+ * - Where：物件欄位對應 fs_root、not_found_page、redirects、log_format。
+ * - How：純資料結構，無副作用。
  */
 export type ServerContext = {
   /** `_redirects` 載入的轉址表 */
@@ -35,7 +53,21 @@ export type ServerContext = {
 };
 
 /**
- * 實際的靜態檔案服務邏輯：轉址 → 找檔 → 預壓縮變體 → 安全/快取標頭。
+ * 實際的靜態檔案服務邏輯。
+ *
+ * @description 依 5W1H：
+ * - What：把請求對應到實體檔案並回應，或回轉址/404/405/500。
+ * - Why：這是站點的主流程，必須可預期、可除錯。
+ * - Who：外層 `create_handler` 呼叫。
+ * - When：非 healthz、要正式處理請求時。
+ * - Where：`public/server/handler.ts`。
+ * - How：
+ *   1. `_redirects` 優先
+ *   2.  `resolve_file` 防穿越
+ *   3. 找不到走 404 頁
+ *   4. 預壓縮變體
+ *   5. 補安全/快取標頭
+ *
  * @param request - 傳入的 HTTP 請求
  * @param ctx - 運行期上下文
  * @returns 帶安全標頭的 HTTP 回應
@@ -102,10 +134,8 @@ export const serve_inner = async (
     const response = await serveFile(request, variant?.path ?? file_path);
     const headers = new Headers(response.headers);
 
-    // `serveFile` 會在檔案不存在或 method 不被允許時提早回傳（405 / 404），
-    // 那時回傳的 body 是純文字、並沒有套用 variant。若仍照樣設定
-    // Content-Encoding，客戶端會拿到一個標示為 br 卻無法解碼的 body，
-    // 而且資產路徑還會被 Cache-Control: public 快取七天。
+    // `serveFile` 會在檔案不存在或 method 不被允許時提早回傳（405 / 404），那時回傳的 body 是純文字、並沒有套用 variant。
+    // 若仍照樣設定 Content-Encoding，客戶端會拿到一個標示為 br 卻無法解碼的 body，而且資產路徑還會被 Cache-Control: public 快取七天。
     // 所以只在「確定有壓縮檔被實際回傳」時才設定 Content-Encoding。
     if (variant && response.status === 200) {
       headers.set("Content-Encoding", variant.encoding);
@@ -145,9 +175,16 @@ export const serve_inner = async (
 };
 
 /**
- * 包住 serve_inner 的外層 handler：量測耗時並輸出詳細 access log。
- * 錯誤路徑（400/301/404/500）一樣會留下 access log；
- * 健康檢查（/healthz）提早回應且不記 log，避免探測洗版。
+ * 包住 serve_inner 的外層 handler。
+ *
+ * @description 依 5W1H：
+ * - What：量測耗時、輸出 access log、統一錯誤回應。
+ * - Why：讓每個請求都留下可追蹤記錄，失敗也有標準 500。
+ * - Who：`Deno.serve` 直接使用的 handler。
+ * - When：每次 HTTP 請求；healthz 提早回應且不記 log。
+ * - Where：`public/server/handler.ts` 的 `create_handler`。
+ * - How：先攔 /healthz，再包 serve_inner；catch 後回 500，最後統一寫 access log。
+ *
  * @param ctx - 運行期上下文
  * @returns 可直接傳給 `Deno.serve` 的 handler
  */
