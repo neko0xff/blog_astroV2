@@ -1,3 +1,5 @@
+import { tokenize_search_markup } from "./searchMarkup.ts";
+
 interface PagefindResultData {
   url: string;
   excerpt: string;
@@ -97,23 +99,18 @@ function create_result_item(result: PagefindResultData): HTMLElement {
  * @param value - Pagefind 回傳的 HTML 片段
  */
 function append_search_markup(container: HTMLElement, value: string): void {
-  const parsed = new DOMParser().parseFromString(value, "text/html");
-  const append_node = (node: Node, target: HTMLElement | DocumentFragment) => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      target.appendChild(document.createTextNode(node.textContent ?? ""));
-      return;
+  // 只用 createTextNode / createElement("mark") 組 DOM，不用 innerHTML，
+  // tokenizer 已把非 mark 標籤剝除，字串形式的 <script> 只會變成文字。
+  for (const token of tokenize_search_markup(value)) {
+    const node = document.createTextNode(token.text);
+    if (token.mark) {
+      const mark = document.createElement("mark");
+      mark.appendChild(node);
+      container.appendChild(mark);
+    } else {
+      container.appendChild(node);
     }
-    if (node.nodeType !== Node.ELEMENT_NODE) return;
-
-    const element = node as Element;
-    const next_target =
-      element.tagName.toLowerCase() === "mark"
-        ? target.appendChild(document.createElement("mark"))
-        : target;
-    for (const child of element.childNodes) append_node(child, next_target);
-  };
-
-  for (const child of parsed.body.childNodes) append_node(child, container);
+  }
 }
 
 /**
@@ -219,7 +216,6 @@ document.addEventListener("astro:after-swap", () => {
   }
 });
 
-/* 主程式進入點 */
 init_search();
 
 export {};
