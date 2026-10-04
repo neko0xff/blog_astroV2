@@ -79,6 +79,9 @@
 - **標頭一致性守門**：
   - HSTS 標頭統一設為 `max-age=31536000; includeSubDomains`
   - 已完成 `_headers` 與 `server/config.ts` 的組態對齊，並透過 `tests/headers_parity.test.ts` 測試確保後續變更不走樣
+- **轉址規則守門**：
+  - `public/_redirects` 的成對不變式（每條來源皆有帶／不帶尾端斜線兩種形式）
+    由 `tests/redirects.test.ts` 自動檢查，新增規則後跑 `deno task test` 即可驗證
 - **移除未生效的 preload**：
   - 於 2026-10-04 確認 hstspreload.org 狀態，`dev-blog.nekolab.deno.net` 當前為 `unknown`（未提交）。
   - 秉持實事求是原則，已暫時移除 `preload` 指令。
