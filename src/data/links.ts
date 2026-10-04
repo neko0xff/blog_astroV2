@@ -30,6 +30,7 @@ export const LINKS: Link[] = [
     siteURL: "https://cynosura.one/",
     icon: "https://cynosura.one/img/avatar.webp",
   },
+  // 下筆站名沿用對方原文（簡體），刻意不轉繁體。
   {
     name: "高科技大脑指挥部",
     site: "高科技的指挥中心",

@@ -128,7 +128,7 @@ export default defineConfig({
       //
       // 這裡回傳 false 只針對 .js；回傳 undefined 讓 Astro 沿用預設的 4096B
       // 規則。刻意不用 `assetsInlineLimit: 0`：那會連 CSS 一起改成外部檔
-      // （實測外部 stylesheet 從 104 個增到 206 個），是不必要的行为改變。
+      // （實測外部 stylesheet 從 104 個增到 206 個），是不必要的行為改變。
       //
       // 也刻意不在 CSP 裡掛 sha256 hash：hash 會隨任何腳本內容變動而失效，
       // 每次建置都得重算並同步 _headers 與 server.ts，維護成本高且容易漏。

@@ -32,8 +32,8 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           # Pinned: Deno 2.7.x has a napi regression that breaks Vite 8 / rolldown builds
-          # (see denoland/deno#33137). Keep in sync with local env and Dockerfile.env (2.9.4).
-          deno-version: 2.9.4
+          # (see denoland/deno#33137). Keep in sync with local env and Dockerfile.env (2.9.7).
+          deno-version: 2.9.7
 
       - name: Cache Deno dependencies
         uses: actions/cache@v6
@@ -47,6 +47,42 @@ jobs:
 
       - name: Install step
         run: "deno task install"
+
+      - name: Verify formatting and lint
+        run: |
+          set -e
+          # CI 用唯讀變體：task 版 fmt/lint 會直接改檔，在 CI 會掩蓋問題
+          deno fmt --check
+          deno task format:check
+          deno lint
+
+      - name: Typecheck and test
+        run: |
+          set -e
+          deno task check
+          deno task check:tests
+          deno task test
+          # tsconfig.server.json 的涵蓋範圍（public/server.ts）沒有對應 task，這裡直接檢查
+          deno check public/server.ts
+
+      - name: Validate Kubernetes manifests
+        # 離線 YAML 語法檢查；deploy-local.sh 不在此列（它是 shell，非 manifest）。
+        # 不用 kubectl dry-run：它仍需連線做 API discovery，無叢集的 CI 跑不動。
+        run: |
+          python3 -c "import yaml" 2>/dev/null || pip install --quiet pyyaml
+          python3 - <<'EOF'
+          import glob
+
+          import yaml
+
+          files = sorted(glob.glob("k8s/*.yaml"))
+          assert files, "no manifests found"
+          for path in files:
+              with open(path) as f:
+                  docs = list(yaml.safe_load_all(f))
+              assert docs and all(isinstance(d, dict) for d in docs), path
+              print(f"ok: {path}")
+          EOF
 
       - name: Build and generate search index
         run: |

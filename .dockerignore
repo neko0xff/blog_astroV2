@@ -32,3 +32,6 @@ AGRNTS.md
 # environment variables
 .env
 .env.production
+
+# git history: 不進 builder layer，減小 context 並避免洩漏提交紀錄
+.git/

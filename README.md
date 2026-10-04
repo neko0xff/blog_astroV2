@@ -8,7 +8,9 @@ blog_astroV2
 - [專案結構總覽](./docs/dev_guide.md)
 - [本部落格的架構](./docs/blog_arch.md)
 - [如何運行該專案](./docs/running.md)
+- [維運手冊](./docs/ops.md)
 - [測試指南](./docs/testing.md)
+- [基準測試維護](./docs/bench.md)
 - [可選選項](./docs/optional.md)
 
 ## Feedback & Suggestions

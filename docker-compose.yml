@@ -8,3 +8,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.env
+    # 跟 k8s/deployment.yaml 對齊的加固：唯讀根檔案系統 + 最小權限
+    read_only: true
+    tmpfs:
+      - /tmp
+    init: true # 正確轉發 SIGTERM，支援優雅停機
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    cpus: 1.0
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8085/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
