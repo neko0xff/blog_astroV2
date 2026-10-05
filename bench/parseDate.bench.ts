@@ -17,7 +17,6 @@
  * deno task bench
  * deno bench --unstable-kv --unstable-ffi bench/parseDate.bench.ts
  * ```
- *
  */
 
 import { parse_date_timestamp } from "../src/utils/parseDateString.ts";

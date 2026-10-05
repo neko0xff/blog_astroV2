@@ -17,7 +17,6 @@
  * deno task bench
  * deno bench --unstable-kv --unstable-ffi bench/getPath.bench.ts
  * ```
- *
  */
 
 import { getPath } from "../src/utils/getPath.ts";

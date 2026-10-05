@@ -22,7 +22,6 @@
  * deno task bench
  * deno bench --unstable-kv --unstable-ffi bench/slugify.bench.ts
  * ```
- *
  */
 
 import { slugifyAll, slugifyStr } from "../src/utils/slugify.ts";
