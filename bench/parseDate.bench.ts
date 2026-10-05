@@ -2,8 +2,9 @@
  * @file Benchmark parse_date_timestamp
  *
  * ## 功能 (Who)
- * 測試日期解析轉時間戳的效能（排序／過濾熱路徑：
- * `getSortedPosts` 的 comparator 每次比較呼叫 2 次）
+ * - 測試日期解析轉時間戳的效能
+ * - 排序／過濾熱路徑：`getSortedPosts` 的 comparator 每次比較呼叫 2 次
+ * - 純資料轉換，不需要任何權限旗標
  *
  * ## 範圍（What)
  * - `Date` 物件 vs ISO 字串（含 `T`）vs 日期字串（不含 `T`，需補 `T12:00:00`）
@@ -17,7 +18,6 @@
  * deno bench --unstable-kv --unstable-ffi bench/parseDate.bench.ts
  * ```
  *
- * 純資料轉換，不需要任何權限旗標。
  */
 
 import { parse_date_timestamp } from "../src/utils/parseDateString.ts";

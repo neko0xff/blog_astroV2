@@ -2,7 +2,7 @@
  * @file Benchmark redirectsParse
  *
  * ## 功能 (Who)
- * 比較 _redirects 規則行解析：現行 split 寫法 vs 正則寫法
+ * 比較 _redirects 規則行解析：現行 split 寫法 vs 正則化寫法
  *
  * ## 範圍（What)
  * - 舊版（src 現行）：去註解後 split(/\\s+/) 取三欄

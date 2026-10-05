@@ -24,7 +24,8 @@ import { z } from "zod";
 import { create_blog_schema } from "../src/blogSchema.ts";
 import { SITE } from "../src/config.ts";
 
-// 測試用 image helper：Astro 真實傳入的是圖片 schema，這裡用字串代替，
+// 測試用 image helper：
+// Astro 真實傳入的是圖片 schema，這裡用字串代替，
 // 只測「字串或圖片二選一」的分支形狀（.or 不存在會在建 schema 時就報錯）。
 const schema = create_blog_schema(() => z.string());
 

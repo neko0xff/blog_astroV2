@@ -2,11 +2,14 @@
  * @file Benchmark ogImage
  *
  * ## 功能 (Who)
- * 比較 OG 圖管線各段成本：satori 短／長標題、站點模板、Resvg PNG
+ * - 比較 OG 圖管線各段成本：
+ * 1. satori 短／長標題
+ * 2. 站點模板
+ * 3. Resvg 転換成 PNG
  *
  * ## 範圍（What)
- * - satori 文章短英文標題（baseline）vs 長中文標題 vs 站點模板
- * - Resvg SVG→PNG（沿用一篇短標題 SVG，不重複渲染）
+ * - satori： 文章短英文標題（baseline）vs 長中文標題 vs 站點模板
+ * - Resvg： SVG 転換成 PNG（沿用一篇短標題 SVG，不重複渲染）
  *
  * ## 可能遇到的情況條件 (Where)
  * - 字型在 bench 外一次下載（網路只影響準備階段，不計入迭代）

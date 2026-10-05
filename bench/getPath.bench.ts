@@ -2,10 +2,12 @@
  * @file Benchmark getPath
  *
  * ## 功能 (Who)
- * 測試文章路由路徑產生的效能（每篇文章的路由、OG 圖、RSS 都呼叫一次）
+ * - 測試文章路由路徑產生的效能
+ * - 純字串運算（`getPath` 已與 `astro:content` 解耦，可被 Deno 直接 import），不需要任何權限旗標。
  *
  * ## 範圍（What)
  * - 根目錄文章 vs 多層子目錄（含 slugify）vs `_` 開頭目錄（需過濾）
+ * - 每篇文章的路由、OG 圖、RSS 都呼叫一次
  *
  * ## 可能遇到的情況條件 (Where)
  * - `filePath` 為 undefined（退回只用 id）、id 含 `/` 只取最後一段
@@ -16,8 +18,6 @@
  * deno bench --unstable-kv --unstable-ffi bench/getPath.bench.ts
  * ```
  *
- * 純字串運算（`getPath` 已與 `astro:content` 解耦，可被 Deno 直接 import），
- * 不需要任何權限旗標。
  */
 
 import { getPath } from "../src/utils/getPath.ts";

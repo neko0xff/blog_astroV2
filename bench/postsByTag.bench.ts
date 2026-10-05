@@ -11,7 +11,9 @@
  * - 新版：一次建 `Map<slug, posts>`，查詢只做 `get`
  *
  * ## 可能遇到的情況條件 (Where)
- * - 200 篇文章、每篇 5 tags、查不存在的 tag（空結果路徑）
+ * - 200 篇文章
+ * - 每篇 5 tags
+ * - 查不存在的 tag（空白結果路徑）
  * - 傳 is_dev=true 固定過濾結果，避免 Date.now 抖動
  * - fixture 與索引在 bench 外一次建好
  *

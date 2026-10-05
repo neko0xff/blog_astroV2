@@ -1,7 +1,7 @@
 /**
  * @file Vite Plugin - Pagefind Dev Server Middleware
  * @description
- * 在開發模式（`vite dev`）下為 Pagefind 提供靜態檔案服務。
+ * 在開發模式（`vite dev`）下為 Pagefind 提供靜態檔案服務
  *
  * @context
  * 1. Astro Dev Server 預設僅服務 `public/` 資料夾。
@@ -37,7 +37,11 @@ function extension_for(filename: string): string {
 }
 
 /**
- * 回傳檔案副檔名對應的 MIME type，找不到時回傳 application/octet-stream。
+ * 回傳檔案副檔名對應的 MIME type
+ *
+ * @description
+ * 找不到時回傳 application/octet-stream
+ *
  * @param filename - 檔案名稱
  * @returns MIME type 字串
  */
@@ -49,15 +53,15 @@ function mime_type_for(filename: string): string {
  * 把 `/pagefind/<name>` 的路徑片段解析成 `dist/pagefind/` 底下的實體檔案路徑。
  *
  * @description
- * 為什麼需要這個函式：原本的守衛只檢查字串是否含 `..`，但後續還會呼叫
- * `new URL(relative, PAGEFIND_DIST)`。當 `relative` 以 `/` 開頭時，WHATWG URL
- * 解析會把它當成「絕對路徑參考」而**丟掉 base**，於是守衛檢查的字串和實際
- * 拿去開檔的值不是同一個，`/pagefind//etc/passwd` 就能讀到 dist/pagefind/ 以外。
+ * ## 為什麼需要這個函式 （Who)
+ * 1. 原本的守衛只檢查字串是否含 `..`，但後續還會呼叫 `new URL(relative, PAGEFIND_DIST)`。
+ * 2. 當 `relative` 以 `/` 開頭時，WHATWG URL 解析會把它當成「絕對路徑參考」而**丟掉 base**，於是守衛檢查的字串和實際拿去開檔的值不是同一個
+ * 3. `/pagefind//etc/passwd` 就能讀到 dist/pagefind/ 以外
  *
- * 這裡做兩層防護，兩層都必須成立才回傳路徑：
+ * ## 必做防護(How)
+ * - 兩層都必須成立才回傳路徑：
  * 1. 形狀檢查：必須是純相對路徑（不開頭 `/`、不含反斜線、不含 `..` 或 NUL）。
- * 2. 包含性檢查：解析後的實體路徑必須仍在 `dist/pagefind/` 之下，確保
- *    「檢查的字串」與「實際開檔的值」永遠一致。
+ * 2. 包含性檢查：解析後的實體路徑必須仍在 `dist/pagefind/` 之下，確保「檢查的字串」與「實際開檔的值」永遠一致。
  *
  * @param pathname - 已解碼的請求路徑，應以 `/pagefind/` 開頭
  * @returns 安全的實體檔案路徑；任一條件不成立時回傳 `null`

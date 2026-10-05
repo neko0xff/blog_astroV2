@@ -2,7 +2,8 @@
  * @file Benchmark uniqueTags
  *
  * ## 功能 (Who)
- * 比較 getUniqueTags 去重策略：現行 findIndex O(n²) vs Map O(n)
+ * - 比較 getUniqueTags 去重策略
+ * - 比對現行所使用的演算法: findIndex O(n²) vs Map O(n)
  *
  * ## 範圍（What)
  * - 舊版：`src/utils/getUniqueTags.ts`（filter + findIndex 去重）
