@@ -35,7 +35,16 @@ const FAKE_BYTES = new Uint8Array([1, 2, 3, 4]);
 function stub_fetch(css: string = FAKE_CSS): () => void {
   const original = globalThis.fetch;
   globalThis.fetch = ((input: unknown) => {
-    if (String(input).includes("fonts.googleapis.com")) {
+    const raw = String(input);
+    let isGoogleFontsCss = false;
+    try {
+      const url = new URL(raw);
+      isGoogleFontsCss = url.hostname === "fonts.googleapis.com";
+    } catch {
+      isGoogleFontsCss = false;
+    }
+
+    if (isGoogleFontsCss) {
       return Promise.resolve(new Response(css));
     }
     return Promise.resolve(new Response(FAKE_BYTES));
