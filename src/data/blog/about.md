@@ -17,9 +17,10 @@ layout: "../../layouts/AboutLayout.astro"
   <img
           src="https://avatars.githubusercontent.com/u/54382007"
           class="sm:w-1/2 mx-auto avatar_img rounded-full w-[10em] mb-5 overflow-hidden"
-          height="auto"
-          width="100%""
+          height="160"
+          width="160"
          alt="Author"
+         loading="lazy"
     />
 </div>
 
@@ -161,5 +162,5 @@ graph TD;
 3. 管理員收到後，會自己加入提出者的友站鏈結
 
 <div>
-  <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration">
+  <img src="/assets/dev.svg" class="sm:w-1/2 mx-auto" alt="coding dev illustration" width="866" height="683" loading="lazy">
 </div>

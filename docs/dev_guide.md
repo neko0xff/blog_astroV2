@@ -61,24 +61,47 @@ src/
 ├── pages/            # 路由頁面
 │   ├── index.astro       # 首頁
 │   ├── posts/            # 文章路由
+│   │   ├── [...page].astro       # 文章列表分頁
+│   │   └── [...slug]/            # 單篇文章
+│   │       ├── index.astro       # 文章頁（含 getPath 路由）
+│   │       └── index.png.ts      # 單篇 OG 圖（Resvg PNG）
 │   ├── tags/             # 標籤路由
 │   ├── archives/         # 歸檔
 │   ├── search.astro      # 搜尋
+│   ├── links.astro       # 友站連結
+│   ├── about.astro       # 關於（獨立頁，不進文章列表）
+│   ├── terms.astro       # 條款（獨立頁，不進文章列表）
+│   ├── rss.xml.ts        # RSS（連結經 getPath 產生）
+│   ├── og.png.ts         # 站點 OG 圖（失敗時回退 public 預設圖）
+│   ├── robots.txt.ts     # 爬蟲規則
 │   ├── 404.astro
 │   └── 500.astro
 ├── styles/           # CSS
 ├── scripts/          # 前端 JS
+│   ├── giscus.ts         # Giscus 留言載入
+│   ├── postDetails.ts    # 文章頁互動（含複製鈕）
 │   └── mermaid-lazy.ts   # Mermaid 圖表懶加載
 ├── utils/            # 工具函式
 │   ├── getPath.ts        # 文章路徑（含 slugify 與轉址規則）
+│   ├── getSortedPosts.ts   # 依發布時間降序排列（含過濾）
 │   ├── getUniqueTags.ts  # 唯一標籤
+│   ├── getPostsByTag.ts  # 依標籤篩選文章
+│   ├── getPostsByGroupCondition.ts # 依自訂條件分組文章
+│   ├── isBlogPost.ts     # 排除 about/terms 等獨立頁
 │   ├── slugify.ts        # 標題 → URL slug
 │   ├── postFilter.ts     # 文章過濾（草稿/排程，is_dev 由呼叫端注入）
 │   ├── parseDateString.ts# 日期解析
-│   └── mermaid-remark.ts # Mermaid Remark 外掛
+│   ├── pageFindSearch.ts # 搜尋頁瀏覽器腳本（組 DOM，純邏輯在 searchMarkup.ts）
+│   ├── searchMarkup.ts   # 搜尋片段 tokenizer（零依賴，可被測試引用）
+│   ├── closeVoidElements.ts # SVG void 元素正規化
+│   ├── mermaid-remark.ts # Mermaid Remark 外掛
+│   ├── generateOgImages.ts # OG 圖產生（satori + Resvg）
+│   ├── loadGoogleFont.ts # Google Fonts 下載
+│   └── og-templates/     # OG 圖版型（post、site）
 ├── config.ts         # 網站基本設定（SITE、BLOG_PATH）
 ├── constants.ts      # 常數
-├── content.config.ts # 內容集合 schema（import astro:content，勿從 utils 引入）
+├── content.config.ts # 內容集合定義（import astro:content，勿從 utils 引入；schema 本體在 blogSchema.ts）
+├── blogSchema.ts     # frontmatter zod schema（零依賴，可被測試引用）
 └── assets/           # 圖示、圖片
 ```
 
@@ -102,29 +125,31 @@ src/
 
 ## scripts/ 詳細
 
-| 腳本                     | 用途                                     |
-| ------------------------ | ---------------------------------------- |
-| `precompress.ts`         | 產生 dist/ 下文字類檔案的 .gz 預壓縮變體 |
-| `patch-vite-nonascii.sh` | 修補 Vite 非 ASCII 路徑問題（僅 7.x）    |
-| `enhance-sitemap.mjs`    | Post-build 注入 sitemap `<lastmod>`      |
+| 腳本                     | 用途                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| `precompress.ts`         | 產生 dist/ 下文字類檔案的 .gz 預壓縮變體                                       |
+| `patch-vite-nonascii.sh` | 修補 Vite 非 ASCII 路徑問題（僅 7.x）                                          |
+| `enhance-sitemap.mjs`    | Post-build 注入 sitemap `<lastmod>`（已接回 `deno task build`，見 running.md） |
 
 ## bench/ 詳細
 
-| 檔案                         | 用途                                                             |
-| ---------------------------- | ---------------------------------------------------------------- |
-| `linkLoading.bench.ts`       | 友站連結 JSON 解析效能（`JSON.parse` vs `+ siteURL` 檢查）       |
-| `deployedVsLocal.bench.ts`   | 同一份 JSON 從 Deno Deploy vs 本地 preview 的載入速度（需網路）  |
-| `urlParsing.bench.ts`        | `new URL` 一般網址 vs 連續雙斜線網址的解析效能                   |
-| `slugify.bench.ts`           | `slugifyStr` 短英文 vs 中文長標題、`slugifyAll` 批次轉換         |
-| `parseDate.bench.ts`         | `parse_date_timestamp`：`Date` 物件 vs ISO vs 日期字串           |
-| `escapeHtml.bench.ts`        | `escape_html` 短字串 vs 長 mermaid 原始碼                        |
-| `closeVoidElements.bench.ts` | `close_void_elements`：未閉合 `<br>` vs 已自封閉 vs 無 void 元素 |
-| `getPath.bench.ts`           | `getPath` 根目錄 vs 多層子目錄 vs `_` 開頭目錄                   |
-| `sortPosts.bench.ts`         | `getSortedPosts`：comparator 內解析 vs 預先解析時間戳            |
+| 檔案                         | 用途                                                               |
+| ---------------------------- | ------------------------------------------------------------------ |
+| `linkLoading.bench.ts`       | 友站連結 JSON 解析效能（500 筆：`JSON.parse` vs `+ siteURL` 檢查） |
+| `slugify.bench.ts`           | `slugifyStr` 短英文 vs 中文長標題、`slugifyAll` 批次轉換           |
+| `parseDate.bench.ts`         | `parse_date_timestamp`：`Date` 物件 vs ISO vs 日期字串             |
+| `escapeHtml.bench.ts`        | `escape_html` 短字串 vs 長 mermaid 原始碼                          |
+| `closeVoidElements.bench.ts` | `close_void_elements`：未閉合 `<br>` vs 已自封閉 vs 無 void 元素   |
+| `getPath.bench.ts`           | `getPath` 根目錄 vs 多層子目錄 vs `_` 開頭目錄                     |
+| `sortPosts.bench.ts`         | `getSortedPosts`：comparator 內解析 vs 預先解析時間戳              |
+| `uniqueTags.bench.ts`        | `getUniqueTags`：`findIndex` 去重 vs `Map` 去重                    |
+| `postsByTag.bench.ts`        | `getPostsByTag`：逐篇 slugify vs 預建索引（僅比較查找形狀）        |
+| `redirectsParse.bench.ts`    | `_redirects` 行解析：`split` vs 正則                               |
+| `precompress.bench.ts`       | 預壓縮：全部 gzip vs 先過濾可壓縮副檔名再 gzip                     |
+| `ogImage.bench.ts`           | OG 管線：satori 短／長標題／站點模板／Resvg PNG                    |
 
-前置條件：`deployedVsLocal.bench.ts` 需 `--allow-net`（`deno task bench`
-已含 `-A`）與本地 `deno task preview`（port 8085）；連不上的端點會自動
-略過。其餘皆為純函式，不需任何權限旗標。
+執行一律用 `deno task bench`（已含 `-A`）。除 `ogImage.bench.ts`
+（需網路抓字型、NAPI 跑 Resvg）外，各檔皆為純函式，不需額外前置條件。
 
 撰寫與維護規範見 `bench.md`。
 

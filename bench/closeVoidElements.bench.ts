@@ -2,8 +2,8 @@
  * @file Benchmark close_void_elements
  *
  * ## 功能 (Who)
- * 測試 SVG void 元素正規化的 regex 效能（mermaid 輸出的 `<br>` 需轉自封閉，
- * 否則 `image/svg+xml` 解析失敗）
+ * - 測試 SVG void 元素正規化的 regex 效能
+ * - mermaid 輸出的 `<br>` 需轉自封閉，否則 `image/svg+xml` 解析失敗
  *
  * ## 範圍（What)
  * - 含未閉合 `<br>` vs 已自封閉 vs 無 void 元素（regex 走空）

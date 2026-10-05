@@ -15,7 +15,7 @@ const sitemapIndexPath = path.join(distDir, "sitemap-index.xml");
 const postsDir = path.join(distDir, "posts");
 
 // Build a map of decoded post slug -> lastmod date from the actual HTML files
-async function buildPostLastmodMap() {
+export async function buildPostLastmodMap() {
   const map = new Map();
   try {
     const entries = await fs.promises.readdir(postsDir);
@@ -46,7 +46,7 @@ async function buildPostLastmodMap() {
 }
 
 // Read sitemap index to get all sitemap files
-function getSitemapFiles(sitemapIndexContent) {
+export function getSitemapFiles(sitemapIndexContent) {
   const urlMatches = sitemapIndexContent.matchAll(/<loc>([^<]+)<\/loc>/g);
   const files = [];
   for (const match of urlMatches) {
@@ -64,7 +64,7 @@ function getSitemapFiles(sitemapIndexContent) {
 }
 
 // Extract post slug from sitemap URL
-function extractPostSlug(loc) {
+export function extractPostSlug(loc) {
   // URL is encoded, need to decode the path portion
   const urlPath = new URL(loc).pathname;
   const match = urlPath.match(/\/posts\/([^/]+)\//);
@@ -72,7 +72,7 @@ function extractPostSlug(loc) {
 }
 
 // Enhance a single sitemap file
-async function enhanceSitemap(sitemapPath, postLastmodMap) {
+export async function enhanceSitemap(sitemapPath, postLastmodMap) {
   const content = await fs.promises.readFile(sitemapPath, "utf-8");
 
   // Use a simpler approach - replace using regex with callback
@@ -113,10 +113,18 @@ async function main() {
   const postLastmodMap = await buildPostLastmodMap();
   console.log(`Found ${postLastmodMap.size} posts with dates`);
 
-  const sitemapIndexContent = await fs.promises.readFile(
-    sitemapIndexPath,
-    "utf-8",
-  );
+  // sitemap-index 缺席屬可容忍狀態（例如 sitemap integration 被關掉）：
+  // 本腳本已接回 `deno task build`，不可讓整次建置陪葬。
+  let sitemapIndexContent;
+  try {
+    sitemapIndexContent = await fs.promises.readFile(
+      sitemapIndexPath,
+      "utf-8",
+    );
+  } catch {
+    console.log("No sitemap-index.xml found, skipping.");
+    return;
+  }
   const sitemapFiles = getSitemapFiles(sitemapIndexContent);
 
   for (const file of sitemapFiles) {
@@ -129,4 +137,7 @@ async function main() {
   console.log("Sitemap enhancement complete.");
 }
 
-main().catch(console.error);
+// 被測試 import 時只取用函式；直接執行時才跑管線。
+if (import.meta.main) {
+  main().catch(console.error);
+}

@@ -2,13 +2,15 @@
  * @file Benchmark escape_html
  *
  * ## 功能 (Who)
- * 測試 Mermaid 語法 HTML 跳脫的效能（建置期每篇含 mermaid 的文章都跑一次）
+ * - 測試 Mermaid 語法 HTML 跳脫的效能
  *
  * ## 範圍（What)
  * - 短字串 vs 長 mermaid 原始碼（含大量 `<`、`>`、`&`）
+ * - 建置期每篇含 mermaid 的文章都跑一次
  *
  * ## 可能遇到的情況條件 (Where)
- * - 無特殊字元的字串（regex 直接略過）、`"` `'` 引號
+ * - 無特殊字元的字串（regex 直接略過）
+ * - `"` `'` 引號
  *
  * ## 執行(How)
  * ```bash

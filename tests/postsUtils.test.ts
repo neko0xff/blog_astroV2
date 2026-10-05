@@ -166,9 +166,6 @@ Deno.test("[getUniqueTags] sorted alphabetically", () => {
 });
 
 Deno.test("[getPostsByTag] filters by tag", () => {
-  const originalEnv = Deno.env.get("NODE_ENV");
-  Deno.env.set("NODE_ENV", "development");
-
   const posts = [
     createMockPost({
       id: "1",
@@ -190,18 +187,12 @@ Deno.test("[getPostsByTag] filters by tag", () => {
     }),
   ];
   // getPostsByTag uses slugifyAll which converts "tag1" to "tag-1"
-  const result = getPostsByTag(posts, "tag-1");
+  const result = getPostsByTag(posts, "tag-1", true);
   assertEquals(result.length, 2);
   assertEquals(result.map((p) => p.id).sort(), ["1", "3"]);
-
-  if (originalEnv) Deno.env.set("NODE_ENV", originalEnv);
-  else Deno.env.delete("NODE_ENV");
 });
 
 Deno.test("[getPostsByTag] slugified tag matching", () => {
-  const originalEnv = Deno.env.get("NODE_ENV");
-  Deno.env.set("NODE_ENV", "development");
-
   const posts = [
     createMockPost({
       id: "1",
@@ -211,11 +202,8 @@ Deno.test("[getPostsByTag] slugified tag matching", () => {
     }),
   ];
   // "My Tag" -> "my-tag"
-  const result = getPostsByTag(posts, "my-tag");
+  const result = getPostsByTag(posts, "my-tag", true);
   assertEquals(result.length, 1);
-
-  if (originalEnv) Deno.env.set("NODE_ENV", originalEnv);
-  else Deno.env.delete("NODE_ENV");
 });
 
 Deno.test("[getPostsByGroupCondition] groups by year", () => {

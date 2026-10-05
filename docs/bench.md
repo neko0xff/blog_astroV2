@@ -31,9 +31,12 @@ bench/
 ├── closeVoidElements.bench.ts # close_void_elements
 ├── getPath.bench.ts           # getPath
 ├── sortPosts.bench.ts         # getSortedPosts 新舊版對照
-├── linkLoading.bench.ts       # 友站 JSON 解析（純函式，可重現）
-├── urlParsing.bench.ts        # new URL 一般 vs 雙斜線
-└── deployedVsLocal.bench.ts   # Deno Deploy vs 本地（需網路，見 §6）
+├── uniqueTags.bench.ts        # getUniqueTags：findIndex 去重 vs Map 去重
+├── postsByTag.bench.ts        # getPostsByTag：逐篇 slugify vs 預建索引
+├── redirectsParse.bench.ts    # _redirects 行解析：split vs 正則
+├── precompress.bench.ts       # gzip：全部壓縮 vs 先過濾副檔名
+├── ogImage.bench.ts           # OG 管線：satori 短／長標題／站點模板／Resvg PNG
+└── linkLoading.bench.ts       # 友站 JSON 解析（500 筆純函式，可重現）
 ```
 
 - 檔名：`<模組名>.bench.ts`，一律 camelCase，與 `src/utils/` 對應。
@@ -45,8 +48,6 @@ bench/
 deno task bench                                        # 全部（-A，已含網路權限）
 deno bench --unstable-kv --unstable-ffi bench/<檔名>.bench.ts  # 單檔
 ```
-
-> `deployedVsLocal.bench.ts` 的本地組需另開終端先跑 `deno task preview`（port 8085）。
 
 ## 4. 撰寫規範
 
@@ -73,27 +74,18 @@ deno bench --unstable-kv --unstable-ffi bench/<檔名>.bench.ts  # 單檔
   - 同步跑對應 bench，前後數據記入 PR 說明
   - 差異小於 5% 視為雜訊，不列為改善
 - **刪除**：函式移除時 bench 一併刪除，不留孤兒檔。
+  - 只回答「是否有優化槓桿」的 bench（如 `new URL` 兩組差 23ns、線上 fetch
+    單次 minmax 差 2 倍）確認為雜訊後刪除，並同步更新本文件 §2 與
+    `dev_guide.md` 表格。
 
-## 6. 網路 bench 的特殊規則
+## 6. 常見問題
 
-- 模組載入時探測端點，連不上以 `ignore` 略過，不可讓整批失敗。
-- 只看同一次的相對倍數
-- 跨次比較無效（抖動可達數倍）
-- 回歸比較以固定時段多次執行取 p75 為準，不用單次 avg。
-
-## 7. 常見問題
-
-### 7.1 `NotCapable: Requires net access`
+### 6.1 `NotCapable: Requires net access`
 
 - 直接跑 `deno bench bench/xxx.bench.ts` 不帶 `-A` 就會觸發
 - 一律用 `deno task bench`（已含 `-A`），或單檔時補上 `-A --unstable-kv --unstable-ffi`。
 
-### 7.2 本地組被略過
-
-1. `deno task preview` 沒跑
-2. `dist/` 過期（改完 `src` 要重 `build`）
-
-### 7.3 `sink is never used`
+### 6.2 `sink is never used`
 
 - `let sink` 只寫不讀會被 `deno lint` 擋。
 - 檔尾加 `export { sink };` 即可，無執行期成本。

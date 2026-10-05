@@ -2,7 +2,7 @@
  * @file Benchmark getSortedPosts
  *
  * ## 功能 (Who)
- * 驗證「comparator 內重複解析日期」vs「預先解析時間戳再排序」的差異
+ * - 驗證「comparator 內重複解析日期」vs「預先解析時間戳再排序」的差異
  *
  * ## 範圍（What)
  * - 舊版：`sort` comparator 每次比較呼叫 2 次 `parse_date_timestamp`
@@ -17,9 +17,6 @@
  * deno task bench
  * deno bench --unstable-kv --unstable-ffi bench/sortPosts.bench.ts
  * ```
- *
- * fixture 在 bench 外一次建好（200 筆）；兩版都不動輸入陣列，
- * 可重複使用同一個 fixture。
  */
 
 import type { CollectionEntry } from "astro:content";

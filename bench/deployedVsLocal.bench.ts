@@ -2,8 +2,7 @@
  * @file Benchmark deployed vs local
  *
  * ## 功能 (Who)
- * 比較同一份 `assets/myLinks.json` 從 Deno Deploy 正式環境 vs 本地
- * preview 伺服器的載入速度（fetch + JSON 解析）
+ * - 比較同一份 `assets/myLinks.json` 從 Deno Deploy 正式環境 vs 本地 preview 伺服器的載入速度（fetch + JSON 解析）
  *
  * ## 範圍（What)
  * - `[Net] Deno Deploy`：`https://dev-blog.nekolab.deno.net/assets/myLinks.json`

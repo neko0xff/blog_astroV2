@@ -29,10 +29,15 @@ deno task start
 ### 建置靜態站點
 
 - 建置流程
-  1. 建置靜態網站到 `./dist/`，並執行 `scripts/precompress.ts` 產生 .gz 變體
+  1. 建置靜態網站到 `./dist/`
      ```zsh
      deno task build
      ```
+     - `build` 結尾會自動跑 `scripts/enhance-sitemap.mjs`，從 `dist/posts/*/index.html`
+       的 meta 取日期，為 sitemap 缺 `lastmod` 的文章 URL 補上（已有者不覆寫）
+     - `.gz` 預壓縮變體由 `scripts/precompress.ts` 另行產生（容器建置見
+       `Dockerfile.env`；本機手動跑 `deno run -A scripts/precompress.ts`），
+       不在 `deno task build` 內
   2. 產生 Pagefind 搜尋索引（輸出至 `./dist/pagefind/`）
      ```zsh
      deno task pagefind
@@ -96,13 +101,14 @@ deno task start
 | :------------------------- | :----------------------------------------------------------------------------------------------- |
 | `deno task install`        | 安裝相依套件（含 vite non-ASCII patch）                                                          |
 | `deno task dev`            | 啟動開發伺服器 `localhost:8085`                                                                  |
-| `deno task build`          | 建置正式網站至 `./dist/`，並執行 `scripts/precompress.ts` 產生 `.gz` 預壓縮變體                  |
+| `deno task build`          | 建置正式網站至 `./dist/`（結尾自動跑 `enhance-sitemap` 補 sitemap `lastmod`）                    |
 | `deno task pagefind`       | 為 `./dist/` 建置 Pagefind 搜尋索引（需在 build 之後執行）                                       |
 | `deno task serve`          | 以 `./dist/server.ts` 啟動正式伺服器（含安全性標頭、快取策略、預壓縮變體、健康檢查、access log） |
 | `deno task preview`        | 以 `astro preview` 預覽建置結果                                                                  |
 | `deno task check`          | 以 `astro check` 檢查 Astro 側（`src/` 等）型別                                                  |
 | `deno task check:tests`    | 以 `astro check --tsconfig tsconfig.tests.json` 檢查 `tests/` 型別                               |
 | `deno task test`           | 執行單元測試並做 Deno 型別檢查                                                                   |
+| `deno task test:og`        | 執行 OG PNG 管線測試（需 FFI，見 `docs/testing.md` §8.7）                                        |
 | `deno task bench`          | 執行 `bench/` 效能基準測試（規範見 `docs/bench.md`）                                             |
 | `deno task sync`           | 為所有 Astro 模組產生 TypeScript 型別定義                                                        |
 | `deno task lint`           | 以 Deno lint 檢查程式碼                                                                          |
@@ -136,6 +142,8 @@ deno task start
 
 規則格式為 `<來源> <目標> <狀態碼>`。每個來源都要註冊「帶尾端斜線」與
 「不帶尾端斜線」兩種形式，因為 staticd 預設不會自動正規化路徑。
+成對不變式由 `tests/redirects.test.ts` 自動檢查，新增規則後跑
+`deno task test` 即可驗證。
 
 ```
 /posts/Ansible-Playbooks/ /posts/ansible-playbooks/ 301

@@ -155,11 +155,12 @@ const structuredData = isArticle
     )}
 
     <!-- Google JSON-LD Structured data (article pages only) -->
+    <!-- 為什麼要 replace `<`：title/description 來自 frontmatter（使用者可控），直接 JSON.stringify + set:html 會被 `</script>` 跳脫注入，先轉成 \u003c -->
     {isArticle && (
       <script
         type="application/ld+json"
         is:inline
-        set:html={JSON.stringify(structuredData)}
+        set:html={JSON.stringify(structuredData).replace(/</g, "\\u003c")}
       />
     )}
 
@@ -168,7 +169,7 @@ const structuredData = isArticle
       <script
         type="application/ld+json"
         is:inline
-        set:html={JSON.stringify(jsonLd)}
+        set:html={JSON.stringify(jsonLd).replace(/</g, "\\u003c")}
       />
     )}
 

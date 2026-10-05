@@ -2,23 +2,31 @@
  * @file Unit tests for enhance sitemap
  *
  * ## 功能 (who)
- * enhance-sitemap.mjs 中的 sitemap lastmod 補充邏輯
+ * enhance-sitemap.mjs 中的 sitemap lastmod 補充邏輯（直接 import 真函式，
+ * 非複刻；本腳本已接回 `deno task build`）
  *
  * ## 範圍（what)
  * - `extractPostSlug()`：從 URL 中提取文章 slug
- * - `addLastmod()`：為匹配的 URL 注入 `<lastmod>` 標籤
+ * - `getSitemapFiles()`：從 sitemap-index 取出待處理檔名
+ * - `enhanceSitemap()`：為匹配的 URL 注入 `<lastmod>` 標籤（temp 檔實測）
  *
  * ## 可能遇到的情況條件 (Where)
  * - 非文章 URL（tags 頁、首頁）不加 lastmod
  * - 已有 lastmod 的 URL 不重複覆寫
  * - URL 編碼路徑的中文 slug
+ * - temp sitemap 檔（需 `--allow-write`）
  *
  * ## 執行(how)
  * ```bash
- * deno test --allow-read --allow-env tests/enhanceSitemap.test.ts
+ * deno test --allow-read --allow-write --allow-env tests/enhanceSitemap.test.ts
  * ```
  */
 import { assertEquals, assertExists } from "@std/assert";
+import {
+  enhanceSitemap,
+  extractPostSlug,
+  getSitemapFiles,
+} from "../scripts/enhance-sitemap.mjs";
 
 const MOCK_SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -28,18 +36,18 @@ const MOCK_SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
 <url><loc>https://example.com/tags/tag1/</loc></url>
 </urlset>`;
 
+const MOCK_INDEX = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemap><loc>https://example.com/sitemap-0.xml</loc></sitemap>
+<sitemap><loc>https://example.com/sitemap-1.xml/</loc></sitemap>
+</sitemapindex>`;
+
 const MOCK_POST_LASTMOD = new Map([
   ["my-post", "2024-01-15T10:00:00.000Z"],
   ["another-post", "2024-02-20T15:30:00.000Z"],
 ]);
 
 Deno.test("[enhanceSitemap] extractPostSlug", () => {
-  function extractPostSlug(loc: string): string | null {
-    const urlPath = new URL(loc).pathname;
-    const match = urlPath.match(/\/posts\/([^/]+)\//);
-    return match ? decodeURIComponent(match[1]) : null;
-  }
-
   assertEquals(
     extractPostSlug("https://example.com/posts/my-post/"),
     "my-post",
@@ -58,34 +66,20 @@ Deno.test("[enhanceSitemap] extractPostSlug", () => {
   assertEquals(extractPostSlug("https://example.com/"), null);
 });
 
-Deno.test("[enhanceSitemap] add lastmod to matching URLs", () => {
-  function addLastmod(
-    content: string,
-    postLastmodMap: Map<string, string>,
-  ): string {
-    return content.replace(/<url>([\s\S]*?)<\/url>/g, (fullMatch, urlBlock) => {
-      const locMatch = urlBlock.match(/<loc>([^<]+)<\/loc>/);
-      if (!locMatch) return fullMatch;
+Deno.test("[enhanceSitemap] getSitemapFiles lists xml files", () => {
+  assertEquals(getSitemapFiles(MOCK_INDEX), [
+    "sitemap-0.xml",
+    "sitemap-1.xml",
+  ]);
+});
 
-      const loc = locMatch[1];
-      const urlPath = new URL(loc).pathname;
-      const match = urlPath.match(/\/posts\/([^/]+)\//);
-      const postSlug = match ? decodeURIComponent(match[1]) : null;
+Deno.test("[enhanceSitemap] add lastmod to matching URLs", async () => {
+  const dir = await Deno.makeTempDir({ prefix: "sitemap-" });
+  const sitemap_path = `${dir}/sitemap-0.xml`;
+  await Deno.writeTextFile(sitemap_path, MOCK_SITEMAP);
 
-      if (postSlug && postLastmodMap.has(postSlug)) {
-        const lastmod = postLastmodMap.get(postSlug)!;
-        if (!urlBlock.includes("<lastmod>")) {
-          return urlBlock.replace(
-            /<loc>[^<]+<\/loc>/,
-            `$&<lastmod>${lastmod}</lastmod>`,
-          );
-        }
-      }
-      return fullMatch;
-    });
-  }
-
-  const result = addLastmod(MOCK_SITEMAP, MOCK_POST_LASTMOD);
+  await enhanceSitemap(sitemap_path, MOCK_POST_LASTMOD);
+  const result = await Deno.readTextFile(sitemap_path);
 
   assertEquals(
     result.includes("<lastmod>2024-01-15T10:00:00.000Z</lastmod>"),
@@ -95,38 +89,16 @@ Deno.test("[enhanceSitemap] add lastmod to matching URLs", () => {
     result.includes("<lastmod>2024-02-20T15:30:00.000Z</lastmod>"),
     true,
   );
-  assertEquals(result.includes("<loc>https://example.com/</loc>"), true);
   assertEquals(result.match(/<lastmod>/g)?.length, 2);
 });
 
-Deno.test("[enhanceSitemap] does not add lastmod to non-post URLs", () => {
-  function addLastmod(
-    content: string,
-    postLastmodMap: Map<string, string>,
-  ): string {
-    return content.replace(/<url>([\s\S]*?)<\/url>/g, (fullMatch, urlBlock) => {
-      const locMatch = urlBlock.match(/<loc>([^<]+)<\/loc>/);
-      if (!locMatch) return fullMatch;
+Deno.test("[enhanceSitemap] does not add lastmod to non-post URLs", async () => {
+  const dir = await Deno.makeTempDir({ prefix: "sitemap-" });
+  const sitemap_path = `${dir}/sitemap-0.xml`;
+  await Deno.writeTextFile(sitemap_path, MOCK_SITEMAP);
 
-      const loc = locMatch[1];
-      const urlPath = new URL(loc).pathname;
-      const match = urlPath.match(/\/posts\/([^/]+)\//);
-      const postSlug = match ? decodeURIComponent(match[1]) : null;
-
-      if (postSlug && postLastmodMap.has(postSlug)) {
-        const lastmod = postLastmodMap.get(postSlug)!;
-        if (!urlBlock.includes("<lastmod>")) {
-          return urlBlock.replace(
-            /<loc>[^<]+<\/loc>/,
-            `$&<lastmod>${lastmod}</lastmod>`,
-          );
-        }
-      }
-      return fullMatch;
-    });
-  }
-
-  const result = addLastmod(MOCK_SITEMAP, MOCK_POST_LASTMOD);
+  await enhanceSitemap(sitemap_path, MOCK_POST_LASTMOD);
+  const result = await Deno.readTextFile(sitemap_path);
 
   // Check home page URL block - find the <url> block containing the home loc
   const homeUrlMatch = result.match(
@@ -143,39 +115,17 @@ Deno.test("[enhanceSitemap] does not add lastmod to non-post URLs", () => {
   assertEquals(tagUrlMatch![0].includes("<lastmod>"), false);
 });
 
-Deno.test("[enhanceSitemap] does not duplicate lastmod if already present", () => {
+Deno.test("[enhanceSitemap] does not duplicate lastmod if already present", async () => {
+  const dir = await Deno.makeTempDir({ prefix: "sitemap-" });
+  const sitemap_path = `${dir}/sitemap-0.xml`;
   const sitemapWithLastmod = MOCK_SITEMAP.replace(
     "<url><loc>https://example.com/posts/my-post/</loc></url>",
     "<url><loc>https://example.com/posts/my-post/</loc><lastmod>2023-01-01T00:00:00.000Z</lastmod></url>",
   );
+  await Deno.writeTextFile(sitemap_path, sitemapWithLastmod);
 
-  function addLastmod(
-    content: string,
-    postLastmodMap: Map<string, string>,
-  ): string {
-    return content.replace(/<url>([\s\S]*?)<\/url>/g, (fullMatch, urlBlock) => {
-      const locMatch = urlBlock.match(/<loc>([^<]+)<\/loc>/);
-      if (!locMatch) return fullMatch;
-
-      const loc = locMatch[1];
-      const urlPath = new URL(loc).pathname;
-      const match = urlPath.match(/\/posts\/([^/]+)\//);
-      const postSlug = match ? decodeURIComponent(match[1]) : null;
-
-      if (postSlug && postLastmodMap.has(postSlug)) {
-        const lastmod = postLastmodMap.get(postSlug)!;
-        if (!urlBlock.includes("<lastmod>")) {
-          return urlBlock.replace(
-            /<loc>[^<]+<\/loc>/,
-            `$&<lastmod>${lastmod}</lastmod>`,
-          );
-        }
-      }
-      return fullMatch;
-    });
-  }
-
-  const result = addLastmod(sitemapWithLastmod, MOCK_POST_LASTMOD);
+  await enhanceSitemap(sitemap_path, MOCK_POST_LASTMOD);
+  const result = await Deno.readTextFile(sitemap_path);
   const myPostBlock = result.match(
     /<url>[\s\S]*?<loc>https:\/\/example\.com\/posts\/my-post\/<\/loc>[\s\S]*?<\/url>/,
   );

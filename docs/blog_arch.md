@@ -19,6 +19,7 @@ flowchart LR
     subgraph Build["建置 (deno task build)"]
         A[public/server.ts ＋ server/ 模組] -->|Astro build 複製| D[dist/server.ts ＋ server/]
         S[src/] -->|Astro build| D2[dist/ 靜態檔案]
+        E[scripts/enhance-sitemap.mjs] -->|補 lastmod| D2
         P[scripts/precompress.ts] -->|gzip| D3[dist/*.gz]
     end
 
@@ -59,7 +60,8 @@ flowchart LR
   - 依 `public/_redirects` 回應 301 永久轉址（保留 query string）
   - `GET /healthz` 健康檢查（不記 log）、`LOG_FORMAT=json` 結構化日誌
 - 靜態部署（Deno Deploy）的安全標頭與快取規則由 `public/_headers` 定義，
-  與 `server/config.ts` 對應（由 `tests/headers_parity.test.ts` 守門）
+  與 `server/config.ts` 對應（由 `tests/headers_parity.test.ts` 守門；
+  快取決策、壓縮協商、安全標頭附加另由 `tests/serverUtils.test.ts` 覆蓋）
 
 ### 轉址規則（_redirects）
 
