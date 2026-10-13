@@ -3,6 +3,8 @@ import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/astro/Header.astro";
 import Footer from "@/components/astro/Footer.astro";
+import { Image } from "astro:assets";
+import drinkImage from "@/assets/img/drink.webp";
 import { SITE } from "@/config";
 
 const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
@@ -20,9 +22,10 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
         <input
           type="search"
           class="pagefind-input"
-          placeholder="搜尋文章..."
+          placeholder="搜尋文章...（按 / 快速聚焦）"
           aria-label="搜尋"
           autocomplete="off"
+          aria-keyshortcuts="/"
         />
         <button
           type="button"
@@ -36,14 +39,13 @@ const backUrl = SITE.showBackButton ? `${Astro.url.pathname}` : "/";
       <div class="pagefind-results" aria-live="polite"></div>
     </div>
     <br />
-    <img
-      src="/assets/drink.webp"
+    <Image
+      src={drinkImage}
       alt=""
       aria-hidden="true"
-      class="mx-auto"
-      width="200"
-      height="150"
+      width={200}
       loading="lazy"
+      class="mx-auto"
     />
   </Main>
   <Footer />

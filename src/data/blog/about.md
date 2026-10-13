@@ -15,7 +15,7 @@ layout: "../../layouts/AboutLayout.astro"
 
 <div className="avatar-img">
   <img
-          src="https://avatars.githubusercontent.com/u/54382007"
+          src="/assets/avatar.webp"
           class="sm:w-1/2 mx-auto avatar_img rounded-full w-[10em] mb-5 overflow-hidden"
           height="160"
           width="160"

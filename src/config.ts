@@ -22,6 +22,9 @@ export const SITE = {
   heroTitle: "<span class='name'>Neko_oxff</span> Tech Blog",
   author: "neko0xff",
   avatar: {
+    // 遠端來源只作為「重新整理的來源」：scripts/sync-avatar.ts（deno task
+    // sync:avatar）會把它抓下來覆寫 src/assets/img/avatar.jpg。站上渲染一律
+    // 用自架圖檔走 astro:assets 管線，不對外發請求、不依賴第三方可用性。
     src: "https://avatars.githubusercontent.com/u/54382007",
     alt: "neko0xff",
   },

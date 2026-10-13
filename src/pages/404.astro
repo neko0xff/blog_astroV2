@@ -3,6 +3,8 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/astro/Header.astro";
 import Footer from "@/components/astro/Footer.astro";
 import LinkButton from "@/components/astro/LinkButton.astro";
+import { Image } from "astro:assets";
+import mikucatImage from "@/assets/img/mikucat.webp";
 import { SITE } from "@/config";
 ---
 
@@ -27,11 +29,10 @@ import { SITE } from "@/config";
       <br />
       <h1 class="mb-4 text-4xl font-bold text-error">ERROR 404</h1>
       <div class="not-found-wrapper text-center">
-        <img
-          src="/assets/mikucat.webp"
+        <Image
+          src={mikucatImage}
           alt="404"
-          width="200"
-          height="100"
+          width={200}
           loading="lazy"
           class="mx-auto mb-6"
         />

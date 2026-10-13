@@ -7,6 +7,8 @@ import Socials from "@/components/astro/Socials.astro";
 import LinkButton from "@/components/astro/LinkButton.astro";
 import Card from "@/components/astro/Card.astro";
 import Hr from "@/components/astro/Hr.astro";
+import { Image } from "astro:assets";
+import avatarImage from "@/assets/img/avatar.jpg";
 import getSortedPosts from "@/utils/getSortedPosts";
 import { isBlogPost } from "@/utils/isBlogPost";
 import IconRss from "@/assets/icons/IconRss.svg";
@@ -62,13 +64,13 @@ const recentPosts = sortedPosts
   <main id="main-content" data-layout="index">
     <section id="hero" class="py-8 text-center">
       <div class="flex flex-col items-center">
-        {SITE.avatar?.src && (
+        {SITE.avatar && (
           <div class="mb-6 h-40 w-40 overflow-hidden rounded-full">
-            <img
-              src={SITE.avatar.src}
+            <Image
+              src={avatarImage}
               alt={SITE.avatar.alt}
-              width="160"
-              height="160"
+              width={160}
+              height={160}
               loading="eager"
               fetchpriority="high"
               class="h-full w-full object-cover"
@@ -78,22 +80,19 @@ const recentPosts = sortedPosts
         <h1 class="mb-4 text-4xl font-bold">
           <span set:html={heroTitleHtml} />
         </h1>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="/rss.xml"
-          class="inline-flex items-center gap-2 text-accent hover:underline"
-          aria-label="rss feed"
-          title="RSS Feed"
-        >
-          <IconRss width={24} height={24} class="stroke-accent stroke-2" />
-          <span>RSS 訂閱</span>
-        </a>
-        {SOCIALS.length > 0 && (
-          <div class="mt-6 flex flex-wrap justify-center gap-4">
-            <Socials />
-          </div>
-        )}
+        <p class="mb-8 max-w-prose text-sm text-foreground/75">{SITE.desc}</p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="/rss.xml"
+            class="inline-flex items-center gap-2 text-accent hover:underline"
+            aria-label="rss feed"
+            title="RSS Feed"
+          >
+            <IconRss width={24} height={24} class="stroke-accent stroke-2" />
+            <span>RSS 訂閱</span>
+          </a>
+          {SOCIALS.length > 0 && <Socials />}
+        </div>
       </div>
     </section>
 
