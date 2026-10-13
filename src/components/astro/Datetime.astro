@@ -29,7 +29,7 @@ const latestDatetime =
   modDatetime && modDatetime > pubDatetime ? modDatetime : pubDatetime;
 const datetime = dayjs(latestDatetime).tz(postTimezone || SITE.timezone);
 const date = datetime.format("YYYY/MM/D"); // e.g., '2025/03/15'
-const time = datetime.format(" A hh:mm"); // e.g., 'PM 08:30 '
+const time = datetime.format(" HH:mm"); // e.g., ' 08:30 '（24 小時制）
 ---
 
 <div class:list={["flex items-end space-x-2 opacity-80", className]}>
@@ -49,7 +49,7 @@ const time = datetime.format(" A hh:mm"); // e.g., 'PM 08:30 '
   <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
     <time datetime={datetime.toISOString()}>{date}</time>
     <span aria-hidden="true"> | </span>
-    <span class="sr-only">&nbsp;at&nbsp;</span>
+    <span class="sr-only">&nbsp;</span>
     <span class="text-nowrap">{time}</span>
   </span>
 </div>

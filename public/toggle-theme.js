@@ -29,7 +29,14 @@ function reflectPreference() {
   const body = document.body;
 
   document.firstElementChild.setAttribute("data-theme", themeValue);
-  document.querySelector("#theme-btn")?.setAttribute("aria-label", themeValue);
+  // aria-label 要說明「按下會發生什麼」而非目前狀態，
+  // 螢幕閱讀器使用者聽到的是動作語意，不是原始的 light/dark 值
+  const theme_action =
+    themeValue === "dark" ? "切換至淺色模式" : "切換至深色模式";
+  document
+    .querySelector("#theme-btn")
+    ?.setAttribute("aria-label", theme_action);
+  document.querySelector("#theme-btn")?.setAttribute("title", theme_action);
 
   // Check if the body element exists before using getComputedStyle
   if (body) {

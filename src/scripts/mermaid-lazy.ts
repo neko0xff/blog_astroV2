@@ -11,6 +11,13 @@
  * - 失敗重試：暫時性失敗會自動重試（指數退避），不再直接顯示永久紅框；
  *   最終失敗也會保留重試入口（捲動或切換主題時再試）。
  *
+ * @dev-only-failure
+ * - 開發中若 `package.json` / lockfile 變動過（例：deno task install），Vite
+ *   會重新最佳化依賴，舊雜湊的 dep URL 回 504 Outdated Optimize Dep，而
+ *   `import()` 拿到的就是 `TypeError: error loading dynamically imported
+ *   module`。這不是程式錯誤，硬重整頁面即可。因此 `show_render_error` 對
+ *   「模組載入失敗」給的是重新整理指引，而不是原始錯誤訊息。
+ *
  * @supports
  * - Auto Theme: 動態回應 `<html data-theme>` 變更 (light/dark)
  * - Astro View Transitions: 於 `astro:after-swap` 時自動重置 Observer
@@ -247,6 +254,22 @@ async function ensure_initialized(
 }
 
 /**
+ * 判斷錯誤是否為「模組載入失敗」而非圖表語法/渲染錯誤。
+ * @param err - 捕捉到的錯誤
+ * @returns true 表示 import() 本身失敗（開發 dep 過期、離線等暫態情境）
+ */
+function is_module_load_failure(err: unknown): boolean {
+  // 各瀏覽器訊息不同（Chrome/Firefox：「error loading dynamically imported
+  // module」；Safari 類似 "Importing a module script failed"），只要命中
+  // 關鍵片段就視為載入失敗；其餘按渲染錯誤處理。
+  const message = (err as Error)?.message ?? String(err);
+  return (
+    message.includes("dynamically imported module") ||
+    message.includes("Importing a module script failed")
+  );
+}
+
+/**
  * 在圖表容器內顯示渲染錯誤（最終失敗時）。
  * 注意：只標記 `data-error` 而不標記 `data-processed`，保留後續重試入口。
  * @param diagram - 包含 Mermaid 語法的 `<pre class="mermaid">` 元素
@@ -256,16 +279,38 @@ function show_render_error(diagram: HTMLElement, err: unknown): void {
   diagram.textContent = "";
 
   const wrapper = document.createElement("div");
-  wrapper.style.cssText =
-    "color:red;padding:1rem;border:1px solid red;border-radius:.5rem";
+  // 載入失敗用沉穩的中性樣式（不是讀者的錯），渲染錯誤才用紅色警示
+  const is_load_failure = is_module_load_failure(err);
+  wrapper.style.cssText = is_load_failure
+    ? "color:var(--foreground,inherit);padding:1rem;border:1px dashed currentColor;border-radius:.5rem;opacity:.8"
+    : "color:red;padding:1rem;border:1px solid red;border-radius:.5rem";
 
   const strong = document.createElement("strong");
-  strong.textContent = "Error rendering diagram:";
+  strong.textContent = is_load_failure
+    ? "圖表模組載入失敗："
+    : "Error rendering diagram:";
 
   const msg = document.createElement("span");
-  msg.textContent = " " + ((err as Error)?.message || "Unknown error");
+  if (is_load_failure) {
+    msg.textContent = " 請重新整理頁面再試（通常是開發伺服器快取過期）";
+  } else {
+    msg.textContent = " " + ((err as Error)?.message || "Unknown error");
+  }
 
   wrapper.append(strong, msg);
+
+  if (is_load_failure) {
+    // 給一個一鍵重整入口。不用 inline onclick：CSP script-src 'self'
+    // 會擋掉 inline handler，必須走 addEventListener。
+    const reload_button = document.createElement("button");
+    reload_button.type = "button";
+    reload_button.textContent = "重新整理頁面";
+    reload_button.style.cssText =
+      "display:block;margin-top:.5rem;padding:.25rem .75rem;cursor:pointer";
+    reload_button.addEventListener("click", () => globalThis.location.reload());
+    wrapper.append(reload_button);
+  }
+
   diagram.append(wrapper);
   diagram.setAttribute("data-error", "true");
   // 重新掛回 Observer：使用者捲動回來時可再次觸發重試
@@ -316,6 +361,13 @@ async function render_inner(
     log("rendered", id);
   } catch (err) {
     if (!diagram.isConnected) return;
+    // 模組載入失敗（開發 dep 過期、離線）重試同一個 URL 沒有意義，
+    // 直接給重新整理指引，不耗費退避等待
+    if (is_module_load_failure(err)) {
+      log_error("module load failed", err);
+      show_render_error(diagram, err);
+      return;
+    }
     const retries = Number(diagram.getAttribute("data-retry") || "0");
     if (retries < MAX_RETRIES) {
       diagram.setAttribute("data-retry", String(retries + 1));
