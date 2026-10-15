@@ -134,9 +134,18 @@ export default defineConfig({
       // 每次建置都得重算並同步 _headers 與 server.ts，維護成本高且容易漏。
       assetsInlineLimit: (filePath: string) =>
         filePath.endsWith(".js") ? false : undefined,
+      // 明確分割重型第三方庫：Mermaid 生態系與 KaTeX 只在需要時載入
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes("node_modules/mermaid")) return "mermaid-vendor";
+            if (id.includes("node_modules/katex")) return "katex-vendor";
+          },
+        },
+      },
     },
     optimizeDeps: {
-      exclude: ["@resvg/resvg-js"],
+      exclude: ["@resvg/resvg-js", "mermaid", "katex"],
     },
     resolve: {
       alias: [

@@ -3,11 +3,11 @@
  *
  * @description
  * - 該模組主要負責呈現 Blog 的文章下，供使用者使用留言部分
- * - 僅限己Login Github 使用者留言
+ * - 僅限己 Login Github 使用者留言
+ * - 由 PostDetails / OtherDetails 在 client-side 呼叫 initGiscus()
  */
 
 let giscus_ready = false;
-const container = document.getElementById("inject-comments");
 
 const get_theme = (): string =>
   document.documentElement.getAttribute("data-theme") ||
@@ -15,7 +15,9 @@ const get_theme = (): string =>
     ? "dark"
     : "light");
 
-const post_theme = (theme: string): void => {
+/** 向 giscus iframe 送出主題變更 */
+function post_theme(theme: string): void {
+  const container = document.getElementById("inject-comments");
   const iframe = container?.querySelector<HTMLIFrameElement>(
     "iframe.giscus-frame"
   );
@@ -25,7 +27,7 @@ const post_theme = (theme: string): void => {
     { giscus: { setConfig: { theme } } },
     "https://giscus.app"
   );
-};
+}
 
 /**
  * 初始化 giscus 留言框
@@ -35,7 +37,8 @@ const post_theme = (theme: string): void => {
  * - 舊版為了消掉 clipboard-write 的 Feature Policy 警告而做的全域 console 補丁，等於把開發者唯一看不到警告的管道一起關掉了。
  * - 現在 public/_headers 改成 `clipboard-write=(self)`，警告的來源（政策封鎖）已不存在，補丁也一併移除。
  */
-function init_giscus(): void {
+export function initGiscus(): void {
+  const container = document.getElementById("inject-comments");
   if (!container) return;
 
   try {
@@ -86,5 +89,3 @@ function init_giscus(): void {
     console.error("[giscus] Initialization error:", err);
   }
 }
-
-init_giscus();

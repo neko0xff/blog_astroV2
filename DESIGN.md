@@ -137,8 +137,7 @@ hex values.
 - **Dark Muted** (#343f60bf): Semi-transparent muted blue — code blocks, subtle
   backgrounds in dark mode.
 - **Light Border** (#d8d2d2): Very light warm gray (1.47:1 on the light
-  background) — horizontal rules, dividers,
-  code block borders.
+  background) — horizontal rules, dividers, code block borders.
 - **Dark Border** (#ab4b08): Burnt orange — borders in dark mode, subtle warm
   accent.
 
@@ -310,10 +309,9 @@ inside article prose. Don't mix the two contexts.
 - **Active state:** Wavy underline decoration
 - **Search & theme toggle:** Occupy the two half-width cells of the mobile grid;
   inline icon buttons on desktop
-- **Theme toggle:** Icon button (48px mobile / 32px sm+) with sun/moon
-  icons; `aria-label` states the resulting action ("切換至深色模式" /
-  "切換至淺色模式"), not the raw theme value
-  scale-rotate transition
+- **Theme toggle:** Icon button (48px mobile / 32px sm+) with sun/moon icons;
+  `aria-label` states the resulting action ("切換至深色模式" /
+  "切換至淺色模式"), not the raw theme value scale-rotate transition
 - **Icons:** 24px default, stroke-based (Tabler-style, `stroke-width: 2`,
   `currentColor`)
 
@@ -359,9 +357,9 @@ inside article prose. Don't mix the two contexts.
 - **Cluster:** RSS anchor + `Socials` in a single wrapping flex row, 1rem gap
 - **Stack:** Avatar (160px, round, eager/high priority) → h1 wordmark → intro →
   cluster, followed by a full-width `<hr>` before the featured/recent grids
-- **Avatar source:** Self-hosted — `src/assets/img/avatar.jpg` through
-  `<Image>` (webp/avif, immutable cache); `SITE.avatar.src` (GitHub) is only
-  the refresh source (`deno task sync:avatar`, which also emits the
+- **Avatar source:** Self-hosted — `src/assets/img/avatar.jpg` through `<Image>`
+  (webp/avif, immutable cache); `SITE.avatar.src` (GitHub) is only the refresh
+  source (`deno task sync:avatar`, which also emits the
   `public/assets/avatar.webp` copy used by the about page's raw `<img>`)
 - **Discipline:** No decorative elements beyond the wordmark gradient
 

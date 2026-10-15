@@ -44,7 +44,9 @@ const time = datetime.format(" HH:mm"); // e.g., ' 08:30 '（24 小時制）
       更新於:
     </span>
   ) : (
-    <span class="sr-only">發布於:</span>
+    <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
+      發布於:
+    </span>
   )}
   <span class:list={["text-sm italic", { "sm:text-base": size === "lg" }]}>
     <time datetime={datetime.toISOString()}>{date}</time>

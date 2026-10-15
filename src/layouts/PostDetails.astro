@@ -184,11 +184,15 @@ const nextPost =
 
 <script>
   import { init_post_details } from "@/scripts/postDetails";
+  import { initGiscus } from "@/scripts/giscus";
+
   init_post_details();
+  initGiscus();
 
   /* Go to page start after page swap */
   document.addEventListener("astro:after-swap", () => {
     window.scrollTo({ left: 0, top: 0, behavior: "instant" });
     init_post_details();
+    initGiscus();
   });
 </script>
